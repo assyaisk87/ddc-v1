@@ -1,5 +1,5 @@
 <div class="home-container">
-  <!-- Hero Section with 3D Background -->
+  <!-- Hero Section with AI Avatar -->
   <section class="hero-section">
     <div class="hero-background">
       <div class="particles-container" id="particles"></div>
@@ -10,39 +10,17 @@
       <div class="hero-text animate-slide-in-up">
         <div class="hero-badge glass-effect">
           <span class="badge-dot"></span>
-          <span>🚀 Leading Fintech Innovation in Kazakhstan</span>
+          <span>🚀 AI-Powered Living Company</span>
         </div>
         
         <h1 class="hero-title">
-          <span class="text-gradient">DDC KZ</span>
+          <span class="text-gradient">{{ greeting.text }}</span>
         </h1>
         <h2 class="hero-subtitle">
-          {{ 'home.subtitle' | translate }}
+          <span class="text-gradient-accent">{{ greeting.subtext }}</span>
         </h2>
-        <p class="hero-description">
-          {{ 'home.description' | translate }}
-        </p>
         
         <div class="hero-cta">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
           <a routerLink="/contacts" class="btn btn-primary glow-effect magnetic">
             <span class="btn-text">{{ 'home.cta_button' | translate }}</span>
             <span class="btn-shimmer"></span>
@@ -69,20 +47,35 @@
         </div>
       </div>
       
+      <!-- AI Avatar Section with Voice Control -->
       <div class="hero-visual animate-float">
-        <div class="floating-cards">
-          <div class="card-3d card-1 glass-effect">
-            <div class="card-icon">💳</div>
-            <div class="card-label">Digital Banking</div>
-          </div>
-          <div class="card-3d card-2 glass-effect">
-            <div class="card-icon">🔒</div>
-            <div class="card-label">Security</div>
-          </div>
-          <div class="card-3d card-3 glass-effect">
-            <div class="card-icon">📊</div>
-            <div class="card-label">Analytics</div>
-          </div>
+        <div class="avatar-wrapper">
+          <app-ai-avatar [isPlaying]="isPlaying"></app-ai-avatar>
+          
+          <!-- Voice Control Button - Positioned next to avatar -->
+          <button 
+            class="voice-control-btn glass-effect" 
+            (click)="toggleVoice($event)"
+            [class.active]="isPlaying"
+            [class.playing]="isPlaying">
+            <span class="voice-icon">
+              @if (isPlaying) {
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="6" y="6" width="12" height="12" rx="2" />
+                </svg>
+              } @else {
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M11 5L6 9H2v6h4l5 4V5zM19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"/>
+                </svg>
+              }
+            </span>
+            <span class="voice-text">{{ isPlaying ? 'Стоп' : 'Слушать' }}</span>
+            <span class="voice-wave" *ngIf="isPlaying">
+              <span class="wave-bar"></span>
+              <span class="wave-bar"></span>
+              <span class="wave-bar"></span>
+            </span>
+          </button>
         </div>
       </div>
     </div>
@@ -142,8 +135,6 @@
       <div class="cta-content glass-effect">
         <h2 class="cta-title">Ready to Transform Your Banking?</h2>
         <p class="cta-description">Join leading banks in Kazakhstan using our cutting-edge solutions</p>
-
-
 
         <a routerLink="/contacts" class="btn btn-primary glow-effect-accent magnetic">
           <span class="btn-text">{{ 'contacts.title' | translate }}</span>

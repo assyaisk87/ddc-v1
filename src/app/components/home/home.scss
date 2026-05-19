@@ -10,9 +10,10 @@
   position: relative;
   min-height: 100vh;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 100px 0;
+  padding: 80px 0;
   background: $gradient-dark;
   
   .hero-background {
@@ -32,9 +33,9 @@
         width: 200%;
         height: 200%;
         background: 
-          radial-gradient(circle at 20% 80%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
-          radial-gradient(circle at 80% 20%, rgba(123, 44, 191, 0.1) 0%, transparent 50%),
-          radial-gradient(circle at 40% 40%, rgba(255, 0, 110, 0.05) 0%, transparent 30%);
+          radial-gradient(circle at 20% 80%, rgba(0, 212, 255, 0.15) 0%, transparent 50%),
+          radial-gradient(circle at 80% 20%, rgba(123, 44, 191, 0.15) 0%, transparent 50%),
+          radial-gradient(circle at 40% 40%, rgba(255, 0, 110, 0.1) 0%, transparent 30%);
         animation: float 20s ease-in-out infinite;
       }
     }
@@ -55,8 +56,10 @@
     z-index: 1;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: $spacing-3xl;
+    gap: $spacing-2xl;
     align-items: center;
+    width: 100%;
+    max-width: 1200px;
     
     @include tablet {
       grid-template-columns: 1fr;
@@ -72,7 +75,7 @@
       padding: $spacing-sm $spacing-md;
       border-radius: $radius-full;
       font-size: 0.875rem;
-      margin-bottom: $spacing-lg;
+      margin-bottom: $spacing-md;
       
       .badge-dot {
         width: 8px;
@@ -85,36 +88,24 @@
     
     .hero-title {
       font-family: $font-display;
-      font-size: clamp(3rem, 8vw, 6rem);
+      font-size: clamp(2rem, 5vw, 3.5rem);
       font-weight: 700;
       line-height: 1.1;
-      margin-bottom: $spacing-md;
-      letter-spacing: -2px;
+      margin-bottom: $spacing-sm;
+      letter-spacing: -1px;
     }
     
     .hero-subtitle {
-      font-size: clamp(1.5rem, 4vw, 2.5rem);
+      font-size: clamp(1rem, 2.5vw, 1.5rem);
       font-weight: 600;
       color: $text-secondary;
-      margin-bottom: $spacing-md;
-    }
-    
-    .hero-description {
-      font-size: 1.125rem;
-      color: $text-muted;
-      max-width: 600px;
-      margin-bottom: $spacing-xl;
-      line-height: 1.8;
-      
-      @include tablet {
-        margin: 0 auto $spacing-xl;
-      }
+      margin-bottom: $spacing-lg;
     }
     
     .hero-cta {
       display: flex;
       gap: $spacing-md;
-      margin-bottom: $spacing-2xl;
+      margin-bottom: $spacing-xl;
       
       @include tablet {
         justify-content: center;
@@ -125,11 +116,11 @@
     .hero-stats {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: $spacing-md;
+      gap: $spacing-sm;
       
       @include tablet {
         grid-template-columns: repeat(2, 1fr);
-        max-width: 600px;
+        max-width: 500px;
         margin: 0 auto;
       }
       
@@ -141,56 +132,102 @@
   
   .hero-visual {
     position: relative;
-    height: 600px;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     
     @include tablet {
-      display: none;
+      height: 250px;
+      margin: $spacing-lg 0;
     }
-    
-    .floating-cards {
-      position: relative;
-      height: 100%;
-      width: 100%;
-    }
-    
-    .card-3d {
+  .voice-control-btn {
       position: absolute;
-      padding: $spacing-lg;
-      border-radius: $radius-lg;
-      backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      background: rgba(255, 255, 255, 0.05);
-      animation: float 6s ease-in-out infinite;
+      bottom: -10px;
+      right: 60px;
+      z-index: 10;
+    @include tablet {
+        bottom: 10px;
+        right: 10px;
+    }
+    }
+  }
+}
+
+// Voice Control
+.voice-control-container {
+  position: relative;
+  z-index: 1;
+  margin-top: $spacing-xl;
+  
+  .voice-control-btn {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: $spacing-md;
+    padding: $spacing-md $spacing-xl;
+    border-radius: $radius-full;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+    transition: all $transition-base;
+    overflow: hidden;
+    
+    &:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: $primary-color;
+      transform: translateY(-2px);
+    }
+    
+    &.active {
+      background: linear-gradient(135deg, rgba(0, 212, 255, 0.2), rgba(123, 44, 191, 0.2));
+      border-color: $primary-color;
+      box-shadow: $shadow-glow-primary;
+    }
+    
+    &.playing {
+      animation: pulse-glow 2s ease-in-out infinite;
+    }
+    
+    .voice-icon {
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       
-      .card-icon {
-        font-size: 3rem;
-        margin-bottom: $spacing-sm;
+      svg {
+        width: 24px;
+        height: 24px;
+        stroke: $primary-color;
       }
+    }
+    
+    .voice-text {
+      font-size: 1rem;
+      font-weight: 600;
+      color: $text-primary;
+    }
+    
+    .voice-wave {
+      display: flex;
+      gap: 3px;
+      margin-left: $spacing-sm;
       
-      .card-label {
-        font-size: 1.125rem;
-        font-weight: 600;
-      }
-      
-      &.card-1 {
-        top: 10%;
-        left: 10%;
-        animation-delay: 0s;
-        transform: rotateY(-10deg) rotateX(10deg);
-      }
-      
-      &.card-2 {
-        top: 50%;
-        right: 10%;
-        animation-delay: 2s;
-        transform: rotateY(10deg) rotateX(-5deg);
-      }
-      
-      &.card-3 {
-        bottom: 10%;
-        left: 30%;
-        animation-delay: 4s;
-        transform: rotateY(-5deg) rotateX(5deg);
+      .wave-bar {
+        width: 3px;
+        height: 16px;
+        background: $primary-color;
+        border-radius: 2px;
+        animation: audio-wave 0.5s ease-in-out infinite;
+        
+        &:nth-child(2) {
+          animation-delay: 0.1s;
+  }
+
+        &:nth-child(3) {
+          animation-delay: 0.2s;
+        }
       }
     }
   }
@@ -226,8 +263,8 @@
   
   .btn-arrow {
     transition: transform $transition-base;
-  }
-  
+}
+
   &:hover .btn-arrow {
     transform: translateX(5px);
   }
@@ -261,7 +298,7 @@
 // Scroll Indicator
 .scroll-indicator {
   position: absolute;
-  bottom: $spacing-xl;
+  bottom: $spacing-xs;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -323,143 +360,6 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: $spacing-lg;
-    
-    @include tablet {
-      grid-template-columns: 1fr;
-    }
-    
-    .feature-card {
-      padding: $spacing-xl;
-      border-radius: $radius-xl;
-      transition: all $transition-base;
-      cursor: pointer;
-      
-      &:hover {
-        transform: translateY(-10px);
-        box-shadow: $shadow-lg;
-      }
-      
-      .feature-icon {
-        width: 80px;
-        height: 80px;
-        border-radius: $radius-lg;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 2.5rem;
-        margin-bottom: $spacing-lg;
-      }
-      
-      .feature-title {
-        font-size: 1.5rem;
-        font-weight: 600;
-        margin-bottom: $spacing-sm;
-      }
-      
-      .feature-description {
-        color: $text-muted;
-        margin-bottom: $spacing-md;
-        line-height: 1.6;
-      }
-      
-      .feature-link {
-        font-weight: 600;
-        transition: transform $transition-base;
-      }
-      
-      &:hover .feature-link {
-        transform: translateX(5px);
-      }
-    }
-  }
-}
-
-// Technologies Section
-.technologies-section {
-  padding: $spacing-3xl 0;
-  
-  .tech-header {
-    text-align: center;
-    margin-bottom: $spacing-2xl;
-    
-    .section-title {
-      font-size: clamp(2rem, 5vw, 3rem);
-      font-weight: 700;
-    }
-  }
-  
-  .tech-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: $spacing-md;
-    
-    @include tablet {
-      grid-template-columns: repeat(2, 1fr);
-    }
-    
-    @include mobile {
-      grid-template-columns: 1fr 1fr;
-    }
-    
-    .tech-item {
-      padding: $spacing-lg;
-      border-radius: $radius-lg;
-      text-align: center;
-      font-weight: 600;
-      transition: all $transition-base;
-      
-      &:hover {
-        transform: scale(1.05);
-        background: rgba(255, 255, 255, 0.1);
-      }
-    }
-  }
-}
-
-// CTA Section
-.cta-section {
-  position: relative;
-  padding: $spacing-3xl 0;
-  margin: $spacing-3xl 0;
-  
-  .cta-background {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    
-    .cta-glow {
-      position: absolute;
-      inset: -50%;
-      width: 200%;
-      height: 200%;
-      background: 
-        radial-gradient(circle at 30% 50%, rgba(0, 212, 255, 0.15) 0%, transparent 50%),
-        radial-gradient(circle at 70% 50%, rgba(123, 44, 191, 0.15) 0%, transparent 50%);
-      animation: float 10s ease-in-out infinite;
-    }
-  }
-  
-  .cta-content {
-    position: relative;
-    z-index: 1;
-    padding: $spacing-3xl;
-    border-radius: $radius-xl;
-    text-align: center;
-    
-    .cta-title {
-      font-size: clamp(2rem, 5vw, 3rem);
-      font-weight: 700;
-      margin-bottom: $spacing-md;
-    }
-    
-    .cta-description {
-      font-size: 1.25rem;
-      color: $text-muted;
-      margin-bottom: $spacing-xl;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
-    }
   }
 }
 
@@ -470,13 +370,26 @@
   text-align: center;
   
   .stat-value {
-    font-size: 2.5rem;
+    font-size: 2rem;
     font-weight: 700;
     margin-bottom: $spacing-xs;
   }
   
   .stat-label {
-    font-size: 0.875rem;
+    font-size: 0.75rem;
     color: $text-muted;
   }
 }
+
+// Animations
+@keyframes slide-up-fade {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+

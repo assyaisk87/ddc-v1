@@ -1,0 +1,42 @@
+<div class="ai-avatar-container">
+  <!-- Glow effects -->
+  <div class="glow-ring glow-ring-1" [class.active]="isPlaying"></div>
+  <div class="glow-ring glow-ring-2" [class.active]="isPlaying"></div>
+  
+  <!-- Main avatar card -->
+  <div class="avatar-card glass-effect" (click)="toggleAudio()">
+    <!-- Avatar frame -->
+    <div class="avatar-frame">
+      <!-- Placeholder for CEO avatar -->
+      <div class="avatar-placeholder">
+        <div class="avatar-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+          </svg>
+        </div>
+        <div class="avatar-info">
+          <span class="avatar-label">AI Avatar</span>
+          <span class="avatar-sublabel">CEO Digital Twin</span>
+        </div>
+      </div>
+
+      <!-- Speaking animation -->
+      <div class="speaking-overlay" *ngIf="isPlaying">
+        <div class="audio-bars">
+          <div class="audio-bar" *ngFor="let i of [1,2,3,4,5]" [style.animationDelay]="(i * 0.1) + 's'"></div>
+        </div>
+      </div>
+
+      <!-- Status indicator -->
+      <div class="status-badge glass-effect">
+        <div class="status-dot" [class.active]="isPlaying"></div>
+        <span class="status-text">{{ isPlaying ? 'Speaking' : 'Ready' }}</span>
+      </div>
+    </div>
+
+    <!-- Decorative gradients -->
+    <div class="decorative-gradient decorative-gradient-1"></div>
+    <div class="decorative-gradient decorative-gradient-2"></div>
+  </div>
+
+</div>
