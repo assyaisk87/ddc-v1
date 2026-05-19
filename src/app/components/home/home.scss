@@ -393,3 +393,122 @@
   }
 }
 
+// Powered By Section
+.powered-by-section {
+  padding: $spacing-3xl 0;
+  
+  .section-header {
+    text-align: center;
+    margin-bottom: $spacing-3xl;
+    
+    .section-badge {
+      display: inline-block;
+      padding: $spacing-xs $spacing-md;
+      border-radius: $radius-full;
+      font-size: 0.875rem;
+      margin-bottom: $spacing-md;
+      background: rgba($primary-color, 0.1);
+      color: $primary-color;
+      border: 1px solid rgba($primary-color, 0.2);
+    }
+    
+    .section-title {
+      font-family: $font-display;
+      font-size: clamp(1.5rem, 4vw, 2.5rem);
+      font-weight: 700;
+      margin-bottom: $spacing-md;
+      background: $gradient-primary;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .section-description {
+      color: $text-muted;
+      font-size: 1.125rem;
+    }
+  }
+  
+  .powered-by-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: $spacing-xl;
+    
+    @include tablet {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    @include mobile {
+      grid-template-columns: 1fr;
+    }
+    
+    .powered-by-card {
+      position: relative;
+      padding: $spacing-xl;
+      border-radius: $radius-xl;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      transition: all $transition-base;
+      overflow: hidden;
+      
+      --card-accent: #00D4FF;
+      
+      &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          135deg,
+          var(--card-accent, $primary-color) 0%,
+          transparent 100%
+        );
+        opacity: 0;
+        transition: opacity $transition-base;
+        mix-blend-mode: overlay;
+      }
+      
+      &:hover {
+        transform: translateY(-8px);
+        border-color: var(--card-accent, $primary-color);
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        
+        &::before {
+          opacity: 0.3;
+        }
+        
+        .partner-icon {
+          transform: scale(1.2) rotate(5deg);
+        }
+        
+        .partner-info h4 {
+          color: var(--card-accent, $primary-color);
+        }
+      }
+      
+      .partner-icon {
+        font-size: 3rem;
+        margin-bottom: $spacing-md;
+        transition: all $transition-base;
+        filter: grayscale(0.3);
+      }
+      
+      .partner-info {
+        h4 {
+          font-family: $font-display;
+          font-size: 1.25rem;
+          font-weight: 600;
+          margin-bottom: $spacing-xs;
+          color: $text-primary;
+          transition: color $transition-base;
+        }
+        
+        p {
+          color: $text-muted;
+          font-size: 0.9rem;
+          line-height: 1.5;
+        }
+      }
+    }
+  }
+}
+

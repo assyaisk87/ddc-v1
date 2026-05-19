@@ -61,7 +61,7 @@
           "button": "Связаться с нами"
         }
     },
-    "contacts": {
+        "contacts": {
         "title": "Свяжитесь с Нами",
         "subtitle": "Давайте Создадим Будущее Вместе",
         "name": "Ваше Имя",
@@ -71,6 +71,9 @@
         "address": "Алматы, Казахстан",
         "phone": "+7 (777) 123-45-67",
         "email_label": "info@ddc.kz"
+    },
+    "footer": {
+        "poweredBy": "Powered By"
     },
     "directorsBoard": {
     "title": "Совет директоров",

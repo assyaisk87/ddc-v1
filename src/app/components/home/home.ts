@@ -47,6 +47,33 @@ export class Home implements OnInit {
     'Kubernetes', 'PostgreSQL', 'Redis', 'AWS'
   ];
 
+  poweredByPartners = [
+    {
+      name: 'Angular',
+      description: 'Modern web framework',
+      icon: '⚡',
+      color: '#00D4FF'
+    },
+    {
+      name: 'TypeScript',
+      description: 'Typed JavaScript',
+      icon: '🔷',
+      color: '#7B2CBF'
+    },
+    {
+      name: 'RxJS',
+      description: 'Reactive programming',
+      icon: '🔀',
+      color: '#FF006E'
+    },
+    {
+      name: 'SCSS',
+      description: 'CSS preprocessing',
+      icon: '🎨',
+      color: '#00FFA3'
+    }
+  ];
+
   // AI Avatar state
   isPlaying: boolean = false;
   hasInteracted: boolean = false;

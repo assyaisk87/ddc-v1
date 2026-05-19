@@ -56,7 +56,7 @@
         "cfo": "Chief Financial Officer",
         "coo": "Chief Operating Officer"
     },
-    "contacts": {
+        "contacts": {
         "title": "Get In Touch",
         "subtitle": "Let's Build the Future Together",
         "name": "Your Name",
@@ -66,5 +66,8 @@
         "address": "Almaty, Kazakhstan",
         "phone": "+7 (777) 123-45-67",
         "email_label": "info@ddc.kz"
+    },
+    "footer": {
+        "poweredBy": "Powered By"
     }
 }

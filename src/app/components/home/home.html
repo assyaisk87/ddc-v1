@@ -112,15 +112,22 @@
     </div>
   </section>
 
-  <!-- Technologies Section -->
-  <section class="technologies-section container">
-    <div class="tech-header">
-      <h2 class="section-title">Powered By</h2>
+  <!-- Powered By Section -->
+  <section class="powered-by-section container">
+    <div class="section-header">
+      <span class="section-badge glass-effect">{{ 'footer.poweredBy' | translate }}</span>
+      <h2 class="section-title">{{ 'footer.poweredBy' | translate }}</h2>
+      <p class="section-description">Modern technologies powering our solutions</p>
     </div>
-    <div class="tech-grid">
-      @for (tech of technologies; track tech) {
-        <div class="tech-item glass-effect">
-          <span>{{ tech }}</span>
+    
+    <div class="powered-by-grid">
+      @for (partner of poweredByPartners; track partner.name) {
+        <div class="powered-by-card" [style."--card-accent"]="partner.color">
+          <div class="partner-icon">{{ partner.icon }}</div>
+          <div class="partner-info">
+            <h4>{{ partner.name }}</h4>
+            <p>{{ partner.description }}</p>
+          </div>
         </div>
       }
     </div>
