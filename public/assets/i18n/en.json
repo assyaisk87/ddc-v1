@@ -59,13 +59,50 @@
         "contacts": {
         "title": "Get In Touch",
         "subtitle": "Let's Build the Future Together",
-        "name": "Your Name",
-        "email": "Your Email",
-        "message": "Your Message",
-        "send": "Send Message",
-        "address": "Almaty, Kazakhstan",
-        "phone": "+7 (777) 123-45-67",
-        "email_label": "info@ddc.kz"
+        "form": {
+            "title": "Send Us a Message",
+            "description": "Have a question or want to partner with us? Fill out the form below and we'll get back to you shortly.",
+            "name": "Full Name",
+            "namePlaceholder": "Enter your full name",
+            "email": "Email Address",
+            "emailPlaceholder": "Enter your email",
+            "phone": "Phone Number",
+            "phonePlaceholder": "Enter your phone number",
+            "subject": "Subject",
+            "subjectPlaceholder": "Select a subject",
+            "subjects": {
+                "partnership": "Partnership Inquiry",
+                "support": "Technical Support",
+                "career": "Career Opportunities",
+                "other": "Other"
+    },
+            "message": "Message",
+            "messagePlaceholder": "Write your message here...",
+            "submit": "Send Message",
+            "sending": "Sending...",
+            "success": "Thank you! Your message has been sent successfully.",
+            "errors": {
+                "required": "This field is required"
+    }
+        },
+        "info": {
+            "address": {
+                "title": "Address",
+                "text": "Almaty, Kazakhstan\nFinancial District, Building 12"
+            },
+            "email": {
+                "title": "Email",
+                "text": "info@ddc.kz\nsupport@ddc.kz"
+            },
+            "phone": {
+                "title": "Phone",
+                "text": "+7 (777) 123-45-67\n+7 (727) 123-45-67"
+            },
+            "hours": {
+                "title": "Business Hours",
+                "text": "Mon - Fri: 9:00 - 18:00\nSat - Sun: Closed"
+}
+        }
     },
     "footer": {
         "poweredBy": "Powered By"

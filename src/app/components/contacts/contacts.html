@@ -1,1 +1,184 @@
-<p>contacts works!</p>
+<div class="contacts-container">
+  <!-- Header Section -->
+  <section class="contacts-header">
+    <div class="container">
+      <span class="section-badge glass-effect">{{ 'nav.contacts' | translate }}</span>
+      <h1 class="section-title">{{ 'contacts.title' | translate }}</h1>
+      <p class="section-description">{{ 'contacts.subtitle' | translate }}</p>
+    </div>
+  </section>
+
+  <!-- Contact Form Section -->
+  <section class="contact-form-section container">
+    <div class="form-container glass-effect">
+      <div class="form-header">
+        <h2 class="form-title">{{ 'contacts.form.title' | translate }}</h2>
+        <p class="form-description">{{ 'contacts.form.description' | translate }}</p>
+      </div>
+
+      <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="contact-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name" class="form-label">{{ 'contacts.form.name' | translate }}</label>
+            <input 
+              type="text" 
+              id="name" 
+              formControlName="name" 
+              class="form-input glass-effect"
+              [class.error]="isFieldInvalid('name')"
+              placeholder="{{ 'contacts.form.namePlaceholder' | translate }}"
+            >
+            @if(isFieldInvalid('name')) {
+              <span class="error-message">{{ getFieldNameError() }}</span>
+            }
+          </div>
+
+          <div class="form-group">
+            <label for="email" class="form-label">{{ 'contacts.form.email' | translate }}</label>
+            <input 
+              type="email" 
+              id="email" 
+              formControlName="email" 
+              class="form-input glass-effect"
+              [class.error]="isFieldInvalid('email')"
+              placeholder="{{ 'contacts.form.emailPlaceholder' | translate }}"
+            >
+            @if(isFieldInvalid('email')) {
+              <span class="error-message">{{ getEmailError() }}</span>
+            }
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="phone" class="form-label">{{ 'contacts.form.phone' | translate }}</label>
+            <input 
+              type="tel" 
+              id="phone" 
+              formControlName="phone" 
+              class="form-input glass-effect"
+              [class.error]="isFieldInvalid('phone')"
+              placeholder="{{ 'contacts.form.phonePlaceholder' | translate }}"
+            >
+            @if(isFieldInvalid('phone')) {
+              <span class="error-message">{{ getPhoneError() }}</span>
+            }
+          </div>
+
+          <div class="form-group">
+            <label for="subject" class="form-label">{{ 'contacts.form.subject' | translate }}</label>
+            <select 
+              id="subject" 
+              formControlName="subject" 
+              class="form-input glass-effect"
+              [class.error]="isFieldInvalid('subject')"
+            >
+              <option value="">{{ 'contacts.form.subjectPlaceholder' | translate }}</option>
+              <option value="partnership">{{ 'contacts.form.subjects.partnership' | translate }}</option>
+              <option value="support">{{ 'contacts.form.subjects.support' | translate }}</option>
+              <option value="career">{{ 'contacts.form.subjects.career' | translate }}</option>
+              <option value="other">{{ 'contacts.form.subjects.other' | translate }}</option>
+            </select>
+            @if(isFieldInvalid('subject')) {
+              <span class="error-message">{{ 'contacts.form.errors.required' | translate }}</span>
+            }
+          </div>
+        </div>
+
+        <div class="form-group full-width">
+          <label for="message" class="form-label">{{ 'contacts.form.message' | translate }}</label>
+          <textarea 
+            id="message" 
+            formControlName="message" 
+            class="form-input glass-effect form-textarea"
+            [class.error]="isFieldInvalid('message')"
+            rows="6"
+            placeholder="{{ 'contacts.form.messagePlaceholder' | translate }}"
+          ></textarea>
+          @if(isFieldInvalid('message')) {
+            <span class="error-message">{{ 'contacts.form.errors.required' | translate }}</span>
+          }
+        </div>
+
+        <div class="form-actions">
+          <button 
+            type="submit" 
+            class="btn btn-primary glow-effect magnetic"
+            [disabled]="contactForm.invalid || isSubmitting"
+          >
+            @if(isSubmitting) {
+              <span class="btn-loading">
+                <span class="spinner"></span>
+                {{ 'contacts.form.sending' | translate }}
+              </span>
+            } @else {
+              <span class="btn-text">{{ 'contacts.form.submit' | translate }}</span>
+              <span class="btn-shimmer"></span>
+              <span class="btn-arrow">→</span>
+            }
+          </button>
+        </div>
+
+        @if(submissionSuccess) {
+          <div class="success-message glass-effect">
+            <span class="success-icon">✓</span>
+            <p>{{ 'contacts.form.success' | translate }}</p>
+          </div>
+        }
+      </form>
+    </div>
+  </section>
+
+  <!-- Contact Info Section -->
+  <section class="contact-info-section container">
+    <div class="info-grid">
+      <div class="info-card glass-effect">
+        <div class="info-icon">📍</div>
+        <div class="info-content">
+          <h3 class="info-title">{{ 'contacts.info.address.title' | translate }}</h3>
+          <p class="info-text">{{ 'contacts.info.address.text' | translate }}</p>
+        </div>
+      </div>
+
+      <div class="info-card glass-effect">
+        <div class="info-icon">📧</div>
+        <div class="info-content">
+          <h3 class="info-title">{{ 'contacts.info.email.title' | translate }}</h3>
+          <p class="info-text">{{ 'contacts.info.email.text' | translate }}</p>
+        </div>
+      </div>
+
+      <div class="info-card glass-effect">
+        <div class="info-icon">📞</div>
+        <div class="info-content">
+          <h3 class="info-title">{{ 'contacts.info.phone.title' | translate }}</h3>
+          <p class="info-text">{{ 'contacts.info.phone.text' | translate }}</p>
+        </div>
+      </div>
+
+      <div class="info-card glass-effect">
+        <div class="info-icon">🕐</div>
+        <div class="info-content">
+          <h3 class="info-title">{{ 'contacts.info.hours.title' | translate }}</h3>
+          <p class="info-text">{{ 'contacts.info.hours.text' | translate }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Map Section -->
+  <section class="map-section">
+    <div class="map-container">
+      <iframe 
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2960.0!2d76.9!3d43.2!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDPCsDEyJzAwLjAiTiA3NsKwNTQnMDAuMCJF!5e0!3m2!1sen!2skz!4v1234567890"
+        width="100%" 
+        height="450" 
+        style="border:0;" 
+        allowfullscreen="" 
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        class="map-frame"
+      ></iframe>
+    </div>
+  </section>
+</div>

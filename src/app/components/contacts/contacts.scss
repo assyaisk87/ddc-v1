@@ -1,0 +1,386 @@
+@import '../../../styles';
+
+.contacts-container {
+  position: relative;
+}
+
+// Header Section (same as team page)
+.contacts-header {
+  padding: 150px 0 $spacing-3xl;
+  text-align: center;
+  background: $gradient-dark;
+
+  .section-badge {
+    display: inline-block;
+    padding: $spacing-xs $spacing-md;
+    border-radius: $radius-full;
+    font-size: 0.875rem;
+    margin-bottom: $spacing-md;
+    background: rgba(0, 212, 255, 0.1);
+    border: 1px solid rgba(0, 212, 255, 0.3);
+    color: $primary-color;
+  }
+
+  .section-title {
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 700;
+    margin-bottom: $spacing-md;
+    background: $gradient-primary;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .section-description {
+    font-size: 1.25rem;
+    color: $text-muted;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+}
+
+// Contact Form Section
+.contact-form-section {
+  padding: $spacing-3xl 0;
+
+  .form-container {
+    padding: $spacing-3xl;
+    border-radius: $radius-xl;
+    max-width: 900px;
+    margin: 0 auto;
+
+    @include tablet {
+      padding: $spacing-2xl;
+    }
+
+    @include mobile {
+      padding: $spacing-xl;
+    }
+
+    .form-header {
+      text-align: center;
+      margin-bottom: $spacing-2xl;
+
+      .form-title {
+        font-size: clamp(1.5rem, 4vw, 2rem);
+        font-weight: 700;
+        margin-bottom: $spacing-md;
+        background: $gradient-primary;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .form-description {
+        font-size: 1.125rem;
+        color: $text-muted;
+        line-height: 1.6;
+      }
+    }
+  }
+
+  .contact-form {
+    .form-row {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: $spacing-lg;
+      margin-bottom: $spacing-lg;
+
+      @include mobile {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: $spacing-xs;
+
+      &.full-width {
+        grid-column: 1 / -1;
+        margin-bottom: $spacing-lg;
+      }
+
+      .form-label {
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: $text-primary;
+        margin-bottom: $spacing-xs;
+      }
+
+      .form-input {
+        padding: $spacing-md;
+        border-radius: $radius-md;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(255, 255, 255, 0.03);
+        color: $text-primary;
+        font-size: 1rem;
+        transition: all $transition-base;
+        min-height: 50px;
+
+        &::placeholder {
+          color: $text-muted;
+        }
+
+        &:focus {
+          outline: none;
+          border-color: $primary-color;
+          box-shadow: $shadow-glow-primary;
+          background: rgba(255, 255, 255, 0.05);
+        }
+
+        &.error {
+          border-color: #FF6B6B;
+          box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.1);
+        }
+
+        &.form-textarea {
+          resize: vertical;
+          min-height: 150px;
+          font-family: inherit;
+          line-height: 1.6;
+        }
+      }
+
+      select.form-input {
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2300D4FF' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 1rem center;
+        background-size: 1em;
+        padding-right: 3rem;
+      }
+
+      .error-message {
+        font-size: 0.75rem;
+        color: #FF6B6B;
+        margin-top: $spacing-xs;
+      }
+    }
+
+    .form-actions {
+      margin-top: $spacing-2xl;
+      text-align: center;
+
+      .btn {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        gap: $spacing-xs;
+        padding: $spacing-md $spacing-2xl;
+        border-radius: $radius-md;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all $transition-base;
+        border: none;
+        overflow: hidden;
+        min-width: 250px;
+        justify-content: center;
+
+        &::before {
+          content: '';
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+          transform: translateX(-100%);
+          transition: transform 0.5s ease;
+        }
+
+        &:hover::before {
+          transform: translateX(100%);
+        }
+
+        &:disabled {
+          opacity: 0.6;
+          cursor: not-allowed;
+        }
+
+        .btn-loading {
+          display: flex;
+          align-items: center;
+          gap: $spacing-sm;
+        }
+
+        .spinner {
+          width: 16px;
+          height: 16px;
+          border: 2px solid rgba(255, 255, 255, 0.3);
+          border-top-color: white;
+          border-radius: 50%;
+          animation: spin 0.6s linear infinite;
+        }
+
+        .btn-arrow {
+          transition: transform $transition-base;
+        }
+
+        &:hover .btn-arrow {
+          transform: translateX(5px);
+        }
+
+        &-primary {
+          background: $gradient-primary;
+          color: $text-primary;
+
+          &:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: $shadow-glow-primary;
+          }
+        }
+      }
+    }
+
+    .success-message {
+      margin-top: $spacing-xl;
+      padding: $spacing-lg $spacing-xl;
+      border-radius: $radius-md;
+      background: rgba(0, 255, 163, 0.1);
+      border: 1px solid rgba(0, 255, 163, 0.3);
+      text-align: center;
+      animation: slideUp 0.3s ease;
+
+      .success-icon {
+        display: inline-block;
+        width: 24px;
+        height: 24px;
+        background: $success-color;
+        color: white;
+        border-radius: 50%;
+        text-align: center;
+        line-height: 24px;
+        margin-bottom: $spacing-sm;
+        font-weight: 700;
+      }
+
+      p {
+        color: $success-color;
+        font-weight: 600;
+        margin: 0;
+      }
+    }
+  }
+}
+
+// Contact Info Section
+.contact-info-section {
+  padding: $spacing-3xl 0;
+
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: $spacing-xl;
+
+    @include tablet {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include mobile {
+      grid-template-columns: 1fr;
+    }
+
+    .info-card {
+      padding: $spacing-xl;
+      border-radius: $radius-xl;
+      text-align: center;
+      transition: all $transition-base;
+
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: $shadow-lg, $shadow-glow-primary;
+      }
+
+      .info-icon {
+        font-size: 3rem;
+        margin-bottom: $spacing-md;
+      }
+
+      .info-content {
+        .info-title {
+          font-size: 1.25rem;
+          font-weight: 700;
+          margin-bottom: $spacing-sm;
+          color: $text-primary;
+        }
+
+        .info-text {
+          font-size: 1rem;
+          color: $text-muted;
+          line-height: 1.6;
+        }
+      }
+    }
+  }
+}
+
+// Map Section
+.map-section {
+  position: relative;
+  margin-top: $spacing-3xl;
+
+  .map-container {
+    position: relative;
+    width: 100%;
+    height: 450px;
+    overflow: hidden;
+
+    .map-frame {
+      filter: grayscale(30%) contrast(1.1);
+      transition: filter $transition-base;
+
+      &:hover {
+        filter: grayscale(0%) contrast(1);
+      }
+    }
+  }
+}
+
+// Animations
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Button glow effect
+glow-effect {
+  position: relative;
+  overflow: hidden;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    background: linear-gradient(45deg, $primary-color, $secondary-color);
+    filter: blur(10px);
+    opacity: 0;
+    transition: opacity $transition-base;
+    z-index: -1;
+    border-radius: inherit;
+  }
+
+  &:hover::after {
+    opacity: 0.5;
+  }
+}
+
+// Magnetic effect
+.magnetic {
+  transition: transform $transition-base;
+
+  &:hover {
+    transform: scale(1.02);
+  }
+}
