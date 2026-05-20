@@ -18,10 +18,9 @@ export class Navigation implements OnInit {
   menuItems = [
     { key: 'home', path: '/' },
     { key: 'projects', path: '/projects' },
-    { key: 'services', path: '/services' },
     { key: 'achievements', path: '/achievements' },
     { key: 'team', path: '/team' },
-    { key: 'contacts', path: '/contacts' }
+    { key: 'services', path: '/services' },
   ];
 
   constructor(private translate: TranslateService) {

@@ -17,8 +17,8 @@ export class Footer {
     { key: 'home', path: '/' },
     { key: 'projects', path: '/projects' },
     { key: 'achievements', path: '/achievements' },
-    { key: 'team', path: '/team' },
-    { key: 'contacts', path: '/contacts' }
+    { key: 'team', path: '/team' }
+    
   ];
   
   officialSites = [

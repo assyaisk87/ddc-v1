@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
@@ -10,7 +10,10 @@ import { TranslateModule } from '@ngx-translate/core';
   templateUrl: './services.html',
   styleUrl: './services.scss'
 })
-export class Services {
+export class Services implements OnInit {
+  selectedIndex: number = 0;
+  selectedService: any = null;
+  
   services = [
     {
       id: 'contact-center',
@@ -30,7 +33,7 @@ export class Services {
       id: 'procurement-operator',
       title: 'Оператор портала закупок',
       icon: '🛒',
-      color: '#FF6B6B',
+      color: '#00D4FF',
       description: 'Техническая поддержка и сопровождение портала государственных закупок. Обеспечение бесперебойной работы системы и помощь участникам закупок.',
       features: [
         'Техническая поддержка портала',
@@ -44,7 +47,7 @@ export class Services {
       id: 'it-center',
       title: 'Единый центр IT-услуг',
       icon: '💻',
-      color: '#4ECDC4',
+      color: '#00D4FF',
       description: 'Комплексные IT-решения для цифровизации бизнес-процессов. От разработки до внедрения и поддержки современных технологических решений.',
       features: [
         'Разработка ПО под ключ',
@@ -58,7 +61,7 @@ export class Services {
       id: 'engineering-center',
       title: 'Центр инженерных компетенций',
       icon: '⚙️',
-      color: '#95E1D3',
+      color: '#00D4FF',
       description: 'Инженерная экспертиза и инновационные решения для сложных проектов. Команда высококвалифицированных инженеров и технических специалистов.',
       features: [
         'Инженерный консалтинг',
@@ -69,4 +72,13 @@ export class Services {
       ]
     }
   ];
+  
+  ngOnInit() {
+    this.selectService(0);
+  }
+  
+  selectService(index: number) {
+    this.selectedIndex = index;
+    this.selectedService = this.services[index];
+  }
 }
