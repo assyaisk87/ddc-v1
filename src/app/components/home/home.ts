@@ -1,10 +1,11 @@
-import { Component, OnInit, Renderer2, Inject } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy, Renderer2, Inject, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterLink } from '@angular/router';
 import { AiAvatarComponent } from '../ai-avatar/ai-avatar.component';
 import { DOCUMENT } from '@angular/common';
+import { KineticTextService } from '../../services/kinetic-text.service';
 
 @Component({
   selector: 'app-home',
@@ -13,7 +14,7 @@ import { DOCUMENT } from '@angular/common';
   templateUrl: './home.html',
   styleUrl: './home.scss'
 })
-export class Home implements OnInit {
+export class Home implements OnInit, AfterViewInit, OnDestroy {
   features = [
     {
       icon: '🤖',
@@ -74,60 +75,24 @@ export class Home implements OnInit {
     }
   ];
 
-  // AI Avatar state
-  isPlaying: boolean = false;
-  hasInteracted: boolean = false;
-  greeting: { text: string; subtext: string } = { text: '', subtext: '' };
-  showPlaceholder: boolean = false;
-  audio: HTMLAudioElement | null = null;
-
+  isPlaying = false;
+  hasInteracted = false;
   constructor(
     private renderer: Renderer2,
-    @Inject(DOCUMENT) private document: Document
+    @Inject(DOCUMENT) private document: Document,
+    private elementRef: ElementRef,
+    private kineticService: KineticTextService
   ) {}
 
-  ngOnInit() {
-    this.setGreeting();
-    this.initAudio();
+  ngOnInit(): void {
   }
 
-  // Initialize audio
-  initAudio() {
-    try {
-      // Create audio element
-      this.audio = this.renderer.createElement('audio');
-      
-      // Set audio source (you can replace with your actual audio file)
-      // For now, using a simple beep tone
-      const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
-      
-      // Store audio context for later use
-      (this as any).audioContext = audioContext;
-    } catch (error) {
-      console.error('Audio initialization failed:', error);
-    }
-  }
-
-  // Dynamic greeting based on time of day
-  setGreeting() {
-    const hour = new Date().getHours();
-    
-    if (hour >= 5 && hour < 12) {
-      this.greeting = { 
-        text: 'Доброе утро', 
-        subtext: 'Начните день с будущего' 
-      };
-    } else if (hour >= 12 && hour < 18) {
-      this.greeting = { 
-        text: 'Добрый день', 
-        subtext: 'Время для инноваций' 
-      };
-    } else {
-      this.greeting = { 
-        text: 'Добрый вечер', 
-        subtext: 'Добро пожаловать в будущее' 
-      };
-    }
+  ngAfterViewInit(): void {
+    // Apply kinetic text effect only to Powered By section titles
+    const poweredByTitles = this.elementRef.nativeElement.querySelectorAll('.powered-by-title');
+    poweredByTitles.forEach((title: Element) => {
+      this.kineticService.registerElement(title as HTMLElement);
+    });
   }
 
   // Toggle AI voice greeting
@@ -210,7 +175,10 @@ export class Home implements OnInit {
     }
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
+    // Cleanup kinetic text
+    this.kineticService.destroy();
+
     try {
       const audioContext = (this as any).audioContext;
       if (audioContext && audioContext.state !== 'closed') {
@@ -221,3 +189,4 @@ export class Home implements OnInit {
     }
   }
 }
+

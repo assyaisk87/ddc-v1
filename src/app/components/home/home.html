@@ -14,10 +14,10 @@
         </div>
         
         <h1 class="hero-title">
-          <span class="text-gradient">{{ greeting.text }}</span>
+          <span class="text-gradient">{{ 'greeting' | translate }}</span>
         </h1>
         <h2 class="hero-subtitle">
-          <span class="text-gradient-accent">{{ greeting.subtext }}</span>
+          <span class="text-gradient-accent">{{ 'home.subtitle' | translate }}</span>
         </h2>
         
         <div class="hero-cta">
@@ -116,7 +116,7 @@
   <section class="powered-by-section container">
     <div class="section-header">
       <span class="section-badge glass-effect">{{ 'footer.poweredBy' | translate }}</span>
-      <h2 class="section-title">{{ 'footer.poweredBy' | translate }}</h2>
+      <h2 class="section-title powered-by-title">{{ 'footer.poweredBy' | translate }}</h2>
       <p class="section-description">Modern technologies powering our solutions</p>
     </div>
     
@@ -133,22 +133,5 @@
     </div>
   </section>
 
-  <!-- CTA Section -->
-  <section class="cta-section">
-    <div class="cta-background">
-      <div class="cta-glow"></div>
-    </div>
-    <div class="container">
-      <div class="cta-content glass-effect">
-        <h2 class="cta-title">Ready to Transform Your Banking?</h2>
-        <p class="cta-description">Join leading banks in Kazakhstan using our cutting-edge solutions</p>
-
-        <a routerLink="/contacts" class="btn btn-primary glow-effect-accent magnetic">
-          <span class="btn-text">{{ 'contacts.title' | translate }}</span>
-          <span class="btn-shimmer"></span>
-          <span class="btn-arrow">→</span>
-        </a>
-      </div>
-    </div>
-  </section>
+  
 </div>

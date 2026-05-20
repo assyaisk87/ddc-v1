@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
 export interface Director {
@@ -20,7 +19,7 @@ export interface CeoMember {
 @Component({
   selector: 'app-team',
   standalone: true,
-  imports: [CommonModule, RouterLink, TranslateModule],
+  imports: [CommonModule, TranslateModule],
   templateUrl: './team.html',
   styleUrl: './team.scss'
 })

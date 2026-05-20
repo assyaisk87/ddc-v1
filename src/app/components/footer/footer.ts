@@ -16,8 +16,8 @@ export class Footer {
   footerLinks = [
     { key: 'home', path: '/' },
     { key: 'projects', path: '/projects' },
-    { key: 'team', path: '/team' },
     { key: 'achievements', path: '/achievements' },
+    { key: 'team', path: '/team' },
     { key: 'contacts', path: '/contacts' }
   ];
   

@@ -54,9 +54,14 @@
         "ceo": "CEO & Founder",
         "cto": "Chief Technology Officer",
         "cfo": "Chief Financial Officer",
-        "coo": "Chief Operating Officer"
+        "coo": "Chief Operating Officer",
+        "cta": {
+            "title": "Join Our Team",
+            "description": "Become part of the future of banking technology",
+            "button": "Contact Us"
+        }
     },
-        "contacts": {
+    "contacts": {
         "title": "Get In Touch",
         "subtitle": "Let's Build the Future Together",
         "form": {
@@ -75,7 +80,7 @@
                 "support": "Technical Support",
                 "career": "Career Opportunities",
                 "other": "Other"
-    },
+            },
             "message": "Message",
             "messagePlaceholder": "Write your message here...",
             "submit": "Send Message",
@@ -83,7 +88,7 @@
             "success": "Thank you! Your message has been sent successfully.",
             "errors": {
                 "required": "This field is required"
-    }
+            }
         },
         "info": {
             "address": {
@@ -101,10 +106,78 @@
             "hours": {
                 "title": "Business Hours",
                 "text": "Mon - Fri: 9:00 - 18:00\nSat - Sun: Closed"
-}
+            }
         }
     },
+    "greeting": "Good morning, Start the day with the future",
+    "ai": {
+            "title": "AI Assistant",
+            "online": "Online",
+            "welcome": "Hello! I'm your DDC KZ AI assistant. How can I help?",
+            "placeholder": "Type your message...",
+            "click_to_chat": "Click to chat",
+            "responses": {
+                "projects": "Our main projects include Kaspi Pay Integration, Halyk Digital Bank, and Jusan AI Analytics. Each project represents cutting-edge fintech solutions for Kazakhstan's banking sector.",
+                "technology": "We use modern technologies including Angular, TypeScript, blockchain integration, and AI-powered analytics. Our stack ensures high performance and security.",
+                "partnership": "We're always open to new partnerships! Please contact us through our contacts page or email at info@ddc.kz to discuss collaboration opportunities.",
+                "team": "Our team consists of experienced fintech professionals including developers, designers, and business analysts. We have over 50 banking partners across Kazakhstan.",
+                "contact": "You can reach us at +7 (777) 123-45-67 or email info@ddc.kz. Our office is located in Almaty, Financial District, Building 12.",
+                "default": "I can help you learn more about our projects and technologies. Feel free to ask about our solutions, team, or partnership opportunities!"
+            }
+        },
     "footer": {
-        "poweredBy": "Powered By"
+            "poweredBy": "Powered By"
+        },
+        "directorsBoard": {
+            "title": "Board of Directors",
+            "directors": {
+                "Zhalenov": {
+                    "name": "Zhalenov Binur Muratovich",
+                    "position": "Chairman of the Company's Board of Directors,<br>Deputy Chairman of the National Bank of the Republic of Kazakhstan"
+                },
+                "Uzbekov": {
+                    "name": "Uzbekov Askhat Arkhatovich",
+                    "position": "Member of the Board of Directors<br>Director of the Information Technology Department of the National Bank of the Republic of Kazakhstan"
+                },
+                "Arinova": {
+                    "name": "Arinova Aizhan Beibytovna",
+                    "position": "Member of the Board of Directors<br>Director of the Digital Transformation Department"
+                },
+                "Alpamysov": {
+                    "name": "Alpamysov Abai Abdysametovich",
+                    "position": "Member of the Company's Board of Directors - Independent Director"
+                },
+                "Konirbayev": {
+                    "name": "Konirbaev Bayan Kairatovich",
+                    "position": "Member of the Company's Board of Directors - Independent Director"
+                },
+                "Marat": {
+                    "name": "Marat Asambetovich",
+                    "position": "Member of the Company's Board of Directors - Independent Director"
+                }
+            }
+        },
+        "ceo": {
+            "title": "Executive Board",
+            "mainCeo": {
+                "name": "Amaridin Malik Alimzhanovich",
+                "position": "Member of the Company's Board of Directors - Chairman of the Executive Board",
+                "messageTitle": "Dear Internet Users!",
+                "messageText": "I am delighted to welcome you to the official website of the CCR!<br>For more than 20 years, CCR has been successfully operating in the IT services market, which made it possible to form a large portfolio of not simple, sometimes very complex, but successfully implemented IT projects for the National Bank. The work of CCR is based on simple but very important principles of partnership, respect and meritocracy.<br>Any company's treasure is its employees, corporate knowledge accumulated in technologies, ideas, analytical developments, its history and traditions. The CCR team consists of experienced specialists with broad knowledge in the field of IT technologies and their effective practical application. Each employee of our company possesses such qualities as professionalism, dedication to work and a desire for constant comprehensive development.<br><br>In the «Write to Us» section of the website, every Internet user has the opportunity to ask questions of interest, leave comments and suggestions, as well as express their opinion on the company's activities. I hope this will give users an additional opportunity to learn more about CCR's activities and future plans, and to answer questions of interest to me.<br><br>With respect,<br>Amaridin Malik"
+            },
+            "ceoBorders": {
+                "ceoBorder1": {
+                    "name": "Durmagambetov Erlan Dmitrievich",
+                    "position": "First Deputy Chairman of the Company's Executive Board"
+                },
+                "ceoBorder2": {
+                    "name": "Kentbekov Argyn Salavatovich",
+                    "position": "Deputy Chairman of the Company's Executive Board"
+                },
+                "ceoBorder3": {
+                    "name": "Imazhanov Bakhytzhan Gylymbekovich",
+                    "position": "Deputy Chairman of the Company's Executive Board"
+                }
+            }
+        }
     }
-}

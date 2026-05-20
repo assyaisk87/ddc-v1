@@ -3,12 +3,13 @@ import { RouterOutlet, Router, NavigationEnd } from '@angular/router';
 import { Navigation } from './components/navigation/navigation';
 import { Footer } from './components/footer/footer';
 import { DigitalDnaComponent } from './components/digital-dna/digital-dna.component';
+import { AiAssistantComponent } from './components/ai-assistant/ai-assistant.component';
 import { MagneticButtonService } from './services/magnetic-button.service';
 import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Navigation, Footer, DigitalDnaComponent],
+  imports: [RouterOutlet, Navigation, Footer, DigitalDnaComponent, AiAssistantComponent],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })

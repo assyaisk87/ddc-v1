@@ -8,7 +8,7 @@ import { DigitalDnaService } from '../../services/digital-dna.service';
       <button 
         class="dna-btn dna-btn-complexity"
         (click)="increaseComplexity()"
-        [disabled]="complexity >= 3"
+        [disabled]="complexity >= 4"
         title="Increase complexity"
       >
         <span class="btn-icon">⟨⟨</span>
@@ -36,7 +36,7 @@ import { DigitalDnaService } from '../../services/digital-dna.service';
       
       <button 
         class="dna-btn dna-btn-toggle"
-        (click)="toggleControls()"
+        (click)="toggleControls($event)"
         title="Toggle controls"
       >
         <span class="btn-icon">⚙️</span>
@@ -69,10 +69,13 @@ export class DigitalDnaComponent implements OnInit, OnDestroy {
 
   @HostListener('document:click', ['$event'])
   onClick(event: MouseEvent): void {
-    if (!(event.target as HTMLElement).closest('.digital-dna-controls')) {
-      this.showControls = false;
+    const target = event.target as HTMLElement;
+    // Don't hide if clicking on controls or toggle button
+    if (target.closest('.digital-dna-controls') || target.closest('.dna-btn-toggle')) {
+      return;
     }
-  }
+        this.showControls = false;
+    }
 
   private autoHideTimeout: ReturnType<typeof setTimeout> | null = null;
 
@@ -94,7 +97,7 @@ export class DigitalDnaComponent implements OnInit, OnDestroy {
 
   increaseComplexity(): void {
     this.digitalDnaService.increaseComplexity();
-    this.complexity = Math.min(3, this.complexity + 0.5);
+    this.complexity = Math.min(4, this.complexity + 0.5);
   }
 
   decreaseComplexity(): void {
@@ -112,7 +115,10 @@ export class DigitalDnaComponent implements OnInit, OnDestroy {
     this.isPaused = !this.isPaused;
   }
 
-  toggleControls(): void {
+  toggleControls(event: MouseEvent): void {
+    // Prevent event from bubbling to document click handler
+    event?.stopPropagation();
+    event?.preventDefault();
     this.showControls = !this.showControls;
     if (this.showControls) {
       this.resetAutoHide();
