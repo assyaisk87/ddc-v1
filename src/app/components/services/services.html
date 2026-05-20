@@ -1,0 +1,63 @@
+<div class="services-container">
+  <!-- Header Section --> 
+<section class="services-hero">
+  <div class="container">
+    <span class="section-badge glass-effect">{{ 'Наши Услуги' | translate }}</span>
+    <h1 class="section-title">{{ 'Наши Услуги' | translate }}</h1>
+    <p class="section-description">{{ 'Комплексные решения для цифровой трансформации' | translate }}</p>
+      <div class="hero-stats">
+        <div class="stat-item glass-effect">
+          <div class="stat-value" style="color: #00D4FF">4</div>
+          <div class="stat-label">Ключевых направления</div>
+        </div>
+        <div class="stat-item glass-effect">
+          <div class="stat-value" style="color: #FF6B6B">24/7</div>
+          <div class="stat-label">Поддержка</div>
+        </div>
+        <div class="stat-item glass-effect">
+          <div class="stat-value" style="color: #4ECDC4">100%</div>
+          <div class="stat-label">Цифровизация</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Grid -->
+  <section class="services-grid-section container">
+    <div class="section-header">
+      <span class="section-badge glass-effect">Услуги</span>
+      <h2 class="section-title">Комплексные решения</h2>
+      <p class="section-description">Профессиональные услуги для бизнеса и государственных организаций</p>
+    </div>
+    
+    <div class="services-grid">
+      @for (service of services; track service.id) {
+        <div class="service-card glass-effect" [attr.id]="service.id" [style.--card-accent]="service.color">
+          <div class="service-icon" [style.background]="service.color + '20'">
+            {{ service.icon }}
+          </div>
+          <h3 class="service-title">{{ service.title }}</h3>
+          <p class="service-description">{{ service.description }}</p>
+          
+          <div class="service-features">
+            <h4 class="features-title">Возможности:</h4>
+            <ul class="features-list">
+              @for (feature of service.features; track feature) {
+                <li>
+                  <span class="feature-check">✓</span>
+                  {{ feature }}
+                </li>
+              }
+            </ul>
+          </div>
+          
+          <a routerLink="/contacts" class="service-cta">
+            Узнать больше →
+          </a>
+        </div>
+      }
+    </div>
+  </section>
+
+ 
+</div>

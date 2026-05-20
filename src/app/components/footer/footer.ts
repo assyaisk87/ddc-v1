@@ -21,7 +21,12 @@ export class Footer {
     { key: 'contacts', path: '/contacts' }
   ];
   
-  socialLinks = [
+  officialSites = [
+    { icon: '🏛️', url: 'https://www.nationalbank.kz/kz', title: 'Национальный банк РК' },
+    { icon: '🛒', url: 'https://zakup.nationalbank.kz/', title: 'Портал закупок' }
+  ];
+
+   socialLinks = [
     { icon: '📱', url: '#' },
     { icon: '💼', url: '#' },
     { icon: '🐦', url: '#' },

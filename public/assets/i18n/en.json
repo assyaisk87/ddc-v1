@@ -2,38 +2,109 @@
     "nav": {
         "home": "Home",
         "projects": "Projects",
+        "services": "Services",
         "achievements": "Achievements",
         "team": "Team",
         "contacts": "Contacts"
     },
     "home": {
         "title": "DDC KZ",
-        "subtitle": "Leading Fintech Solutions for Kazakhstan",
-        "description": "We develop cutting-edge banking software solutions that power the future of finance in Kazakhstan",
-        "cta_button": "Discover More",
+        "subtitle": "Leading fintech solutions for Kazakhstan",
+        "description": "We develop cutting-edge banking software solutions that shape the future of finance in Kazakhstan",
+        "cta_button": "Learn More",
         "features": {
             "title1": "AI-Powered Analytics",
             "title2": "Blockchain Integration",
             "title3": "Real-time Processing",
             "desc1": "Advanced machine learning algorithms for fraud detection and risk analysis",
-            "desc2": "Secure and transparent transactions with blockchain technology",
+            "desc2": "Secure and transparent transactions using blockchain technology",
             "desc3": "High-performance systems processing millions of transactions"
+        }
+    },
+    "services": {
+        "hero": {
+            "title": "Our Services",
+            "subtitle": "Comprehensive Solutions for Digital Transformation",
+            "stats": {
+                "directions": "Key Directions",
+                "support": "Support",
+                "digitalization": "Digitalization"
+            }
+        },
+        "section": {
+            "badge": "Services",
+            "title": "Comprehensive Solutions",
+            "description": "Professional services for business and government organizations"
+        },
+        "services": {
+            "contactCenter": {
+                "title": "Contact Center",
+                "description": "24/7 customer support and quick issue resolution. Professional team ready to help with any requests.",
+                "features": [
+                    "24/7 Round-the-clock support",
+                    "Multi-language support (KZ, RU, EN)",
+                    "Quick problem resolution",
+                    "CRM system integration",
+                    "Analytics and reporting"
+                ]
+            },
+            "procurementOperator": {
+                "title": "Procurement Portal Operator",
+                "description": "Technical support and maintenance of the government procurement portal. Ensuring uninterrupted system operation and assistance to procurement participants.",
+                "features": [
+                    "Portal technical support",
+                    "Procurement participant training",
+                    "Monitoring and analytics",
+                    "Integration with external systems",
+                    "Data security assurance"
+                ]
+            },
+            "itCenter": {
+                "title": "Unified IT Services Center",
+                "description": "Comprehensive IT solutions for business process digitalization. From development to implementation and support of modern technological solutions.",
+                "features": [
+                    "Turnkey software development",
+                    "Cloud solutions",
+                    "Cybersecurity",
+                    "IT consulting",
+                    "24/7 Technical support"
+                ]
+            },
+            "engineeringCenter": {
+                "title": "Engineering Competence Center",
+                "description": "Engineering expertise and innovative solutions for complex projects. Team of highly qualified engineers and technical specialists.",
+                "features": [
+                    "Engineering consulting",
+                    "System design",
+                    "Technical expertise",
+                    "Innovation implementation",
+                    "Training and certification"
+                ]
+            }
+        },
+        "featuresTitle": "Features:",
+        "ctaMore": "Learn More →",
+        "ctaSection": {
+            "title": "Ready to Discuss Your Project?",
+            "description": "Contact us for a personalized solution",
+            "contactBtn": "Contact Us",
+            "projectsBtn": "Our Projects"
         }
     },
     "projects": {
         "title": "Our Projects",
-        "subtitle": "Transforming Banking with Innovation",
+        "subtitle": "Transforming the Banking Sector with Innovation",
         "project1": {
             "name": "Kaspi Pay Integration",
             "description": "Seamless payment gateway solution"
         },
         "project2": {
             "name": "Halyk Digital Bank",
-            "description": "Complete mobile banking platform"
+            "description": "Full-featured mobile banking platform"
         },
         "project3": {
             "name": "Jusan AI Analytics",
-            "description": "Intelligent customer insights system"
+            "description": "Intelligent customer analytics system"
         }
     },
     "achievements": {
@@ -46,12 +117,12 @@
         "label1": "Banking Partners",
         "label2": "Transactions Processed",
         "label3": "Uptime Guarantee",
-        "label4": "Awards Won"
+        "label4": "Awards Received"
     },
     "team": {
         "title": "Leadership Team",
         "subtitle": "Visionaries Driving Innovation",
-        "ceo": "CEO & Founder",
+        "ceo": "CEO and Founder",
         "cto": "Chief Technology Officer",
         "cfo": "Chief Financial Officer",
         "coo": "Chief Operating Officer",
@@ -62,19 +133,19 @@
         }
     },
     "contacts": {
-        "title": "Get In Touch",
+        "title": "Contact Us",
         "subtitle": "Let's Build the Future Together",
         "form": {
             "title": "Send Us a Message",
-            "description": "Have a question or want to partner with us? Fill out the form below and we'll get back to you shortly.",
+            "description": "Have a question or want to become our partner? Fill out the form below and we will contact you shortly.",
             "name": "Full Name",
             "namePlaceholder": "Enter your full name",
-            "email": "Email Address",
+            "email": "Email",
             "emailPlaceholder": "Enter your email",
             "phone": "Phone Number",
             "phonePlaceholder": "Enter your phone number",
             "subject": "Subject",
-            "subjectPlaceholder": "Select a subject",
+            "subjectPlaceholder": "Choose a subject",
             "subjects": {
                 "partnership": "Partnership Inquiry",
                 "support": "Technical Support",
@@ -104,80 +175,81 @@
                 "text": "+7 (777) 123-45-67\n+7 (727) 123-45-67"
             },
             "hours": {
-                "title": "Business Hours",
+                "title": "Working Hours",
                 "text": "Mon - Fri: 9:00 - 18:00\nSat - Sun: Closed"
             }
         }
     },
-    "greeting": "Good morning, Start the day with the future",
+    "greeting": "Good Morning, Start Your Day with the Future",
     "ai": {
-            "title": "AI Assistant",
-            "online": "Online",
-            "welcome": "Hello! I'm your DDC KZ AI assistant. How can I help?",
-            "placeholder": "Type your message...",
-            "click_to_chat": "Click to chat",
-            "responses": {
-                "projects": "Our main projects include Kaspi Pay Integration, Halyk Digital Bank, and Jusan AI Analytics. Each project represents cutting-edge fintech solutions for Kazakhstan's banking sector.",
-                "technology": "We use modern technologies including Angular, TypeScript, blockchain integration, and AI-powered analytics. Our stack ensures high performance and security.",
-                "partnership": "We're always open to new partnerships! Please contact us through our contacts page or email at info@ddc.kz to discuss collaboration opportunities.",
-                "team": "Our team consists of experienced fintech professionals including developers, designers, and business analysts. We have over 50 banking partners across Kazakhstan.",
-                "contact": "You can reach us at +7 (777) 123-45-67 or email info@ddc.kz. Our office is located in Almaty, Financial District, Building 12.",
-                "default": "I can help you learn more about our projects and technologies. Feel free to ask about our solutions, team, or partnership opportunities!"
-            }
-        },
+        "title": "AI Assistant",
+        "online": "Online",
+        "welcome": "Hello! I am your DDC KZ AI assistant. How can I help?",
+        "placeholder": "Type your message...",
+        "click_to_chat": "Click to chat",
+        "responses": {
+            "projects": "Our main projects include Kaspi Pay Integration, Halyk Digital Bank, and Jusan AI Analytics. Each project represents cutting-edge fintech solutions for Kazakhstan's banking sector.",
+            "technology": "We use modern technologies including Angular, TypeScript, blockchain integration, and AI-powered analytics. Our stack ensures high performance and security.",
+            "partnership": "We are always open to new partnerships! Please contact us through the contact page or email info@ddc.kz to discuss collaboration opportunities.",
+            "team": "Our team consists of experienced fintech professionals, including developers, designers, and business analysts. We have over 50 banking partners across Kazakhstan.",
+            "contact": "You can contact us at +7 (777) 123-45-67 or email info@ddc.kz. Our office is located in Almaty, Financial District, Building 12.",
+            "default": "I can help you learn more about our projects and technologies. Feel free to ask about our solutions, team, or partnership opportunities!"
+        }
+    },
     "footer": {
-            "poweredBy": "Powered By"
-        },
-        "directorsBoard": {
-            "title": "Board of Directors",
-            "directors": {
-                "Zhalenov": {
-                    "name": "Zhalenov Binur Muratovich",
-                    "position": "Chairman of the Company's Board of Directors,<br>Deputy Chairman of the National Bank of the Republic of Kazakhstan"
-                },
-                "Uzbekov": {
-                    "name": "Uzbekov Askhat Arkhatovich",
-                    "position": "Member of the Board of Directors<br>Director of the Information Technology Department of the National Bank of the Republic of Kazakhstan"
-                },
-                "Arinova": {
-                    "name": "Arinova Aizhan Beibytovna",
-                    "position": "Member of the Board of Directors<br>Director of the Digital Transformation Department"
-                },
-                "Alpamysov": {
-                    "name": "Alpamysov Abai Abdysametovich",
-                    "position": "Member of the Company's Board of Directors - Independent Director"
-                },
-                "Konirbayev": {
-                    "name": "Konirbaev Bayan Kairatovich",
-                    "position": "Member of the Company's Board of Directors - Independent Director"
-                },
-                "Marat": {
-                    "name": "Marat Asambetovich",
-                    "position": "Member of the Company's Board of Directors - Independent Director"
-                }
-            }
-        },
-        "ceo": {
-            "title": "Executive Board",
-            "mainCeo": {
-                "name": "Amaridin Malik Alimzhanovich",
-                "position": "Member of the Company's Board of Directors - Chairman of the Executive Board",
-                "messageTitle": "Dear Internet Users!",
-                "messageText": "I am delighted to welcome you to the official website of the CCR!<br>For more than 20 years, CCR has been successfully operating in the IT services market, which made it possible to form a large portfolio of not simple, sometimes very complex, but successfully implemented IT projects for the National Bank. The work of CCR is based on simple but very important principles of partnership, respect and meritocracy.<br>Any company's treasure is its employees, corporate knowledge accumulated in technologies, ideas, analytical developments, its history and traditions. The CCR team consists of experienced specialists with broad knowledge in the field of IT technologies and their effective practical application. Each employee of our company possesses such qualities as professionalism, dedication to work and a desire for constant comprehensive development.<br><br>In the «Write to Us» section of the website, every Internet user has the opportunity to ask questions of interest, leave comments and suggestions, as well as express their opinion on the company's activities. I hope this will give users an additional opportunity to learn more about CCR's activities and future plans, and to answer questions of interest to me.<br><br>With respect,<br>Amaridin Malik"
+        "poweredBy": "Powered By",
+        "officialResources": "Official Resources"
+    },
+    "directorsBoard": {
+        "title": "Board of Directors",
+        "directors": {
+            "Zhalenov": {
+                "name": "Zhalenov Binur Muratovich",
+                "position": "Chairman of the Board of Directors,\nDeputy Chairman of the National Bank of the Republic of Kazakhstan"
             },
-            "ceoBorders": {
-                "ceoBorder1": {
-                    "name": "Durmagambetov Erlan Dmitrievich",
-                    "position": "First Deputy Chairman of the Company's Executive Board"
-                },
-                "ceoBorder2": {
-                    "name": "Kentbekov Argyn Salavatovich",
-                    "position": "Deputy Chairman of the Company's Executive Board"
-                },
-                "ceoBorder3": {
-                    "name": "Imazhanov Bakhytzhan Gylymbekovich",
-                    "position": "Deputy Chairman of the Company's Executive Board"
-                }
+            "Uzbekov": {
+                "name": "Uzbekov Askhat Arkhatovich",
+                "position": "Board Member\nDirector of the Information Technology Department of the National Bank of the Republic of Kazakhstan"
+            },
+            "Arinova": {
+                "name": "Arinova Aizhan Beibytovna",
+                "position": "Board Member\nDirector of the Digital Transformation Department"
+            },
+            "Alpamysov": {
+                "name": "Alpamysov Abai Abdisametovich",
+                "position": "Board Member - Independent Director"
+            },
+            "Konirbayev": {
+                "name": "Konirbaev Baiyan Kairatovich",
+                "position": "Board Member - Independent Director"
+            },
+            "Marat": {
+                "name": "Marat Asambetovich",
+                "position": "Board Member - Independent Director"
+            }
+        }
+    },
+    "ceo": {
+        "title": "Management Board",
+        "mainCeo": {
+            "name": "Amaradinov Malik Alimzhanovich",
+            "position": "Board Member - Chairman of the Management Board",
+            "messageTitle": "Dear Internet Users!",
+            "messageText": "I am pleased to welcome you to the official CCRC website!\nFor more than 20 years, CCRC has been successfully operating in the IT services market, which has allowed us to form an impressive portfolio of not simple, but sometimes very complex, but successfully implemented IT projects for the National Bank. CCRC activities are built on simple but very important principles of partnership, respect, and meritocracy.\nThe wealth of any company is its employees, its corporate knowledge accumulated in technologies, ideas, analytical developments, its history and traditions. The CCRC team consists of experienced specialists with broad knowledge in IT technologies and effectively applying them in practice. Every employee of our company has qualities such as professionalism, desire to work, and a desire to constantly develop comprehensively.\nIn the Write to Us section of the website, every internet user can ask questions of interest, leave comments and suggestions, and also express their opinion about the company's activities. I hope this will give an additional opportunity to learn more about CCRC's activities and future plans, and also allow me to answer users' questions.\nWith respect,\nAmaradinov Malik"
+        },
+        "ceoBorders": {
+            "ceoBorder1": {
+                "name": "Durmagambetov Erlan Dmitrievich",
+                "position": "First Deputy Chairman of the Management Board"
+            },
+            "ceoBorder2": {
+                "name": "Kentbekov Argyn Salavatovich",
+                "position": "Deputy Chairman of the Management Board"
+            },
+            "ceoBorder3": {
+                "name": "Imazhanov Bakhytzhan Gylymbekovich",
+                "position": "Deputy Chairman of the Management Board"
             }
         }
     }
+}

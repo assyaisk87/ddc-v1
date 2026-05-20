@@ -7,14 +7,7 @@
           <img src="/icons/ddc_logo.svg" alt="DDC Logo" class="logo-image">
           <span>DDC<span class="logo-accent">.KZ</span></span>
         </a>
-        <p class="footer-tagline">{{ 'home.description' | translate }}</p>
-        <div class="social-links">
-          @for (social of socialLinks; track social) {
-            <a [href]="social.url" class="social-link glass-effect">
-              {{ social.icon }}
-            </a>
-          }
-        </div>
+        <p class="footer-tagline">{{ 'home.description' | translate }}</p>       
       </div>
 
       <!-- Quick Links -->
@@ -33,32 +26,47 @@
 
       <!-- Services -->
       <div class="footer-links">
-        <h3>Services</h3>
+        <h3>{{ 'services.section.badge' | translate }}</h3>
         <ul>
-          <li><a href="#" class="footer-link">Digital Banking</a></li>
-          <li><a href="#" class="footer-link">Payment Solutions</a></li>
-          <li><a href="#" class="footer-link">Blockchain</a></li>
-          <li><a href="#" class="footer-link">AI Analytics</a></li>
+          <li><a routerLink="/services" fragment="contact-center" class="footer-link">{{ 'services.services.contactCenter.title' | translate }}</a></li>
+          <li><a routerLink="/services" fragment="procurement-operator" class="footer-link">{{ 'services.services.procurementOperator.title' | translate }}</a></li>
+          <li><a routerLink="/services" fragment="it-center" class="footer-link">{{ 'services.services.itCenter.title' | translate }}</a></li>
+          <li><a routerLink="/services" fragment="engineering-center" class="footer-link">{{ 'services.services.engineeringCenter.title' | translate }}</a></li>
         </ul>
       </div>
 
       <!-- Contact -->
       <div class="footer-contact">
-        <h3>{{ 'nav.contacts' | translate }}</h3>
-        <ul class="contact-info">
-          <li>📍 Almaty, Kazakhstan</li>
-          <li>📧 info@ddc.kz</li>
-          <li>📞 +7 (777) 123-45-67</li>
+        <h3>{{ 'footer.officialResources' | translate }}</h3> 
+        
+        <ul class="official-sites-list">
+          @for (site of officialSites; track site.url) {
+            <li>
+              <a [href]="site.url" target="_blank" rel="noopener noreferrer" class="footer-link">
+               {{ site.icon}} {{ site.title | translate }}
+              </a>
+            </li>
+          }
         </ul>
+        <div class="footer-brand">
+        
+        <div class="social-links">
+          @for (social of socialLinks; track social) {
+            <a [href]="social.url" class="social-link glass-effect">
+              {{ social.icon }}
+            </a>
+          }
+        </div>
+      </div>
       </div>
     </div>
 
     <!-- Footer Bottom -->
     <div class="footer-bottom">
-      <p>&copy; {{ currentYear }} DDC KZ. All rights reserved.</p>
+      <p>&copy; {{ currentYear }} DDC KZ. {{ 'footer.rights' | translate }}</p>
       <div class="footer-legal">
-        <a href="#" class="footer-link">Privacy Policy</a>
-        <a href="#" class="footer-link">Terms of Service</a>
+        <a href="#" class="footer-link">{{ 'footer.privacyPolicy' | translate }}</a>
+        <a href="#" class="footer-link">{{ 'footer.termsOfService' | translate }}</a>
       </div>
     </div>
   </div>
