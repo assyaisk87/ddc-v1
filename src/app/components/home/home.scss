@@ -142,10 +142,26 @@
       margin: $spacing-lg 0;
     }
   .voice-control-btn {
-      position: absolute;
-      bottom: -10px;
-      right: 60px;
-      z-index: 10;
+      display: inline-flex;
+          align-items: center;
+          gap: $spacing-xs;
+          padding: $spacing-sm $spacing-md;
+          background: $gradient-primary;
+          color: $text-primary;
+          border: none;
+          border-radius: $radius-full;
+          font-size: 0.875rem;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all $transition-base;
+          box-shadow: $shadow-md;
+          align-self: flex-start;
+          margin-top: $spacing-md;
+          position: absolute;
+          bottom: -75px;
+          right: 220px;
+          z-index: 10;
+          
     @include tablet {
         bottom: 10px;
         right: 10px;
