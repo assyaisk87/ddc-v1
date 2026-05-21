@@ -48,16 +48,18 @@
             </li>
           }
         </ul>
-        <div class="footer-brand">
-        
+               
+
         <div class="social-links">
           @for (social of socialLinks; track social) {
-            <a [href]="social.url" class="social-link glass-effect">
-              {{ social.icon }}
+            <a [href]="social.url" target="_blank" rel="noopener noreferrer" class="social-link glass-effect">
+              <img
+              [src]="social.icon"
+              [alt]="social.title"
+              class="social-icon"    />
             </a>
           }
         </div>
-      </div>
       </div>
     </div>
 

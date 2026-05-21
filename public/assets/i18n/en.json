@@ -164,19 +164,24 @@
         "info": {
             "address": {
                 "title": "Address",
-                "text": "Almaty, Kazakhstan\nFinancial District, Building 12"
+                "text": "Z05T8F6, Kazakhstan\nAstana, Mangilik El Ave, 57A"
             },
             "email": {
                 "title": "Email",
-                "text": "info@ddc.kz\nsupport@ddc.kz"
+                "text": "info@bsbnb.kz"
             },
             "phone": {
                 "title": "Phone",
-                "text": "+7 (777) 123-45-67\n+7 (727) 123-45-67"
+                "text": "+7 (727) 258-49-58"
             },
             "hours": {
                 "title": "Working Hours",
-                "text": "Mon - Fri: 9:00 - 18:00\nSat - Sun: Closed"
+                "text": "Mon - Fri: 9:00 - 18:30\nSat - Sun: Closed"
+            },
+                        "social": {
+                "title": "Social Media",
+                "instagram": "https://www.instagram.com/bsbnb.kz/",
+                "instagramText": "Instagram"
             }
         }
     },
@@ -196,10 +201,18 @@
             "default": "I can help you learn more about our projects and technologies. Feel free to ask about our solutions, team, or partnership opportunities!"
         }
     },
-    "footer": {
-        "poweredBy": "Powered By",
-        "officialResources": "Official Resources"
-    },
+        "footer": {
+            "poweredBy": "Powered By",
+            "officialResources": "Official Resources",
+            "socialMedia": "Social Media",
+            "rights": "All rights reserved.",
+            "privacyPolicy": "Privacy Policy",
+            "termsOfService": "Terms of Service",
+            "contact": "Contact Information",
+            "phone": "Phone",
+            "email": "Email",
+            "address": "Address"
+        },
     "directorsBoard": {
         "title": "Board of Directors",
         "directors": {

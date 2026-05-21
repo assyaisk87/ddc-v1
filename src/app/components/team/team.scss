@@ -366,6 +366,10 @@
     }
   }
 }
+
+a.btn {
+  text-decoration: none;
+}
 // Buttons
 .btn {
   position: relative;
@@ -402,7 +406,7 @@
     transform: translateX(5px);
   }
   
-  &-primary {
+    &-primary {
     background: $gradient-primary;
     color: $text-primary;
     

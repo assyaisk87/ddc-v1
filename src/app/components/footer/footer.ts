@@ -27,9 +27,8 @@ export class Footer {
   ];
 
    socialLinks = [
-    { icon: '📱', url: '#' },
-    { icon: '💼', url: '#' },
-    { icon: '🐦', url: '#' },
-    { icon: '📺', url: '#' }
+    { icon: 'icons/instagram.svg', url: 'https://www.instagram.com/bsbnb.kz/', title: 'Instagram' },
+    { icon: 'icons/telegram.svg', url: '', title: 'Telegram' },
+    { icon: 'icons/mail.png', url: 'mailto:info@bsbnb.kz', title: 'Mail' },
   ];
 }

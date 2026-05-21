@@ -304,10 +304,22 @@
           color: $text-primary;
         }
 
-        .info-text {
+                .info-text {
           font-size: 1rem;
           color: $text-muted;
           line-height: 1.6;
+
+          a {
+            color: $primary-color;
+            text-decoration: none;
+            transition: color $transition-base;
+            font-weight: 600;
+
+            &:hover {
+              color: #00F0FF;
+              text-decoration: underline;
+            }
+          }
         }
       }
     }
