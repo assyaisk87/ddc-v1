@@ -412,9 +412,11 @@ a.btn {
   }
 }
 
-// Powered By Section
+// Powered By Section with Animated Tracks
 .powered-by-section {
   padding: $spacing-3xl 0;
+  position: relative;
+  overflow: hidden;
   
   .section-header {
     text-align: center;
@@ -448,86 +450,290 @@ a.btn {
     }
   }
   
-  .powered-by-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: $spacing-xl;
+  .powered-by-animation-container {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
     
-    @include tablet {
-      grid-template-columns: repeat(2, 1fr);
+    // Central monitor
+    .monitor-container {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 10;
+      
+      .monitor {
+        position: relative;
+        width: 250px;
+        height: 200px;
+        
+        .monitor-screen {
+          position: relative;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(123, 44, 191, 0.1));
+          border: 2px solid rgba(0, 212, 255, 0.3);
+          border-radius: $radius-lg;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          box-shadow: 0 0 60px rgba(0, 212, 255, 0.2), inset 0 0 30px rgba(0, 212, 255, 0.1);
+          overflow: hidden;
+          
+          .monitor-glow {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at center, rgba(0, 212, 255, 0.3), transparent 70%);
+            animation: monitor-glow 3s ease-in-out infinite;
+          }
+          
+          .monitor-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            
+            .monitor-icon {
+              font-size: 2.5rem;
+              display: block;
+              margin-bottom: $spacing-xs;
+              animation: float 3s ease-in-out infinite;
+            }
+            
+            .monitor-text {
+              font-size: 0.875rem;
+              font-weight: 600;
+              color: $primary-color;
+              letter-spacing: 2px;
+            }
+          }
+        }
+        
+        .monitor-stand {
+  position: absolute;
+  bottom: -42px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 42px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+// ножка
+.monitor-stand::before {
+  content: '';
+  width: 14px;
+  height: 28px;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 212, 255, 0.6),
+    rgba(0, 212, 255, 0.15)
+  );
+  border-radius: 6px;
+  box-shadow: 0 0 20px rgba(0, 212, 255, 0.25);
+}
+
+// основание
+.monitor-stand::after {
+  content: '';
+  width: 90px;
+  height: 10px;
+  margin-top: 6px;
+
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(0, 212, 255, 0.25);
+  border-radius: 20px;
+
+  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+      }
     }
+  }
     
-    @include mobile {
-      grid-template-columns: 1fr;
+    // =========================
+// TRACK WRAPPERS
+// =========================
+
+.track-left-wrapper,
+.track-right-wrapper {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 220px;
+  overflow: hidden;
+  z-index: 1;
+  width: calc(50% - 120px);
+}
+
+.track-left-wrapper {
+  left: 0;
+}
+
+.track-right-wrapper {
+  right: 0;
+}
+
+
+// =========================
+// TRACK
+// =========================
+
+.track {
+  position: absolute;
+  top: 50%;
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  width: max-content;
+  will-change: transform;
+  transform: translateY(-50%);
+}
+
+
+// =========================
+// LEFT TRACK
+// =========================
+
+.track-left {
+  left: 0;
+  animation: move-left-track 60s linear infinite;
+}
+
+
+// =========================
+// RIGHT TRACK
+// =========================
+
+.track-right {
+  right: 0;
+  animation: move-right-track 60s linear infinite;
+}
+
+
+// =========================
+// CARDS
+// =========================
+
+.track-card {
+  flex-shrink: 0;
+
+  width: 120px;
+  height: 120px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  padding: $spacing-lg;
+
+  border-radius: $radius-xl;
+
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+
+  border: 1px solid rgba(255, 255, 255, 0.06);
+
+  transition:
+    transform 0.4s ease,
+    border-color 0.4s ease,
+    box-shadow 0.4s ease;
+
+  overflow: hidden;
+  position: relative;
+
+  backface-visibility: hidden;
+
+  --card-accent: #00D4FF;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+
+    background: linear-gradient(
+      135deg,
+      var(--card-accent) 0%,
+      transparent 100%
+    );
+
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    mix-blend-mode: overlay;
+  }
+
+  &:hover {
+    transform: translateY(-8px) scale(1.05);
+    border-color: var(--card-accent);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.35);
+
+    &::before {
+      opacity: 0.3;
     }
-    
-    .powered-by-card {
-      position: relative;
-      padding: $spacing-xl;
-      border-radius: $radius-xl;
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      transition: all $transition-base;
-      overflow: hidden;
-      
-      --card-accent: #00D4FF;
-      
-      &::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(
-          135deg,
-          var(--card-accent, $primary-color) 0%,
-          transparent 100%
-        );
-        opacity: 0;
-        transition: opacity $transition-base;
-        mix-blend-mode: overlay;
-      }
-      
-      &:hover {
-        transform: translateY(-8px);
-        border-color: var(--card-accent, $primary-color);
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-        
-        &::before {
-          opacity: 0.3;
-        }
-        
-        .partner-icon {
-          transform: scale(1.2) rotate(5deg);
-        }
-        
-        .partner-info h4 {
-          color: var(--card-accent, $primary-color);
-        }
-      }
-      
-      .partner-icon {
-        font-size: 3rem;
-        margin-bottom: $spacing-md;
-        transition: all $transition-base;
-        filter: grayscale(0.3);
-      }
-      
-      .partner-info {
-        h4 {
-          font-family: $font-display;
-          font-size: 1.25rem;
-          font-weight: 600;
-          margin-bottom: $spacing-xs;
-          color: $text-primary;
-          transition: color $transition-base;
-        }
-        
-        p {
-          color: $text-muted;
-          font-size: 0.9rem;
-          line-height: 1.5;
-        }
-      }
+  }
+
+  .partner-icon {
+    font-size: 3rem;
+    margin-bottom: $spacing-md;
+  }
+
+  .partner-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    h4 {
+      font-size: 1rem;
+      margin-bottom: $spacing-xs;
+    }
+
+    p {
+      font-size: 0.75rem;
+      line-height: 1.3;
+      max-width: 140px;
     }
   }
 }
 
+// =========================
+// ANIMATIONS
+// =========================
+
+@keyframes move-left-track {
+  from {
+    transform: translate(-100%, -50%);
+  }
+
+  to {
+    transform: translate(0%, -50%);
+  }
+}
+
+@keyframes move-right-track {
+  from {
+    transform: translate(100%, -50%);
+  }
+
+  to {
+    transform: translate(0%, -50%);
+  }
+}
+
+
+// =========================
+// MONITOR
+// =========================
+
+.monitor-container {
+  z-index: 20;
+  pointer-events: none;
+}
+}

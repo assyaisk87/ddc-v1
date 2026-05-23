@@ -105,24 +105,75 @@
     </div>
   </section>
 
-  <!-- Powered By Section -->
-  <section class="powered-by-section container">
+  <!-- Powered By Section with Animated Tracks -->
+  <section class="powered-by-section">
     <div class="section-header">
       <span class="section-badge glass-effect">{{ 'footer.poweredBy' | translate }}</span>
       <h2 class="section-title powered-by-title">{{ 'footer.poweredBy' | translate }}</h2>
       <p class="section-description">Modern technologies powering our solutions</p>
     </div>
     
-    <div class="powered-by-grid">
-      @for (partner of poweredByPartners; track partner.name) {
-        <div class="powered-by-card" [style."--card-accent"]="partner.color">
-          <div class="partner-icon">{{ partner.icon }}</div>
-          <div class="partner-info">
-            <h4>{{ partner.name }}</h4>
-            <p>{{ partner.description }}</p>
+    <!-- Animated tracks container -->
+    <div class="powered-by-animation-container">
+      <!-- Central monitor -->
+      <div class="monitor-container">
+        <div class="monitor">
+          <div class="monitor-screen">
+            <div class="monitor-glow"></div>
+            <div class="monitor-content">
+              <span class="monitor-icon">💻</span>
+              <span class="monitor-text">Powered By</span>
+            </div>
           </div>
+          <div class="monitor-stand"></div>
         </div>
-      }
+      </div>
+
+      <!-- Left track (cards move from left to right) -->
+      <div class="track-left-wrapper">
+      <div class="track track-left">
+        @for (partner of poweredByPartners; track partner.name; let i = $index) {
+          <div class="track-card">
+            <div class="partner-icon">{{ partner.icon }}</div>
+            <div class="partner-info">
+              <h4>{{ partner.name }}</h4>
+            </div>
+          </div>
+        }
+        <!-- Duplicate cards for seamless loop -->
+        @for (partner of poweredByPartners; track partner.name + '_dup'; let i = $index) {
+          <div class="track-card" >
+            <div class="partner-icon">{{ partner.icon }}</div>
+            <div class="partner-info">
+              <h4>{{ partner.name }}</h4>
+            </div>
+          </div>
+        }
+        </div>
+      </div>
+
+      <!-- Right track (cards move from right to left) -->
+      <div class="track-right-wrapper">
+  <div class="track track-right">
+        @for (partner of poweredByPartners; track partner.name; let i = $index) {
+          <div class="track-card" >
+            <div class="partner-icon">{{ partner.icon }}</div>
+            <div class="partner-info">
+              <h4>{{ partner.name }}</h4>
+            </div>
+          </div>
+        }
+        <!-- Duplicate cards for seamless loop -->
+        @for (partner of poweredByPartners; track partner.name + '_dup'; let i = $index) {
+          <div class="track-card" >
+            <div class="partner-icon">{{ partner.icon }}</div>
+            <div class="partner-info">
+              <h4>{{ partner.name }}</h4>
+            </div>
+          </div>
+        }
+      </div>
+      </div>
     </div>
   </section>
 

@@ -49,29 +49,270 @@ export class Home implements OnInit, AfterViewInit, OnDestroy {
   ];
 
   poweredByPartners = [
+    // Frontend Technologies
     {
       name: 'Angular',
       description: 'Modern web framework',
       icon: '⚡',
-      color: '#00D4FF'
+      color: '#DD0031',
+      category: 'Frontend'
+    },
+    {
+      name: 'React',
+      description: 'UI library',
+      icon: '⚛️',
+      color: '#61DAFB',
+      category: 'Frontend'
+    },
+    {
+      name: 'Vue.js',
+      description: 'Progressive framework',
+      icon: '🟢',
+      color: '#42B883',
+      category: 'Frontend'
     },
     {
       name: 'TypeScript',
       description: 'Typed JavaScript',
       icon: '🔷',
-      color: '#7B2CBF'
-    },
-    {
-      name: 'RxJS',
-      description: 'Reactive programming',
-      icon: '🔀',
-      color: '#FF006E'
+      color: '#3178C6',
+      category: 'Frontend'
     },
     {
       name: 'SCSS',
       description: 'CSS preprocessing',
       icon: '🎨',
-      color: '#00FFA3'
+      color: '#CD6799',
+      category: 'Frontend'
+    },
+    {
+      name: 'Tailwind',
+      description: 'Utility-first CSS',
+      icon: '💨',
+      color: '#38B2AC',
+      category: 'Frontend'
+    },
+
+    // Backend Technologies
+    {
+      name: 'Node.js',
+      description: 'JavaScript runtime',
+      icon: '🟢',
+      color: '#339933',
+      category: 'Backend'
+    },
+    {
+      name: 'Express',
+      description: 'Web framework',
+      icon: '🚂',
+      color: '#4GP1FD',
+      category: 'Backend'
+    },
+    {
+      name: 'NestJS',
+      description: 'Enterprise framework',
+      icon: '🔷',
+      color: '#E34733',
+      category: 'Backend'
+    },
+    {
+      name: 'Python',
+      description: 'Versatile language',
+      icon: '🐍',
+      color: '#3776AB',
+      category: 'Backend'
+    },
+    {
+      name: 'Java',
+      description: 'Enterprise platform',
+      icon: '☕',
+      color: '#007396',
+      category: 'Backend'
+    },
+    {
+      name: 'Go',
+      description: 'Concurrent language',
+      icon: '🔵',
+      color: '#00ADD8',
+      category: 'Backend'
+    },
+
+    // Databases
+    {
+      name: 'PostgreSQL',
+      description: 'Relational database',
+      icon: '🐘',
+      color: '#336791',
+      category: 'Databases'
+    },
+    {
+      name: 'MongoDB',
+      description: 'NoSQL database',
+      icon: '🍃',
+      color: '#47A248',
+      category: 'Databases'
+    },
+    {
+      name: 'Redis',
+      description: 'In-memory store',
+      icon: '🔴',
+      color: '#DC382D',
+      category: 'Databases'
+    },
+    {
+      name: 'MySQL',
+      description: 'Open-source RDBMS',
+      icon: '🐬',
+      color: '#4479A1',
+      category: 'Databases'
+    },
+    {
+      name: 'Elasticsearch',
+      description: 'Search engine',
+      icon: '🔍',
+      color: '#005571',
+      category: 'Databases'
+    },
+
+    // DevOps & Infrastructure
+    {
+      name: 'Docker',
+      description: 'Container platform',
+      icon: '🐳',
+      color: '#2496ED',
+      category: 'DevOps'
+    },
+    {
+      name: 'Kubernetes',
+      description: 'Container orchestration',
+      icon: '☸️',
+      color: '#326CE5',
+      category: 'DevOps'
+    },
+    {
+      name: 'AWS',
+      description: 'Cloud platform',
+      icon: '☁️',
+      color: '#FF9900',
+      category: 'Infrastructure'
+    },
+    {
+      name: 'Azure',
+      description: 'Microsoft cloud',
+      icon: '🔵',
+      color: '#0089D6',
+      category: 'Infrastructure'
+    },
+    {
+      name: 'GCP',
+      description: 'Google cloud',
+      icon: '🌈',
+      color: '#4285F4',
+      category: 'Infrastructure'
+    },
+    {
+      name: 'Terraform',
+      description: 'Infrastructure as code',
+      icon: '🏗️',
+      color: '#7B42BC',
+      category: 'DevOps'
+    },
+    {
+      name: 'Jenkins',
+      description: 'CI/CD automation',
+      icon: '🚀',
+      color: '#D33833',
+      category: 'DevOps'
+    },
+
+    // Data & Analytics
+    {
+      name: 'Apache Kafka',
+      description: 'Event streaming',
+      icon: '🦛',
+      color: '#231F20',
+      category: 'Data & Analytics'
+    },
+    {
+      name: 'Apache Spark',
+      description: 'Big data processing',
+      icon: '⚡',
+      color: '#E25A19',
+      category: 'Data & Analytics'
+    },
+    {
+      name: 'Tableau',
+      description: 'Data visualization',
+      icon: '📊',
+      color: '#E97627',
+      category: 'Data & Analytics'
+    },
+    {
+      name: 'Power BI',
+      description: 'Business analytics',
+      icon: '📈',
+      color: '#F2C811',
+      category: 'Data & Analytics'
+    },
+
+    // AI & Machine Learning
+    {
+      name: 'TensorFlow',
+      description: 'ML framework',
+      icon: '🧠',
+      color: '#FF6F00',
+      category: 'AI & ML'
+    },
+    {
+      name: 'PyTorch',
+      description: 'Deep learning',
+      icon: '🔥',
+      color: '#EE4C2C',
+      category: 'AI & ML'
+    },
+    {
+      name: 'OpenAI',
+      description: 'AI research',
+      icon: '🤖',
+      color: '#000000',
+      category: 'AI & ML'
+    },
+    {
+      name: 'Scikit-learn',
+      description: 'ML library',
+      icon: '📚',
+      color: '#F7931E',
+      category: 'AI & ML'
+    },
+
+    // Additional Tools
+    {
+      name: 'Git',
+      description: 'Version control',
+      icon: '📝',
+      color: '#F05032',
+      category: 'DevOps'
+    },
+    {
+      name: 'GraphQL',
+      description: 'Query language',
+      icon: '◈',
+      color: '#E10098',
+      category: 'Backend'
+    },
+    {
+      name: 'WebSocket',
+      description: 'Real-time communication',
+      icon: '🔌',
+      color: '#00D4FF',
+      category: 'Frontend'
+    },
+    {
+      name: 'RxJS',
+      description: 'Reactive programming',
+      icon: '🔀',
+      color: '#C5221F',
+      category: 'Frontend'
     }
   ];
 
