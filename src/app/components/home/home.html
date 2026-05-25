@@ -26,7 +26,6 @@
             <span class="btn-shimmer"></span>
             <span class="btn-arrow">→</span>
           </a>
-          <!-- <button class="btn btn-secondary glass-effect magnetic"> -->
             <a routerLink="/projects" class="btn btn-secondary glow-effect magnetic">
             <span class="btn-text">
               <span class="btn-play">▶</span>
@@ -42,7 +41,7 @@
               <div class="stat-value" [style.color]="stat.color || '#00D4FF'">
                 {{ stat.value }}
               </div>
-              <div class="stat-label">{{ stat.label }}</div>
+              <div class="stat-label">{{ stat.labelKey }}</div>
             </div>
           }
         </div>
@@ -117,7 +116,7 @@
           <div class="monitor-screen">
             <div class="monitor-glow"></div>
             <div class="monitor-content">
-              <span class="monitor-icon">💻</span>
+              <span class="monitor-icon"><img src="icons/code.png" ></span>
               <span class="monitor-text">Powered By</span>
             </div>
           </div>
@@ -125,12 +124,13 @@
         </div>
       </div>
 
-      <!-- Left track (cards move from left to right) -->
       <div class="track-left-wrapper">
       <div class="track track-left">
         @for (partner of poweredByPartners; track partner.name; let i = $index) {
           <div class="track-card" [style.--card-accent]="partner.color">
-            <div class="partner-icon">{{ partner.icon }}</div>
+            <div class="partner-icon">
+              <img [src]=" partner.icon" [alt]="partner.name" class="partner-svg-icon">
+            </div>
             <div class="partner-info">
               <h4>{{ partner.name }}</h4>
             </div>
@@ -139,7 +139,9 @@
         <!-- Duplicate cards for seamless loop -->
         @for (partner of poweredByPartners; track partner.name + '_dup'; let i = $index) {
           <div class="track-card" [style.--card-accent]="partner.color">
-            <div class="partner-icon">{{ partner.icon }}</div>
+            <div class="partner-icon">
+              <img [src]=" partner.icon" [alt]="partner.name" class="partner-svg-icon">
+            </div>
             <div class="partner-info">
               <h4>{{ partner.name }}</h4>
             </div>
@@ -153,7 +155,9 @@
   <div class="track track-right">
         @for (partner of poweredByPartners; track partner.name; let i = $index) {
           <div class="track-card" [style.--card-accent]="partner.color">
-            <div class="partner-icon">{{ partner.icon }}</div>
+            <div class="partner-icon">
+              <img [src]=" partner.icon" [alt]="partner.name" class="partner-svg-icon">
+            </div>
             <div class="partner-info">
               <h4>{{ partner.name }}</h4>
             </div>
@@ -162,7 +166,9 @@
         <!-- Duplicate cards for seamless loop -->
         @for (partner of poweredByPartners; track partner.name + '_dup'; let i = $index) {
           <div class="track-card" [style.--card-accent]="partner.color">
-            <div class="partner-icon">{{ partner.icon }}</div>
+            <div class="partner-icon">
+              <img [src]=" partner.icon" [alt]="partner.name" class="partner-svg-icon">
+            </div>
             <div class="partner-info">
               <h4>{{ partner.name }}</h4>
             </div>
@@ -173,5 +179,6 @@
     </div>
   </section>
 
-  
+
 </div>
+
