@@ -36,7 +36,7 @@
           </a>
         </div>
 
-        <div class="hero-stats">
+        <div class="hero-status-grid">
           @for (stat of stats; track stat) {
             <div class="stat-item glass-effect">
               <div class="stat-value" [style.color]="stat.color || '#00D4FF'">
@@ -63,11 +63,7 @@
                 <span class="audio-icon">{{ isPlaying ? '🔇' : '🔊' }}</span>
                 <span class="audio-text">{{ isPlaying ? 'Остановить' : 'Слушать' }}</span>
             </span>
-            <span class="voice-wave" *ngIf="isPlaying">
-              <span class="wave-bar"></span>
-              <span class="wave-bar"></span>
-              <span class="wave-bar"></span>
-            </span>
+           
           </button>
         </div>
       </div>
@@ -81,12 +77,12 @@
     </div>
   </section>
 
-  <!-- Features Section -->
+  <!-- System Modules Section -->
   <section class="features-section container">
     <div class="section-header">
-      <span class="section-badge glass-effect">{{ 'nav.achievements' | translate }}</span>
-      <h2 class="section-title">{{ 'home.features.title1' | translate }}</h2>
-      <p class="section-description">Advanced solutions for modern banking</p>
+      <span class="section-badge glass-effect">{{ 'nav.mission' | translate }}</span>
+      <h2 class="section-title">Intelligent infrastructure for mission-critical operations</h2>
+      <p class="section-description">AI-driven engines shaping secure, autonomous digital services.</p>
     </div>
     
     <div class="features-grid">
@@ -98,14 +94,14 @@
           <h3 class="feature-title">{{ feature.titleKey | translate }}</h3>
           <p class="feature-description">{{ feature.descKey | translate }}</p>
           <div class="feature-link" [style.color]="feature.color">
-            Learn More →
+            View Module →
           </div>
         </div>
       }
     </div>
   </section>
 
-  <!-- Powered By Section with Animated Tracks -->
+  <!-- Neural Fabric Section with Animated Tracks -->
   <section class="powered-by-section">
     <div class="section-header">
       <span class="section-badge glass-effect">{{ 'footer.poweredBy' | translate }}</span>
@@ -133,7 +129,7 @@
       <div class="track-left-wrapper">
       <div class="track track-left">
         @for (partner of poweredByPartners; track partner.name; let i = $index) {
-          <div class="track-card">
+          <div class="track-card" [style.--card-accent]="partner.color">
             <div class="partner-icon">{{ partner.icon }}</div>
             <div class="partner-info">
               <h4>{{ partner.name }}</h4>
@@ -142,7 +138,7 @@
         }
         <!-- Duplicate cards for seamless loop -->
         @for (partner of poweredByPartners; track partner.name + '_dup'; let i = $index) {
-          <div class="track-card" >
+          <div class="track-card" [style.--card-accent]="partner.color">
             <div class="partner-icon">{{ partner.icon }}</div>
             <div class="partner-info">
               <h4>{{ partner.name }}</h4>
@@ -156,7 +152,7 @@
       <div class="track-right-wrapper">
   <div class="track track-right">
         @for (partner of poweredByPartners; track partner.name; let i = $index) {
-          <div class="track-card" >
+          <div class="track-card" [style.--card-accent]="partner.color">
             <div class="partner-icon">{{ partner.icon }}</div>
             <div class="partner-info">
               <h4>{{ partner.name }}</h4>
@@ -165,7 +161,7 @@
         }
         <!-- Duplicate cards for seamless loop -->
         @for (partner of poweredByPartners; track partner.name + '_dup'; let i = $index) {
-          <div class="track-card" >
+          <div class="track-card" [style.--card-accent]="partner.color">
             <div class="partner-icon">{{ partner.icon }}</div>
             <div class="partner-info">
               <h4>{{ partner.name }}</h4>
