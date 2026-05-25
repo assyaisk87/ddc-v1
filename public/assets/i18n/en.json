@@ -108,17 +108,18 @@
         }
     },
     "achievements": {
-        "title": "Our Achievements",
-        "subtitle": "Recognized Excellence in Fintech",
-        "stat1": "50+",
-        "stat2": "100M+",
-        "stat3": "99.9%",
-        "stat4": "15+",
-        "label1": "Banking Partners",
-        "label2": "Transactions Processed",
-        "label3": "Uptime Guarantee",
-        "label4": "Awards Received"
-    },
+            "title": "Awards & Recognition",
+            "subtitle": "Our Journey of Excellence",
+            "historySubtitle": "History and Evolution",
+            "statLabels": {
+                "years": "Years of Development",
+                "partners": "Banking Partners",
+                "uptime": "Uptime %",
+                "standards": "International Standards",
+                "specialists": "Specialists",
+                "projects": "Key Projects"
+            }
+        },
     "team": {
         "title": "Leadership Team",
         "subtitle": "Visionaries Driving Innovation",
@@ -242,8 +243,12 @@
             }
         }
     },
-    "ceo": {
-        "title": "Management Board",
+    "partners": {
+            "badge": "Trusted By",
+            "title": "Our Banking Partners"
+        },
+        "ceo": {
+            "title": "Management Board",
         "mainCeo": {
             "name": "Amaradinov Malik Alimzhanovich",
             "position": "Board Member - Chairman of the Management Board",

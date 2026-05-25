@@ -1,6 +1,7 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
+import { ACHIEVEMENTS_DATA, STATS_DATA } from '../../data/achievements-data';
 
 export interface Achievement {
   id: number;
@@ -28,66 +29,8 @@ export interface Stat {
   styleUrl: './achievements.scss'
 })
 export class Achievements implements OnInit, AfterViewInit {
-  achievements: Achievement[] = [
-    {
-      id: 1,
-      title: 'Best Fintech Solution 2024',
-      description: 'Awarded for innovative banking platform development',
-      year: '2024',
-      icon: '🏆',
-      color: '#FFD700'
-    },
-    {
-      id: 2,
-      title: 'Digital Transformation Leader',
-      description: 'Recognized for leading digital banking initiatives',
-      year: '2024',
-      icon: '🚀',
-      color: '#00D4FF'
-    },
-    {
-      id: 3,
-      title: 'Best AI Integration',
-      description: 'Excellence in AI-powered banking solutions',
-      year: '2023',
-      icon: '🤖',
-      color: '#7B2CBF'
-    },
-    {
-      id: 4,
-      title: 'Security Excellence Award',
-      description: 'Top-rated security implementation in fintech',
-      year: '2023',
-      icon: '🔒',
-      color: '#00FFA3'
-    },
-    {
-      id: 5,
-      title: 'Innovation in Blockchain',
-      description: 'Pioneer in blockchain banking solutions',
-      year: '2023',
-      icon: '⛓️',
-      color: '#FF006E'
-    },
-    {
-      id: 6,
-      title: 'Customer Experience Award',
-      description: 'Best user experience in mobile banking',
-      year: '2022',
-      icon: '⭐',
-      color: '#FFB800'
-    }
-  ];
-
-  stats: Stat[] = [
-    { id: 1, value: 0, target: 50, label: 'Banking Partners', icon: '🏦', suffix: '+' },
-    { id: 2, value: 0, target: 100, label: 'Million Transactions', icon: '💳', suffix: 'M+' },
-    { id: 3, value: 0, target: 99, label: 'Uptime %', icon: '⚡', suffix: '.9%' },
-    { id: 4, value: 0, target: 15, label: 'Awards Won', icon: '🏆', suffix: '+' },
-    { id: 5, value: 0, target: 500, label: 'Team Members', icon: '👥', suffix: '+' },
-    { id: 6, value: 0, target: 10, label: 'Years Experience', icon: '📅', suffix: '+' }
-  ];
-
+  achievements = ACHIEVEMENTS_DATA;
+  stats = STATS_DATA;
   hasAnimated = false;
 
   ngOnInit() {
@@ -144,3 +87,4 @@ export class Achievements implements OnInit, AfterViewInit {
     return colors[statId] || '#00D4FF';
   }
 }
+
