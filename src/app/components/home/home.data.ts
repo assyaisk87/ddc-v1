@@ -18,25 +18,82 @@ export interface Partner {
   color: string;
   category: string;
 }
+export type CenterValue = {
+  letter: string;
+  nameKey: string;
+  descKey: string;
+  color: string;
+};
+
+export const centerValues: CenterValue[] = [
+  {
+    letter: 'C',
+    nameKey: 'home.center.commitment.name',
+    descKey: 'home.center.commitment.desc',
+    color: '#00D4FF'
+  },
+  {
+    letter: 'E',
+    nameKey: 'home.center.excellence.name',
+    descKey: 'home.center.excellence.desc',
+    color: '#7B2CBF'
+  },
+  {
+    letter: 'N',
+    nameKey: 'home.center.noblame.name',
+    descKey: 'home.center.noblame.desc',
+    color: '#FF006E'
+  },
+  {
+    letter: 'T',
+    nameKey: 'home.center.team.name',
+    descKey: 'home.center.team.desc',
+    color: '#00FFA3'
+  },
+  {
+    letter: 'E',
+    nameKey: 'home.center.efficiency.name',
+    descKey: 'home.center.efficiency.desc',
+    color: '#FFA500'
+  },
+  {
+    letter: 'R',
+    nameKey: 'home.center.result.name',
+    descKey: 'home.center.result.desc',
+    color: '#FF6B00'
+  }
+];
 export const features: Feature[] = [
-   {
-      icon: '🤖',
-      titleKey: 'home.features.title1',
-      descKey: 'home.features.desc1',
-      color: '#00D4FF'
-    },
-    {
-      icon: '⛓️',
-      titleKey: 'home.features.title2',
-      descKey: 'home.features.desc2',
-      color: '#7B2CBF'
-    },
-    {
-      icon: '⚡',
-      titleKey: 'home.features.title3',
-      descKey: 'home.features.desc3',
-      color: '#FF006E'
-    }
+  {
+    icon: '💻',
+    titleKey: 'home.features.title1',
+    descKey: 'home.features.desc1',
+    color: '#00A8FF'
+  },
+  {
+    icon: '📊',
+    titleKey: 'home.features.title2',
+    descKey: 'home.features.desc2',
+    color: '#7B2CBF'
+  },
+  {
+    icon: '☁️',
+    titleKey: 'home.features.title3',
+    descKey: 'home.features.desc3',
+    color: '#00C48C'
+  },
+  {
+    icon: '🔐',
+    titleKey: 'home.features.title4',
+    descKey: 'home.features.desc4',
+    color: '#FF6B6B'
+  },
+  {
+    icon: '📈',
+    titleKey: 'home.features.title5',
+    descKey: 'home.features.desc5',
+    color: '#FFB020'
+  }
 ];
 
 export const stats: Stat[] = [

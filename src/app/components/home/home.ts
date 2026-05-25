@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, OnDestroy, Renderer2, Inject, ElementRef } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy, Renderer2, Inject, ElementRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
@@ -6,14 +6,14 @@ import { RouterLink } from '@angular/router';
 import { AiAvatarComponent } from '../ai-avatar/ai-avatar.component';
 import { DOCUMENT } from '@angular/common';
 import { KineticTextService } from '../../services/kinetic-text.service';
-import { features, stats, technologies, poweredByPartners } from './home.data';
+import { features, stats, technologies, poweredByPartners, centerValues as centerData, CenterValue } from './home.data';
 
 @Component({
   selector: 'app-home',
   standalone: true,
   imports: [CommonModule, FormsModule, TranslateModule, RouterLink, AiAvatarComponent],
   templateUrl: './home.html',
-  styleUrl: './home.scss'
+  styleUrls: ['./home.scss']
 })
 export class Home implements OnInit, AfterViewInit, OnDestroy {
   // Import data from separate file
@@ -24,6 +24,14 @@ export class Home implements OnInit, AfterViewInit, OnDestroy {
 
   isPlaying = false;
   hasInteracted = false;
+  @ViewChild('centerSection') centerSection!: ElementRef;
+  centerVisible = false;
+
+  // CENTER Framework values (loaded from home.data)
+  centerValues: CenterValue[] = centerData;
+
+  activeCenterIndex: number | null = null;
+  hoveredCenterIndex: number | null = null;
 
   constructor(
     private renderer: Renderer2,
@@ -40,6 +48,8 @@ export class Home implements OnInit, AfterViewInit, OnDestroy {
     poweredByTitles.forEach((title: Element) => {
       this.kineticService.registerElement(title as HTMLElement);
     });
+
+    this.observeCenterAnimation();
   }
 
   // Toggle AI voice greeting
@@ -135,5 +145,38 @@ export class Home implements OnInit, AfterViewInit, OnDestroy {
       // Ignore cleanup errors
     }
   }
+
+  // CENTER Framework interaction methods
+  onCenterMouseEnter(index: number): void {
+    this.hoveredCenterIndex = index;
+    this.activeCenterIndex = index;
+  }
+
+  onCenterMouseLeave(): void {
+    this.hoveredCenterIndex = null;
+    this.activeCenterIndex = null;
+  }
+
+  observeCenterAnimation(): void {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            this.centerVisible = true;
+            observer.disconnect();
+          }
+        });
+      },
+      {
+        threshold: 0.35
+      }
+    );
+
+    if (this.centerSection?.nativeElement) {
+      observer.observe(this.centerSection.nativeElement);
+    }
+  }
 }
+
+
 

@@ -41,7 +41,7 @@
               <div class="stat-value" [style.color]="stat.color || '#00D4FF'">
                 {{ stat.value }}
               </div>
-              <div class="stat-label">{{ stat.labelKey }}</div>
+              <div class="stat-label">{{ stat.labelKey | translate }}</div>
             </div>
           }
         </div>
@@ -76,12 +76,45 @@
     </div>
   </section>
 
+  <!-- CENTER Framework - Mission & Values -->
+  <section class="features-section container">
+    <div class="section-header">
+      <span class="section-badge glass-effect">{{ 'footer.aboutus' | translate }}</span>
+      <h2 class="section-title ">DIGITAL DEVELOPMENT</h2>
+    </div>
+
+    <div class="center-word"
+         #centerSection
+         [class.animate]="centerVisible">
+
+      @for (value of centerValues; track value; let i = $index) {
+        <div class="center-letter-card"
+             [style.--delay]="i">
+
+          <div class="letter-box">
+            <span class="letter">
+              {{ value.letter }}
+            </span>
+          </div>
+
+          <div class="letter-tooltip glass-effect">
+            <h4>{{ value.nameKey | translate }}</h4>
+            <p>{{ value.descKey | translate }}</p>
+          </div>
+        </div>
+      }
+
+    </div>
+
+    
+  </section>
+
   <!-- System Modules Section -->
   <section class="features-section container">
     <div class="section-header">
       <span class="section-badge glass-effect">{{ 'nav.mission' | translate }}</span>
-      <h2 class="section-title">Intelligent infrastructure for mission-critical operations</h2>
-      <p class="section-description">AI-driven engines shaping secure, autonomous digital services.</p>
+      <h2 class="hero-subtitle">
+          <span >{{'home.mission'|translate}}</span></h2>
     </div>
     
     <div class="features-grid">
@@ -99,6 +132,8 @@
       }
     </div>
   </section>
+
+  
 
   <!-- Neural Fabric Section with Animated Tracks -->
   <section class="powered-by-section">

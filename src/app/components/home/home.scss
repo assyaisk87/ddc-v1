@@ -73,6 +73,8 @@
   }
 
   .hero-text {
+    display: grid;
+    gap: $spacing-lg;
     .hero-badge {
       display: inline-flex;
       align-items: center;
@@ -541,6 +543,9 @@ a.btn {
       border-radius: $radius-full;
       font-size: 0.875rem;
       margin-bottom: $spacing-md;
+      background: rgba($primary-color, 0.1);
+      color: $primary-color;
+      border: 1px solid rgba($primary-color, 0.2);
     }
     
     .section-title {
@@ -977,4 +982,309 @@ a.btn {
   pointer-events: none;
 }
 
+}
+/* =========================================
+   CENTER TITLE ANIMATION
+========================================= */
+
+/* =========================================
+   CENTER WORD
+========================================= */
+
+.center-word {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 1.2rem;
+  flex-wrap: wrap;
+  margin: 4rem auto;
+  perspective: 1200px;
+}
+
+/* =========================================
+   CARD
+========================================= */
+
+.center-letter-card {
+  position: relative;
+  width: 130px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* =========================================
+   GLASS LETTER BOX
+========================================= */
+
+.letter-box {
+  width: 110px;
+  height: 110px;
+box-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 28px;
+
+  background: rgba(255,255,255,0.04);
+
+  border: 1px solid rgba(255,255,255,0.08);
+
+  backdrop-filter: blur(18px);
+
+
+  transform:
+    translateY(-220px)
+    rotateX(-90deg)
+    scale(0.5);
+
+  opacity: 0;
+
+  transition:
+    transform 0.45s ease,
+    border-color 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+/* =========================================
+   LETTER
+========================================= */
+
+.letter {
+  font-size: 4rem;
+  font-weight: 900;
+  color: #ffffff;
+
+  text-shadow:
+    0 0 12px rgba(0,212,255,0.45);
+}
+
+/* =========================================
+   PLAY ANIMATION WHEN VISIBLE
+========================================= */
+
+.center-word.animate .letter-box {
+  animation: centerDrop 0.9s cubic-bezier(.22,1.4,.36,1) forwards;
+  animation-delay: calc(var(--delay) * 140ms);
+}
+
+/* =========================================
+   HOVER EFFECT
+========================================= */
+
+.center-letter-card:hover .letter-box {
+  transform: translateY(-10px) scale(1.05);
+
+  border-color: rgba(0,212,255,0.45);
+
+  box-shadow:
+    0 20px 60px rgba(0,212,255,0.18),
+    inset 0 1px 1px rgba(255,255,255,0.1);
+}
+
+/* =========================================
+   TOOLTIP
+========================================= */
+
+.letter-tooltip {
+  position: absolute;
+  top: 135px;
+
+  width: 220px;
+
+  padding: 1rem;
+
+  border-radius: 22px;
+
+  background: rgba(15,20,35,0.82);
+
+  backdrop-filter: blur(20px);
+
+  border: 1px solid rgba(255,255,255,0.08);
+
+  opacity: 0;
+
+  transform:
+    translateY(20px)
+    scale(0.92);
+
+  pointer-events: none;
+
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s ease;
+
+  z-index: 20;
+}
+
+.letter-tooltip h4 {
+  color: #00D4FF;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+}
+
+.letter-tooltip p {
+  color: rgba(255,255,255,0.72);
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+/* =========================================
+   SHOW TOOLTIP
+========================================= */
+
+.center-letter-card:hover .letter-tooltip {
+  opacity: 1;
+
+  transform:
+    translateY(0)
+    scale(1);
+}
+
+/* =========================================
+   DROP ANIMATION
+========================================= */
+
+@keyframes centerDrop {
+  0% {
+    opacity: 0;
+    transform:
+      translateY(-220px)
+      rotateX(-90deg)
+      scale(0.5);
+  }
+
+  65% {
+    opacity: 1;
+    transform:
+      translateY(18px)
+      rotateX(8deg)
+      scale(1.06);
+  }
+
+  82% {
+    transform:
+      translateY(-8px)
+      rotateX(-3deg)
+      scale(0.97);
+  }
+
+  100% {
+    opacity: 1;
+    transform:
+      translateY(0)
+      rotateX(0)
+      scale(1);
+  }
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 768px) {
+  .center-word {
+    gap: 0.7rem;
+  }
+
+  .center-letter-card {
+    width: 90px;
+  }
+
+  .letter-box {
+    width: 78px;
+    height: 78px;
+    border-radius: 20px;
+  }
+
+  .letter {
+    font-size: 2.5rem;
+  }
+
+  .letter-tooltip {
+    width: 180px;
+    top: 95px;
+  }
+}
+
+@keyframes center-drop {
+  0% {
+    opacity: 0;
+    transform:
+      translateY(-250px)
+      rotateX(-90deg)
+      scale(0.3);
+  }
+
+  60% {
+    opacity: 1;
+    transform:
+      translateY(30px)
+      rotateX(10deg)
+      scale(1.1);
+  }
+
+  80% {
+    transform:
+      translateY(-10px)
+      rotateX(-4deg)
+      scale(0.96);
+  }
+
+  100% {
+    opacity: 1;
+    transform:
+      translateY(0)
+      rotateX(0)
+      scale(1);
+  }
+}
+
+/* =========================================
+   GRADIENT MOTION
+========================================= */
+
+@keyframes gradient-flow {
+  0% {
+    background-position: 0% center;
+  }
+
+  100% {
+    background-position: 200% center;
+  }
+}
+
+/* =========================================
+   GLOW
+========================================= */
+
+@keyframes glow-pulse {
+  0%, 100% {
+    filter:
+      drop-shadow(0 0 8px rgba(0, 212, 255, 0.35))
+      drop-shadow(0 0 20px rgba(123, 44, 191, 0.2));
+  }
+
+  50% {
+    filter:
+      drop-shadow(0 0 18px rgba(0, 212, 255, 0.8))
+      drop-shadow(0 0 42px rgba(255, 0, 110, 0.45));
+  }
+}
+
+/* =========================================
+   LINE ANIMATION
+========================================= */
+
+@keyframes line-expand {
+  0% {
+    width: 0;
+    opacity: 0;
+  }
+
+  100% {
+    width: 60%;
+    opacity: 1;
+  }
 }

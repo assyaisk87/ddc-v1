@@ -13,12 +13,43 @@
         "description": "We develop cutting-edge banking software solutions that shape the future of finance in Kazakhstan",
         "cta_button": "Learn More",
         "features": {
-            "title1": "AI-Powered Analytics",
-            "title2": "Blockchain Integration",
-            "title3": "Real-time Processing",
-            "desc1": "Advanced machine learning algorithms for fraud detection and risk analysis",
-            "desc2": "Secure and transparent transactions using blockchain technology",
-            "desc3": "High-performance systems processing millions of transactions"
+            "title1": "Software Development & Support",
+            "title2": "Data & AI",
+            "title3": "Infrastructure",
+            "title4": "Cybersecurity",
+            "title5": "PMO & Digital Transformation",
+            "desc1": "Full-cycle software development, maintenance and support services",
+            "desc2": "Data engineering, analytics and AI solutions to unlock business value",
+            "desc3": "Cloud and on-prem infrastructure design, deployment and operations",
+            "desc4": "Security assessments, incident response and continuous protection",
+            "desc5": "Project management office, governance and digital transformation programs"
+        }
+        ,
+        "center": {
+            "commitment": {
+                "name": "Commitment",
+                "desc": "We are fully dedicated to our mission, our team, and our clients' success."
+            },
+            "excellence": {
+                "name": "Excellence",
+                "desc": "We strive for the highest quality in everything we do, never settling for less."
+            },
+            "noblame": {
+                "name": "No Blame",
+                "desc": "We focus on solutions, not faults. Every challenge is a learning opportunity."
+            },
+            "team": {
+                "name": "Team",
+                "desc": "Together we achieve more. Collaboration is the foundation of our success."
+            },
+            "efficiency": {
+                "name": "Efficiency",
+                "desc": "We optimize every process to deliver maximum value with minimal waste."
+            },
+            "result": {
+                "name": "Result",
+                "desc": "Outcomes matter most. We measure success by tangible, impactful results."
+            }
         }
     },
     "services": {
@@ -186,6 +217,12 @@
             }
         }
     },
+    "STATS": {
+        "PARTNERS": "Banking Partners",
+        "TRANSACTIONS": "Transactions Processed",
+        "UPTIME": "Uptime",
+        "AWARDS": "Awards"
+    },
     "greeting": "Good Morning, Start Your Day with the Future",
     "ai": {
         "title": "AI Assistant",
@@ -203,6 +240,7 @@
         }
     },
         "footer": {
+        "aboutus": "About Us",
             "poweredBy": "Powered By",
             "officialResources": "Official Resources",
             "socialMedia": "Social Media",
