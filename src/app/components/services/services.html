@@ -59,17 +59,14 @@
             [class.active]="selectedIndex === i"
             (click)="selectService(i)"
           >
-            <span class="service-list-icon">{{ service.icon }}</span>
-            <span class="service-list-title">{{ service.title }}</span>
+<img src="/icons/services/{{ service?.icon }}.png" alt="{{ selectedService?.title }} Icon">            <span class="service-list-title">{{ service.title }}</span>
           </button>
         }
       </div>
 
       <div class="service-detail-window glass-effect">
         <div class="service-detail-content">
-          <div class="service-detail-icon">
-            {{ selectedService?.icon || '📞' }}
-          </div>
+          <img src="/icons/services/{{ selectedService?.icon }}.png" alt="{{ selectedService?.title }} Icon" class="service-detail-icon">
           <div class="service-detail-info">
             <h3 class="service-detail-title">{{ selectedService?.title }}</h3>
             <p class="service-detail-description">{{ selectedService?.description }}</p>

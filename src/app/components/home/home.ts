@@ -26,6 +26,7 @@ export class Home implements OnInit, AfterViewInit, OnDestroy {
   hasInteracted = false;
   @ViewChild('centerSection') centerSection!: ElementRef;
   centerVisible = false;
+  greeting: { text: string; subtext: string } = { text: '', subtext: '' };
 
   // CENTER Framework values (loaded from home.data)
   centerValues: CenterValue[] = centerData;
@@ -40,7 +41,9 @@ export class Home implements OnInit, AfterViewInit, OnDestroy {
     private kineticService: KineticTextService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.setGreeting();
+  }
 
   ngAfterViewInit(): void {
     // Apply kinetic text effect only to Powered By section titles
@@ -50,6 +53,28 @@ export class Home implements OnInit, AfterViewInit, OnDestroy {
     });
 
     this.observeCenterAnimation();
+  }
+
+   // Dynamic greeting based on time of day
+  setGreeting() {
+    const hour = new Date().getHours();
+    
+    if (hour >= 5 && hour < 12) {
+      this.greeting = { 
+        text: 'Доброе утро', 
+        subtext: 'Начните день с будущего' 
+      };
+    } else if (hour >= 12 && hour < 18) {
+      this.greeting = { 
+        text: 'Добрый день', 
+        subtext: 'Время для инноваций' 
+      };
+    } else {
+      this.greeting = { 
+        text: 'Добрый вечер', 
+        subtext: 'Добро пожаловать в будущее' 
+      };
+    }
   }
 
   // Toggle AI voice greeting

@@ -133,15 +133,14 @@
   <section class="contact-info-section container">
     <div class="info-grid">
       <div class="info-card glass-effect">
-        <div class="info-icon">📍</div>
-        <div class="info-content">
+<img src="/icons/contacts/map.png" alt="Map Icon" class="info-icon">        <div class="info-content">
           <h3 class="info-title">{{ 'contacts.info.address.title' | translate }}</h3>
           <p class="info-text">{{ 'contacts.info.address.text' | translate }}</p>
         </div>
       </div>
 
       <div class="info-card glass-effect">
-        <div class="info-icon">📧</div>
+        <img src="/icons/contacts/mailto.png" alt="Mail Icon" class="info-icon">
         <div class="info-content">
           <h3 class="info-title">{{ 'contacts.info.email.title' | translate }}</h3>
           <p class="info-text">{{ 'contacts.info.email.text' | translate }}</p>
@@ -149,7 +148,7 @@
       </div>
 
       <div class="info-card glass-effect">
-        <div class="info-icon">📞</div>
+        <img src="/icons/contacts/phone.png" alt="Phone Icon" class="info-icon">
         <div class="info-content">
           <h3 class="info-title">{{ 'contacts.info.phone.title' | translate }}</h3>
           <p class="info-text">{{ 'contacts.info.phone.text' | translate }}</p>
@@ -157,7 +156,7 @@
       </div>
 
       <div class="info-card glass-effect">
-        <div class="info-icon">🕐</div>
+<img src="/icons/contacts/calendar.png" alt="calendar Icon" class="info-icon">
         <div class="info-content">
           <h3 class="info-title">{{ 'contacts.info.hours.title' | translate }}</h3>
           <p class="info-text">{{ 'contacts.info.hours.text' | translate }}</p>
@@ -170,9 +169,9 @@
 
   <!-- Map Section -->
   <section class="map-section">
-    <div class="map-container">
+    <div class="map-container" style="display: flex; gap: 20px; ">
       <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2980.1761563722184!2d71.42033847258719!3d51.08964861987394!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4245845413b94003%3A0xb6cd478279e9e301!2z0L_RgC3Rgi4g0JzQsNC90LPQuNC70LjQuiDQldC7LiA1N2EsINCQ0YHRgtCw0L3QsCAwMjAwMDA!5e0!3m2!1sru!2skz!4v1779359020232!5m2!1sru!2skz" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
-        width="100%" 
+        width="50%" 
         height="450" 
         style="border:0;" 
         allowfullscreen="" 
@@ -180,6 +179,15 @@
         referrerpolicy="no-referrer-when-downgrade"
         class="map-frame"
       ></iframe>
+    
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d726.6865061237902!2d76.95920472841975!3d43.235784298187795!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38836efe699aa875%3A0xc976d68b090a301c!2z0JHQuNC30L3QtdGBINGG0LXQvdGC0YAgUkZDQSwg0L_RgNC-0YHQv9C10LrRgiDQlNC-0YHRgtGL0LogMTM2LCDQkNC70LzQsNGC0YsgMDUwMDUx!5e0!3m2!1sru!2skz!4v1779715450202!5m2!1sru!2skz" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+      width="50%" 
+        height="450" 
+        style="border:0;" 
+        allowfullscreen="" 
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        class="map-frame"></iframe>
     </div>
   </section>
 </div>

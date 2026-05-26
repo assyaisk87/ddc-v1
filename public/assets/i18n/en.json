@@ -196,8 +196,12 @@
         "info": {
             "address": {
                 "title": "Address",
-                "text": "Z05T8F6, Kazakhstan\nAstana, Mangilik El Ave, 57A"
+                "text": "Z05T8F6, Astana, Mangilik El Ave, 57A"
             },
+    "address_almaty": {
+      "title": "Адрес",
+      "text": "A25D6H8, г. Алматы, пр. Достык, 136"
+    },
             "email": {
                 "title": "Email",
                 "text": "info@bsbnb.kz"

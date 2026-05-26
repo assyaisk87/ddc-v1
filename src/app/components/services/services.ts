@@ -18,7 +18,7 @@ export class Services implements OnInit {
     {
       id: 'contact-center',
       title: 'Контакт-центр',
-      icon: '📞',
+      icon: 'call',
       color: '#00D4FF',
       description: 'Круглосуточная поддержка клиентов и оперативное решение вопросов. Профессиональная команда специалистов готова помочь с любыми запросами.',
       features: [
@@ -32,7 +32,7 @@ export class Services implements OnInit {
     {
       id: 'procurement-operator',
       title: 'Оператор портала закупок',
-      icon: '🛒',
+      icon: 'zakup',
       color: '#00D4FF',
       description: 'Техническая поддержка и сопровождение портала государственных закупок. Обеспечение бесперебойной работы системы и помощь участникам закупок.',
       features: [
@@ -46,7 +46,7 @@ export class Services implements OnInit {
     {
       id: 'it-center',
       title: 'Единый центр IT-услуг',
-      icon: '💻',
+      icon: 'it',
       color: '#00D4FF',
       description: 'Комплексные IT-решения для цифровизации бизнес-процессов. От разработки до внедрения и поддержки современных технологических решений.',
       features: [
@@ -60,7 +60,7 @@ export class Services implements OnInit {
     {
       id: 'engineering-center',
       title: 'Центр инженерных компетенций',
-      icon: '⚙️',
+      icon: 'settings',
       color: '#00D4FF',
       description: 'Инженерная экспертиза и инновационные решения для сложных проектов. Команда высококвалифицированных инженеров и технических специалистов.',
       features: [

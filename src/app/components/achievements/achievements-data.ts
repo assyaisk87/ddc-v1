@@ -1,4 +1,4 @@
-import { Achievement, Stat } from '../components/achievements/achievements';
+import { Achievement, Stat } from './achievements';
 
 export const ACHIEVEMENTS_DATA: Achievement[] = [
   {
@@ -61,9 +61,9 @@ export const ACHIEVEMENTS_DATA: Achievement[] = [
 
 export const STATS_DATA: Stat[] = [
   { id: 1, value: 0, target: 30, label: 'Лет развития', icon: '📅', suffix: '+' },
+  { id: 5, value: 0, target: 250, label: 'Специалистов', icon: '👥', suffix: '+' },
+  { id: 6, value: 0, target: 19, label: 'Ключевых проектов', icon: '🏆', suffix: '+' },
   { id: 2, value: 0, target: 50, label: 'Банковских партнеров', icon: '🏦', suffix: '+' },
   { id: 3, value: 0, target: 99, label: 'Uptime %', icon: '⚡', suffix: '.9%' },
-  { id: 4, value: 0, target: 10, label: 'Международных стандартов', icon: '📜', suffix: '+' },
-  { id: 5, value: 0, target: 500, label: 'Специалистов', icon: '👥', suffix: '+' },
-  { id: 6, value: 0, target: 5, label: 'Ключевых проектов', icon: '🏆', suffix: '+' }
+  { id: 4, value: 0, target: 10, label: 'Международных стандартов', icon: '📜', suffix: '+' }
 ];

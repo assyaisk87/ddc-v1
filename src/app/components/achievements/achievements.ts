@@ -1,7 +1,7 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
-import { ACHIEVEMENTS_DATA, STATS_DATA } from '../../data/achievements-data';
+import { ACHIEVEMENTS_DATA, STATS_DATA } from './achievements-data';
 
 export interface Achievement {
   id: number;
