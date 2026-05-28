@@ -10,10 +10,11 @@
       </div>
       <div class="ai-header-text">
         <h3>{{ 'ai.title' | translate }}</h3>
-        <p class="ai-status">
+        <p class="ai-status ai-status-wrapper">
           <span class="status-dot"></span>
           {{ 'ai.online' | translate }}
         </p>
+        <p class="ai-model ">{{ modelLabel }}</p>
         </div>
     </div>
     <button class="ai-close-btn" (click)="toggleAssistant()">

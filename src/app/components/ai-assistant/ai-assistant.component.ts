@@ -2,8 +2,9 @@ import { Component, OnInit, OnDestroy, Renderer2, Inject, ViewChild, ElementRef 
 import { CommonModule } from '@angular/common';
 import { DOCUMENT } from '@angular/common';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { Subject, fromEvent } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { takeUntil, throttleTime } from 'rxjs/operators';
+import { GroqService } from '../../services/groq.service';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -23,7 +24,9 @@ export class AiAssistantComponent implements OnInit, OnDestroy {
   userInput = '';
   isTyping = false;
   messages: Message[] = [];
+  modelLabel = '';
   private destroy$ = new Subject<void>();
+  private groqSubscription?: Subscription;
 
   @ViewChild('userInput') userInputRef!: ElementRef;
 
@@ -34,15 +37,12 @@ export class AiAssistantComponent implements OnInit, OnDestroy {
   constructor(
     private renderer: Renderer2,
     @Inject(DOCUMENT) private document: Document,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private groqService: GroqService
   ) {
-    // Initialize with current language
-    this.translate.get('ai.welcome').subscribe(welcome => {
-      this.defaultWelcome = welcome;
-    });
+    // Show which model is used by the assistant
+    this.modelLabel = `AI: Groq (${this.groqService.modelName})`;
   }
-
-  private defaultWelcome = '';
 
   ngOnInit(): void {
     this.addWelcomeMessage();
@@ -51,6 +51,9 @@ export class AiAssistantComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
+    if (this.groqSubscription) {
+      this.groqSubscription.unsubscribe();
+    }
   }
 
   toggleAssistant(): void {
@@ -65,6 +68,7 @@ export class AiAssistantComponent implements OnInit, OnDestroy {
   sendMessage(): void {
     if (!this.hasInput) return;
 
+    const currentLang = this.translate.currentLang || 'en';
     const userMessage: Message = {
       role: 'user',
       content: this.userInput,
@@ -72,6 +76,7 @@ export class AiAssistantComponent implements OnInit, OnDestroy {
     };
 
     this.messages.push(userMessage);
+    const messageContent = this.userInput; // Store for error handling
     this.userInput = '';
     this.isTyping = true;
 
@@ -80,27 +85,43 @@ export class AiAssistantComponent implements OnInit, OnDestroy {
       this.userInputRef.nativeElement.value = '';
     }
 
-    // Simulate AI response
-    setTimeout(() => {
-      const response = this.getAIResponse(userMessage.content);
-      
-      const assistantMessage: Message = {
-        role: 'assistant',
-        content: response,
-        timestamp: new Date()
-      };
+    // Unsubscribe from previous request if exists
+    if (this.groqSubscription) {
+      this.groqSubscription.unsubscribe();
+    }
 
-      this.messages.push(assistantMessage);
-      this.isTyping = false;
-      this.scrollToBottom();
-    }, 1000);
+    // Subscribe to Groq API response
+    this.groqSubscription = this.groqService.getResponse(messageContent, currentLang)
+      .subscribe({
+        next: (response) => {
+          const assistantMessage: Message = {
+            role: 'assistant',
+            content: response,
+            timestamp: new Date()
+          };
+          this.messages.push(assistantMessage);
+        },
+        error: (error) => {
+          console.error('Groq error:', error);
+          const assistantMessage: Message = {
+            role: 'assistant',
+            content: this.getAIResponse(messageContent, currentLang) +
+              `\n\n${currentLang === 'ru' ? 'Groq временно недоступен. Отвечаю по информации сайта.' : 'Groq is temporarily unavailable. Answering using site information.'}`,
+            timestamp: new Date()
+          };
+          this.messages.push(assistantMessage);
+        },
+        complete: () => {
+          this.isTyping = false;
+          this.scrollToBottom();
+        }
+      });
 
     this.scrollToBottom();
   }
 
-  private getAIResponse(userInput: string): string {
+  private getAIResponse(userInput: string, currentLang: string): string {
     const lowerInput = userInput.toLowerCase();
-    const currentLang = this.translate.currentLang;
 
     // Keywords for different topics
     if (lowerInput.includes('project') || lowerInput.includes('проект') || 
@@ -122,8 +143,8 @@ export class AiAssistantComponent implements OnInit, OnDestroy {
     if (lowerInput.includes('partner') || lowerInput.includes('сотруднич') ||
         lowerInput.includes('work') || lowerInput.includes('работат')) {
       return currentLang === 'ru' ?
-        'Мы всегда открыты для нового партнерства! Пожалуйста, свяжитесь с нами через страницу контактов или по email info@ddc.kz для обсуждения возможностей сотрудничества.' :
-        'We\'re always open to new partnerships! Please contact us through our contacts page or email at info@ddc.kz to discuss collaboration opportunities.';
+        'Мы всегда открыты для нового партнерства! Пожалуйста, свяжитесь с нами через страницу контактов или по email info@bsbnb.kz для обсуждения возможностей сотрудничества.' :
+        'We\'re always open to new partnerships! Please contact us through our contacts page or email at info@bsbnb.kz to discuss collaboration opportunities.';
     }
 
     if (lowerInput.includes('team') || lowerInput.includes('команд') ||
@@ -137,8 +158,8 @@ export class AiAssistantComponent implements OnInit, OnDestroy {
         lowerInput.includes('phone') || lowerInput.includes('телефон') ||
         lowerInput.includes('email') || lowerInput.includes('адрес')) {
       return currentLang === 'ru' ?
-        'Вы можете связаться с нами по телефону +7 (777) 123-45-67 или email info@ddc.kz. Наш офис находится в Алматы, Финансовый район, здание 12.' :
-        'You can reach us at +7 (777) 123-45-67 or email info@ddc.kz. Our office is located in Almaty, Financial District, Building 12.';
+        'Вы можете связаться с нами по телефону +7 (727) 258-49-58 или email info@bsbnb.kz. Наш офис находится в Астане, проспект Мангилик Ел, 57А.' :
+        'You can reach us at +7 (727) 258-49-58 or email info@bsbnb.kz. Our office is located in Astana, Mangilik El Ave, 57A.';
     }
 
     // Default response
