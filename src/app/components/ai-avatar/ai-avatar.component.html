@@ -1,10 +1,28 @@
 <div class="ai-avatar-container">
+  <!-- Greeting overlay -->
+  <!-- <div class="greeting-overlay glass-effect" *ngIf="showGreeting">
+    <div class="greeting-content">
+      <h3 class="greeting-title">
+        {{ currentLang === 'ru' ? 'Приветствие' : 'Greeting' }}
+      </h3>
+      <p class="greeting-text">{{ welcomeMessage }}</p>
+      <div class="greeting-controls">
+        <button 
+          class="btn btn-secondary" 
+          (click)="toggleGreeting()"
+          [title]="currentLang === 'ru' ? 'Скрыть приветствие' : 'Hide greeting'">
+          ✕
+        </button>
+      </div>
+    </div>
+  </div> -->
+
   <!-- Glow effects -->
-  <div class="glow-ring glow-ring-1" [class.active]="isPlaying"></div>
-  <div class="glow-ring glow-ring-2" [class.active]="isPlaying"></div>
+  <div class="glow-ring glow-ring-1" [class.active]="speechService.isPlaying"></div>
+  <div class="glow-ring glow-ring-2" [class.active]="speechService.isPlaying"></div>
   
   <!-- Main avatar card -->
-  <div class="avatar-card glass-effect" (click)="toggleAudio()">
+  <div class="avatar-card glass-effect" (click)="toggleGreeting()">
     <!-- Avatar frame -->
     <div class="avatar-frame">
       <!-- Placeholder for CEO avatar -->
@@ -21,7 +39,7 @@
       </div>
 
       <!-- Speaking animation -->
-      <div class="speaking-overlay" *ngIf="isPlaying">
+      <div class="speaking-overlay" *ngIf="speechService.isPlaying">
         <div class="audio-bars">
           <div class="audio-bar" *ngFor="let i of [1,2,3,4,5]" [style.animationDelay]="(i * 0.1) + 's'"></div>
         </div>
@@ -29,8 +47,8 @@
 
       <!-- Status indicator -->
       <div class="status-badge glass-effect">
-        <div class="status-dot" [class.active]="isPlaying"></div>
-        <span class="status-text">{{ isPlaying ? 'Speaking' : 'Ready' }}</span>
+        <div class="status-dot" [class.active]="speechService.isPlaying"></div>
+        <span class="status-text">{{ speechService.isPlaying ? 'Speaking' : 'Ready' }}</span>
       </div>
     </div>
 
@@ -38,5 +56,52 @@
     <div class="decorative-gradient decorative-gradient-1"></div>
     <div class="decorative-gradient decorative-gradient-2"></div>
   </div>
+
+  <!-- Audio controls -->
+  <!-- <div class="audio-controls-container" *ngIf="showAudioControl">
+    <div class="audio-controls glass-effect">
+      <button 
+        class="btn btn-primary audio-btn"
+        (click)="toggleAudio()"
+        [title]="currentLang === 'ru' ? 'Озвучить текст' : 'Voice text'">
+        <span class="audio-icon">{{ getAudioIcon() }}</span>
+        <span class="audio-text">{{ getAudioButtonText() }}</span>
+      </button>
+      
+      <button 
+        class="btn btn-secondary audio-toggle-btn"
+        (click)="toggleAudioEnabled()"
+        [title]="currentLang === 'ru' ? (isAudioEnabled ? 'Отключить звук' : 'Включить звук') : (isAudioEnabled ? 'Mute' : 'Unmute')">
+        <span class="toggle-icon">{{ getAudioControlIcon() }}</span>
+      </button>
+      
+      <button 
+        class="btn btn-secondary hide-controls-btn"
+        (click)="toggleAudioControl()"
+        [title]="currentLang === 'ru' ? 'Скрыть управление' : 'Hide controls'">
+        ⚙️
+      </button>
+    </div>
+  </div>
+
+  Show controls button
+  <button 
+    *ngIf="!showAudioControl"
+    class="btn btn-secondary show-controls-btn"
+    (click)="toggleAudioControl()"
+    [title]="currentLang === 'ru' ? 'Показать управление' : 'Show controls'">
+    ⚙️
+  </button> -->
+   <button 
+            class="voice-control-btn glass-effect" 
+            (click)="toggleAudio()"
+            [class.active]="isPlaying"
+            [class.playing]="isPlaying">
+            <span class="voice-icon">
+                <span class="audio-icon">{{ isPlaying ? '🔇' : '🔊' }}</span>
+                <span class="audio-text">{{ isPlaying ? 'Остановить' : 'Слушать' }}</span>
+            </span>
+           
+          </button>
 
 </div>

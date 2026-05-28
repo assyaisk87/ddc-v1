@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { Director, CeoMember, loadDirectorsBoard, loadCeoBoard } from '../../data/team.data';
+import { SpeechSynthesisService } from '../../services/speech-synthesis.service';
+
 @Component({
   selector: 'app-team',
   standalone: true,
@@ -21,6 +23,7 @@ export class Team implements OnInit {
 
   constructor(
     private translate: TranslateService,
+    private speechService: SpeechSynthesisService
   ) {
     this.currentLang = this.translate.currentLang;
     // Подписываемся на смену языка
@@ -66,7 +69,7 @@ export class Team implements OnInit {
 
   toggleAudio(): void {
     if (this.audioPlaying) {
-      window.speechSynthesis.cancel();
+      this.speechService.cancel();
       this.audioPlaying = false;
       return;
     }
@@ -74,24 +77,17 @@ export class Team implements OnInit {
     const mainCeo = this.ceoBoard.find(ceo => ceo.key === 'mainCeo');
     if (mainCeo?.greeting) {
       this.audioText = mainCeo.greeting;
-      const utterance = new SpeechSynthesisUtterance(this.audioText);
-      utterance.lang = this.currentLang === 'ru' ? 'ru-RU' : 'kk-KZ';
-      utterance.rate = 1;
-      utterance.pitch = 1;
+      
+      this.speechService.speak(this.audioText)
+        .then(() => {
+          this.audioPlaying = false;
+        })
+        .catch((error) => {
+          console.error('Ошибка воспроизведения аудио:', error);
+          this.audioPlaying = false;
+        });
 
-      utterance.onstart = () => {
-        this.audioPlaying = true;
-      };
-
-      utterance.onend = () => {
-        this.audioPlaying = false;
-      };
-
-      utterance.onerror = () => {
-        this.audioPlaying = false;
-      };
-
-      window.speechSynthesis.speak(utterance);
+      this.audioPlaying = true;
     }
   }
 

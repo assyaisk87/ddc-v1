@@ -2,11 +2,14 @@ import { Component, OnInit, OnDestroy, Renderer2, Inject, ViewChild, ElementRef 
 import { CommonModule } from '@angular/common';
 import { DOCUMENT } from '@angular/common';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { FormsModule } from '@angular/forms';
 import { Subject, Subscription } from 'rxjs';
 import { takeUntil, throttleTime } from 'rxjs/operators';
 import { GroqService } from '../../services/groq.service';
+import { SpeechSynthesisService } from '../../services/speech-synthesis.service';
 
 interface Message {
+  id: string;
   role: 'user' | 'assistant';
   content: string;
   timestamp: Date;
@@ -15,7 +18,7 @@ interface Message {
 @Component({
   selector: 'app-ai-assistant',
   standalone: true,
-  imports: [CommonModule, TranslateModule],
+  imports: [CommonModule, TranslateModule, FormsModule],
   templateUrl: './ai-assistant.component.html',
   styleUrl: './ai-assistant.component.scss',
 })
@@ -27,6 +30,9 @@ export class AiAssistantComponent implements OnInit, OnDestroy {
   modelLabel = '';
   private destroy$ = new Subject<void>();
   private groqSubscription?: Subscription;
+  isAudioEnabled = true;
+  currentLang: string = 'ru';
+  private lastSpokenText: string = '';
 
   @ViewChild('userInput') userInputRef!: ElementRef;
 
@@ -34,14 +40,25 @@ export class AiAssistantComponent implements OnInit, OnDestroy {
     return this.userInput.trim().length > 0;
   }
 
+  get isAudioPaused(): boolean {
+    return (this.speechService as any).isPaused;
+  }
+
   constructor(
     private renderer: Renderer2,
     @Inject(DOCUMENT) private document: Document,
     private translate: TranslateService,
-    private groqService: GroqService
+    private groqService: GroqService,
+    private speechService: SpeechSynthesisService
   ) {
     // Show which model is used by the assistant
     this.modelLabel = `AI: Groq (${this.groqService.modelName})`;
+    this.currentLang = this.translate.currentLang;
+    
+    // Subscribe to language changes
+    this.translate.onLangChange.subscribe(() => {
+      this.currentLang = this.translate.currentLang;
+    });
   }
 
   ngOnInit(): void {
@@ -54,6 +71,7 @@ export class AiAssistantComponent implements OnInit, OnDestroy {
     if (this.groqSubscription) {
       this.groqSubscription.unsubscribe();
     }
+    this.speechService.cancel();
   }
 
   toggleAssistant(): void {
@@ -70,6 +88,7 @@ export class AiAssistantComponent implements OnInit, OnDestroy {
 
     const currentLang = this.translate.currentLang || 'en';
     const userMessage: Message = {
+      id: Date.now().toString(),
       role: 'user',
       content: this.userInput,
       timestamp: new Date()
@@ -95,77 +114,70 @@ export class AiAssistantComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (response) => {
           const assistantMessage: Message = {
+            id: Date.now().toString(),
             role: 'assistant',
             content: response,
             timestamp: new Date()
           };
           this.messages.push(assistantMessage);
+          this.isTyping = false;
+          this.scrollToBottom();
+          this.speakResponse(response);
         },
         error: (error) => {
-          console.error('Groq error:', error);
-          const assistantMessage: Message = {
-            role: 'assistant',
-            content: this.getAIResponse(messageContent, currentLang) +
-              `\n\n${currentLang === 'ru' ? 'Groq временно недоступен. Отвечаю по информации сайта.' : 'Groq is temporarily unavailable. Answering using site information.'}`,
-            timestamp: new Date()
-          };
-          this.messages.push(assistantMessage);
-        },
-        complete: () => {
+          console.error('Error fetching AI response:', error);
           this.isTyping = false;
+          const errorMessage: Message = {
+            id: Date.now().toString(),
+      role: 'assistant',
+            content: currentLang === 'ru' ? 'Извините, произошла ошибка. Пожалуйста, попробуйте позже.' : 'Sorry, an error occurred. Please try again later.',
+      timestamp: new Date()
+          };
+          this.messages.push(errorMessage);
           this.scrollToBottom();
         }
       });
-
-    this.scrollToBottom();
   }
 
-  private getAIResponse(userInput: string, currentLang: string): string {
-    const lowerInput = userInput.toLowerCase();
+  speakResponse(text: string): void {
+    if (!this.isAudioEnabled) return;
 
-    // Keywords for different topics
-    if (lowerInput.includes('project') || lowerInput.includes('проект') || 
-        lowerInput.includes('kaspi') || lowerInput.includes('halyk') ||
-        lowerInput.includes('jusan')) {
-      return currentLang === 'ru' ? 
-        'Наши основные проекты включают Интеграцию Kaspi Pay, Halyk Digital Bank и Jusan AI Analytics. Каждый проект представляет передовые финтех решения для банковского сектора Казахстана.' :
-        'Our main projects include Kaspi Pay Integration, Halyk Digital Bank, and Jusan AI Analytics. Each project represents cutting-edge fintech solutions for Kazakhstan\'s banking sector.';
+    this.lastSpokenText = text;
+
+    this.speechService.speak(text).catch(err => {
+      console.error('Error speaking response:', err);
+    });
+  }
+
+  resumeAudio(): void {
+    // Restart from beginning with last spoken text
+    if (this.lastSpokenText && this.isAudioEnabled) {
+      this.speechService.speak(this.lastSpokenText).catch(err => {
+        console.error('Error resuming speech:', err);
+      });
     }
+  }
 
-    if (lowerInput.includes('technology') || lowerInput.includes('технолог') ||
-        lowerInput.includes('angular') || lowerInput.includes('blockchain') ||
-        lowerInput.includes('ai') || lowerInput.includes('искусствен')) {
-      return currentLang === 'ru' ?
-        'Мы используем современные технологии включая Angular, TypeScript, интеграцию блокчейна и аналитику на базе ИИ. Наш стек обеспечивает высокую производительность и безопасность.' :
-        'We use modern technologies including Angular, TypeScript, blockchain integration, and AI-powered analytics. Our stack ensures high performance and security.';
-    }
+  pauseAudio(): void {
+    this.speechService.pause();
+  }
 
-    if (lowerInput.includes('partner') || lowerInput.includes('сотруднич') ||
-        lowerInput.includes('work') || lowerInput.includes('работат')) {
-      return currentLang === 'ru' ?
-        'Мы всегда открыты для нового партнерства! Пожалуйста, свяжитесь с нами через страницу контактов или по email info@bsbnb.kz для обсуждения возможностей сотрудничества.' :
-        'We\'re always open to new partnerships! Please contact us through our contacts page or email at info@bsbnb.kz to discuss collaboration opportunities.';
-    }
+  stopAudio(): void {
+    this.speechService.cancel();
+  }
 
-    if (lowerInput.includes('team') || lowerInput.includes('команд') ||
-        lowerInput.includes('employee') || lowerInput.includes('сотрудник')) {
-      return currentLang === 'ru' ?
-        'Наша команда состоит из опытных профессионалов финтеха, включая разработчиков, дизайнеров и бизнес-аналитиков. У нас более 50 банковских партнеров по всему Казахстану.' :
-        'Our team consists of experienced fintech professionals including developers, designers, and business analysts. We have over 50 banking partners across Kazakhstan.';
-    }
+  toggleAudioEnabled(): void {
+    this.isAudioEnabled = !this.isAudioEnabled;
+    this.speechService.setAudioEnabled(this.isAudioEnabled);
+  }
 
-    if (lowerInput.includes('contact') || lowerInput.includes('связ') ||
-        lowerInput.includes('phone') || lowerInput.includes('телефон') ||
-        lowerInput.includes('email') || lowerInput.includes('адрес')) {
-      return currentLang === 'ru' ?
-        'Вы можете связаться с нами по телефону +7 (727) 258-49-58 или email info@bsbnb.kz. Наш офис находится в Астане, проспект Мангилик Ел, 57А.' :
-        'You can reach us at +7 (727) 258-49-58 or email info@bsbnb.kz. Our office is located in Astana, Mangilik El Ave, 57A.';
-    }
-
-    // Default response
-    return currentLang === 'ru' ?
-      'Я могу помочь вам узнать больше о наших проектах и технологиях. Свободно спрашивайте о наших решениях, команде или возможностях партнерства!':
-      'I can help you learn more about our projects and technologies. Feel free to ask about our solutions, team, or partnership opportunities!';
+  formatMessage(content: string): string {
+    // Convert newlines to HTML line breaks and escape HTML
+    return content
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/\n/g, '<br>');
   }
 
   private addWelcomeMessage(): void {
@@ -175,11 +187,12 @@ export class AiAssistantComponent implements OnInit, OnDestroy {
       'Hello! I\'m your DDC KZ AI assistant. How can I help?';
 
     this.messages.push({
+      id: 'welcome',
       role: 'assistant',
       content: welcomeText,
       timestamp: new Date()
     });
-  }
+      }
 
   private scrollToBottom(): void {
     setTimeout(() => {
@@ -190,3 +203,4 @@ export class AiAssistantComponent implements OnInit, OnDestroy {
     }, 100);
   }
 }
+
