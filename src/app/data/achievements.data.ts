@@ -1,4 +1,21 @@
-import { Achievement, Stat } from './achievements';
+
+export interface Achievement {
+  id: number;
+  title: string;
+  description: string;
+  year: string;
+  icon: string;
+  color: string;
+}
+
+export interface Stat {
+  id: number;
+  value: number;
+  target: number;
+  label: string;
+  icon: string;
+  suffix?: string;
+}
 
 export const ACHIEVEMENTS_DATA: Achievement[] = [
   {

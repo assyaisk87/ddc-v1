@@ -90,10 +90,10 @@
             <div class="ceo-main-image-wrapper">
               <img [src]="'/images/directors-board/Amardinov.jpg'" alt="{{ 'ceo.mainCeo.name' | translate }}"
                 class="ceo-main-image">
-              <button class="director-audio-btn glass-effect" (click)="toggleAudio()" [class.active]="isAudioPlaying">
-                <span class="audio-icon">{{ isAudioPlaying ? '🔇' : '🔊' }}</span>
-                <span class="audio-text">{{ isAudioPlaying ? 'Остановить' : 'Слушать' }}</span>
-              </button>
+              <button class="director-audio-btn glass-effect" (click)="toggleAudio()" [class.active]="audioPlaying">
+                              <span class="audio-icon">{{ audioPlaying ? '🔇' : '🔊' }}</span>
+                              <span class="audio-text">{{ audioPlaying ? 'Остановить' : 'Слушать' }}</span>
+                            </button>
 
             </div>
             <div class="ceo-main-info">

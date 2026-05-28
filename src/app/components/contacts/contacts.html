@@ -133,9 +133,10 @@
   <section class="contact-info-section container">
     <div class="info-grid">
       <div class="info-card glass-effect">
-<img src="/icons/contacts/map.png" alt="Map Icon" class="info-icon">        <div class="info-content">
+        <img src="/icons/contacts/map.png" alt="Map Icon" class="info-icon">
+        <div class="info-content">
           <h3 class="info-title">{{ 'contacts.info.address.title' | translate }}</h3>
-          <p class="info-text">{{ 'contacts.info.address.text' | translate }}</p>
+          <p class="info-text">{{ contactInfo.addressKey | translate }}</p>
         </div>
       </div>
 
@@ -143,7 +144,7 @@
         <img src="/icons/contacts/mailto.png" alt="Mail Icon" class="info-icon">
         <div class="info-content">
           <h3 class="info-title">{{ 'contacts.info.email.title' | translate }}</h3>
-          <p class="info-text">{{ 'contacts.info.email.text' | translate }}</p>
+          <p class="info-text">{{ contactInfo.emailKey | translate }}</p>
         </div>
       </div>
 
@@ -151,15 +152,15 @@
         <img src="/icons/contacts/phone.png" alt="Phone Icon" class="info-icon">
         <div class="info-content">
           <h3 class="info-title">{{ 'contacts.info.phone.title' | translate }}</h3>
-          <p class="info-text">{{ 'contacts.info.phone.text' | translate }}</p>
+          <p class="info-text">{{ contactInfo.phoneKey | translate }}</p>
         </div>
       </div>
 
       <div class="info-card glass-effect">
-<img src="/icons/contacts/calendar.png" alt="calendar Icon" class="info-icon">
+        <img src="/icons/contacts/calendar.png" alt="calendar Icon" class="info-icon">
         <div class="info-content">
           <h3 class="info-title">{{ 'contacts.info.hours.title' | translate }}</h3>
-          <p class="info-text">{{ 'contacts.info.hours.text' | translate }}</p>
+          <p class="info-text">{{ contactInfo.hoursKey | translate }}</p>
         </div>
       </div>
 

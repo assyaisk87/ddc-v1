@@ -6,7 +6,7 @@ import { RouterLink } from '@angular/router';
 import { AiAvatarComponent } from '../ai-avatar/ai-avatar.component';
 import { DOCUMENT } from '@angular/common';
 import { KineticTextService } from '../../services/kinetic-text.service';
-import { features, stats, technologies, poweredByPartners, centerValues as centerData, CenterValue } from './home.data';
+import { features, stats, technologies, poweredByPartners, centerValues as centerData, CenterValue } from '../../data/home.data';
 
 @Component({
   selector: 'app-home',
