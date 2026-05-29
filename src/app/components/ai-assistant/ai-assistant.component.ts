@@ -5,7 +5,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { FormsModule } from '@angular/forms';
 import { Subject, Subscription } from 'rxjs';
 import { takeUntil, throttleTime } from 'rxjs/operators';
-import { GroqService } from '../../services/groq.service';
+import { AiService } from '../../services/ai.service';
 import { SpeechSynthesisService } from '../../services/speech-synthesis.service';
 
 interface Message {
@@ -27,9 +27,9 @@ export class AiAssistantComponent implements OnInit, OnDestroy {
   userInput = '';
   isTyping = false;
   messages: Message[] = [];
-  modelLabel = '';
+  modelLabel = 'AI: DDC KZ Assistant';
   private destroy$ = new Subject<void>();
-  private groqSubscription?: Subscription;
+  private aiSubscription?: Subscription;
   isAudioEnabled = true;
   currentLang: string = 'ru';
   private lastSpokenText: string = '';
@@ -48,11 +48,9 @@ export class AiAssistantComponent implements OnInit, OnDestroy {
     private renderer: Renderer2,
     @Inject(DOCUMENT) private document: Document,
     private translate: TranslateService,
-    private groqService: GroqService,
+    private aiService: AiService,
     private speechService: SpeechSynthesisService
   ) {
-    // Show which model is used by the assistant
-    this.modelLabel = `AI: Groq (${this.groqService.modelName})`;
     this.currentLang = this.translate.currentLang;
     
     // Subscribe to language changes
@@ -68,8 +66,8 @@ export class AiAssistantComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
-    if (this.groqSubscription) {
-      this.groqSubscription.unsubscribe();
+    if (this.aiSubscription) {
+      this.aiSubscription.unsubscribe();
     }
     this.speechService.cancel();
   }
@@ -86,7 +84,6 @@ export class AiAssistantComponent implements OnInit, OnDestroy {
   sendMessage(): void {
     if (!this.hasInput) return;
 
-    const currentLang = this.translate.currentLang || 'en';
     const userMessage: Message = {
       id: Date.now().toString(),
       role: 'user',
@@ -95,7 +92,7 @@ export class AiAssistantComponent implements OnInit, OnDestroy {
     };
 
     this.messages.push(userMessage);
-    const messageContent = this.userInput; // Store for error handling
+    const messageContent = this.userInput;
     this.userInput = '';
     this.isTyping = true;
 
@@ -105,12 +102,12 @@ export class AiAssistantComponent implements OnInit, OnDestroy {
     }
 
     // Unsubscribe from previous request if exists
-    if (this.groqSubscription) {
-      this.groqSubscription.unsubscribe();
+    if (this.aiSubscription) {
+      this.aiSubscription.unsubscribe();
     }
 
-    // Subscribe to Groq API response
-    this.groqSubscription = this.groqService.getResponse(messageContent, currentLang)
+    // Subscribe to AI response
+    this.aiSubscription = this.aiService.askAI(messageContent)
       .subscribe({
         next: (response) => {
           const assistantMessage: Message = {
@@ -129,9 +126,9 @@ export class AiAssistantComponent implements OnInit, OnDestroy {
           this.isTyping = false;
           const errorMessage: Message = {
             id: Date.now().toString(),
-      role: 'assistant',
-            content: currentLang === 'ru' ? 'Извините, произошла ошибка. Пожалуйста, попробуйте позже.' : 'Sorry, an error occurred. Please try again later.',
-      timestamp: new Date()
+            role: 'assistant',
+            content: this.currentLang === 'ru' ? 'Извините, произошла ошибка. Пожалуйста, попробуйте позже.' : 'Sorry, an error occurred. Please try again later.',
+            timestamp: new Date()
           };
           this.messages.push(errorMessage);
           this.scrollToBottom();
@@ -203,4 +200,3 @@ export class AiAssistantComponent implements OnInit, OnDestroy {
     }, 100);
   }
 }
-

@@ -45,8 +45,9 @@ Thumbs.db
 
 # Environment files (contains secrets)
 .env
-.env.local
-.env.*.local
-!src/environments/environment.prod.ts
-src/environments/environment.local.ts
-!src/environments/environment.ts
+.env.*
+src/environments/environment*.local.ts
+
+
+# Local Netlify folder
+.netlify
