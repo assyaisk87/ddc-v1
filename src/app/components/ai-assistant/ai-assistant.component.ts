@@ -22,150 +22,36 @@ interface Message {
   templateUrl: './ai-assistant.component.html',
   styleUrl: './ai-assistant.component.scss',
 })
-export class AiAssistantComponent implements OnInit, OnDestroy {
+export class AiAssistantComponent {
+
   isOpen = false;
   userInput = '';
   isTyping = false;
   messages: Message[] = [];
   modelLabel = 'AI: DDC KZ Assistant';
-  private destroy$ = new Subject<void>();
-  private aiSubscription?: Subscription;
   isAudioEnabled = true;
-  currentLang: string = 'ru';
-  private lastSpokenText: string = '';
-
-  @ViewChild('userInput') userInputRef!: ElementRef;
-
+  currentLang = 'ru';
   get hasInput(): boolean {
     return this.userInput.trim().length > 0;
   }
 
-  get isAudioPaused(): boolean {
-    return (this.speechService as any).isPaused;
-  }
-
   constructor(
-    private renderer: Renderer2,
-    @Inject(DOCUMENT) private document: Document,
-    private translate: TranslateService,
     private aiService: AiService,
-    private speechService: SpeechSynthesisService
-  ) {
-    this.currentLang = this.translate.currentLang;
-    
-    // Subscribe to language changes
-    this.translate.onLangChange.subscribe(() => {
-      this.currentLang = this.translate.currentLang;
-    });
+    private speechService: SpeechSynthesisService,
+    private translate: TranslateService
+  ) { }
+
+  // ===== STATE =====
+  get audioState() {
+    return this.speechService.getState();
   }
 
-  ngOnInit(): void {
-    this.addWelcomeMessage();
+  get activeMessageId() {
+    return this.speechService.getActiveMessageId();
   }
 
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
-    if (this.aiSubscription) {
-      this.aiSubscription.unsubscribe();
-    }
-    this.speechService.cancel();
-  }
-
-  toggleAssistant(): void {
-    this.isOpen = !this.isOpen;
-  }
-
-  onInput(event: Event): void {
-    const target = event.target as HTMLInputElement;
-    this.userInput = target.value;
-  }
-
-  sendMessage(): void {
-    if (!this.hasInput) return;
-
-    const userMessage: Message = {
-      id: Date.now().toString(),
-      role: 'user',
-      content: this.userInput,
-      timestamp: new Date()
-    };
-
-    this.messages.push(userMessage);
-    const messageContent = this.userInput;
-    this.userInput = '';
-    this.isTyping = true;
-
-    // Clear input field
-    if (this.userInputRef?.nativeElement) {
-      this.userInputRef.nativeElement.value = '';
-    }
-
-    // Unsubscribe from previous request if exists
-    if (this.aiSubscription) {
-      this.aiSubscription.unsubscribe();
-    }
-
-    // Subscribe to AI response
-    this.aiSubscription = this.aiService.askAI(messageContent)
-      .subscribe({
-        next: (response) => {
-          const assistantMessage: Message = {
-            id: Date.now().toString(),
-            role: 'assistant',
-            content: response,
-            timestamp: new Date()
-          };
-          this.messages.push(assistantMessage);
-          this.isTyping = false;
-          this.scrollToBottom();
-          this.speakResponse(response);
-        },
-        error: (error) => {
-          console.error('Error fetching AI response:', error);
-          this.isTyping = false;
-          const errorMessage: Message = {
-            id: Date.now().toString(),
-            role: 'assistant',
-            content: this.currentLang === 'ru' ? 'Извините, произошла ошибка. Пожалуйста, попробуйте позже.' : 'Sorry, an error occurred. Please try again later.',
-            timestamp: new Date()
-          };
-          this.messages.push(errorMessage);
-          this.scrollToBottom();
-        }
-      });
-  }
-
-  speakResponse(text: string): void {
-    if (!this.isAudioEnabled) return;
-
-    this.lastSpokenText = text;
-
-    this.speechService.speak(text).catch(err => {
-      console.error('Error speaking response:', err);
-    });
-  }
-
-  resumeAudio(): void {
-    // Restart from beginning with last spoken text
-    if (this.lastSpokenText && this.isAudioEnabled) {
-      this.speechService.speak(this.lastSpokenText).catch(err => {
-        console.error('Error resuming speech:', err);
-      });
-    }
-  }
-
-  pauseAudio(): void {
-    this.speechService.pause();
-  }
-
-  stopAudio(): void {
-    this.speechService.cancel();
-  }
-
-  toggleAudioEnabled(): void {
-    this.isAudioEnabled = !this.isAudioEnabled;
-    this.speechService.setAudioEnabled(this.isAudioEnabled);
+  get hasLastText(): boolean {
+    return this.speechService.getLastText().length > 0;
   }
 
   formatMessage(content: string): string {
@@ -177,26 +63,58 @@ export class AiAssistantComponent implements OnInit, OnDestroy {
       .replace(/\n/g, '<br>');
   }
 
-  private addWelcomeMessage(): void {
-    const currentLang = this.translate.currentLang;
-    const welcomeText = currentLang === 'ru' ?
-      'Привет! Я ваш AI-ассистент DDC KZ. Чем могу помочь?' :
-      'Hello! I\'m your DDC KZ AI assistant. How can I help?';
+  toggleAssistant(): void {
+    this.isOpen = !this.isOpen;
+  }
 
-    this.messages.push({
-      id: 'welcome',
-      role: 'assistant',
-      content: welcomeText,
+  // ===== SEND MESSAGE =====
+  sendMessage() {
+    if (!this.hasInput) return;
+    const userMessage: Message = {
+      id: Date.now().toString(),
+      role: 'user',
+      content: this.userInput,
       timestamp: new Date()
-    });
-      }
+    };
 
-  private scrollToBottom(): void {
-    setTimeout(() => {
-      const container = this.document.querySelector('.ai-messages');
-      if (container) {
-        container.scrollTop = container.scrollHeight;
-      }
-    }, 100);
+    this.messages.push(userMessage);
+
+    const text = this.userInput;
+    this.userInput = '';
+    this.isTyping = true;
+
+    this.aiService.askAI(text).subscribe(response => {
+
+      const assistantMessage: Message = {
+        id: Date.now().toString(),
+        role: 'assistant',
+        content: response,
+        timestamp: new Date()
+      };
+
+      this.messages.push(assistantMessage);
+      this.isTyping = false;
+
+      // 🔥 IMPORTANT: pass message ID
+      this.speechService.speak(response, assistantMessage.id);
+    });
+  }
+
+  // ===== AUDIO CONTROL =====
+  pauseAudio() {
+    this.speechService.pause();
+  }
+
+  resumeAudio() {
+    this.speechService.resume();
+  }
+
+  stopAudio() {
+    this.speechService.cancel();
+  }
+
+  replayAudio(): void {
+    this.speechService.replay();
   }
 }
+

@@ -1,19 +1,23 @@
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class SpeechSynthesisService {
-  private isSpeaking = false;
-  private isPaused = false;
-  private isAudioEnabled = true;
+
+  private state: 'idle' | 'speaking' | 'paused' = 'idle';
+
+  private chunks: string[] = [];
+  private index = 0;
+
+  private lastText = '';
   private currentLang: string = 'ru';
+  private activeMessageId: string | null = null;
   private availableVoices: SpeechSynthesisVoice[] = [];
 
+  private wasCancelled = false;
   constructor(private translate: TranslateService) {
     this.currentLang = this.translate.currentLang;
-    
+
     // Subscribe to language changes
     this.translate.onLangChange.subscribe(() => {
       this.currentLang = this.translate.currentLang;
@@ -26,39 +30,54 @@ export class SpeechSynthesisService {
     }
   }
 
+  // ===== PUBLIC STATE =====
+  getState() {
+    return this.state;
+  }
+
+  getLastText() {
+    return this.lastText;
+  }
+
+  getActiveMessageId() {
+    return this.activeMessageId;
+  }
+
+  hasLastText(): boolean {
+    return !!this.lastText;
+  }
   private loadVoices(): void {
     if ('speechSynthesis' in window) {
       this.availableVoices = window.speechSynthesis.getVoices();
       console.log('Available voices:', this.availableVoices.map(v => ({ name: v.name, lang: v.lang, gender: v.localService })));
     }
   }
-
   private getMaleVoice(): SpeechSynthesisVoice | null {
     if (this.availableVoices.length === 0) {
       this.loadVoices();
     }
 
     const langCode = this.getLanguageCode();
-    
+
     // Try to find a male voice for the current language
     // Male voices often contain keywords like 'Male', 'David', 'Microsoft Pavel', 'Yuri', etc.
     const maleKeywords = ['male', 'david', 'pavel', 'yuri', 'alex', 'sergey', 'igor', 'dmitry', 'maxim', 'andrew'];
-    
+
     // First, try to find a male voice for the specific language
-    let voice = this.availableVoices.find(v => 
+    let voice = this.availableVoices.find(v =>
       v.lang.startsWith(langCode.split('-')[0]) &&
       maleKeywords.some(keyword => v.name.toLowerCase().includes(keyword))
     ) || null;
     // If not found, try any male voice
     if (!voice) {
-      voice = this.availableVoices.find(v => 
+      voice = this.availableVoices.find(v =>
         maleKeywords.some(keyword => v.name.toLowerCase().includes(keyword))
       ) || null;
     }
 
     // If still not found, return the first available voice for the language
     if (!voice) {
-      voice = this.availableVoices.find(v => 
+      voice = this.availableVoices.find(v =>
         v.lang.startsWith(langCode.split('-')[0])
       ) || null;
     }
@@ -79,29 +98,38 @@ export class SpeechSynthesisService {
     };
     return langMap[this.currentLang] || 'en-US';
   }
+  // ===== SPEAK =====
+  speak(text: string, messageId?: string): Promise<void> {
 
-  speak(text: string): Promise<void> {
-    return new Promise((resolve, reject) => {
-      if (!this.isAudioEnabled) {
-        resolve();
-        return;
+    this.cancel();
+
+    this.lastText = text;
+    this.activeMessageId = messageId || null;
+
+    this.chunks = this.splitText(text);
+    this.index = 0;
+    this.wasCancelled = false;
+
+    this.state = 'speaking';
+
+    return this.play();
+  }
+
+  private play(): Promise<void> {
+    return new Promise((resolve) => {
+
+      if (this.wasCancelled) return resolve();
+
+      if (this.index >= this.chunks.length) {
+        this.reset();
+        return resolve();
       }
 
-      // Cancel any ongoing speech
-      this.cancel();
-
-      if (!('speechSynthesis' in window)) {
-        console.warn('Speech synthesis not supported');
-        reject(new Error('Speech synthesis not supported'));
-        return;
-      }
-
-      const utterance = new SpeechSynthesisUtterance(text);
+      const utterance = new SpeechSynthesisUtterance(this.chunks[this.index]);
       utterance.lang = this.getLanguageCode();
       utterance.rate = 1.5;  // Speed x1.5
       utterance.pitch = 0.9; // Slightly lower pitch for male voice
       utterance.volume = 1;
-
       // Try to set a male voice
       const maleVoice = this.getMaleVoice();
       if (maleVoice) {
@@ -109,67 +137,63 @@ export class SpeechSynthesisService {
         console.log('Using voice:', maleVoice.name);
       }
 
-      utterance.onstart = () => {
-        this.isSpeaking = true;
-      };
+      this.state = 'speaking';
 
       utterance.onend = () => {
-        this.isSpeaking = false;
-        resolve();
-      };
-
-      utterance.onerror = (event) => {
-        this.isSpeaking = false;
-        console.error('Speech synthesis error:', event);
-        reject(event);
+        this.index++;
+        this.play().then(resolve);
       };
 
       window.speechSynthesis.speak(utterance);
     });
   }
 
-  cancel(): void {
-    if ('speechSynthesis' in window) {
-      window.speechSynthesis.cancel();
-      this.isSpeaking = false;
-      this.isPaused = false;
-    }
+  // ===== PAUSE =====
+  pause() {
+    if (this.state !== 'speaking') return;
+    window.speechSynthesis.pause();
+    this.state = 'paused';
   }
 
-  pause(): void {
-    if ('speechSynthesis' in window && this.isSpeaking && !this.isPaused) {
-      window.speechSynthesis.pause();
-      this.isPaused = true;
-    }
+  // ===== RESUME =====
+  resume() {
+    if (this.state !== 'paused') return;
+    window.speechSynthesis.resume();
+    this.state = 'speaking';
   }
 
-  resume(): void {
-    if ('speechSynthesis' in window && this.isPaused) {
-      window.speechSynthesis.resume();
-      this.isPaused = false;
-    }
+  // ===== STOP =====
+  cancel() {
+    this.wasCancelled = true;
+    window.speechSynthesis.cancel();
+    this.state = 'idle';
+
+    this.chunks = [];
+    this.index = 0;
+
   }
 
-  toggleAudio(): void {
-    this.isAudioEnabled = !this.isAudioEnabled;
-    if (!this.isAudioEnabled) {
-      this.cancel();
-    }
+  replay(): Promise<void> {
+    if (!this.lastText) return Promise.resolve();
+
+    this.cancel(); // стоп текущего
+
+    return this.speak(this.lastText, this.activeMessageId || undefined);
   }
 
+  private reset() {
+    this.state = 'idle';
+    this.chunks = [];
+    this.index = 0;
+  }
   get isPlaying(): boolean {
-    return this.isSpeaking;
+    return this.state === 'speaking';
   }
 
-  get audioEnabled(): boolean {
-    return this.isAudioEnabled;
-  }
-
-  setAudioEnabled(enabled: boolean): void {
-    this.isAudioEnabled = enabled;
-    if (!enabled) {
-      this.cancel();
-    }
+  private splitText(text: string) {
+    return text
+      .replace(/\n/g, ' ')
+      .split(/(?<=[.!?])\s+/)
+      .filter(Boolean);
   }
 }
-

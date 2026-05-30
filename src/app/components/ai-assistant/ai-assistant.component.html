@@ -4,8 +4,9 @@
     <div class="ai-header-content">
       <div class="ai-header-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v1a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1H2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a7 7 0 0 1 7-7h1V5.73c-.6-.34-1-.99-1-1.73a2 2 0 0 1 2-2z"/>
-          <circle cx="12" cy="12" r="3"/>
+          <path
+            d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v1a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1H2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a7 7 0 0 1 7-7h1V5.73c-.6-.34-1-.99-1-1.73a2 2 0 0 1 2-2z" />
+          <circle cx="12" cy="12" r="3" />
         </svg>
       </div>
       <div class="ai-header-text">
@@ -17,129 +18,105 @@
         <p class="ai-model">{{ modelLabel }}</p>
       </div>
     </div>
-    <div class="ai-header-controls">
-      <!-- Audio controls -->
-      <button
-        class="ai-audio-btn"
-        (click)="toggleAudioEnabled()"
-        [title]="currentLang === 'ru' ? (isAudioEnabled ? 'Отключить звук' : 'Включить звук') : (isAudioEnabled ? 'Mute' : 'Unmute')"
-        [disabled]="!isOpen">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" *ngIf="isAudioEnabled">
-          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
-          <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/>
-        </svg>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" *ngIf="!isAudioEnabled">
-          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
-          <line x1="23" y1="9" x2="17" y2="15"/>
-          <line x1="17" y1="9" x2="23" y2="15"/>
-        </svg>
-      </button>
-      <button class="ai-close-btn" (click)="toggleAssistant()">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <line x1="18" y1="6" x2="6" y2="18"/>
-          <line x1="6" y1="6" x2="18" y2="18"/>
-        </svg>
-      </button>
-    </div>
   </div>
 
   <!-- Messages -->
   <div class="ai-messages" #messagesContainer>
     @if (messages.length === 0) {
-      <div class="ai-welcome">
-        <div class="ai-avatar-pulse">
-          <div class="ai-core"></div>
-          <div class="pulse-ring"></div>
-        </div>
-        <p>{{ 'ai.welcome' | translate }}</p>
+    <div class="ai-welcome">
+      <div class="ai-avatar-pulse">
+        <div class="ai-core"></div>
+        <div class="pulse-ring"></div>
       </div>
+      <p>{{ 'ai.welcome' | translate }}</p>
+    </div>
     }
 
     @for (message of messages; track message.id) {
-      <div class="ai-message" [class.user]="message.role === 'user'" [class.assistant]="message.role === 'assistant'">
-        @if (message.role === 'assistant') {
-          <div class="ai-message-avatar">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v1a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1H2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a7 7 0 0 1 7-7h1V5.73c-.6-.34-1-.99-1-1.73a2 2 0 0 1 2-2z"/>
-              <circle cx="12" cy="12" r="3"/>
-            </svg>
-          </div>
-        }
-        <div class="ai-message-content">
-          <p [innerHTML]="formatMessage(message.content)"></p>
-          <span class="ai-message-time">{{ message.timestamp | date:'HH:mm' }}</span>
-          @if (message.role === 'assistant' && isAudioEnabled) {
-            <div class="ai-audio-controls">
-              <!-- Pause button - show when not paused -->
-              <button
-                class="ai-audio-control-btn"
-                (click)="pauseAudio()"
-                title="{{ currentLang === 'ru' ? 'Пауза' : 'Pause' }}"
-                *ngIf="!isAudioPaused">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <rect x="6" y="4" width="4" height="16" rx="1"/>
-                  <rect x="14" y="4" width="4" height="16" rx="1"/>
-                </svg>
-              </button>
-              
-              <!-- Resume button - show when paused -->
-              <button
-                class="ai-audio-control-btn ai-resume-btn"
-                (click)="resumeAudio()"
-                title="{{ currentLang === 'ru' ? 'Возобновить с начала' : 'Resume from start' }}"
-                *ngIf="isAudioPaused">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <polygon points="5 3 19 12 5 21 5 3"/>
-                </svg>
-              </button>
-              
-              <!-- Stop button - always visible -->
-              <button
-                class="ai-audio-control-btn"
-                (click)="stopAudio()"
-                title="{{ currentLang === 'ru' ? 'Остановить' : 'Stop' }}">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <rect x="6" y="6" width="12" height="12" rx="2"/>
-                </svg>
-              </button>
-            </div>
-}
-        </div>
+    <div class="ai-message" [class.user]="message.role === 'user'" [class.assistant]="message.role === 'assistant'">
+      @if (message.role === 'assistant') {
+      <div class="ai-message-avatar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path
+            d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v1a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1H2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a7 7 0 0 1 7-7h1V5.73c-.6-.34-1-.99-1-1.73a2 2 0 0 1 2-2z" />
+          <circle cx="12" cy="12" r="3" />
+        </svg>
       </div>
+      }
+      <div class="ai-message-content">
+        <p [innerHTML]="formatMessage(message.content)"></p>
+        <span class="ai-message-time">{{ message.timestamp | date:'HH:mm' }}</span>
+        @if (message.role === 'assistant' &&
+        message.id === activeMessageId &&
+        isAudioEnabled)
+        {
+        <div class="ai-audio-controls">
+          <!-- Pause button - show when not paused -->
+          <button class="ai-audio-control-btn" (click)="pauseAudio()"
+            title="{{ currentLang === 'ru' ? 'Пауза' : 'Pause' }}" *ngIf="audioState === 'speaking'">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="6" y="4" width="4" height="16" rx="1" />
+              <rect x="14" y="4" width="4" height="16" rx="1" />
+            </svg>
+          </button>
+
+          <!-- Resume button - show when paused -->
+          <button class="ai-audio-control-btn ai-resume-btn" (click)="resumeAudio()"
+            title="{{ currentLang === 'ru' ? (audioState === 'paused'?'Продолжить воспроизведение':'Возобновить с начала') : (audioState === 'paused'?'Resume':'Resume from start') }}"
+            *ngIf="audioState === 'paused' ">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="5 3 19 12 5 21 5 3" />
+            </svg>
+          </button>
+
+          <!-- RePlay -->
+          <button class="ai-audio-control-btn" *ngIf="audioState === 'idle' && hasLastText" (click)="replayAudio()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="5 3 19 12 5 21 5 3" />
+            </svg>
+          </button>
+          <!-- Stop button - always visible -->
+          <button class="ai-audio-control-btn" (click)="stopAudio()"
+            title="{{ currentLang === 'ru' ? 'Остановить' : 'Stop' }}">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="6" y="6" width="12" height="12" rx="2" />
+            </svg>
+          </button>
+        </div>
+        }
+      </div>
+    </div>
     }
 
     @if (isTyping) {
-      <div class="ai-message assistant">
-        <div class="ai-message-avatar">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v1a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1H2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a7 7 0 0 1 7-7h1V5.73c-.6-.34-1-.99-1-1.73a2 2 0 0 1 2-2z"/>
-            <circle cx="12" cy="12" r="3"/>
-          </svg>
-        </div>
-        <div class="ai-message-content">
-          <div class="ai-typing">
-            <span></span>
-            <span></span>
-            <span></span>
-          </div>
+    <div class="ai-message assistant">
+      <div class="ai-message-avatar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path
+            d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v1a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1H2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a7 7 0 0 1 7-7h1V5.73c-.6-.34-1-.99-1-1.73a2 2 0 0 1 2-2z" />
+          <circle cx="12" cy="12" r="3" />
+        </svg>
+      </div>
+      <div class="ai-message-content">
+        <div class="ai-typing">
+          <span></span>
+          <span></span>
+          <span></span>
         </div>
       </div>
+    </div>
     }
   </div>
 
   <!-- Input -->
   <div class="ai-input-container">
-    <input
-      type="text"
-      [(ngModel)]="userInput"
-      (keyup.enter)="sendMessage()"
-      [placeholder]="currentLang === 'ru' ? 'Введите сообщение...' : 'Type a message...'"
-      [disabled]="isTyping"
+    <input type="text" [(ngModel)]="userInput" (keyup.enter)="sendMessage()"
+      [placeholder]="currentLang === 'ru' ? 'Введите сообщение...' : 'Type a message...'" [disabled]="isTyping"
       #userInputField>
     <button class="ai-send-btn" (click)="sendMessage()" [disabled]="!hasInput || isTyping">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <line x1="22" y1="2" x2="11" y2="13"/>
-        <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+        <line x1="22" y1="2" x2="11" y2="13" />
+        <polygon points="22 2 15 22 11 13 2 9 22 2" />
       </svg>
     </button>
   </div>
@@ -147,12 +124,12 @@
 
 <!-- Toggle Button -->
 @if (!isOpen) {
-  <button class="ai-toggle" (click)="toggleAssistant()">
-    <div class="ai-toggle-icon">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-      </svg>
-    </div>
-    <span class="ai-toggle-badge">1</span>
-  </button>
+<button class="ai-toggle" (click)="toggleAssistant()">
+  <div class="ai-toggle-icon">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+    </svg>
+  </div>
+  <span class="ai-toggle-badge">1</span>
+</button>
 }

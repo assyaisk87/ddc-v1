@@ -84,10 +84,10 @@ export class AiAvatarComponent implements OnInit, OnDestroy {
     this.showAudioControl = !this.showAudioControl;
   }
 
-  toggleAudioEnabled(): void {
-    this.isAudioEnabled = !this.isAudioEnabled;
-    this.speechService.setAudioEnabled(this.isAudioEnabled);
-  }
+  // toggleAudioEnabled(): void {
+  //   this.isAudioEnabled = !this.isAudioEnabled;
+  //   this.speechService.setAudioEnabled(this.isAudioEnabled);
+  // }
 
   getAudioButtonText(): string {
     if (this.speechService.isPlaying) {
