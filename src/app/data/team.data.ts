@@ -28,6 +28,7 @@ const DIRECTOR_IMAGES: Record<string, string> = {
   'Alpamysov': '/images/directors-board/Alpamysov_Abai.png',
   'Konirbayev': '/images/directors-board/Bayan_Kb.png',
   'Marat': '/images/directors-board/Marat_Askar.png',
+  'Amardinov': '/images/directors-board/Amardinov.jpg',
 };
 
 // Изображения для CEO board (не переводятся)
@@ -46,6 +47,7 @@ const DIRECTOR_BIOGRAPHIES: Record<string, string> = {
   'Alpamysov': 'directorsBoard.biographies.Alpamysov',
   'Konirbayev': 'directorsBoard.biographies.Konirbayev',
   'Marat': 'directorsBoard.biographies.Marat',
+  'Amardinov': 'ceo.biographies.mainCeo',
 };
 
 // Биографии для CEO board (переводятся через i18n)
@@ -57,7 +59,7 @@ const CEO_BIOGRAPHIES: Record<string, string> = {
 };
 
 // Ключи директоров из i18n
-const DIRECTOR_KEYS = ['Zhalenov', 'Uzbekov', 'Arinova', 'Alpamysov', 'Konirbayev', 'Marat'];
+const DIRECTOR_KEYS = ['Zhalenov', 'Uzbekov', 'Arinova', 'Alpamysov', 'Konirbayev', 'Marat', 'Amardinov'];
 
 // Ключи CEO board из i18n
 const CEO_KEYS = ['mainCeo', 'ceoBorder1', 'ceoBorder2', 'ceoBorder3'];
@@ -110,7 +112,7 @@ export function loadCeoBoard(translate: TranslateService): Observable<CeoMember[
         position: mainCeo?.position || '',
         image: CEO_IMAGES['mainCeo'],
         biography: data['ceo.biographies.mainCeo'] || '',
-        greeting: mainCeo?.messageTitle || '',
+        greeting: mainCeo?.messageTitle + mainCeo?.messageText || '',
         messageTitle: mainCeo?.messageTitle || '',
         messageText: mainCeo?.messageText || '',
       });

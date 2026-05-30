@@ -19,7 +19,9 @@ export class Services implements OnInit {
   constructor(private translate: TranslateService) {}
 
   getServiceData(serviceId: string) {
-    const serviceKey = `services.services.${serviceId}`;
+    // Преобразуем kebab-case в camelCase для соответствия ключам в i18n файлах
+    const camelCaseId = serviceId.replace(/-([a-z])/g, (g) => g[1].toUpperCase());
+    const serviceKey = `services.services.${camelCaseId}`;
     return {
       title: this.translate.instant(`${serviceKey}.title`),
       description: this.translate.instant(`${serviceKey}.description`),

@@ -257,7 +257,17 @@
             "address": "Address"
         },
     "directorsBoard": {
-        "title": "Board of Directors",
+        "title": "Board of Directors", 
+        "biographies": {
+                "Zhalenov": "",
+                "Uzbekov": "",
+                "Arinova": "",
+                "Alpamysov": "",
+                "Konirbayev": "",
+                "Marat": "",
+                "Amardinov": ""
+
+            },
         "directors": {
             "Zhalenov": {
                 "name": "Zhalenov Binur Muratovich",
@@ -282,6 +292,10 @@
             "Marat": {
                 "name": "Marat Asambetovich",
                 "position": "Board Member - Independent Director"
+            },
+            "Amardinov": {
+                "name": "Amaradinov Malik Alimzhanovich",
+                "position": "Board Member - Chairman of the Management Board"
             }
         }
     },

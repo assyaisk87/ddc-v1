@@ -15,34 +15,18 @@
     </div>
 
     <!-- Main Director (Zhalenov) - Larger at top -->
-    <!-- <div class="main-director-container">
-      <div class="flip-card-container">
-        <div class="flip-card">
-  
-          <div class="flip-card-front">
-            <div class="main-director-image-wrapper">
-              <img [src]="directorsBoard[0].image" [alt]="directorsBoard[0].name" class="main-director-image">
-            </div>
-            <div class="main-director-info">
-              <h3 class="main-director-name">{{ directorsBoard[0].name }}</h3>
-              <p class="main-director-position">{{ directorsBoard[0].position }}</p>
-            </div>
-          </div>          
-        </div>
-      </div>
-    </div> -->
     <div class="main-director-container glass-effect">
       <div class="main-director-content">
         <div class="main-director-image-wrapper">
-          <img [src]="directorsBoard[0].image" [alt]="directorsBoard[0].name"
+          <img [src]="directorsBoard[0]?.image" [alt]="directorsBoard[0]?.name"
             class="main-director-image">
         </div>
         <div class="main-director-info">
-          <h3 class="main-director-name">{{ directorsBoard[0].name  }}</h3>
-          <p class="main-director-position">{{ directorsBoard[0].position }}</p>
+          <h3 class="main-director-name">{{ directorsBoard[0]?.name  }}</h3>
+          <p class="main-director-position">{{ directorsBoard[0]?.position }}</p>
 
           <div class="main-director-message">
-            <p class="main-director-message-text" [innerHTML]="directorsBoard[0].biography "></p>           
+            <p class="main-director-message-text" [innerHTML]="directorsBoard[0]?.biography "></p>           
 
           </div>
         </div>
