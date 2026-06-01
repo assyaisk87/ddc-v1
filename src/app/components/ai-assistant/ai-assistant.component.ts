@@ -22,7 +22,7 @@ interface Message {
   templateUrl: './ai-assistant.component.html',
   styleUrl: './ai-assistant.component.scss',
 })
-export class AiAssistantComponent {
+export class AiAssistantComponent implements OnInit, OnDestroy {
 
   isOpen = false;
   userInput = '';
@@ -31,6 +31,9 @@ export class AiAssistantComponent {
   modelLabel = 'AI: DDC KZ Assistant';
   isAudioEnabled = true;
   currentLang = 'ru';
+  private destroy$ = new Subject<void>();
+  private langChangeSubscription?: Subscription;
+
   get hasInput(): boolean {
     return this.userInput.trim().length > 0;
   }
@@ -40,6 +43,24 @@ export class AiAssistantComponent {
     private speechService: SpeechSynthesisService,
     private translate: TranslateService
   ) { }
+
+  ngOnInit(): void {
+    // Subscribe to language changes
+    this.langChangeSubscription = this.translate.onLangChange.subscribe(() => {
+      this.currentLang = this.translate.currentLang;
+      console.log('AI Assistant: Language changed to', this.currentLang);
+    });
+
+    // Set initial language
+    this.currentLang = this.translate.currentLang;
+    console.log('AI Assistant: Initial language', this.currentLang);
+  }
+
+  ngOnDestroy(): void {
+    this.langChangeSubscription?.unsubscribe();
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
 
   // ===== STATE =====
   get audioState() {
@@ -83,7 +104,7 @@ export class AiAssistantComponent {
     this.userInput = '';
     this.isTyping = true;
 
-    this.aiService.askAI(text).subscribe(response => {
+    this.aiService.askAI(text, this.currentLang).subscribe(response => {
 
       const assistantMessage: Message = {
         id: Date.now().toString(),
@@ -117,4 +138,5 @@ export class AiAssistantComponent {
     this.speechService.replay();
   }
 }
+
 
