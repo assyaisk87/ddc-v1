@@ -15,14 +15,20 @@ export class AiService {
   askAI(message: string, lang: string): Observable<string> {
     // В production используем Netlify Function
     // В development используем LocalAiService
+    console.log('=== AI Service Debug ===');
+    console.log('Environment.production:', environment.production);
+    console.log('Message:', message);
+    console.log('Language:', lang);
+
     if (!environment.production) {
       // Local development - используем LocalAiService
-      console.log('Local mode: Using LocalAiService with lang:', lang);
+      console.log('🔵 Local mode: Using LocalAiService with lang:', lang);
    return from(this.localAi.answer(message, lang));
     } else {
       // Production - используем Netlify Function
       const apiUrl = '/api/chat';
-      console.log('Production mode: Using Netlify Function with lang:', lang);
+      console.log('🟢 Production mode: Using Netlify Function with lang:', lang);
+      console.log('API URL:', apiUrl);
     return this.http.post<any>(apiUrl, {
     message,
     lang
