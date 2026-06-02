@@ -8,6 +8,41 @@
     </div>
   </section>
 
+  <!-- Interactive Analytics Section -->
+  <section class="analytics-section container">
+    <div class="section-header">
+      <span class="section-badge glass-effect">Analytics</span>
+      <h2 class="section-title">Аналитика проектов</h2>
+      <p class="section-description">Статистика и метрики наших решений</p>
+    </div>
+
+    <div class="analytics-grid">
+      <!-- Projects Distribution Chart -->
+      <div class="chart-card glass-effect">
+        <h3 class="chart-title">📊 Распределение проектов</h3>
+        <div class="chart-container">
+          <canvas #projectsChart></canvas>
+        </div>
+      </div>
+
+      <!-- Technologies Chart -->
+      <div class="chart-card glass-effect">
+        <h3 class="chart-title">🛠️ Технологии</h3>
+        <div class="chart-container">
+          <canvas #techChart></canvas>
+        </div>
+      </div>
+
+      <!-- Performance Chart -->
+      <div class="chart-card glass-effect" style="grid-column: span 2;">
+        <h3 class="chart-title">⚡ Метрики производительности</h3>
+        <div class="chart-container">
+          <canvas #performanceChart></canvas>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Projects Grid -->
   <section class="projects-section container">
     <!-- Category Filter -->

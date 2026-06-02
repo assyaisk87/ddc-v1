@@ -34,19 +34,7 @@
             <span class="btn-shimmer"></span>
           </a>
         </div>
-
-        <div class="hero-status-grid">
-          @for (stat of stats; track stat) {
-            <div class="stat-item glass-effect">
-              <div class="stat-value" [style.color]="stat.color || '#00D4FF'">
-                {{ stat.value }}
-              </div>
-              <div class="stat-label">{{ stat.labelKey | translate }}</div>
-            </div>
-          }
-        </div>
       </div>
-      
       <!-- AI Avatar Section with Voice Control -->
       <div class="hero-visual animate-float">
         <div class="avatar-wrapper">
@@ -216,4 +204,5 @@
 
 
 </div>
+
 

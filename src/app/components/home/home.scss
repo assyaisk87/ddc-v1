@@ -123,11 +123,21 @@
     .hero-title {
       font-family: $font-display;
       font-size: clamp(2.5rem, 6vw, 4rem);
-      font-weight: 800;
+      font-weight: 700;
       line-height: 1.05;
       margin-bottom: $spacing-md;
       letter-spacing: -1px;
     }
+
+    .hero-subtitle {
+      font-family: $font-display;
+      font-size: clamp(1.5rem, 4vw, 2rem);
+      font-weight: 600;
+      line-height: 1.2;
+      margin-bottom: $spacing-lg;
+      letter-spacing: -0.5px;
+    }
+
     
     .hero-description {
       font-size: 1.05rem;
@@ -138,52 +148,18 @@
     }
     
     .hero-cta {
-      display: flex;
-      gap: $spacing-md;
-      margin-bottom: $spacing-xl;
+          display: flex;
+          gap: $spacing-md;
+          margin-bottom: $spacing-xl;
       
-      @include tablet {
-        justify-content: center;
-        flex-wrap: wrap;
+          @include tablet {
+            justify-content: center;
+            flex-wrap: wrap;
+          }
+        }
       }
-    }
-    
-    .hero-status-grid {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: $spacing-sm;
-      
-      @include tablet {
-        grid-template-columns: 1fr;
-      }
-    }
-  }
   
-  .status-card {
-    padding: $spacing-md;
-    border-radius: $radius-lg;
-    text-align: center;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
-    backdrop-filter: blur(20px);
-    
-    .status-value {
-      font-size: 1.5rem;
-      font-weight: 700;
-      margin-bottom: $spacing-xs;
-      letter-spacing: 0.5px;
-    }
-    
-    .status-label {
-      font-size: 0.825rem;
-      color: $text-secondary;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-  }
-  
-  .hero-visual {
+      .hero-visual {
     position: relative;
     display: flex;
     align-items: center;

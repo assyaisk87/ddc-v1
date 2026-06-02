@@ -6,7 +6,8 @@ import { RouterLink } from '@angular/router';
 import { AiAvatarComponent } from '../ai-avatar/ai-avatar.component';
 import { DOCUMENT } from '@angular/common';
 import { KineticTextService } from '../../services/kinetic-text.service';
-import { features, stats, technologies, poweredByPartners, centerValues as centerData, CenterValue } from '../../data/home.data';
+import { features, technologies, poweredByPartners, centerValues as centerData, CenterValue } from '../../data/home.data';
+
 
 @Component({
   selector: 'app-home',
@@ -18,7 +19,6 @@ import { features, stats, technologies, poweredByPartners, centerValues as cente
 export class Home implements OnInit, AfterViewInit, OnDestroy {
   // Import data from separate file
   features = features;
-  stats = stats;
   technologies = technologies;
   poweredByPartners = poweredByPartners;
 

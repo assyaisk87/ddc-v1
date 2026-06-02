@@ -40,17 +40,94 @@
   }
 }
 
+// Analytics Section
+.analytics-section {
+  padding: $spacing-3xl 0;
+  
+  .section-header {
+    text-align: center;
+    margin-bottom: $spacing-3xl;
+
+    .section-badge {
+      display: inline-block;
+      padding: $spacing-xs $spacing-md;
+      border-radius: $radius-full;
+      font-size: 0.875rem;
+      margin-bottom: $spacing-md;
+      background: rgba(0, 212, 255, 0.1);
+      border: 1px solid rgba(0, 212, 255, 0.3);
+      color: $primary-color;
+    }
+
+    .section-title {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 700;
+      margin-bottom: $spacing-sm;
+    background: $gradient-primary;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .section-description {
+      font-size: 1.125rem;
+      color: $text-muted;
+    }
+  }
+
+  .analytics-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: $spacing-xl;
+
+    @include tablet {
+      grid-template-columns: 1fr;
+}
+
+    .chart-card {
+      padding: $spacing-xl;
+      border-radius: $radius-xl;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(10px);
+      transition: all $transition-base;
+
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: $shadow-lg;
+        border-color: rgba(0, 212, 255, 0.3);
+      }
+
+      .chart-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: $spacing-lg;
+        color: $text-primary;
+        display: flex;
+        align-items: center;
+        gap: $spacing-sm;
+      }
+
+      .chart-container {
+        position: relative;
+        height: 300px;
+        width: 100%;
+      }
+    }
+  }
+}
+
 // Projects Section
 .projects-section {
   padding: $spacing-3xl 0;
-  
+
   .category-filter {
     display: flex;
     gap: $spacing-md;
     margin-bottom: $spacing-2xl;
     flex-wrap: wrap;
     justify-content: center;
-    
+
     .category-btn {
       padding: $spacing-sm $spacing-lg;
       border-radius: $radius-full;
@@ -60,12 +137,12 @@
       font-weight: 500;
       cursor: pointer;
       transition: all $transition-base;
-      
+
       &:hover {
         border-color: $primary-color;
         color: $text-primary;
       }
-      
+
       &.active {
         background: $gradient-primary;
         border-color: transparent;
@@ -73,42 +150,42 @@
       }
     }
   }
-  
+
   .projects-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: $spacing-xl;
-    
+
     @include tablet {
       grid-template-columns: repeat(2, 1fr);
     }
-    
+
     @include mobile {
       grid-template-columns: 1fr;
     }
-    
+
     .project-card {
       border-radius: $radius-xl;
       overflow: hidden;
       transition: all $transition-base;
-      
+
       &:hover {
         transform: translateY(-10px);
         box-shadow: $shadow-lg;
       }
-      
+
       .project-image {
         position: relative;
         height: 250px;
         overflow: hidden;
-        
+
         img {
           width: 100%;
           height: 100%;
           object-fit: cover;
           transition: transform $transition-slow;
         }
-        
+
         .project-overlay {
           position: absolute;
           inset: 0;
@@ -118,7 +195,7 @@
           justify-content: center;
           opacity: 0;
           transition: opacity $transition-base;
-          
+
           .project-link-btn {
             padding: $spacing-md $spacing-xl;
             background: $gradient-primary;
@@ -130,25 +207,25 @@
             transition: transform $transition-base;
           }
         }
-        
+
         &:hover {
           img {
             transform: scale(1.1);
           }
-          
+
           .project-overlay {
             opacity: 1;
-            
+
             .project-link-btn {
               transform: translateY(0);
             }
           }
         }
       }
-      
+
       .project-content {
         padding: $spacing-xl;
-        
+
         .project-category {
           display: inline-block;
           font-size: 0.875rem;
@@ -157,24 +234,24 @@
           text-transform: uppercase;
           letter-spacing: 1px;
         }
-        
+
         .project-title {
           font-size: 1.5rem;
           font-weight: 600;
           margin-bottom: $spacing-sm;
         }
-        
+
         .project-description {
           color: $text-muted;
           margin-bottom: $spacing-md;
           line-height: 1.6;
         }
-        
+
         .project-technologies {
           display: flex;
           flex-wrap: wrap;
           gap: $spacing-xs;
-          
+
           .tech-tag {
             padding: $spacing-xs $spacing-sm;
             background: rgba(0, 212, 255, 0.1);
@@ -189,92 +266,42 @@
   }
 }
 
-// Analytics Section
-.analytics-section {
-  padding: $spacing-3xl 0;
-  
-  .analytics-header {
-    text-align: center;
-    margin-bottom: $spacing-3xl;
-    
-    .section-badge {
-      display: inline-block;
-      padding: $spacing-xs $spacing-md;
-      border-radius: $radius-full;
-      font-size: 0.875rem;
-      margin-bottom: $spacing-md;
-    }
-    
-    .section-title {
-      font-size: clamp(2rem, 5vw, 3rem);
-      font-weight: 700;
-      margin-bottom: $spacing-sm;
-    }
-    
-    .section-description {
-      color: $text-muted;
-      font-size: 1.125rem;
-    }
-  }
-  
-  .analytics-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: $spacing-xl;
-    
-    @include tablet {
-      grid-template-columns: 1fr;
-    }
-    
-    .chart-container {
-      padding: $spacing-xl;
-      border-radius: $radius-xl;
-      
-      .chart-title {
-        font-size: 1.25rem;
-        font-weight: 600;
-        margin-bottom: $spacing-lg;
-      }
-    }
-  }
-}
-
 // CTA Section
 .projects-cta {
   position: relative;
   padding: $spacing-3xl 0;
   margin: $spacing-3xl 0;
-  
+
   .cta-background {
     position: absolute;
     inset: 0;
     z-index: 0;
-    
+
     .cta-glow {
       position: absolute;
       inset: -50%;
       width: 200%;
       height: 200%;
-      background: 
+      background:
         radial-gradient(circle at 30% 50%, rgba(0, 212, 255, 0.15) 0%, transparent 50%),
         radial-gradient(circle at 70% 50%, rgba(123, 44, 191, 0.15) 0%, transparent 50%);
       animation: float 10s ease-in-out infinite;
     }
   }
-  
+
   .cta-content {
     position: relative;
     z-index: 1;
     padding: $spacing-3xl;
     border-radius: $radius-xl;
     text-align: center;
-    
+
     .cta-title {
       font-size: clamp(2rem, 5vw, 3rem);
       font-weight: 700;
       margin-bottom: $spacing-md;
     }
-    
+
     .cta-description {
       font-size: 1.25rem;
       color: $text-muted;
@@ -300,7 +327,7 @@
   transition: all $transition-base;
   border: none;
   overflow: hidden;
-  
+
   &::before {
     content: '';
     position: absolute;
@@ -309,23 +336,23 @@
     transform: translateX(-100%);
     transition: transform 0.5s ease;
   }
-  
+
   &:hover::before {
     transform: translateX(100%);
   }
-  
+
   .btn-arrow {
     transition: transform $transition-base;
   }
-  
+
   &:hover .btn-arrow {
     transform: translateX(5px);
   }
-  
+
   &-primary {
     background: $gradient-primary;
     color: $text-primary;
-    
+
     &:hover {
       transform: translateY(-2px);
       box-shadow: $shadow-glow-primary;
