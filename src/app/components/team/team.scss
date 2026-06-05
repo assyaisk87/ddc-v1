@@ -60,7 +60,12 @@
 
   // Flip Card Styles
   .flip-card-container {
-    perspective: 1000px;
+    perspective: 1200px;
+    min-height: 500px;
+
+    &:hover .flip-card {
+      transform: rotateY(180deg);
+    }
   }
 
   .flip-card {
@@ -71,10 +76,6 @@
     transform-style: preserve-3d;
     cursor: pointer;
     will-change: transform;
-
-    &:hover {
-      transform: rotateY(180deg);
-    }
 
     .flip-card-front,
     .flip-card-back {
@@ -528,7 +529,12 @@
       }
 
       .flip-card-container {
-        perspective: 1000px;
+        perspective: 1200px;
+        min-height: 450px;
+
+        &:hover .flip-card {
+          transform: rotateY(180deg);
+        }
       }
 
       .flip-card {
@@ -539,10 +545,6 @@
         transform-style: preserve-3d;
         cursor: pointer;
         will-change: transform;
-
-        &:hover {
-          transform: rotateY(180deg);
-        }
 
         .flip-card-front,
         .flip-card-back {

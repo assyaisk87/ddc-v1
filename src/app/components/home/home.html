@@ -152,7 +152,7 @@
         @for (partner of poweredByPartners; track partner.name; let i = $index) {
           <div class="track-card" [style.--card-accent]="partner.color">
             <div class="partner-icon">
-              <img [src]=" partner.icon" [alt]="partner.name" class="partner-svg-icon">
+              <img [src]=" partner.icon" [alt]="partner.name" class="partner-svg-icon"  loading="lazy" decoding="async">
             </div>
             <!-- <div class="partner-info">
               <h4>{{ partner.name }}</h4>
@@ -163,7 +163,7 @@
         @for (partner of poweredByPartners; track partner.name + '_dup'; let i = $index) {
           <div class="track-card" [style.--card-accent]="partner.color">
             <div class="partner-icon">
-              <img [src]=" partner.icon" [alt]="partner.name" class="partner-svg-icon">
+              <img [src]=" partner.icon" [alt]="partner.name" class="partner-svg-icon"  loading="lazy" decoding="async">
             </div>
             <!-- <div class="partner-info">
               <h4>{{ partner.name }}</h4>
@@ -179,7 +179,7 @@
         @for (partner of poweredByPartners; track partner.name; let i = $index) {
           <div class="track-card" [style.--card-accent]="partner.color">
             <div class="partner-icon">
-              <img [src]=" partner.icon" [alt]="partner.name" class="partner-svg-icon">
+              <img [src]=" partner.icon" [alt]="partner.name" class="partner-svg-icon"  loading="lazy" decoding="async">
             </div>
             <!-- <div class="partner-info">
               <h4>{{ partner.name }}</h4>
@@ -190,7 +190,7 @@
         @for (partner of poweredByPartners; track partner.name + '_dup'; let i = $index) {
           <div class="track-card" [style.--card-accent]="partner.color">
             <div class="partner-icon">
-              <img [src]=" partner.icon" [alt]="partner.name" class="partner-svg-icon">
+              <img [src]=" partner.icon" [alt]="partner.name" class="partner-svg-icon"  loading="lazy" decoding="async">
             </div>
             <!-- <div class="partner-info">
               <h4>{{ partner.name }}</h4>

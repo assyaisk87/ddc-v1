@@ -18,7 +18,7 @@
     <div class="main-director-container glass-effect">
       <div class="main-director-content">
         <div class="main-director-image-wrapper">
-          <img [src]="directorsBoard[0]?.image" [alt]="directorsBoard[0]?.name"
+          <img [src]="directorsBoard[0]?.image" [alt]="directorsBoard[0]?.name" loading="lazy" decoding="async"
             class="main-director-image">
         </div>
         <div class="main-director-info">
@@ -41,7 +41,7 @@
           <!-- Front side -->
           <div class="flip-card-front">
             <div class="director-image-wrapper">
-              <img [src]="director.image" [alt]="director.name" class="director-image">
+              <img [src]="director.image" [alt]="director.name" class="director-image"  loading="lazy" decoding="async">
             </div>
             <div class="director-info">
               <h3 class="director-name">{{ director.name }}</h3>
@@ -72,7 +72,7 @@
         <div class="ceo-main-container glass-effect">
           <div class="ceo-main-content">
             <div class="ceo-main-image-wrapper">
-              <img [src]="'/images/directors-board/Amardinov.jpg'" alt="{{ 'ceo.mainCeo.name' | translate }}"
+              <img [src]="'/images/directors-board/Amardinov.jpg'" alt="{{ 'ceo.mainCeo.name' | translate }}"  loading="lazy" decoding="async"
                 class="ceo-main-image">
               <button class="director-audio-btn glass-effect" (click)="toggleAudio()" [class.active]="audioPlaying">
                               <span class="audio-icon">{{ audioPlaying ? '🔇' : '🔊' }}</span>
@@ -101,7 +101,7 @@
             <!-- Front side -->
             <div class="flip-card-front">
               <div class="ceo-member-image-wrapper">
-                <img [src]="'/images/directors-board/Durmagambetov.jpg'"
+                <img [src]="'/images/directors-board/Durmagambetov.jpg'"  loading="lazy" decoding="async"
                   alt="{{ 'ceo.ceoBorders.ceoBorder1.name' | translate }}" class="ceo-member-image">
               </div>
               <div class="ceo-member-info">
@@ -126,7 +126,7 @@
             <!-- Front side -->
             <div class="flip-card-front">
               <div class="ceo-member-image-wrapper">
-                <img [src]="'/images/directors-board/Kentbekov.jpg'"
+                <img [src]="'/images/directors-board/Kentbekov.jpg'"  loading="lazy" decoding="async"
                   alt="{{ 'ceo.ceoBorders.ceoBorder2.name' | translate }}" class="ceo-member-image">
               </div>
               <div class="ceo-member-info">
@@ -151,7 +151,7 @@
             <!-- Front side -->
             <div class="flip-card-front">
               <div class="ceo-member-image-wrapper">
-                <img [src]="'/images/directors-board/Imajanov.jpg'"
+                <img [src]="'/images/directors-board/Imajanov.jpg'"  loading="lazy" decoding="async"
                   alt="{{ 'ceo.ceoBorders.ceoBorder3.name' | translate }}" class="ceo-member-image">
               </div>
               <div class="ceo-member-info">
