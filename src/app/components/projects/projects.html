@@ -21,13 +21,11 @@
       <div class="chart-card glass-effect">
         <h3 class="chart-title">📊 Распределение проектов</h3>
         <div class="chart-container">
-           @if(isChartsLoading){
-            <div class="chart-skeleton"></div>
+          @if(isChartsLoading){
+          <div class="chart-skeleton"></div>
           }
 
-          <canvas
-            #projectsChart
-            [style.display]="isChartsLoading ? 'none' : 'block'">
+          <canvas #projectsChart [style.display]="isChartsLoading ? 'none' : 'block'">
           </canvas>
 
         </div>
@@ -37,13 +35,11 @@
       <div class="chart-card glass-effect">
         <h3 class="chart-title">🛠️ Технологии</h3>
         <div class="chart-container">
-           @if(isChartsLoading){
-            <div class="chart-skeleton"></div>
+          @if(isChartsLoading){
+          <div class="chart-skeleton"></div>
           }
 
-          <canvas
-            #techChart
-            [style.display]="isChartsLoading ? 'none' : 'block'">
+          <canvas #techChart [style.display]="isChartsLoading ? 'none' : 'block'">
           </canvas>
         </div>
       </div>
@@ -53,12 +49,10 @@
         <h3 class="chart-title">⚡ Метрики производительности</h3>
         <div class="chart-container">
           @if(isChartsLoading){
-            <div class="chart-skeleton"></div>
+          <div class="chart-skeleton"></div>
           }
 
-          <canvas
-            #performanceChart
-            [style.display]="isChartsLoading ? 'none' : 'block'">
+          <canvas #performanceChart [style.display]="isChartsLoading ? 'none' : 'block'">
           </canvas>
         </div>
       </div>
@@ -70,44 +64,138 @@
     <!-- Category Filter -->
     <div class="category-filter">
       @for (category of categories; track category) {
-        <button 
-          class="category-btn glass-effect" 
-          [class.active]="selectedCategory === category"
-          (click)="filterProjects(category)"
-        >
-          {{ category }}
-        </button>
+      <button class="category-btn glass-effect" [class.active]="selectedCategory === category"
+        (click)="filterProjects(category)">
+        {{ category }}
+      </button>
       }
     </div>
 
     <!-- Projects Grid -->
     <div class="projects-grid">
       @for (project of getFilteredProjects(); track project.id) {
-        <div class="project-card glass-effect">
-          <div class="project-image">
-            <img [src]="project.image" [alt]="project.name">
-            <div class="project-overlay">
-              <a [href]="project.link" class="project-link-btn">
-                View Project →
-              </a>
-            </div>
-          </div>
-          <div class="project-content">
-            <span class="project-category" [style.color]="getCategoryColor(project.category)">
-              {{ project.category }}
-            </span>
-            <h3 class="project-title">{{ project.name }}</h3>
-            <p class="project-description">{{ project.description }}</p>
-            <div class="project-technologies">
-              @for (tech of project.technologies; track tech) {
-                <span class="tech-tag">{{ tech }}</span>
-              }
-            </div>
+      <div class="project-card glass-effect" (click)="openProject(project)">
+        <div class="project-image">
+          <img [src]="project.image" [alt]="project.name" loading="lazy" decoding="async">
+          <!-- <div class="project-overlay">
+            <button type="button" class="project-link-btn" (click)="openProject(project); $event.stopPropagation()">
+              View Project →
+            </button>
+          </div> -->
+        </div>
+        <div class="project-content">
+          <span class="project-category" [style.color]="getCategoryColor(project.category)">
+            {{ project.category }}
+          </span>
+          <h3 class="project-title">{{ project.name }}</h3>
+          <p class="project-description">{{ project.description }}</p>
+          <div class="project-technologies">
+            @for (tech of project.technologies; track tech) {
+            <span class="tech-tag">{{ tech }}</span>
+            }
           </div>
         </div>
+      </div>
       }
     </div>
   </section>
-
- 
 </div>
+
+<!-- Project Modal -->
+@if (selectedProject) {
+<div class="project-modal-backdrop" (click)="closeProject()">
+  <section class="project-modal glass-effect" role="dialog" aria-modal="true" [attr.aria-label]="selectedProject.name"
+    (click)="$event.stopPropagation()">
+
+    <button type="button" class="modal-close" aria-label="Закрыть модальное окно" (click)="closeProject()">
+      ✕
+    </button>
+
+    <div class="modal-layout">
+      <div class="modal-image">
+        <img [src]="selectedProject.image" [alt]="selectedProject.name" >
+      </div>
+
+      <div class="modal-content">
+        <span class="modal-category" [style.color]="getCategoryColor(selectedProject.category)">
+          {{ selectedProject.category }}
+        </span>
+
+        <h2>{{ selectedProject.name }}</h2>
+
+        <p class="modal-description">
+          {{ selectedProject.fullDescription || selectedProject.description }}
+        </p>
+
+        <div class="modal-technologies">
+          @for (tech of selectedProject.technologies; track tech) {
+          <span>{{ tech }}</span>
+          }
+        </div>
+        @if (selectedProject.link && selectedProject.link !== '#') {
+        <a class="modal-visit-btn" [href]="selectedProject.link" target="_blank" rel="noopener noreferrer">
+
+          <span>Открыть проект</span>
+          <span>↗</span>
+
+        </a>
+        }
+        <div class="project-metrics">
+
+          @if (selectedProject.status) {
+          <div class="metric-card">
+            <span class="metric-label">Статус</span>
+            <span class="metric-value">
+              {{ selectedProject.status }}
+            </span>
+          </div>
+          }
+
+          @if (selectedProject.year) {
+          <div class="metric-card">
+            <span class="metric-label">Год</span>
+            <span class="metric-value">
+              {{ selectedProject.year }}
+            </span>
+          </div>
+          }
+
+          @if (selectedProject.users) {
+          <div class="metric-card">
+            <span class="metric-label">Пользователи</span>
+            <span class="metric-value">
+              {{ selectedProject.users }}
+            </span>
+          </div>
+          }
+
+        </div>
+
+        <div class="modal-details-grid">
+          @if (selectedProject.challenges?.length) {
+          <div class="modal-section">
+            <h3>Задачи</h3>
+            <ul>
+              @for (challenge of selectedProject.challenges; track challenge) {
+              <li>{{ challenge }}</li>
+              }
+            </ul>
+          </div>
+          }
+
+          @if (selectedProject.results?.length) {
+          <div class="modal-section">
+            <h3>Результаты</h3>
+            <ul>
+              @for (result of selectedProject.results; track result) {
+              <li>{{ result }}</li>
+              }
+            </ul>
+          </div>
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+}

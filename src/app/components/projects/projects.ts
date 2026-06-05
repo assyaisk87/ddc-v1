@@ -1,16 +1,12 @@
 import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
+import {
+  PROJECTS_DATA,
+  PROJECT_CATEGORIES,
+  Project
+} from '../../data/projects.data';
 
-export interface Project {
-  id: number;
-  name: string;
-  description: string;
-  image: string;
-  technologies: string[];
-  link: string;
-  category: string;
-}
 
 @Component({
   selector: 'app-projects',
@@ -25,71 +21,18 @@ export class Projects implements OnInit, OnDestroy {
   @ViewChild('techChart') techChartRef!: ElementRef;
   @ViewChild('performanceChart') performanceChartRef!: ElementRef;
 
+
   // Chart.js instances
   projectsChart: any = null;
   techChart: any = null;
   performanceChart: any = null;
   isChartsLoading = true;
 
-  projects: Project[] = [
-    {
-      id: 1,
-      name: 'Kaspi Pay Integration',
-      description: 'Seamless payment gateway solution with real-time transaction processing',
-      image: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?w=800',
-      technologies: ['Angular', 'Node.js', 'PostgreSQL', 'Redis'],
-      link: '#',
-      category: 'Payments'
-    },
-    {
-      id: 2,
-      name: 'Halyk Digital Bank',
-      description: 'Complete mobile banking platform with AI-powered insights',
-      image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800',
-      technologies: ['React Native', 'Kubernetes', 'MongoDB', 'AI/ML'],
-      link: '#',
-      category: 'Mobile Banking'
-    },
-    {
-      id: 3,
-      name: 'Jusan AI Analytics',
-      description: 'Intelligent customer insights and risk assessment system',
-      image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800',
-      technologies: ['Python', 'TensorFlow', 'Apache Spark', 'AWS'],
-      link: '#',
-      category: 'Analytics'
-    },
-    {
-      id: 4,
-      name: 'Freedom Finance Blockchain',
-      description: 'Secure asset management with blockchain integration',
-      image: 'https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=800',
-      technologies: ['Solidity', 'Ethereum', 'React', 'Node.js'],
-      link: '#',
-      category: 'Blockchain'
-    },
-    {
-      id: 5,
-      name: 'Baiterek Investment Platform',
-      description: 'Digital investment management and portfolio tracking',
-      image: 'https://images.unsplash.com/photo-1642543492481-44e81e3914a7?w=800',
-      technologies: ['Angular', '.NET Core', 'SQL Server', 'Azure'],
-      link: '#',
-      category: 'Investment'
-    },
-    {
-      id: 6,
-      name: 'Kaspi.kz E-commerce',
-      description: 'High-performance e-commerce platform with millions of users',
-      image: 'https://images.unsplash.com/photo-1556742049-0cfed4f7a07d?w=800',
-      technologies: ['Java', 'Spring Boot', 'Kafka', 'Elasticsearch'],
-      link: '#',
-      category: 'E-commerce'
-    }
-  ];
 
-  categories = ['All', 'Payments', 'Mobile Banking', 'Analytics', 'Blockchain', 'Investment', 'E-commerce'];
+  projects = PROJECTS_DATA;
+  categories = PROJECT_CATEGORIES; 
   selectedCategory: string = 'All';
+  selectedProject: Project | null = null;
 
   ngOnInit() {
   }
@@ -103,6 +46,14 @@ export class Projects implements OnInit, OnDestroy {
     if (this.projectsChart) this.projectsChart.destroy();
     if (this.techChart) this.techChart.destroy();
     if (this.performanceChart) this.performanceChart.destroy();
+  }
+  
+  openProject(project: Project) {
+    this.selectedProject = project;
+  }
+
+  closeProject() {
+    this.selectedProject = null;
   }
 
   private async loadCharts() {
@@ -146,7 +97,7 @@ export class Projects implements OnInit, OnDestroy {
     // Projects Distribution Chart
     if (this.projectsChartRef?.nativeElement && !this.projectsChart) {
       const ctx = this.projectsChartRef.nativeElement.getContext('2d');
-      
+
       // Count projects by category
       const categoryCounts: { [key: string]: number } = {};
       this.projects.forEach(p => {
@@ -211,7 +162,7 @@ export class Projects implements OnInit, OnDestroy {
     // Technologies Usage Chart
     if (this.techChartRef?.nativeElement && !this.techChart) {
       const ctx = this.techChartRef.nativeElement.getContext('2d');
-      
+
       // Count technologies
       const techCounts: { [key: string]: number } = {};
       this.projects.forEach(p => {
@@ -219,7 +170,7 @@ export class Projects implements OnInit, OnDestroy {
           techCounts[tech] = (techCounts[tech] || 0) + 1;
         });
       });
-      
+
       // Sort and take top 8
       const sortedTech = Object.entries(techCounts)
         .sort((a, b) => b[1] - a[1])
