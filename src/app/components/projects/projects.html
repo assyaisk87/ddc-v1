@@ -21,7 +21,15 @@
       <div class="chart-card glass-effect">
         <h3 class="chart-title">📊 Распределение проектов</h3>
         <div class="chart-container">
-          <canvas #projectsChart></canvas>
+           @if(isChartsLoading){
+            <div class="chart-skeleton"></div>
+          }
+
+          <canvas
+            #projectsChart
+            [style.display]="isChartsLoading ? 'none' : 'block'">
+          </canvas>
+
         </div>
       </div>
 
@@ -29,7 +37,14 @@
       <div class="chart-card glass-effect">
         <h3 class="chart-title">🛠️ Технологии</h3>
         <div class="chart-container">
-          <canvas #techChart></canvas>
+           @if(isChartsLoading){
+            <div class="chart-skeleton"></div>
+          }
+
+          <canvas
+            #techChart
+            [style.display]="isChartsLoading ? 'none' : 'block'">
+          </canvas>
         </div>
       </div>
 
@@ -37,7 +52,14 @@
       <div class="chart-card glass-effect" style="grid-column: span 2;">
         <h3 class="chart-title">⚡ Метрики производительности</h3>
         <div class="chart-container">
-          <canvas #performanceChart></canvas>
+          @if(isChartsLoading){
+            <div class="chart-skeleton"></div>
+          }
+
+          <canvas
+            #performanceChart
+            [style.display]="isChartsLoading ? 'none' : 'block'">
+          </canvas>
         </div>
       </div>
     </div>

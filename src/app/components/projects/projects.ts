@@ -1,9 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
-import { Chart, registerables } from 'chart.js';
-
-Chart.register(...registerables);
 
 export interface Project {
   id: number;
@@ -32,6 +29,7 @@ export class Projects implements OnInit, OnDestroy {
   projectsChart: any = null;
   techChart: any = null;
   performanceChart: any = null;
+  isChartsLoading = true;
 
   projects: Project[] = [
     {
@@ -96,11 +94,8 @@ export class Projects implements OnInit, OnDestroy {
   ngOnInit() {
   }
 
-  ngAfterViewInit() {
-    // Initialize charts after view init
-    setTimeout(() => {
-      this.initCharts();
-    }, 100);
+  async ngAfterViewInit() {
+    await this.loadCharts();
   }
 
   ngOnDestroy() {
@@ -108,6 +103,20 @@ export class Projects implements OnInit, OnDestroy {
     if (this.projectsChart) this.projectsChart.destroy();
     if (this.techChart) this.techChart.destroy();
     if (this.performanceChart) this.performanceChart.destroy();
+  }
+
+  private async loadCharts() {
+    this.isChartsLoading = true;
+
+    const ChartJS = await import('chart.js');
+
+    ChartJS.Chart.register(...ChartJS.registerables);
+
+    await new Promise(resolve => setTimeout(resolve, 600));
+
+    this.initCharts(ChartJS.Chart);
+
+    this.isChartsLoading = false;
   }
 
   filterProjects(category: string) {
@@ -133,7 +142,7 @@ export class Projects implements OnInit, OnDestroy {
     return colors[category] || '#00D4FF';
   }
 
-  initCharts() {
+  initCharts(Chart: any) {
     // Projects Distribution Chart
     if (this.projectsChartRef?.nativeElement && !this.projectsChart) {
       const ctx = this.projectsChartRef.nativeElement.getContext('2d');
@@ -340,7 +349,7 @@ export class Projects implements OnInit, OnDestroy {
               },
               ticks: {
                 color: '#B0B0B0',
-                callback: (value) => value + '%'
+                callback: (value: string) => value + '%'
               }
             },
             x: {
