@@ -6,6 +6,7 @@ import {
   PROJECT_CATEGORIES,
   Project
 } from '../../data/projects.data';
+import { SeoService } from '../../services/seo.service';
 
 
 @Component({
@@ -34,7 +35,15 @@ export class Projects implements OnInit, OnDestroy {
   selectedCategory: string = 'All';
   selectedProject: Project | null = null;
 
+  constructor(private seo: SeoService) {}
+
   ngOnInit() {
+     this.seo.updateSeo({
+      title: 'Проекты DDC | Центр цифрового развития',
+      description: 'Интерактивная аналитика, цифровые проекты, технологии и решения Центра цифрового развития.',
+      image: '/assets/og/projects-og.webp',
+      url: 'https://твой-сайт.netlify.app/projects'
+    });
   }
 
   async ngAfterViewInit() {

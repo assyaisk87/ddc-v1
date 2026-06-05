@@ -1263,3 +1263,8 @@ box-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
     opacity: 1;
   }
 }
+.desktop-only {
+  @include mobile {
+    display: none;
+  }
+}

@@ -4,7 +4,7 @@
 
 ### Было (Плохо ❌)
 ```
-ccd-v1/
+ddc-v1/
 ├── src/app/services/ai-context-helper.ts      # Дубликат 1
 ├── shared/ai-context-helper.ts                # Дубликат 2
 └── netlify/functions/shared/ai-context-helper.ts  # Дубликат 3
@@ -13,7 +13,7 @@ ccd-v1/
 
 ### Стало (Хорошо ✅)
 ```
-ccd-v1/
+ddc-v1/
 ├── shared/ai-context-helper.ts                # Единый модуль
 ├── src/app/services/ai.service.local.ts       # Импортирует из shared
 └── netlify/functions/chat.ts                  # Импортирует из shared
@@ -77,7 +77,7 @@ import { createContext, generateSystemPrompt, getDefaultReply, DEFAULT_GROQ_PARA
 ## 📁 Итоговая Структура
 
 ```
-ccd-v1/
+ddc-v1/
 │
 ├── shared/                          # Общие модули (DRY)
 │   └── ai-context-helper.ts         # Единый хелпер для AI

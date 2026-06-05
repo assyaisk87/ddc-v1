@@ -104,7 +104,7 @@ console.log('Context length:', context.length);
 ## 📁 Структура файлов
 
 ```
-ccd-v1/
+ddc-v1/
 ├── shared/
 │   └── ai-context-helper.ts          # Общий хелпер (DRY)
 ├── src/

@@ -74,7 +74,7 @@
             <div class="ceo-main-image-wrapper">
               <img [src]="'/images/directors-board/Amardinov.jpg'" alt="{{ 'ceo.mainCeo.name' | translate }}"  loading="lazy" decoding="async"
                 class="ceo-main-image">
-              <button class="director-audio-btn glass-effect" (click)="toggleAudio()" [class.active]="audioPlaying">
+              <button class="director-audio-btn glass-effect" (click)="toggleAudio()" [class.active]="audioPlaying" aria-label="paly audio">
                               <span class="audio-icon">{{ audioPlaying ? '🔇' : '🔊' }}</span>
                               <span class="audio-text">{{ audioPlaying ? 'Остановить' : 'Слушать' }}</span>
                             </button>

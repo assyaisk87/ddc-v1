@@ -1,25 +1,21 @@
-import { Component, OnInit, AfterViewInit, OnDestroy, Renderer2, Inject, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy, Inject, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterLink } from '@angular/router';
 import { AiAvatarComponent } from '../ai-avatar/ai-avatar.component';
-import { DOCUMENT } from '@angular/common';
-import { KineticTextService } from '../../services/kinetic-text.service';
-import { features, technologies, poweredByPartners, centerValues as centerData, CenterValue } from '../../data/home.data';
+import { features, poweredByPartners, centerValues as centerData, CenterValue } from '../../data/home.data';
 
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, FormsModule, TranslateModule, RouterLink, AiAvatarComponent],
+  imports: [CommonModule,  TranslateModule, RouterLink, AiAvatarComponent],
   templateUrl: './home.html',
   styleUrls: ['./home.scss']
 })
 export class Home implements OnInit, AfterViewInit, OnDestroy {
   // Import data from separate file
   features = features;
-  technologies = technologies;
   poweredByPartners = poweredByPartners;
 
   isPlaying = false;
@@ -33,46 +29,50 @@ export class Home implements OnInit, AfterViewInit, OnDestroy {
 
   activeCenterIndex: number | null = null;
   hoveredCenterIndex: number | null = null;
+  leftPartnersTrack: typeof poweredByPartners = [];
+  rightPartnersTrack: typeof poweredByPartners = [];
 
   constructor(
-    private renderer: Renderer2,
-    @Inject(DOCUMENT) private document: Document,
-    private elementRef: ElementRef,
-    private kineticService: KineticTextService
-  ) {}
-
+    private elementRef: ElementRef
+  ) { }
   ngOnInit(): void {
     this.setGreeting();
+
+    this.leftPartnersTrack = this.createInfiniteTrack(this.poweredByPartners);
+    this.rightPartnersTrack = this.createInfiniteTrack(this.poweredByPartners);
+  }
+
+  private createInfiniteTrack<T>(items: T[]): T[] {
+    const shuffled = this.shuffleArray(items);
+    return [...shuffled, ...shuffled];
+  }
+
+  private shuffleArray<T>(items: T[]): T[] {
+    return [...items].sort(() => Math.random() - 0.5);
   }
 
   ngAfterViewInit(): void {
-    // Apply kinetic text effect only to Powered By section titles
-    const poweredByTitles = this.elementRef.nativeElement.querySelectorAll('.powered-by-title');
-    poweredByTitles.forEach((title: Element) => {
-      this.kineticService.registerElement(title as HTMLElement);
-    });
-
-    this.observeCenterAnimation();
+    this.observeCenterAnimation();  
   }
 
-   // Dynamic greeting based on time of day
+  // Dynamic greeting based on time of day
   setGreeting() {
     const hour = new Date().getHours();
-    
+
     if (hour >= 5 && hour < 12) {
-      this.greeting = { 
-        text: 'Доброе утро', 
-        subtext: 'Начните день с будущего' 
+      this.greeting = {
+        text: 'Доброе утро',
+        subtext: 'Начните день с будущего'
       };
     } else if (hour >= 12 && hour < 18) {
-      this.greeting = { 
-        text: 'Добрый день', 
-        subtext: 'Время для инноваций' 
+      this.greeting = {
+        text: 'Добрый день',
+        subtext: 'Время для инноваций'
       };
     } else {
-      this.greeting = { 
-        text: 'Добрый вечер', 
-        subtext: 'Добро пожаловать в будущее' 
+      this.greeting = {
+        text: 'Добрый вечер',
+        subtext: 'Добро пожаловать в будущее'
       };
     }
   }
@@ -94,7 +94,7 @@ export class Home implements OnInit, AfterViewInit, OnDestroy {
       this.playAudio();
       this.isPlaying = true;
       this.hasInteracted = true;
-      
+
       // Auto-stop after 5 seconds
       setTimeout(() => {
         if (this.isPlaying) {
@@ -109,35 +109,35 @@ export class Home implements OnInit, AfterViewInit, OnDestroy {
   playAudio() {
     try {
       // Using Web Audio API for better control
-      const audioContext = (this as any).audioContext || 
+      const audioContext = (this as any).audioContext ||
         new (window.AudioContext || (window as any).webkitAudioContext)();
-      
+
       // Create oscillator for test tone (replace with actual audio)
       const oscillator = audioContext.createOscillator();
       const gainNode = audioContext.createGain();
-      
+
       oscillator.connect(gainNode);
       gainNode.connect(audioContext.destination);
-      
+
       // Set volume to maximum
       gainNode.gain.value = 1.0;
-      
+
       // Create a pleasant greeting tone
       oscillator.type = 'sine';
       oscillator.frequency.setValueAtTime(440, audioContext.currentTime); // A4
       oscillator.frequency.exponentialRampToValueAtTime(880, audioContext.currentTime + 0.5); // A5
-      
+
       // Fade in
       gainNode.gain.setValueAtTime(0, audioContext.currentTime);
       gainNode.gain.linearRampToValueAtTime(1.0, audioContext.currentTime + 0.1);
-      
+
       oscillator.start(audioContext.currentTime);
-      
+
       // Fade out and stop
       gainNode.gain.setValueAtTime(1.0, audioContext.currentTime + 2);
       gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 2.5);
       oscillator.stop(audioContext.currentTime + 2.5);
-      
+
       console.log('🔊 Playing greeting audio...');
     } catch (error) {
       console.error('Audio playback failed:', error);
@@ -158,8 +158,6 @@ export class Home implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    // Cleanup kinetic text
-    this.kineticService.destroy();
 
     try {
       const audioContext = (this as any).audioContext;

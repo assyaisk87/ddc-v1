@@ -8,6 +8,48 @@
     </div>
   </section>
 
+  <!-- Projects Grid -->
+  <section class="projects-section container">
+    <!-- Category Filter -->
+    <div class="category-filter">
+      @for (category of categories; track category) {
+      <button class="category-btn glass-effect" [class.active]="selectedCategory === category"
+        (click)="filterProjects(category)" 
+            aria-label="category">
+        {{ category }}
+      </button>
+      }
+    </div>
+
+    <!-- Projects Grid -->
+    <div class="projects-grid">
+      @for (project of getFilteredProjects(); track project.id) {
+      <div class="project-card glass-effect" (click)="openProject(project)">
+        <div class="project-image">
+          <img [src]="project.image" [alt]="project.name" loading="lazy" decoding="async">
+          <!-- <div class="project-overlay">
+            <button type="button" class="project-link-btn" (click)="openProject(project); $event.stopPropagation()">
+              View Project →
+            </button>
+          </div> -->
+        </div>
+        <div class="project-content">
+          <span class="project-category" [style.color]="getCategoryColor(project.category)">
+            {{ project.category }}
+          </span>
+          <h3 class="project-title">{{ project.name }}</h3>
+          <p class="project-description">{{ project.description }}</p>
+          <div class="project-technologies">
+            @for (tech of project.technologies; track tech) {
+            <span class="tech-tag">{{ tech }}</span>
+            }
+          </div>
+        </div>
+      </div>
+      }
+    </div>
+  </section>
+
   <!-- Interactive Analytics Section -->
   <section class="analytics-section container">
     <div class="section-header">
@@ -58,47 +100,6 @@
       </div>
     </div>
   </section>
-
-  <!-- Projects Grid -->
-  <section class="projects-section container">
-    <!-- Category Filter -->
-    <div class="category-filter">
-      @for (category of categories; track category) {
-      <button class="category-btn glass-effect" [class.active]="selectedCategory === category"
-        (click)="filterProjects(category)">
-        {{ category }}
-      </button>
-      }
-    </div>
-
-    <!-- Projects Grid -->
-    <div class="projects-grid">
-      @for (project of getFilteredProjects(); track project.id) {
-      <div class="project-card glass-effect" (click)="openProject(project)">
-        <div class="project-image">
-          <img [src]="project.image" [alt]="project.name" loading="lazy" decoding="async">
-          <!-- <div class="project-overlay">
-            <button type="button" class="project-link-btn" (click)="openProject(project); $event.stopPropagation()">
-              View Project →
-            </button>
-          </div> -->
-        </div>
-        <div class="project-content">
-          <span class="project-category" [style.color]="getCategoryColor(project.category)">
-            {{ project.category }}
-          </span>
-          <h3 class="project-title">{{ project.name }}</h3>
-          <p class="project-description">{{ project.description }}</p>
-          <div class="project-technologies">
-            @for (tech of project.technologies; track tech) {
-            <span class="tech-tag">{{ tech }}</span>
-            }
-          </div>
-        </div>
-      </div>
-      }
-    </div>
-  </section>
 </div>
 
 <!-- Project Modal -->
@@ -107,7 +108,7 @@
   <section class="project-modal glass-effect" role="dialog" aria-modal="true" [attr.aria-label]="selectedProject.name"
     (click)="$event.stopPropagation()">
 
-    <button type="button" class="modal-close" aria-label="Закрыть модальное окно" (click)="closeProject()">
+    <button type="button" class="modal-close" aria-label="Закрыть модальное окно" (click)="closeProject()" aria-label="close">
       ✕
     </button>
 

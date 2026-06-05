@@ -5,28 +5,28 @@
       <div class="particles-container" id="particles"></div>
       <div class="grid-overlay"></div>
     </div>
-    
+
     <div class="hero-content container">
       <div class="hero-text animate-slide-in-up">
         <div class="hero-badge glass-effect">
           <span class="badge-dot"></span>
           <span>🚀 AI-Powered Living Company</span>
         </div>
-        
+
         <h1 class="hero-title">
-          <span class="text-gradient">{{ greeting.text  }}</span>
+          <span class="text-gradient">{{ greeting.text }}</span>
         </h1>
         <h2 class="hero-subtitle">
-          <span class="text-gradient-accent">{{ greeting.subtext  }}</span>
+          <span class="text-gradient-accent">{{ greeting.subtext }}</span>
         </h2>
-        
+
         <div class="hero-cta">
           <a routerLink="/contacts" class="btn btn-primary glow-effect magnetic">
             <span class="btn-text">{{ 'home.cta_button' | translate }}</span>
             <span class="btn-shimmer"></span>
             <span class="btn-arrow">→</span>
           </a>
-            <a routerLink="/projects" class="btn btn-secondary glow-effect magnetic">
+          <a routerLink="/projects" class="btn btn-secondary glow-effect magnetic">
             <span class="btn-text">
               <span class="btn-play">▶</span>
               {{ 'nav.projects' | translate }}
@@ -38,8 +38,17 @@
       <!-- AI Avatar Section with Voice Control -->
       <div class="hero-visual animate-float">
         <div class="avatar-wrapper">
-          <app-ai-avatar [isPlaying]="isPlaying"></app-ai-avatar>
-          
+          <!-- <app-ai-avatar [isPlaying]="isPlaying"></app-ai-avatar> -->
+           @defer (on timer(1500ms)) {           
+            <app-ai-avatar
+              [isPlaying]="isPlaying">
+            </app-ai-avatar>            
+          } @placeholder {
+            <div class="avatar-placeholder glass-effect">
+              AI Avatar
+            </div>
+          }
+
           <!-- Voice Control Button - Positioned next to avatar -->
           <!-- <button 
             class="voice-control-btn glass-effect" 
@@ -55,7 +64,7 @@
         </div>
       </div>
     </div>
-    
+
     <div class="scroll-indicator">
       <div class="mouse animate-pulse">
         <div class="wheel"></div>
@@ -71,30 +80,27 @@
       <h2 class="section-title ">DIGITAL DEVELOPMENT</h2>
     </div>
 
-    <div class="center-word"
-         #centerSection
-         [class.animate]="centerVisible">
+    <div class="center-word" #centerSection [class.animate]="centerVisible">
 
       @for (value of centerValues; track value; let i = $index) {
-        <div class="center-letter-card"
-             [style.--delay]="i">
+      <div class="center-letter-card" [style.--delay]="i">
 
-          <div class="letter-box">
-            <span class="letter">
-              {{ value.letter }}
-            </span>
-          </div>
-
-          <div class="letter-tooltip glass-effect">
-            <h4>{{ value.nameKey | translate }}</h4>
-            <p>{{ value.descKey | translate }}</p>
-          </div>
+        <div class="letter-box">
+          <span class="letter">
+            {{ value.letter }}
+          </span>
         </div>
+
+        <div class="letter-tooltip glass-effect">
+          <h4>{{ value.nameKey | translate }}</h4>
+          <p>{{ value.descKey | translate }}</p>
+        </div>
+      </div>
       }
 
     </div>
 
-    
+
   </section>
 
   <!-- System Modules Section -->
@@ -102,35 +108,37 @@
     <div class="section-header">
       <span class="section-badge glass-effect">{{ 'nav.mission' | translate }}</span>
       <h2 class="hero-subtitle">
-          <span >{{'home.mission'|translate}}</span></h2>
+        <span>{{'home.mission'|translate}}</span>
+      </h2>
     </div>
-    
+
     <div class="features-grid">
       @for (feature of features; track feature) {
-        <div class="feature-card glass-effect" [ngStyle]="{borderColor: feature.color}">
-          <div class="feature-icon" [style.background]="feature.color + '20'">
-            {{ feature.icon }}
-          </div>
-          <h3 class="feature-title">{{ feature.titleKey | translate }}</h3>
-          <p class="feature-description">{{ feature.descKey | translate }}</p>
-          <div class="feature-link" [style.color]="feature.color">
-            View Module →
-          </div>
+      <div class="feature-card glass-effect" [ngStyle]="{borderColor: feature.color}">
+        <div class="feature-icon" [style.background]="feature.color + '20'">
+          {{ feature.icon }}
         </div>
+        <h3 class="feature-title">{{ feature.titleKey | translate }}</h3>
+        <p class="feature-description">{{ feature.descKey | translate }}</p>
+        <div class="feature-link" [style.color]="feature.color">
+          View Module →
+        </div>
+      </div>
       }
     </div>
   </section>
 
-  
+
 
   <!-- Neural Fabric Section with Animated Tracks -->
+   @defer (on viewport) {
   <section class="powered-by-section">
     <div class="section-header">
       <span class="section-badge glass-effect">{{ 'footer.poweredBy' | translate }}</span>
       <h2 class="section-title powered-by-title">{{ 'footer.poweredBy' | translate }}</h2>
       <p class="section-description">Modern technologies powering our solutions</p>
     </div>
-    
+
     <!-- Animated tracks container -->
     <div class="powered-by-animation-container">
       <!-- Central monitor -->
@@ -139,7 +147,8 @@
           <div class="monitor-screen">
             <div class="monitor-glow"></div>
             <div class="monitor-content">
-              <span class="monitor-icon"><img src="icons/code.png" ></span>
+              <span class="monitor-icon">
+                <img src="icons/code.png" alt="" width="48" height="48" loading="lazy" decoding="async"></span>
               <span class="monitor-text">Powered By</span>
             </div>
           </div>
@@ -148,61 +157,35 @@
       </div>
 
       <div class="track-left-wrapper">
-      <div class="track track-left">
-        @for (partner of poweredByPartners; track partner.name; let i = $index) {
+        <div class="track track-left">
+          @for (partner of leftPartnersTrack; track partner.name + $index) {
           <div class="track-card" [style.--card-accent]="partner.color">
             <div class="partner-icon">
-              <img [src]=" partner.icon" [alt]="partner.name" class="partner-svg-icon"  loading="lazy" decoding="async">
+              <img [src]="partner.icon" [alt]="partner.name" width="64" height="64" class="partner-svg-icon"
+                loading="lazy" decoding="async">
             </div>
-            <!-- <div class="partner-info">
-              <h4>{{ partner.name }}</h4>
-            </div> -->
           </div>
-        }
-        <!-- Duplicate cards for seamless loop -->
-        @for (partner of poweredByPartners; track partner.name + '_dup'; let i = $index) {
-          <div class="track-card" [style.--card-accent]="partner.color">
-            <div class="partner-icon">
-              <img [src]=" partner.icon" [alt]="partner.name" class="partner-svg-icon"  loading="lazy" decoding="async">
-            </div>
-            <!-- <div class="partner-info">
-              <h4>{{ partner.name }}</h4>
-            </div> -->
-          </div>
-        }
+          }
         </div>
       </div>
 
       <!-- Right track (cards move from right to left) -->
-      <div class="track-right-wrapper">
-  <div class="track track-right">
-        @for (partner of poweredByPartners; track partner.name; let i = $index) {
+      <div class="track-right-wrapper desktop-only">
+        <div class="track track-right">
+          @for (partner of rightPartnersTrack; track partner.name + $index) {
           <div class="track-card" [style.--card-accent]="partner.color">
             <div class="partner-icon">
-              <img [src]=" partner.icon" [alt]="partner.name" class="partner-svg-icon"  loading="lazy" decoding="async">
+              <img [src]="partner.icon" [alt]="partner.name" width="64" height="64" class="partner-svg-icon"
+                loading="lazy" decoding="async">
             </div>
-            <!-- <div class="partner-info">
-              <h4>{{ partner.name }}</h4>
-            </div> -->
           </div>
-        }
-        <!-- Duplicate cards for seamless loop -->
-        @for (partner of poweredByPartners; track partner.name + '_dup'; let i = $index) {
-          <div class="track-card" [style.--card-accent]="partner.color">
-            <div class="partner-icon">
-              <img [src]=" partner.icon" [alt]="partner.name" class="partner-svg-icon"  loading="lazy" decoding="async">
-            </div>
-            <!-- <div class="partner-info">
-              <h4>{{ partner.name }}</h4>
-            </div> -->
-          </div>
-        }
-      </div>
+          }
+        </div>
       </div>
     </div>
   </section>
-
+} @placeholder {
+  <div class="powered-by-placeholder"></div>
+}
 
 </div>
-
-

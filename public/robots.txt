@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://glittering-parfait-eb343d.netlify.app/sitemap.xml

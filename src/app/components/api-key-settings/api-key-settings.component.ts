@@ -26,7 +26,7 @@ import { FormsModule } from '@angular/forms';
             placeholder="gsk_..."
             class="api-input"
           />
-          <button (click)="saveKey()" class="save-btn">
+          <button (click)="saveKey()" class="save-btn" aria-label="Сохранить">
             Сохранить
           </button>
         </div>
@@ -37,7 +37,7 @@ import { FormsModule } from '@angular/forms';
 
         <div *ngIf="currentKey" class="current-key">
           <p>Текущий ключ: <code>{{ currentKeyDisplay }}</code></p>
-          <button (click)="clearKey()" class="clear-btn">
+          <button (click)="clearKey()" class="clear-btn" aria-label="Удалить ключ">
             Удалить ключ
           </button>
         </div>
