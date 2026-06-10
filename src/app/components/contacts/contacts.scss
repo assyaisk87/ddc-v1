@@ -366,33 +366,3 @@
   }
 }
 
-// Button glow effect
-glow-effect {
-  position: relative;
-  overflow: hidden;
-
-  &::after {
-    content: '';
-    position: absolute;
-    inset: -2px;
-    background: linear-gradient(45deg, $primary-color, $secondary-color);
-    filter: blur(10px);
-    opacity: 0;
-    transition: opacity $transition-base;
-    z-index: -1;
-    border-radius: inherit;
-  }
-
-  &:hover::after {
-    opacity: 0.5;
-  }
-}
-
-// Magnetic effect
-.magnetic {
-  transition: transform $transition-base;
-
-  &:hover {
-    transform: scale(1.02);
-  }
-}

@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterLink } from '@angular/router';
 import { AiAvatarComponent } from '../ai-avatar/ai-avatar.component';
-import { features, poweredByPartners, centerValues as centerData, CenterValue } from '../../data/home.data';
-
+import { features, poweredByPartners, centerValues as centerData, 
+  CenterValue, ecosystemNodes, commandMetrics  } from '../../data/home.data';
 
 @Component({
   selector: 'app-home',
@@ -17,6 +17,15 @@ export class Home implements OnInit, AfterViewInit, OnDestroy {
   // Import data from separate file
   features = features;
   poweredByPartners = poweredByPartners;
+  ecosystemNodes = ecosystemNodes;
+  ecosystemFeatureNodes = features.map((feature, index) => ({
+    ...feature,
+    iconPath: ecosystemNodes[index]?.iconPath,
+    orbitClass: ['card-api', 'card-ai', 'card-tenge', 'card-bank', 'card-pay'][index] || 'card-api'
+  }));
+  commandMetrics = commandMetrics;
+
+  activeEcosystemNode: any = null;
 
   isPlaying = false;
   hasInteracted = false;
@@ -157,6 +166,21 @@ export class Home implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
+
+  setActiveEcosystemNode(node: any): void {
+    this.activeEcosystemNode = node;
+  }
+
+  clearActiveEcosystemNode(): void {
+    this.activeEcosystemNode = null;
+  }
+
+  scrollToEcosystem(event: Event): void {
+    event.preventDefault();
+    const section = this.elementRef.nativeElement.querySelector('#ecosystem-map');
+    section?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
   ngOnDestroy(): void {
 
     try {
@@ -200,6 +224,3 @@ export class Home implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 }
-
-
-

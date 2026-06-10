@@ -1,82 +1,286 @@
 <div class="home-container">
-  <!-- Hero Section with AI Avatar -->
-  <section class="hero-section">
-    <div class="hero-background">
-      <div class="particles-container" id="particles"></div>
-      <div class="grid-overlay"></div>
-    </div>
+  <!-- Hero Section: AI Command Center WOW -->
+  <section class="command-page ">
 
-    <div class="hero-content container">
-      <div class="hero-text animate-slide-in-up">
-        <div class="hero-badge glass-effect">
+    <div class="hero-grid container">
+
+      <!-- LEFT -->
+      <div class="hero-left">
+        <div class="hero-badge">
           <span class="badge-dot"></span>
-          <span>🚀 AI-Powered Living Company</span>
+          {{ 'home.hero.badge' | translate }}
         </div>
 
         <h1 class="hero-title">
-          <span class="text-gradient">{{ greeting.text }}</span>
+          <span>{{ 'home.hero.title1' | translate }}</span>
+          <span>{{ 'home.hero.title2' | translate }}</span>
+          <span class="gradient-text">{{ 'home.hero.title3' | translate }}</span>
         </h1>
-        <h2 class="hero-subtitle">
-          <span class="text-gradient-accent">{{ greeting.subtext }}</span>
-        </h2>
 
-        <div class="hero-cta">
-          <a routerLink="/contacts" class="btn btn-primary glow-effect magnetic">
-            <span class="btn-text">{{ 'home.cta_button' | translate }}</span>
-            <span class="btn-shimmer"></span>
-            <span class="btn-arrow">→</span>
+        <p class="hero-subtitle">
+          {{ 'home.hero.subtitle' | translate }}
+        </p>
+
+        <p class="hero-description">
+          {{ 'home.hero.description' | translate }}
+        </p>
+
+        <!-- <div class="hero-actions">
+         <a routerLink="/contacts" class="btn btn-primary glow-effect magnetic">
+          <span class="btn-text">{{ 'team.cta.button' | translate }}</span>
+          <span class="btn-shimmer"></span>
+          <span class="btn-arrow"></span>
+        </a>
+
+          <a routerLink="/projects" class="btn-secondary">
+            {{ 'home.hero.projectsBtn' | translate }}
           </a>
-          <a routerLink="/projects" class="btn btn-secondary glow-effect magnetic">
-            <span class="btn-text">
-              <span class="btn-play">▶</span>
-              {{ 'nav.projects' | translate }}
-            </span>
-            <span class="btn-shimmer"></span>
-          </a>
-        </div>
+        </div> -->
       </div>
-      <!-- AI Avatar Section with Voice Control -->
-      <div class="hero-visual animate-float">
-        <div class="avatar-wrapper">
-          <!-- <app-ai-avatar [isPlaying]="isPlaying"></app-ai-avatar> -->
-           @defer (on timer(1500ms)) {           
-            <app-ai-avatar
-              [isPlaying]="isPlaying">
-            </app-ai-avatar>            
-          } @placeholder {
-            <div class="avatar-placeholder glass-effect">
-              AI Avatar
-            </div>
+
+      <!-- CENTER -->
+      <div class="hero-center">
+        <div class="ecosystem-orbit">
+
+          <div class="orbit-ring ring-1"></div>
+          <div class="orbit-ring ring-2"></div>
+          <div class="orbit-ring ring-3"></div>
+
+          <svg class="connections-svg" viewBox="0 0 760 610" preserveAspectRatio="none">
+            <!-- <path d="M380 305 C260 250, 170 230, 90 295" /> -->
+            <path d="M380 305 C360 180, 390 80, 435 45" />
+            <path d="M380 305 C500 190, 600 210, 680 290" />
+            <path d="M380 305 C510 335, 580 370, 665 385" />
+            <path d="M380 305 C370 410, 390 500, 385 560" />
+            <path d="M380 305 C260 355, 185 390, 85 385" />
+
+
+          </svg>
+
+          <div class="center-core">
+            <img src="/icons/ddc_logo.svg" alt="ЦЦР">
+          </div>
+          @for (node of ecosystemFeatureNodes; track node.titleKey; let i = $index) {
+          <div class="orbit-card" [ngClass]="node.orbitClass" [style.--card-accent]="node.color"
+            [attr.data-tooltip]="node.descKey | translate">
+            <span class="orbit-icon">
+              <img [src]="node.iconPath" [alt]="node.titleKey | translate" width="34" height="34" loading="lazy"
+                decoding="async">
+            </span>
+            <p>{{ node.titleKey | translate }}</p>
+          </div>
           }
 
-          <!-- Voice Control Button - Positioned next to avatar -->
-          <!-- <button 
-            class="voice-control-btn glass-effect" 
-            (click)="toggleVoice($event)"
-            [class.active]="isPlaying"
-            [class.playing]="isPlaying">
-            <span class="voice-icon">
-                <span class="audio-icon">{{ isPlaying ? '🔇' : '🔊' }}</span>
-                <span class="audio-text">{{ isPlaying ? 'Остановить' : 'Слушать' }}</span>
-            </span>
-           
-          </button> -->
         </div>
       </div>
+
+      <!-- RIGHT -->
+      <aside class="hero-right">
+
+        <div class="command-panel">
+          <h3>{{ 'home.command.title' | translate }}</h3>
+
+          <div class="stats-grid">
+            <div class="stat-card">
+              <strong>27</strong>
+              <span>{{ 'home.command.metrics.activeProjects' | translate }}</span>
+            </div>
+
+            <div class="stat-card">
+              <strong>14+</strong>
+              <span>{{ 'home.command.metrics.devTeams' | translate }}</span>
+            </div>
+
+            <div class="stat-card">
+              <strong>8</strong>
+              <span>{{ 'home.command.metrics.aiServices' | translate }}</span>
+            </div>
+
+            <div class="stat-card">
+              <strong>23</strong>
+              <span>{{ 'home.command.metrics.productionSystems' | translate }}</span>
+            </div>
+            <!-- 
+            <div class="stat-card">
+              <strong>120+</strong>
+              <span>{{ 'home.command.metrics.integrations' | translate }}</span>
+            </div>
+
+            <div class="stat-card">
+              <strong>99.9%</strong>
+              <span>{{ 'home.command.metrics.uptime' | translate }}</span>
+            </div> -->
+          </div>
+
+          <div class="system-status">
+            <svg class="wave-chart" viewBox="0 0 320 82" preserveAspectRatio="none">
+              <defs>
+                <linearGradient id="waveLineGradient" x1="0" x2="1" y1="0" y2="0">
+                  <stop offset="0%" stop-color="#00d4ff" />
+                  <stop offset="55%" stop-color="#7b2cbf" />
+                  <stop offset="100%" stop-color="#00ffa3" />
+                </linearGradient>
+
+                <filter id="waveGlow">
+                  <feGaussianBlur stdDeviation="3" result="blur" />
+                  <feMerge>
+                    <feMergeNode in="blur" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+              </defs>
+
+              <path class="wave-fill"
+                d="M0 56 C20 34, 36 70, 56 42 S92 22, 110 48 S148 74, 166 48 S204 18, 226 40 S260 66, 282 38 S306 30, 320 42 V82 H0 Z" />
+
+              <path class="wave-line"
+                d="M0 56 C20 34, 36 70, 56 42 S92 22, 110 48 S148 74, 166 48 S204 18, 226 40 S260 66, 282 38 S306 30, 320 42" />
+            </svg>
+            <div class="status-line">
+              <span></span>
+              {{ 'home.command.status' | translate }}
+            </div>
+          </div>
+        </div>
+
+      </aside>
+
     </div>
 
-    <div class="scroll-indicator">
-      <div class="mouse animate-pulse">
-        <div class="wheel"></div>
+    <!-- BOTTOM -->
+    <div class="bottom-grid container">
+
+      <div class="glass-card ecosystem-scheme-card">
+        <div class="card-header">
+          <h2>{{ 'home.ecosystem.title' | translate }}</h2>
+          <a routerLink="/projects" style="margin-bottom: 20px;">{{ 'home.news.all' | translate }} →</a>
+
+        </div>
+
+        <div class="ecosystem-mini">
+          <svg class="mini-connections-svg" viewBox="0 0 900 300" preserveAspectRatio="none">
+            <path id="mini-l1" d="M450 150 C330 75, 260 70, 205 75" />
+            <path id="mini-l2" d="M450 150 C330 150, 260 150, 205 150" />
+            <path id="mini-l3" d="M450 150 C330 225, 260 230, 205 225" />
+
+            <path id="mini-r1" d="M450 150 C570 75, 640 70, 695 75" />
+            <path id="mini-r2" d="M450 150 C570 150, 640 150, 695 150" />
+            <path id="mini-r3" d="M450 150 C570 225, 640 230, 695 225" />
+
+            <circle class="moving-dot cyan" r="5">
+              <animateMotion dur="3s" repeatCount="indefinite">
+                <mpath href="#mini-l1" />
+              </animateMotion>
+            </circle>
+
+            <circle class="moving-dot blue" r="5">
+              <animateMotion dur="3.4s" repeatCount="indefinite">
+                <mpath href="#mini-l2" />
+              </animateMotion>
+            </circle>
+
+            <circle class="moving-dot purple" r="5">
+              <animateMotion dur="3.8s" repeatCount="indefinite">
+                <mpath href="#mini-l3" />
+              </animateMotion>
+            </circle>
+
+            <circle class="moving-dot cyan" r="5">
+              <animateMotion dur="3.2s" repeatCount="indefinite">
+                <mpath href="#mini-r1" />
+              </animateMotion>
+            </circle>
+
+            <circle class="moving-dot green" r="5">
+              <animateMotion dur="3.6s" repeatCount="indefinite">
+                <mpath href="#mini-r2" />
+              </animateMotion>
+            </circle>
+
+            <circle class="moving-dot purple" r="5">
+              <animateMotion dur="4s" repeatCount="indefinite">
+                <mpath href="#mini-r3" />
+              </animateMotion>
+            </circle>
+          </svg>
+
+          <div class="mini-left mini-layer">
+            <div class="scheme-node"><img src="/command-center/shield-network.svg" alt="" width="22" height="22"> {{
+              'home.ecosystem.scheme.regulatory' | translate }}</div>
+            <div class="scheme-node"><img src="/command-center/api-gateway.svg" alt="" width="22" height="22"> {{
+              'home.ecosystem.scheme.security' | translate }}</div>
+            <div class="scheme-node"><img src="/command-center/systems.svg" alt="" width="22" height="22"> {{
+              'home.ecosystem.scheme.analytics' | translate }}</div>
+          </div>
+
+          <div class="mini-core mini-layer">
+            <span style="font-weight: 600;">DDC</span>
+          </div>
+
+          <div class="mini-right mini-layer">
+            <div class="scheme-node"><img src="/command-center/rocket.svg" alt="" width="22" height="22"> {{
+              'home.ecosystem.scheme.cloud' | translate }}</div>
+            <div class="scheme-node"><img src="/command-center/payment-network.svg" alt="" width="22" height="22"> {{
+              'home.ecosystem.scheme.fintech' | translate }}</div>
+            <div class="scheme-node"><img src="/command-center/digital-currency.svg" alt="" width="22" height="22"> {{
+              'home.ecosystem.scheme.blockchain' | translate }}</div>
+          </div>
+
+        </div>
       </div>
-      <span>Scroll</span>
+
+      <div class="assistant-card glass-card">
+        <div class="card-header">
+          <h2>{{ 'Награды' | translate }}</h2>
+          <a routerLink="/achievements" style="margin-bottom: 20px;">{{ 'home.news.all' | translate }} →</a>
+        </div>
+        <div class="news-list" style="height: 100%;">
+          🏆
+          2026<br>
+          The Best IT Project 2026<br>
+          Проект NBK AI Platform победил на Kazakhstan Growth Forum
+        </div>
+      </div>
+
+      <div class="news-card glass-card">
+        <div class="card-header">
+          <h2>{{ 'home.news.title' | translate }}</h2>
+          <a routerLink="/news" style="margin-bottom: 20px;">{{ 'home.news.all' | translate }} →</a>
+        </div>
+
+        <div class="news-list">
+          <div class="news-item">
+            <div class="news-img"></div>
+            <p>{{ 'home.news.item1' | translate }}</p>
+          </div>
+
+          <div class="news-item">
+            <div class="news-img"></div>
+            <p>{{ 'home.news.item2' | translate }}</p>
+          </div>
+
+          <div class="news-item">
+            <div class="news-img"></div>
+            <p>{{ 'home.news.item3' | translate }}</p>
+          </div>
+        </div>
+      </div>
+
     </div>
+
   </section>
+
 
   <!-- CENTER Framework - Mission & Values -->
   <section class="features-section container">
     <div class="section-header">
-      <span class="section-badge glass-effect">{{ 'footer.aboutus' | translate }}</span>
+      <span class="section-badge glass-effect">{{ 'nav.mission' | translate }}</span>
+
+      <h2 class="mission-subtitle">
+        <span>{{'home.mission'|translate}}</span>
+      </h2>
+    </div>
+    <div class="section-header">
       <h2 class="section-title ">DIGITAL DEVELOPMENT</h2>
     </div>
 
@@ -100,44 +304,16 @@
 
     </div>
 
-
   </section>
-
-  <!-- System Modules Section -->
-  <section class="features-section container">
-    <div class="section-header">
-      <span class="section-badge glass-effect">{{ 'nav.mission' | translate }}</span>
-      <h2 class="hero-subtitle">
-        <span>{{'home.mission'|translate}}</span>
-      </h2>
-    </div>
-
-    <div class="features-grid">
-      @for (feature of features; track feature) {
-      <div class="feature-card glass-effect" [ngStyle]="{borderColor: feature.color}">
-        <div class="feature-icon" [style.background]="feature.color + '20'">
-          {{ feature.icon }}
-        </div>
-        <h3 class="feature-title">{{ feature.titleKey | translate }}</h3>
-        <p class="feature-description">{{ feature.descKey | translate }}</p>
-        <div class="feature-link" [style.color]="feature.color">
-          View Module →
-        </div>
-      </div>
-      }
-    </div>
-  </section>
-
-
 
   <!-- Neural Fabric Section with Animated Tracks -->
-   @defer (on viewport) {
+  @defer (on viewport) {
   <section class="powered-by-section">
-    <div class="section-header">
+    <!-- <div class="section-header">
       <span class="section-badge glass-effect">{{ 'footer.poweredBy' | translate }}</span>
       <h2 class="section-title powered-by-title">{{ 'footer.poweredBy' | translate }}</h2>
-      <p class="section-description">Modern technologies powering our solutions</p>
-    </div>
+      <p class="section-description">{{ 'home.poweredBy.description' | translate }}</p>
+    </div> -->
 
     <!-- Animated tracks container -->
     <div class="powered-by-animation-container">
@@ -145,11 +321,11 @@
       <div class="monitor-container">
         <div class="monitor">
           <div class="monitor-screen">
-            <div class="monitor-glow"></div>
+            <!-- <div class="monitor-glow"></div> -->
             <div class="monitor-content">
               <span class="monitor-icon">
-                <img src="icons/code.png" alt="" width="48" height="48" loading="lazy" decoding="async"></span>
-              <span class="monitor-text">Powered By</span>
+                <img src="icons/ddc_logo.svg" alt="" width="48" height="48" loading="lazy" decoding="async"></span>
+              <span class="monitor-text">{{'DDC'|translate}}</span>
             </div>
           </div>
           <div class="monitor-stand"></div>
@@ -184,8 +360,8 @@
       </div>
     </div>
   </section>
-} @placeholder {
+  } @placeholder {
   <div class="powered-by-placeholder"></div>
-}
+  }
 
 </div>
