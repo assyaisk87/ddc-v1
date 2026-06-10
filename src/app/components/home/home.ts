@@ -3,13 +3,15 @@ import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterLink } from '@angular/router';
 import { AiAvatarComponent } from '../ai-avatar/ai-avatar.component';
-import { features, poweredByPartners, centerValues as centerData, 
-  CenterValue, ecosystemNodes, commandMetrics  } from '../../data/home.data';
+import {
+  features, poweredByPartners, centerValues as centerData,
+  CenterValue, ecosystemNodes, commandMetrics
+} from '../../data/home.data';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule,  TranslateModule, RouterLink, AiAvatarComponent],
+  imports: [CommonModule, TranslateModule, RouterLink, AiAvatarComponent],
   templateUrl: './home.html',
   styleUrls: ['./home.scss']
 })
@@ -61,7 +63,7 @@ export class Home implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    this.observeCenterAnimation();  
+    this.observeCenterAnimation();
   }
 
   // Dynamic greeting based on time of day
@@ -195,13 +197,11 @@ export class Home implements OnInit, AfterViewInit, OnDestroy {
 
   // CENTER Framework interaction methods
   onCenterMouseEnter(index: number): void {
-    this.hoveredCenterIndex = index;
     this.activeCenterIndex = index;
   }
 
   onCenterMouseLeave(): void {
-    this.hoveredCenterIndex = null;
-    this.activeCenterIndex = null;
+    // ничего не сбрасываем
   }
 
   observeCenterAnimation(): void {
@@ -210,6 +210,11 @@ export class Home implements OnInit, AfterViewInit, OnDestroy {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             this.centerVisible = true;
+
+            setTimeout(() => {
+              this.activeCenterIndex = 0;
+            }, this.centerValues.length * 140 + 500);
+
             observer.disconnect();
           }
         });

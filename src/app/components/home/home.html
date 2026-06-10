@@ -24,18 +24,6 @@
         <p class="hero-description">
           {{ 'home.hero.description' | translate }}
         </p>
-
-        <!-- <div class="hero-actions">
-         <a routerLink="/contacts" class="btn btn-primary glow-effect magnetic">
-          <span class="btn-text">{{ 'team.cta.button' | translate }}</span>
-          <span class="btn-shimmer"></span>
-          <span class="btn-arrow"></span>
-        </a>
-
-          <a routerLink="/projects" class="btn-secondary">
-            {{ 'home.hero.projectsBtn' | translate }}
-          </a>
-        </div> -->
       </div>
 
       <!-- CENTER -->
@@ -100,16 +88,6 @@
               <strong>23</strong>
               <span>{{ 'home.command.metrics.productionSystems' | translate }}</span>
             </div>
-            <!-- 
-            <div class="stat-card">
-              <strong>120+</strong>
-              <span>{{ 'home.command.metrics.integrations' | translate }}</span>
-            </div>
-
-            <div class="stat-card">
-              <strong>99.9%</strong>
-              <span>{{ 'home.command.metrics.uptime' | translate }}</span>
-            </div> -->
           </div>
 
           <div class="system-status">
@@ -231,14 +209,28 @@
 
       <div class="assistant-card glass-card">
         <div class="card-header">
-          <h2>{{ 'Награды' | translate }}</h2>
+          <h2>{{ 'nav.achievements' | translate }}</h2>
           <a routerLink="/achievements" style="margin-bottom: 20px;">{{ 'home.news.all' | translate }} →</a>
         </div>
-        <div class="news-list" style="height: 100%;">
-          🏆
-          2026<br>
-          The Best IT Project 2026<br>
-          Проект NBK AI Platform победил на Kazakhstan Growth Forum
+        <div class="award-card">
+
+
+          <div class="award-content">
+
+
+            <h3 class="award-title">
+              The Best IT Project 2026
+            </h3>
+
+            <p class="award-description">
+              Проект NBK AI Platform победил на Kazakhstan Growth Forum
+            </p>
+            <!-- <div class="award-icon">
+  🏆
+</div> -->
+
+          </div>
+
         </div>
       </div>
 
@@ -287,7 +279,8 @@
     <div class="center-word" #centerSection [class.animate]="centerVisible">
 
       @for (value of centerValues; track value; let i = $index) {
-      <div class="center-letter-card" [style.--delay]="i">
+      <div class="center-letter-card" [style.--delay]="i" [class.active]="activeCenterIndex === i"
+        (mouseenter)="onCenterMouseEnter(i)" (mouseleave)="onCenterMouseLeave()">
 
         <div class="letter-box">
           <span class="letter">
@@ -309,11 +302,6 @@
   <!-- Neural Fabric Section with Animated Tracks -->
   @defer (on viewport) {
   <section class="powered-by-section">
-    <!-- <div class="section-header">
-      <span class="section-badge glass-effect">{{ 'footer.poweredBy' | translate }}</span>
-      <h2 class="section-title powered-by-title">{{ 'footer.poweredBy' | translate }}</h2>
-      <p class="section-description">{{ 'home.poweredBy.description' | translate }}</p>
-    </div> -->
 
     <!-- Animated tracks container -->
     <div class="powered-by-animation-container">
@@ -321,7 +309,6 @@
       <div class="monitor-container">
         <div class="monitor">
           <div class="monitor-screen">
-            <!-- <div class="monitor-glow"></div> -->
             <div class="monitor-content">
               <span class="monitor-icon">
                 <img src="icons/ddc_logo.svg" alt="" width="48" height="48" loading="lazy" decoding="async"></span>
