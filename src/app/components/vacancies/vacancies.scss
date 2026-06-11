@@ -1,0 +1,1117 @@
+@import '../../../styles';
+
+.vacancies-page {
+    position: relative;
+    min-height: 100vh;
+    padding: 80px 0 90px;
+    color: var(--text-main);
+    text-align: center;
+    //   background: #040816;
+
+    isolation: isolate;
+}
+
+.vacancies-hero {
+    min-height: calc(100vh - 80px);
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(260px, .85fr);
+    align-items: center;
+    gap: clamp(32px, 5vw, 80px);
+    padding-bottom: 70px;
+    background: #040816;
+    text-align: left;
+
+}
+
+.section-badge {
+    display: inline-block;
+    padding: $spacing-xs $spacing-md;
+    border-radius: $radius-full;
+    font-size: 0.875rem;
+    margin-bottom: $spacing-md;
+    background: rgba(0, 212, 255, 0.1);
+    border: 1px solid rgba(0, 212, 255, 0.3);
+    color: $primary-color;
+
+}
+
+.section-title {
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 700;
+    margin-bottom: $spacing-md;
+    background: $gradient-primary;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.section-description {
+    font-size: 1.25rem;
+    color: $text-muted;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+.hero-content h1 {
+    margin: 24px 0 22px;
+    max-width: 760px;
+    font-size: clamp(3.2rem, 6.2vw, 6.8rem);
+    line-height: .95;
+    letter-spacing: -0.07em;
+    color: #fff;
+}
+
+.hero-content p {
+    max-width: 660px;
+    font-size: clamp(1rem, 1.5vw, 1.25rem);
+    line-height: 1.8;
+    color: rgba(255, 255, 255, .68);
+}
+
+.hero-orb {
+    position: relative;
+    z-index: 2;
+    width: clamp(220px, 26vw, 340px);
+    aspect-ratio: 1;
+    margin-left: auto;
+    display: grid;
+    place-items: center;
+}
+
+.orb-ring {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 212, 255, .35);
+    background:
+        radial-gradient(circle at 60% 40%, rgba(0, 212, 255, .22), transparent 34%),
+        radial-gradient(circle at 35% 65%, rgba(123, 44, 191, .22), transparent 42%);
+    box-shadow:
+        0 0 90px rgba(0, 212, 255, .18),
+        inset 0 0 55px rgba(123, 44, 191, .2);
+    animation: rotateOrb 14s linear infinite;
+}
+
+.orb-core {
+    position: relative;
+    z-index: 2;
+    width: clamp(105px, 11vw, 140px);
+    aspect-ratio: 1;
+    border-radius: 28px;
+    display: grid;
+    place-items: center;
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    font-weight: 900;
+    color: #fff;
+    background: rgba(255, 255, 255, .08);
+    border: 1px solid rgba(255, 255, 255, .18);
+    box-shadow: 0 0 55px rgba(0, 212, 255, .24);
+    backdrop-filter: blur(18px);
+}
+
+@keyframes rotateOrb {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.vacancies-section,
+.benefits-section,
+.cv-section {
+    position: relative;
+    z-index: 2;
+    margin-top: 70px;
+}
+
+.section-header {
+    margin-bottom: 32px;
+}
+
+.vacancy-list {
+    display: grid;
+    gap: 18px;
+}
+
+.vacancy-card {
+    padding: 28px;
+    border-radius: 28px;
+    background:
+        linear-gradient(135deg, rgba(255, 255, 255, .08), rgba(255, 255, 255, .03)),
+        rgba(5, 15, 35, .72);
+    border: 1px solid rgba(0, 212, 255, .16);
+    box-shadow: 0 22px 60px rgba(0, 0, 0, .28);
+    backdrop-filter: blur(20px);
+    transition: .25s ease;
+}
+
+.vacancy-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(0, 212, 255, .45);
+    box-shadow: 0 24px 70px rgba(0, 212, 255, .13);
+}
+
+.vacancy-main {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 24px;
+}
+
+.vacancy-department {
+    display: inline-flex;
+    margin-bottom: 12px;
+    color: #00d4ff;
+    font-size: .78rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: .12em;
+}
+
+.vacancy-card h3 {
+    margin: 0 0 14px;
+    font-size: clamp(1.35rem, 2vw, 1.8rem);
+    color: #fff;
+}
+
+.vacancy-meta,
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.vacancy-meta span,
+.tags span {
+    padding: 8px 13px;
+    border-radius: 999px;
+    color: rgba(255, 255, 255, .78);
+    background: rgba(255, 255, 255, .07);
+    border: 1px solid rgba(255, 255, 255, .1);
+    font-size: .88rem;
+}
+
+
+
+.vacancy-footer {
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, .08);
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.salary {
+    color: rgba(255, 255, 255, .65);
+    white-space: nowrap;
+}
+
+.benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.benefit-card {
+    padding: 28px;
+    border-radius: 28px;
+    background:
+        linear-gradient(135deg, rgba(255, 255, 255, .08), rgba(255, 255, 255, .03)),
+        rgba(5, 15, 35, .72);
+    border: 1px solid rgba(0, 212, 255, .14);
+    backdrop-filter: blur(20px);
+}
+
+.benefit-card span {
+    font-size: 2.3rem;
+}
+
+.benefit-card h3 {
+    margin: 18px 0 10px;
+    color: #fff;
+}
+
+.benefit-card p {
+    margin: 0;
+    color: rgba(255, 255, 255, .66);
+    line-height: 1.6;
+}
+
+.cv-card {
+    padding: 38px;
+    border-radius: 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 28px;
+    background:
+        linear-gradient(135deg, rgba(0, 212, 255, .12), rgba(123, 44, 191, .12)),
+        rgba(5, 15, 35, .78);
+    border: 1px solid rgba(0, 212, 255, .18);
+    backdrop-filter: blur(22px);
+}
+
+.cv-card h2 {
+    margin: 0 0 10px;
+    color: #fff;
+}
+
+.cv-card p {
+    margin: 0;
+    color: rgba(255, 255, 255, .68);
+}
+
+@media (max-width: 1100px) {
+    .vacancies-hero {
+        grid-template-columns: 1fr;
+        min-height: auto;
+        padding-top: 60px;
+    }
+
+    .hero-orb {
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .vacancies-page {
+        padding-top: 95px;
+    }
+
+    .hero-content h1 {
+        font-size: clamp(3rem, 16vw, 4.8rem);
+    }
+
+    .vacancy-main,
+    .vacancy-footer,
+    .cv-card {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .benefits-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .salary {
+        white-space: normal;
+    }
+}
+
+.vacancy-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 38px;
+}
+
+.vacancy-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 22px;
+}
+
+.vacancy-card {
+    min-height: 210px;
+    padding: 30px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    border-radius: 22px;
+    border: 1px solid rgba(0, 212, 255, .16);
+
+    background:
+        linear-gradient(135deg, rgba(255, 255, 255, .08), rgba(255, 255, 255, .03)),
+        rgba(8, 18, 42, .88);
+
+    box-shadow: 0 22px 60px rgba(0, 0, 0, .28);
+    backdrop-filter: blur(18px);
+
+    cursor: pointer;
+    transition: .25s ease;
+
+    &:hover {
+        transform: translateY(-6px);
+        border-color: rgba(0, 212, 255, .48);
+        box-shadow: 0 26px 74px rgba(0, 212, 255, .14);
+
+        .vacancy-arrow {
+            transform: translate(4px, 4px);
+            color: #00d4ff;
+        }
+    }
+
+    h3 {
+        margin: 16px 0 0;
+
+        color: #fff;
+
+        font-size: 1.35rem;
+        line-height: 1.35;
+        font-weight: 800;
+    }
+}
+
+.vacancy-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    color: rgba(255, 255, 255, .55);
+
+    font-size: .95rem;
+    font-weight: 500;
+}
+
+.vacancy-bottom {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 18px;
+
+    p {
+        margin: 0;
+        color: rgba(255, 255, 255, .8);
+        font-size: .98rem;
+    }
+}
+
+.vacancy-arrow {
+    color: rgba(255, 255, 255, .45);
+    font-size: 1.5rem;
+    transition: .22s ease;
+}
+
+@media (max-width: 1100px) {
+    .vacancy-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 680px) {
+    .vacancy-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .filter-chip {
+        height: 46px;
+        padding: 0 16px;
+    }
+}
+
+.career-benefits {
+    margin-top: 90px;
+}
+
+.benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 22px;
+}
+
+.benefit-card {
+    min-height: 260px;
+    padding: 30px;
+    border-radius: 30px;
+    position: relative;
+    overflow: hidden;
+
+    background:
+        linear-gradient(135deg, rgba(255, 255, 255, .09), rgba(255, 255, 255, .03)),
+        rgba(8, 18, 42, .88);
+
+    border: 1px solid rgba(0, 212, 255, .16);
+    box-shadow: 0 24px 70px rgba(0, 0, 0, .28);
+    backdrop-filter: blur(20px);
+
+    transition: .25s ease;
+}
+
+.benefit-card::before {
+    content: '';
+    position: absolute;
+    inset: -40%;
+    background: radial-gradient(circle, rgba(0, 212, 255, .18), transparent 45%);
+    opacity: 0;
+    transition: .25s ease;
+}
+
+.benefit-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(0, 212, 255, .42);
+}
+
+.benefit-card:hover::before {
+    opacity: 1;
+}
+
+.benefit-card.large {
+    grid-column: span 2;
+}
+
+.benefit-icon {
+    width: 58px;
+    height: 58px;
+    margin-bottom: 24px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 18px;
+    font-size: 1.8rem;
+
+    background:
+        radial-gradient(circle at 30% 20%, rgba(0, 255, 163, .28), transparent 45%),
+        rgba(0, 212, 255, .08);
+
+    border: 1px solid rgba(0, 212, 255, .22);
+}
+
+.benefit-card h3 {
+    position: relative;
+    margin: 0 0 14px;
+    color: #fff;
+    font-size: 1.35rem;
+}
+
+.benefit-card p {
+    position: relative;
+    margin: 0;
+    color: rgba(255, 255, 255, .68);
+    line-height: 1.65;
+}
+
+@media (max-width: 900px) {
+    .benefits-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .benefit-card.large {
+        grid-column: auto;
+    }
+}
+
+.office-gallery {
+    margin-top: 90px;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: 1.2fr .8fr .8fr;
+    grid-auto-rows: 180px;
+    gap: 18px;
+}
+
+.gallery-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 28px;
+
+    background:
+        linear-gradient(135deg,
+            rgba(0, 212, 255, .12),
+            rgba(123, 44, 191, .12));
+
+    border: 1px solid rgba(0, 212, 255, .16);
+
+    img {
+        width: 100%;
+        // height: 100%;
+
+        object-fit: cover;
+        display: block;
+
+        transition: transform .5s ease;
+    }
+
+    &:hover img {
+        transform: scale(1.05);
+    }
+
+    &::after {
+        content: '';
+
+        position: absolute;
+        inset: 0;
+
+        background:
+            linear-gradient(to top,
+                rgba(4, 8, 22, .55),
+                transparent 40%);
+
+        pointer-events: none;
+    }
+}
+
+.gallery-card.big {
+    grid-row: span 2;
+}
+
+.gallery-card.wide {
+    grid-column: span 2;
+}
+
+@media (max-width: 900px) {
+    .gallery-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .gallery-card.big,
+    .gallery-card.wide {
+        grid-row: auto;
+        grid-column: auto;
+    }
+}
+
+.benefit-carousel-card {
+    padding: 0;
+    min-height: 320px;
+}
+
+.photo-carousel {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    border-radius: inherit;
+}
+
+.photo-carousel img {
+    position: absolute;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    opacity: 0;
+    transform: scale(1.05);
+
+    animation: carouselFade 16s infinite;
+}
+
+.photo-carousel img:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.photo-carousel img:nth-child(2) {
+    animation-delay: 4s;
+}
+
+.photo-carousel img:nth-child(3) {
+    animation-delay: 8s;
+}
+
+.photo-carousel img:nth-child(4) {
+    animation-delay: 12s;
+}
+
+.carousel-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+
+    padding: 30px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+
+    background:
+        linear-gradient(to top,
+            rgba(4, 8, 22, .86),
+            rgba(4, 8, 22, .28) 48%,
+            transparent);
+}
+
+.carousel-overlay span {
+    width: fit-content;
+    margin-bottom: 12px;
+    padding: 7px 13px;
+
+    border-radius: 999px;
+
+    color: #00d4ff;
+    background: rgba(0, 212, 255, .12);
+    border: 1px solid rgba(0, 212, 255, .22);
+
+    font-size: .78rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+}
+
+.carousel-overlay h3 {
+    margin: 0 0 10px;
+    color: #fff;
+    font-size: 1.5rem;
+}
+
+.carousel-overlay p {
+    margin: 0;
+    max-width: 520px;
+    color: rgba(255, 255, 255, .76);
+    line-height: 1.6;
+}
+
+@keyframes carouselFade {
+    0% {
+        opacity: 0;
+        transform: scale(1.08);
+    }
+
+    8% {
+        opacity: 1;
+    }
+
+    25% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    33% {
+        opacity: 0;
+        transform: scale(1);
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+.vacancy-modal-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    padding: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(2, 6, 18, .82);
+    backdrop-filter: blur(16px);
+}
+
+.vacancy-modal {
+    position: relative;
+    width: min(1080px, 100%);
+    max-height: 78vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    padding: 0;
+    border-radius: 34px;
+    background:
+        radial-gradient(circle at top right, rgba(123, 44, 191, .18), transparent 34%),
+        radial-gradient(circle at bottom left, rgba(0, 212, 255, .12), transparent 36%),
+        #10131c;
+    border: 1px solid rgba(255, 255, 255, .12);
+    box-shadow: 0 40px 120px rgba(0, 0, 0, .55);
+}
+
+.modal-close {
+    position: absolute;
+    top: 22px;
+    right: 22px;
+    z-index: 10;
+}
+
+.modal-header {
+    padding: 42px 96px 30px 42px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+    border-bottom: 1px solid rgba(255, 255, 255, .1);
+}
+
+
+.modal-category {
+    color: #00d4ff;
+    font-size: .8rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: .16em;
+}
+
+.modal-header h2 {
+    margin: 14px 0 18px;
+    max-width: 760px;
+
+    color: #fff;
+    font-size: clamp(2rem, 4vw, 4rem);
+    line-height: 1;
+    letter-spacing: -0.05em;
+}
+
+.modal-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.modal-meta span {
+    padding: 10px 14px;
+
+    border-radius: 999px;
+
+    color: rgba(255, 255, 255, .82);
+    background: rgba(255, 255, 255, .06);
+    border: 1px solid rgba(255, 255, 255, .1);
+}
+
+.modal-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.modal-content {
+    padding: 30px 42px 42px;
+    overflow-y: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+}
+
+/* красивый скролл */
+.modal-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.modal-content::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, .04);
+    border-radius: 999px;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #00d4ff, #7b2cbf);
+    border-radius: 999px;
+}
+
+.modal-content {
+    scrollbar-width: thin;
+    scrollbar-color: #00d4ff rgba(255, 255, 255, .04);
+}
+
+.modal-content section {
+    padding: 24px;
+
+    border-radius: 24px;
+
+    background: rgba(255, 255, 255, .04);
+    border: 1px solid rgba(255, 255, 255, .08);
+}
+
+.modal-content section:nth-child(1),
+.modal-content section:nth-child(2),
+.modal-content section:nth-child(3) {
+    grid-column: 1 / -1;
+}
+
+.modal-content h3 {
+    margin: 0 0 16px;
+
+    color: #fff;
+    font-size: 1.2rem;
+}
+
+.modal-content p,
+.modal-content li {
+    color: rgba(255, 255, 255, .68);
+    line-height: 1.7;
+}
+
+.modal-content p {
+    margin: 0 0 12px;
+}
+
+.modal-content ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.modal-content li {
+    margin-bottom: 10px;
+}
+
+.modal-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.modal-tags span {
+    padding: 9px 13px;
+
+    border-radius: 999px;
+
+    color: #00d4ff;
+    background: rgba(0, 212, 255, .08);
+    border: 1px solid rgba(0, 212, 255, .18);
+
+    font-weight: 700;
+    font-size: .9rem;
+}
+
+@media (max-width: 800px) {
+    .vacancy-modal-backdrop {
+        padding: 16px;
+    }
+
+    .vacancy-modal {
+        padding: 28px 20px;
+        border-radius: 26px;
+    }
+
+    .modal-header,
+    .modal-content {
+        grid-template-columns: 1fr;
+    }
+
+    .modal-actions {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+}
+
+.vacancies-cta {
+    position: relative;
+    margin-top: 120px;
+
+    .cta-background {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        overflow: hidden;
+    }
+
+    .cta-glow {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 520px;
+        height: 520px;
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(0, 212, 255, .22), transparent 65%);
+        filter: blur(20px);
+    }
+
+    .cta-content {
+        position: relative;
+        z-index: 2;
+        padding: 56px;
+        border-radius: 32px;
+        text-align: center;
+    }
+
+    .cta-title {
+        margin: 0 0 16px;
+        color: #fff;
+        font-size: clamp(2rem, 4vw, 4rem);
+        line-height: 1;
+    }
+
+    .cta-description {
+        max-width: 720px;
+        margin: 0 auto 30px;
+        color: rgba(255, 255, 255, .72);
+        line-height: 1.7;
+    }
+}
+
+/* =========================
+   Vacancies buttons system
+========================= */
+/* =========================
+   Buttons like Team page
+========================= */
+
+.vacancies-page {
+    a {
+        text-decoration: none;
+    }
+
+    button,
+    a {
+        font-family: inherit;
+    }
+}
+
+/* общая кнопка */
+.vacancies-page .btn,
+.vacancies-page .apply-btn,
+.vacancies-page .friend-btn {
+    position: relative;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: $spacing-xs;
+
+    min-height: 52px;
+    padding: $spacing-md $spacing-xl;
+
+    border: none;
+    border-radius: $radius-md;
+
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1;
+
+    cursor: pointer;
+    overflow: hidden;
+
+    transition: all $transition-base;
+}
+
+/* shimmer */
+.vacancies-page .btn::before,
+.vacancies-page .apply-btn::before,
+.vacancies-page .friend-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+
+    background: linear-gradient(90deg,
+            transparent,
+            rgba(255, 255, 255, .22),
+            transparent);
+
+    transform: translateX(-100%);
+    transition: transform .5s ease;
+}
+
+.vacancies-page .btn:hover::before,
+.vacancies-page .apply-btn:hover::before,
+.vacancies-page .friend-btn:hover::before {
+    transform: translateX(100%);
+}
+
+/* primary как в team */
+.vacancies-page .btn-primary,
+.vacancies-page .apply-btn {
+    background: $gradient-primary;
+    color: $text-primary;
+    box-shadow: $shadow-glow-primary;
+}
+
+.vacancies-page .btn-primary:hover,
+.vacancies-page .apply-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: $shadow-glow-primary;
+}
+
+/* secondary для "Посоветовать друга" */
+.vacancies-page .friend-btn {
+    background: rgba(255, 255, 255, .06);
+    color: $text-primary;
+    border: 1px solid rgba(255, 255, 255, .14);
+}
+
+.vacancies-page .friend-btn:hover {
+    transform: translateY(-2px);
+    border-color: rgba(0, 212, 255, .45);
+    box-shadow: 0 0 28px rgba(0, 212, 255, .18);
+}
+
+/* стрелка */
+.vacancies-page .btn-arrow {
+    position: relative;
+    z-index: 2;
+    transition: transform $transition-base;
+}
+
+.vacancies-page .btn:hover .btn-arrow,
+.vacancies-page .apply-btn:hover .btn-arrow,
+.vacancies-page .friend-btn:hover .btn-arrow {
+    transform: translateX(5px);
+}
+
+.vacancies-page .btn-text,
+.vacancies-page .apply-btn span,
+.vacancies-page .friend-btn span {
+    position: relative;
+    z-index: 2;
+}
+
+/* фильтры НЕ как CTA, а аккуратные чипсы */
+.vacancies-page .filter-chip {
+    padding: $spacing-sm $spacing-lg;
+    border-radius: $radius-full;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: transparent;
+    color: $text-secondary;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all $transition-base;
+
+    &:hover {
+        border-color: $primary-color;
+        color: $text-primary;
+    }
+
+    &.active {
+        background: $gradient-primary;
+        border-color: transparent;
+        color: $text-primary;
+    }
+}
+
+/* close */
+.vacancies-page .modal-close {
+    position: absolute;
+    top: 22px;
+    right: 22px;
+
+    width: 42px;
+    height: 42px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, .16);
+
+    background: rgba(255, 255, 255, .06);
+    color: $text-primary;
+
+    font-size: 26px;
+    line-height: 1;
+
+    cursor: pointer;
+    transition: all $transition-base;
+}
+
+.vacancies-page .modal-close:hover {
+    transform: rotate(90deg);
+    color: #00d4ff;
+    border-color: rgba(0, 212, 255, .45);
+}
+
+/* modal buttons layout */
+.modal-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+@media (max-width: 800px) {
+    .modal-actions {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .vacancies-page .apply-btn,
+    .vacancies-page .friend-btn {
+        width: 100%;
+    }
+}
