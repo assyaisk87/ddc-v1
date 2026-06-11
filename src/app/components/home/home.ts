@@ -35,6 +35,9 @@ export class Home implements OnInit, AfterViewInit, OnDestroy {
   centerVisible = false;
   greeting: { text: string; subtext: string } = { text: '', subtext: '' };
 
+  // IntersectionObserver instance for cleanup
+  private centerObserver: IntersectionObserver | null = null;
+
   // CENTER Framework values (loaded from home.data)
   centerValues: CenterValue[] = centerData;
 
@@ -183,7 +186,47 @@ export class Home implements OnInit, AfterViewInit, OnDestroy {
     section?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
+  // CENTER Framework interaction methods
+  onCenterMouseEnter(index: number): void {
+    this.activeCenterIndex = index;
+  }
+
+  onCenterMouseLeave(): void {
+    // ничего не сбрасываем
+  }
+
+    observeCenterAnimation(): void {
+    this.centerObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            this.centerVisible = true;
+
+            setTimeout(() => {
+              this.activeCenterIndex = 0;
+            }, this.centerValues.length * 140 + 500);
+
+            if (this.centerObserver) {
+              this.centerObserver.disconnect();
+            }
+          }
+        });
+      },
+      {
+        threshold: 0.35
+      }
+    );
+
+        if (this.centerSection?.nativeElement) {
+      this.centerObserver.observe(this.centerSection.nativeElement);
+    }
+  }
+
   ngOnDestroy(): void {
+    // Disconnect IntersectionObserver to prevent memory leaks
+    if (this.centerObserver) {
+      this.centerObserver.disconnect();
+    }
 
     try {
       const audioContext = (this as any).audioContext;
@@ -194,38 +237,6 @@ export class Home implements OnInit, AfterViewInit, OnDestroy {
       // Ignore cleanup errors
     }
   }
-
-  // CENTER Framework interaction methods
-  onCenterMouseEnter(index: number): void {
-    this.activeCenterIndex = index;
-  }
-
-  onCenterMouseLeave(): void {
-    // ничего не сбрасываем
-  }
-
-  observeCenterAnimation(): void {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            this.centerVisible = true;
-
-            setTimeout(() => {
-              this.activeCenterIndex = 0;
-            }, this.centerValues.length * 140 + 500);
-
-            observer.disconnect();
-          }
-        });
-      },
-      {
-        threshold: 0.35
-      }
-    );
-
-    if (this.centerSection?.nativeElement) {
-      observer.observe(this.centerSection.nativeElement);
-    }
-  }
 }
+
+

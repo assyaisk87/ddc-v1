@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
@@ -10,10 +10,14 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
   templateUrl: './navigation.html',
   styleUrl: './navigation.scss'
 })
-export class Navigation implements OnInit {
+export class Navigation implements OnInit, OnDestroy {
   currentLang: string = 'ru';
   isScrolled: boolean = false;
   isMobileMenuOpen: boolean = false;
+
+  private scrollHandler = (): void => {
+      this.isScrolled = window.scrollY > 50;
+    };
 
   menuItems = [
     { key: 'home', path: '/' },
@@ -29,9 +33,11 @@ export class Navigation implements OnInit {
   }
 
   ngOnInit() {
-    window.addEventListener('scroll', () => {
-      this.isScrolled = window.scrollY > 50;
-    });
+    window.addEventListener('scroll', this.scrollHandler);
+    }
+
+  ngOnDestroy(): void {
+    window.removeEventListener('scroll', this.scrollHandler);
   }
 
   changeLanguage(lang: string) {
@@ -47,4 +53,5 @@ export class Navigation implements OnInit {
     this.isMobileMenuOpen = false;
   }
 }
+
 
