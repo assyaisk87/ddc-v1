@@ -930,8 +930,8 @@
 
 /* общая кнопка */
 .vacancies-page .btn,
-.vacancies-page .apply-btn,
-.vacancies-page .friend-btn {
+ .apply-btn,
+ .friend-btn {
     position: relative;
 
     display: inline-flex;
@@ -957,8 +957,8 @@
 
 /* shimmer */
 .vacancies-page .btn::before,
-.vacancies-page .apply-btn::before,
-.vacancies-page .friend-btn::before {
+ .apply-btn::before,
+ .friend-btn::before {
     content: '';
     position: absolute;
     inset: 0;
@@ -973,33 +973,33 @@
 }
 
 .vacancies-page .btn:hover::before,
-.vacancies-page .apply-btn:hover::before,
-.vacancies-page .friend-btn:hover::before {
+ .apply-btn:hover::before,
+ .friend-btn:hover::before {
     transform: translateX(100%);
 }
 
 /* primary как в team */
 .vacancies-page .btn-primary,
-.vacancies-page .apply-btn {
+ .apply-btn {
     background: $gradient-primary;
     color: $text-primary;
     box-shadow: $shadow-glow-primary;
 }
 
 .vacancies-page .btn-primary:hover,
-.vacancies-page .apply-btn:hover {
+ .apply-btn:hover {
     transform: translateY(-2px);
     box-shadow: $shadow-glow-primary;
 }
 
 /* secondary для "Посоветовать друга" */
-.vacancies-page .friend-btn {
+ .friend-btn {
     background: rgba(255, 255, 255, .06);
     color: $text-primary;
     border: 1px solid rgba(255, 255, 255, .14);
 }
 
-.vacancies-page .friend-btn:hover {
+ .friend-btn:hover {
     transform: translateY(-2px);
     border-color: rgba(0, 212, 255, .45);
     box-shadow: 0 0 28px rgba(0, 212, 255, .18);
@@ -1013,14 +1013,14 @@
 }
 
 .vacancies-page .btn:hover .btn-arrow,
-.vacancies-page .apply-btn:hover .btn-arrow,
-.vacancies-page .friend-btn:hover .btn-arrow {
+ .apply-btn:hover .btn-arrow,
+ .friend-btn:hover .btn-arrow {
     transform: translateX(5px);
 }
 
 .vacancies-page .btn-text,
-.vacancies-page .apply-btn span,
-.vacancies-page .friend-btn span {
+ .apply-btn span,
+ .friend-btn span {
     position: relative;
     z-index: 2;
 }
@@ -1078,8 +1078,8 @@
         flex-wrap: wrap;
     }
 
-    .vacancies-page .apply-btn,
-    .vacancies-page .friend-btn {
+     .apply-btn,
+     .friend-btn {
         width: 100%;
     }
 }
