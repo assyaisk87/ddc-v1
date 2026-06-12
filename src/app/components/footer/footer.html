@@ -46,7 +46,7 @@
         <ul class="official-sites-list">
           @for (site of officialSites; track site.url) {
           <li>
-            <a [href]="site.url" target="_blank" rel="noopener noreferrer" class="footer-link">
+            <a [href]="site.url" target="{{site.options!=''?site.options : '_blank'}}" rel="noopener noreferrer" class="footer-link">
               {{ site.icon}} {{ site.title | translate }}
             </a>
           </li>

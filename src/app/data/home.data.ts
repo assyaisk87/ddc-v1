@@ -107,7 +107,7 @@ export const features: Feature[] = [
     icon: '📈',
     titleKey: 'home.features.title5',
     descKey: 'home.features.desc5',
-    color: '#FFB020'
+    color: '#da55bd'
   }
 ];
 

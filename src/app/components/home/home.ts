@@ -2,23 +2,21 @@ import { Component, OnInit, AfterViewInit, OnDestroy, Inject, ViewChild, Element
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterLink } from '@angular/router';
-import { AiAvatarComponent } from '../ai-avatar/ai-avatar.component';
 import {
-  features, poweredByPartners, centerValues as centerData,
+  features, centerValues as centerData,
   CenterValue, ecosystemNodes, commandMetrics
 } from '../../data/home.data';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, TranslateModule, RouterLink, AiAvatarComponent],
+  imports: [CommonModule, TranslateModule, RouterLink],
   templateUrl: './home.html',
   styleUrls: ['./home.scss']
 })
 export class Home implements OnInit, AfterViewInit, OnDestroy {
   // Import data from separate file
   features = features;
-  poweredByPartners = poweredByPartners;
   ecosystemNodes = ecosystemNodes;
   ecosystemFeatureNodes = features.map((feature, index) => ({
     ...feature,
@@ -33,7 +31,6 @@ export class Home implements OnInit, AfterViewInit, OnDestroy {
   hasInteracted = false;
   @ViewChild('centerSection') centerSection!: ElementRef;
   centerVisible = false;
-  greeting: { text: string; subtext: string } = { text: '', subtext: '' };
 
   // IntersectionObserver instance for cleanup
   private centerObserver: IntersectionObserver | null = null;
@@ -43,52 +40,17 @@ export class Home implements OnInit, AfterViewInit, OnDestroy {
 
   activeCenterIndex: number | null = null;
   hoveredCenterIndex: number | null = null;
-  leftPartnersTrack: typeof poweredByPartners = [];
-  rightPartnersTrack: typeof poweredByPartners = [];
 
   constructor(
     private elementRef: ElementRef
   ) { }
+
   ngOnInit(): void {
-    this.setGreeting();
-
-    this.leftPartnersTrack = this.createInfiniteTrack(this.poweredByPartners);
-    this.rightPartnersTrack = this.createInfiniteTrack(this.poweredByPartners);
   }
 
-  private createInfiniteTrack<T>(items: T[]): T[] {
-    const shuffled = this.shuffleArray(items);
-    return [...shuffled, ...shuffled];
-  }
-
-  private shuffleArray<T>(items: T[]): T[] {
-    return [...items].sort(() => Math.random() - 0.5);
-  }
 
   ngAfterViewInit(): void {
     this.observeCenterAnimation();
-  }
-
-  // Dynamic greeting based on time of day
-  setGreeting() {
-    const hour = new Date().getHours();
-
-    if (hour >= 5 && hour < 12) {
-      this.greeting = {
-        text: 'Доброе утро',
-        subtext: 'Начните день с будущего'
-      };
-    } else if (hour >= 12 && hour < 18) {
-      this.greeting = {
-        text: 'Добрый день',
-        subtext: 'Время для инноваций'
-      };
-    } else {
-      this.greeting = {
-        text: 'Добрый вечер',
-        subtext: 'Добро пожаловать в будущее'
-      };
-    }
   }
 
   // Toggle AI voice greeting
@@ -171,7 +133,6 @@ export class Home implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-
   setActiveEcosystemNode(node: any): void {
     this.activeEcosystemNode = node;
   }
@@ -195,7 +156,7 @@ export class Home implements OnInit, AfterViewInit, OnDestroy {
     // ничего не сбрасываем
   }
 
-    observeCenterAnimation(): void {
+  observeCenterAnimation(): void {
     this.centerObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach(entry => {
@@ -217,7 +178,7 @@ export class Home implements OnInit, AfterViewInit, OnDestroy {
       }
     );
 
-        if (this.centerSection?.nativeElement) {
+    if (this.centerSection?.nativeElement) {
       this.centerObserver.observe(this.centerSection.nativeElement);
     }
   }

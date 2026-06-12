@@ -63,11 +63,11 @@
       "projectsBtn": "Наши проекты"
     },
     "command": {
-      "title": "AI COMMAND CENTER",
+      "title": "DDC COMMAND CENTER",
       "status": "Все системы работают",
       "metrics": {
-        "activeProjects": "Активных проектов",
-        "devTeams": "Команд разработки",
+        "activeProjects": "Лет опыта",
+        "devTeams": "Специалистов",
         "aiServices": "AI-сервисов",
         "productionSystems": "Системы в эксплуатации",
         "integrations": "Интеграционных решений",

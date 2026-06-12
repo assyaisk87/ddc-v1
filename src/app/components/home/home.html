@@ -24,6 +24,22 @@
         <p class="hero-description">
           {{ 'home.hero.description' | translate }}
         </p>
+
+        <div class="hero-actions">
+          <a routerLink="/contacts" class="btn btn-primary glow-effect magnetic">
+            <span class="btn-text">{{ 'home.cta_button' | translate }}</span>
+            <span class="btn-shimmer"></span>
+            <span class="btn-arrow">→</span>
+          </a>
+          <a routerLink="/projects" class="btn btn-secondary  magnetic">
+            <span class="btn-text">
+              <span class="btn-play">▶</span>
+              {{ 'nav.projects' | translate }}
+            </span>
+            <span class="btn-shimmer"></span>
+          </a>
+        </div>
+        
       </div>
 
       <!-- CENTER -->
@@ -70,23 +86,23 @@
 
           <div class="stats-grid">
             <div class="stat-card">
-              <strong>27</strong>
+              <strong>30+</strong>
               <span>{{ 'home.command.metrics.activeProjects' | translate }}</span>
             </div>
 
             <div class="stat-card">
-              <strong>14+</strong>
+              <strong>250+</strong>
               <span>{{ 'home.command.metrics.devTeams' | translate }}</span>
+            </div>
+
+            <div class="stat-card">
+              <strong>20+</strong>
+              <span>{{ 'home.command.metrics.productionSystems' | translate }}</span>
             </div>
 
             <div class="stat-card">
               <strong>8</strong>
               <span>{{ 'home.command.metrics.aiServices' | translate }}</span>
-            </div>
-
-            <div class="stat-card">
-              <strong>23</strong>
-              <span>{{ 'home.command.metrics.productionSystems' | translate }}</span>
             </div>
           </div>
 
@@ -124,140 +140,8 @@
       </aside>
 
     </div>
-
-    <!-- BOTTOM -->
-    <div class="bottom-grid container">
-
-      <div class="glass-card ecosystem-scheme-card">
-        <div class="card-header">
-          <h2>{{ 'home.ecosystem.title' | translate }}</h2>
-          <a routerLink="/projects" style="margin-bottom: 20px;">{{ 'home.news.all' | translate }} →</a>
-
-        </div>
-
-        <div class="ecosystem-mini">
-          <svg class="mini-connections-svg" viewBox="0 0 900 300" preserveAspectRatio="none">
-            <path id="mini-l1" d="M450 150 C330 75, 260 70, 205 75" />
-            <path id="mini-l2" d="M450 150 C330 150, 260 150, 205 150" />
-            <path id="mini-l3" d="M450 150 C330 225, 260 230, 205 225" />
-
-            <path id="mini-r1" d="M450 150 C570 75, 640 70, 695 75" />
-            <path id="mini-r2" d="M450 150 C570 150, 640 150, 695 150" />
-            <path id="mini-r3" d="M450 150 C570 225, 640 230, 695 225" />
-
-            <circle class="moving-dot cyan" r="5">
-              <animateMotion dur="3s" repeatCount="indefinite">
-                <mpath href="#mini-l1" />
-              </animateMotion>
-            </circle>
-
-            <circle class="moving-dot blue" r="5">
-              <animateMotion dur="3.4s" repeatCount="indefinite">
-                <mpath href="#mini-l2" />
-              </animateMotion>
-            </circle>
-
-            <circle class="moving-dot purple" r="5">
-              <animateMotion dur="3.8s" repeatCount="indefinite">
-                <mpath href="#mini-l3" />
-              </animateMotion>
-            </circle>
-
-            <circle class="moving-dot cyan" r="5">
-              <animateMotion dur="3.2s" repeatCount="indefinite">
-                <mpath href="#mini-r1" />
-              </animateMotion>
-            </circle>
-
-            <circle class="moving-dot green" r="5">
-              <animateMotion dur="3.6s" repeatCount="indefinite">
-                <mpath href="#mini-r2" />
-              </animateMotion>
-            </circle>
-
-            <circle class="moving-dot purple" r="5">
-              <animateMotion dur="4s" repeatCount="indefinite">
-                <mpath href="#mini-r3" />
-              </animateMotion>
-            </circle>
-          </svg>
-
-          <div class="mini-left mini-layer">
-            <div class="scheme-node"><img src="/command-center/shield-network.svg" alt="" width="22" height="22"> {{
-              'home.ecosystem.scheme.regulatory' | translate }}</div>
-            <div class="scheme-node"><img src="/command-center/api-gateway.svg" alt="" width="22" height="22"> {{
-              'home.ecosystem.scheme.security' | translate }}</div>
-            <div class="scheme-node"><img src="/command-center/systems.svg" alt="" width="22" height="22"> {{
-              'home.ecosystem.scheme.analytics' | translate }}</div>
-          </div>
-
-          <div class="mini-core mini-layer">
-            <span style="font-weight: 600;">DDC</span>
-          </div>
-
-          <div class="mini-right mini-layer">
-            <div class="scheme-node"><img src="/command-center/rocket.svg" alt="" width="22" height="22"> {{
-              'home.ecosystem.scheme.cloud' | translate }}</div>
-            <div class="scheme-node"><img src="/command-center/payment-network.svg" alt="" width="22" height="22"> {{
-              'home.ecosystem.scheme.fintech' | translate }}</div>
-            <div class="scheme-node"><img src="/command-center/digital-currency.svg" alt="" width="22" height="22"> {{
-              'home.ecosystem.scheme.blockchain' | translate }}</div>
-          </div>
-
-        </div>
-      </div>
-
-      <div class="assistant-card glass-card">
-        <div class="card-header">
-          <h2>{{ 'nav.achievements' | translate }}</h2>
-          <a routerLink="/achievements" style="margin-bottom: 20px;">{{ 'home.news.all' | translate }} →</a>
-        </div>
-        <div class="award-card">
-
-
-          <div class="award-content">
-
-
-            <h3 class="award-title">
-              The Best IT Project 2026
-            </h3>
-
-            <p class="award-description">
-              Проект NBK AI Platform победил на Kazakhstan Growth Forum
-            </p>
-            <!-- <div class="award-icon">
-  🏆
-</div> -->
-
-          </div>
-
-        </div>
-      </div>
-
-      <div class="news-card glass-card">
-        <div class="card-header">
-          <h2>{{ 'home.news.title' | translate }}</h2>
-          <a routerLink="/vacancies" style="margin-bottom: 20px;">{{ 'home.news.all' | translate }} →</a>
-        </div>
-
-        <div class="news-list">
-          <div class="news-item">
-            <div class="news-img"></div>
-            <p>{{ 'home.news.item1' | translate }}</p>
-          </div>
-
-          <div class="news-item">
-            <div class="news-img"></div>
-            <p>{{ 'home.news.item2' | translate }}</p>
-          </div>
-
-          <div class="news-item">
-            <div class="news-img"></div>
-            <p>{{ 'home.news.item3' | translate }}</p>
-          </div>
-        </div>
-      </div>
-
+    <div class="section-header">
+      <p class="section-description"> {{ 'home.mission' | translate }} </p>
     </div>
 
   </section>
@@ -265,13 +149,9 @@
 
   <!-- CENTER Framework - Mission & Values -->
   <section class="features-section container">
-    <div class="section-header">
-      <span class="section-badge glass-effect">{{ 'nav.mission' | translate }}</span>
-
-      <h2 class="mission-subtitle">
-        <span>{{'home.mission'|translate}}</span>
-      </h2>
-    </div>
+    <!-- <div class="section-header">
+      <img src="/icons/ddc_logo.svg" alt="ЦЦР">
+    </div> -->
     <div class="section-header">
       <h2 class="section-title ">DIGITAL DEVELOPMENT</h2>
     </div>
@@ -299,56 +179,139 @@
 
   </section>
 
-  <!-- Neural Fabric Section with Animated Tracks -->
-  @defer (on viewport) {
-  <section class="powered-by-section">
+  <!-- BOTTOM -->
+  <div class="bottom-grid container">
 
-    <!-- Animated tracks container -->
-    <div class="powered-by-animation-container">
-      <!-- Central monitor -->
-      <div class="monitor-container">
-        <div class="monitor">
-          <div class="monitor-screen">
-            <div class="monitor-content">
-              <span class="monitor-icon">
-                <img src="icons/ddc_logo.svg" alt="" width="48" height="48" loading="lazy" decoding="async"></span>
-              <span class="monitor-text">{{'DDC'|translate}}</span>
-            </div>
-          </div>
-          <div class="monitor-stand"></div>
-        </div>
+    <div class="glass-card ecosystem-scheme-card">
+      <div class="card-header">
+        <h2>{{ 'home.ecosystem.title' | translate }}</h2>
+        <a routerLink="/projects" style="margin-bottom: 20px;">{{ 'home.news.all' | translate }} →</a>
+
       </div>
 
-      <div class="track-left-wrapper">
-        <div class="track track-left">
-          @for (partner of leftPartnersTrack; track partner.name + $index) {
-          <div class="track-card" [style.--card-accent]="partner.color">
-            <div class="partner-icon">
-              <img [src]="partner.icon" [alt]="partner.name" width="64" height="64" class="partner-svg-icon"
-                loading="lazy" decoding="async">
-            </div>
-          </div>
-          }
+      <div class="ecosystem-mini">
+        <svg class="mini-connections-svg" viewBox="0 0 900 300" preserveAspectRatio="none">
+          <path id="mini-l1" d="M450 150 C330 75, 260 70, 205 75" />
+          <path id="mini-l2" d="M450 150 C330 150, 260 150, 205 150" />
+          <path id="mini-l3" d="M450 150 C330 225, 260 230, 205 225" />
+
+          <path id="mini-r1" d="M450 150 C570 75, 640 70, 695 75" />
+          <path id="mini-r2" d="M450 150 C570 150, 640 150, 695 150" />
+          <path id="mini-r3" d="M450 150 C570 225, 640 230, 695 225" />
+
+          <circle class="moving-dot cyan" r="5">
+            <animateMotion dur="3s" repeatCount="indefinite">
+              <mpath href="#mini-l1" />
+            </animateMotion>
+          </circle>
+
+          <circle class="moving-dot blue" r="5">
+            <animateMotion dur="3.4s" repeatCount="indefinite">
+              <mpath href="#mini-l2" />
+            </animateMotion>
+          </circle>
+
+          <circle class="moving-dot purple" r="5">
+            <animateMotion dur="3.8s" repeatCount="indefinite">
+              <mpath href="#mini-l3" />
+            </animateMotion>
+          </circle>
+
+          <circle class="moving-dot cyan" r="5">
+            <animateMotion dur="3.2s" repeatCount="indefinite">
+              <mpath href="#mini-r1" />
+            </animateMotion>
+          </circle>
+
+          <circle class="moving-dot green" r="5">
+            <animateMotion dur="3.6s" repeatCount="indefinite">
+              <mpath href="#mini-r2" />
+            </animateMotion>
+          </circle>
+
+          <circle class="moving-dot purple" r="5">
+            <animateMotion dur="4s" repeatCount="indefinite">
+              <mpath href="#mini-r3" />
+            </animateMotion>
+          </circle>
+        </svg>
+
+        <div class="mini-left mini-layer">
+          <div class="scheme-node"><img src="/command-center/shield-network.svg" alt="" width="22" height="22"> {{
+            'home.ecosystem.scheme.regulatory' | translate }}</div>
+          <div class="scheme-node"><img src="/command-center/api-gateway.svg" alt="" width="22" height="22"> {{
+            'home.ecosystem.scheme.security' | translate }}</div>
+          <div class="scheme-node"><img src="/command-center/systems.svg" alt="" width="22" height="22"> {{
+            'home.ecosystem.scheme.analytics' | translate }}</div>
         </div>
+
+        <div class="mini-core mini-layer">
+          <span style="font-weight: 600;">DDC</span>
+        </div>
+
+        <div class="mini-right mini-layer">
+          <div class="scheme-node"><img src="/command-center/rocket.svg" alt="" width="22" height="22"> {{
+            'home.ecosystem.scheme.cloud' | translate }}</div>
+          <div class="scheme-node"><img src="/command-center/payment-network.svg" alt="" width="22" height="22"> {{
+            'home.ecosystem.scheme.fintech' | translate }}</div>
+          <div class="scheme-node"><img src="/command-center/digital-currency.svg" alt="" width="22" height="22"> {{
+            'home.ecosystem.scheme.blockchain' | translate }}</div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="assistant-card glass-card">
+      <div class="card-header">
+        <h2>{{ 'nav.achievements' | translate }}</h2>
+        <a routerLink="/achievements" style="margin-bottom: 20px;">{{ 'home.news.all' | translate }} →</a>
+      </div>
+      <div class="award-card">
+
+
+        <div class="award-content">
+
+
+          <h3 class="award-title">
+            The Best IT Project 2026
+          </h3>
+
+          <p class="award-description">
+            Проект NBK AI Platform победил на Kazakhstan Growth Forum
+          </p>
+          <!-- <div class="award-icon">
+  🏆
+</div> -->
+
+        </div>
+
+      </div>
+    </div>
+
+    <div class="news-card glass-card">
+      <div class="card-header">
+        <h2>{{ 'home.news.title' | translate }}</h2>
+        <a routerLink="/vacancies" style="margin-bottom: 20px;">{{ 'home.news.all' | translate }} →</a>
       </div>
 
-      <!-- Right track (cards move from right to left) -->
-      <div class="track-right-wrapper desktop-only">
-        <div class="track track-right">
-          @for (partner of rightPartnersTrack; track partner.name + $index) {
-          <div class="track-card" [style.--card-accent]="partner.color">
-            <div class="partner-icon">
-              <img [src]="partner.icon" [alt]="partner.name" width="64" height="64" class="partner-svg-icon"
-                loading="lazy" decoding="async">
-            </div>
-          </div>
-          }
+      <div class="news-list">
+        <div class="news-item">
+          <div class="news-img"></div>
+          <p>{{ 'home.news.item1' | translate }}</p>
+        </div>
+
+        <div class="news-item">
+          <div class="news-img"></div>
+          <p>{{ 'home.news.item2' | translate }}</p>
+        </div>
+
+        <div class="news-item">
+          <div class="news-img"></div>
+          <p>{{ 'home.news.item3' | translate }}</p>
         </div>
       </div>
     </div>
-  </section>
-  } @placeholder {
-  <div class="powered-by-placeholder"></div>
-  }
+
+  </div>
 
 </div>

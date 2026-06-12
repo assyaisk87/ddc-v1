@@ -7,6 +7,7 @@ export interface OfficialSite {
   icon: string;
   url: string;
   title: string;
+  options: string;
 }
 
 export interface SocialLink {
@@ -23,9 +24,9 @@ export const FOOTER_LINKS: FooterLink[] = [
 ];
 
 export const OFFICIAL_SITES: OfficialSite[] = [
-  { icon: '🏛️', url: 'https://www.nationalbank.kz/kz', title: 'Национальный банк РК' },
-  { icon: '🛒', url: 'https://zakup.nationalbank.kz/', title: 'Портал закупок' },
-  { icon: '💼', url: 'https://astana.hh.kz/employer/28161?hhtmFrom=employers_list&tab=VACANCIES', title: 'Вакансии' }
+  { icon: '🏛️', url: 'https://www.nationalbank.kz/kz', title: 'Национальный банк РК', options: ''},
+  { icon: '🛒', url: 'https://zakup.nationalbank.kz/', title: 'Портал закупок', options: '' },
+  { icon: '💼', url: '/vacancies', title: 'Вакансии' , options: '_self'}
 ];
 
 export const SOCIAL_LINKS: SocialLink[] = [
