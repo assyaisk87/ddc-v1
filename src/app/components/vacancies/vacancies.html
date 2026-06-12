@@ -167,13 +167,13 @@
     </div>
   </section>
 
-
+</div>
   @if (selectedVacancy) {
   <div class="vacancy-modal-backdrop" (click)="closeVacancy()">
     <div class="vacancy-modal" (click)="$event.stopPropagation()">
 
-      <button class="modal-close" type="button" (click)="closeVacancy()">
-        ×
+      <button type="button" class="modal-close" aria-label="Закрыть модальное окно" (click)="closeVacancy()"  aria-label="close">
+       ✕
       </button>
 
       <div class="modal-header">
@@ -260,4 +260,3 @@
     </div>
   </div>
   }
-</div>

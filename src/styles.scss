@@ -573,3 +573,221 @@ glow-effect {
     transform: scale(1.02);
   }
 }
+
+
+/* ========================================================================== */
+/* Global responsive layer                                                     */
+/* Общая адаптивность для всего сайта без правок HTML.                         */
+/* ========================================================================== */
+
+@media (max-width: 1440px) {
+  .container {
+    max-width: 1200px;
+  }
+
+  :is(.team-header, .achievements-header, .contacts-header, .projects-header, .services-header) {
+    padding: 120px 0 48px;
+  }
+
+  .section-header,
+  .achievements-header-section,
+  .partners-header {
+    margin-bottom: 36px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .container {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .section-title {
+    font-size: clamp(2rem, 5vw, 3rem);
+  }
+
+  .section-description {
+    font-size: 1rem;
+  }
+
+  :is(.chart-card, .project-card, .partner-card, .info-card, .benefit-card, .vacancy-card, .service-detail-window, .form-container) {
+    padding: 24px;
+  }
+}
+
+@media (max-width: 900px) {
+  html {
+    font-size: 15px;
+  }
+
+  .container {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  :is(.team-header, .achievements-header, .contacts-header, .projects-header, .services-header) {
+    padding: 96px 0 40px;
+  }
+
+  :is(.stats-section, .projects-section, .analytics-section, .contact-form-section, .contact-info-section, .services-gallery-section, .directors-section, .ceo-section, .achievements-section, .partners-section) {
+    padding: 42px 0;
+  }
+
+  .section-header,
+  .achievements-header-section,
+  .partners-header {
+    margin-bottom: 28px;
+  }
+
+  .section-title {
+    font-size: clamp(1.8rem, 8vw, 2.6rem);
+  }
+
+  .section-description {
+    font-size: .98rem;
+    line-height: 1.6;
+  }
+
+  :is(.project-modal-backdrop, .vacancy-modal-backdrop) {
+    padding: 14px;
+    align-items: flex-start;
+    overflow-y: auto;
+  }
+
+  :is(.project-modal, .vacancy-modal) {
+    width: 100%;
+    max-height: none;
+    overflow: visible;
+    border-radius: 22px;
+  }
+
+  .modal-close {
+    top: 12px;
+    right: 12px;
+    width: 40px;
+    height: 40px;
+  }
+}
+
+@media (max-width: 640px) {
+  html {
+    font-size: 14px;
+  }
+
+  .container {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  :is(.team-header, .achievements-header, .contacts-header, .projects-header, .services-header) {
+    padding: 82px 0 32px;
+  }
+
+  :is(.stats-section, .projects-section, .analytics-section, .contact-form-section, .contact-info-section, .services-gallery-section, .directors-section, .ceo-section, .achievements-section, .partners-section) {
+    padding: 32px 0;
+  }
+
+  :is(.category-filter, .vacancy-filters) {
+    justify-content: flex-start;
+    gap: 10px;
+    overflow-x: auto;
+    padding-bottom: 6px;
+    scroll-snap-type: x mandatory;
+  }
+
+  :is(.category-btn, .filter-chip) {
+    flex: 0 0 auto;
+    white-space: nowrap;
+    scroll-snap-align: start;
+  }
+
+  :is(.chart-card, .project-card, .partner-card, .info-card, .benefit-card, .vacancy-card, .service-detail-window, .form-container) {
+    padding: 18px;
+    border-radius: 18px;
+  }
+
+  .btn,
+  .btn-primary,
+  .btn-secondary,
+  .btn-cta,
+  .apply-btn,
+  .friend-btn,
+  .modal-visit-btn {
+    min-height: 46px;
+  }
+}
+
+@media (max-width: 420px) {
+  .container {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .section-badge {
+    font-size: .78rem;
+  }
+
+  .section-title {
+    font-size: clamp(1.65rem, 9vw, 2.2rem);
+  }
+}
+
+.project-modal,
+.vacancy-modal {
+
+  overflow-y: auto;
+
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,.15) transparent;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,.15);
+    border-radius: 999px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: rgba(255,255,255,.3);
+  }
+}
+
+.project-modal,
+.vacancy-modal {
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+.vacancy-modal-backdrop,
+.project-modal-backdrop {
+  z-index: 3000;
+}
+
+.vacancy-modal,
+.project-modal {
+  position: relative;
+  z-index: 3001;
+}
+
+.modal-close {
+  z-index: 3002;
+}
+
+@media (max-width: 768px) {
+  .vacancy-modal-backdrop,
+  .project-modal-backdrop {
+    align-items: flex-end;
+    padding-top: 72px;
+  }
+
+  .vacancy-modal,
+  .project-modal {
+    max-height: calc(100vh - 72px);
+  }
+}

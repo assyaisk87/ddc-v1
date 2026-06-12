@@ -8,6 +8,7 @@
   z-index: $z-fixed;
   padding: $spacing-lg 0;
   transition: all $transition-base;
+  z-index: 1000;
   
   &.scrolled {
     background: rgba(10, 10, 15, 0.95);
@@ -223,10 +224,6 @@
   transition: transform $transition-base;
   z-index: $z-fixed;
   
-  @include tablet {
-    display: flex;
-  }
-  
   &.open {
     transform: translateY(0);
   }
@@ -252,5 +249,55 @@
   
   .lang-separator {
     color: $text-muted;
+  }
+}
+
+@media (max-width: 1024px) {
+
+  .nav-menu {
+    position: fixed;
+    top: 80px;
+    left: 0;
+    right: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 24px;
+
+    background: rgba(10, 10, 15, 0.98);
+
+    transform: translateY(-20px);
+    opacity: 0;
+    visibility: hidden;
+
+    transition: .3s ease;
+  }
+
+  .nav-menu.open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .menu-list {
+    flex-direction: column;
+    width: 100%;
+    gap: 12px;
+  }
+
+  .menu-item,
+  .menu-link {
+    width: 100%;
+  }
+
+  .menu-link {
+    display: block;
+    padding: 12px 0;
+  }
+
+  .btn-cta {
+    width: 100%;
+    justify-content: center;
   }
 }
