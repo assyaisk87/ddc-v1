@@ -1,109 +1,12 @@
 @import '../../../styles';
 
-.achievements-container {
-  position: relative;
-}
+.achievements-container { @include page-container; }
 
 // Header Section
-.achievements-header {
-  padding: 150px 0 $spacing-3xl;
-  text-align: center;
-  background: $gradient-dark;
-  
-  .section-badge {
-    display: inline-block;
-    padding: $spacing-xs $spacing-md;
-    border-radius: $radius-full;
-    font-size: 0.875rem;
-    margin-bottom: $spacing-md;
-    background: rgba(0, 212, 255, 0.1);
-    border: 1px solid rgba(0, 212, 255, 0.3);
-    color: $primary-color;
-  }
-  
-  .section-title {
-    font-size: clamp(2.5rem, 6vw, 4rem);
-    font-weight: 700;
-    margin-bottom: $spacing-md;
-    background: $gradient-primary;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-  
-  .section-description {
-    font-size: 1.25rem;
-    color: $text-muted;
-    max-width: 600px;
-    margin: 0 auto;
-    line-height: 1.6;
-  }
-}
+.achievements-header { @include page-hero; }
 
 // Stats Section
-.stats-section {
-  padding: $spacing-3xl 0;
-  
-  .stats-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: $spacing-xl;
-    
-    @include tablet {
-      grid-template-columns: repeat(2, 1fr);
-    }
-    
-    @include mobile {
-      grid-template-columns: 1fr;
-    }
-    
-    .stat-card {
-      padding: $spacing-2xl;
-      border-radius: $radius-xl;
-      text-align: center;
-      transition: all $transition-base;
-      
-      &:hover {
-        transform: translateY(-10px);
-        box-shadow: $shadow-lg;
-      }
-      
-      .stat-icon {
-        font-size: 3rem;
-        margin-bottom: $spacing-md;
-      }
-      
-      .stat-value-wrapper {
-        margin-bottom: $spacing-sm;
-        
-        .stat-value {
-          font-size: 3.5rem;
-          font-weight: 700;
-          line-height: 1;
-        }
-      }
-      
-      .stat-label {
-        font-size: 1.125rem;
-        color: $text-muted;
-        margin-bottom: $spacing-md;
-      }
-      
-      .stat-bar {
-        height: 4px;
-        background: rgba(255, 255, 255, 0.1);
-        border-radius: $radius-full;
-        overflow: hidden;
-        
-        .stat-progress {
-          height: 100%;
-          border-radius: $radius-full;
-          transition: width 1s ease-out;
-        }
-      }
-    }
-  }
-}
+.stats-section { @include stats-section; }
 
 // Achievements Timeline Section
 .achievements-section {

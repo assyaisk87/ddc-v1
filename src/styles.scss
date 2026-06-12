@@ -86,6 +86,307 @@ $max-container-width: 1680px;
   }
 }
 
+
+
+/* ========================================================================== */
+/* Shared component patterns                                                   */
+/* Вынесено из component SCSS: hero/header, section headings, stats, cards,    */
+/* filters, modal shell, buttons. Component SCSS хранит только уникальную логику. */
+/* ========================================================================== */
+
+@mixin page-container {
+  position: relative;
+}
+
+@mixin page-hero($top: 150px, $bottom: $spacing-3xl) {
+  padding: $top 0 $bottom;
+  text-align: center;
+  background: $gradient-dark;
+
+  .section-badge {
+    @include section-badge;
+  }
+
+  .section-title {
+    @include page-title;
+  }
+
+  .section-description {
+    @include page-description;
+  }
+}
+
+@mixin section-badge {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  padding: $spacing-xs $spacing-md;
+  border-radius: $radius-full;
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-bottom: $spacing-md;
+  background: rgba(0, 212, 255, 0.1);
+  border: 1px solid rgba(0, 212, 255, 0.3);
+  color: $primary-color;
+}
+
+@mixin gradient-text-title($size: clamp(2rem, 5vw, 3rem), $bottom: $spacing-sm) {
+  font-size: $size;
+  font-weight: 700;
+  margin-bottom: $bottom;
+  background: $gradient-primary;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+@mixin page-title {
+  @include gradient-text-title(clamp(2.5rem, 6vw, 4rem), $spacing-md);
+}
+
+@mixin page-description($max-width: 600px) {
+  font-size: 1.25rem;
+  color: $text-muted;
+  max-width: $max-width;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+@mixin section-header($bottom: $spacing-3xl) {
+  text-align: center;
+  margin-bottom: $bottom;
+
+  .section-badge {
+    @include section-badge;
+  }
+
+  .section-title {
+    @include gradient-text-title;
+  }
+
+  .section-description {
+    font-size: 1.125rem;
+    color: $text-muted;
+    max-width: 760px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+}
+
+@mixin soft-card($padding: $spacing-xl, $radius: $radius-xl) {
+  padding: $padding;
+  border-radius: $radius;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  transition: transform $transition-base, border-color $transition-base, box-shadow $transition-base, background $transition-base;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: $shadow-lg;
+    border-color: rgba(0, 212, 255, 0.3);
+  }
+}
+
+@mixin responsive-grid($desktop: 3, $gap: $spacing-xl) {
+  display: grid;
+  grid-template-columns: repeat($desktop, 1fr);
+  gap: $gap;
+
+  @include tablet {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include mobile {
+    grid-template-columns: 1fr;
+  }
+}
+
+@mixin stats-section($columns: 3) {
+  padding: $spacing-3xl 0;
+
+  .stats-grid {
+    @include responsive-grid($columns);
+
+    .stat-card {
+      @include soft-card($spacing-2xl);
+      text-align: center;
+
+      &:hover {
+        transform: translateY(-10px);
+      }
+    }
+
+    .stat-icon {
+      font-size: 3rem;
+      margin-bottom: $spacing-md;
+    }
+
+    .stat-value-wrapper {
+      margin-bottom: $spacing-sm;
+    }
+
+    .stat-value {
+      font-size: 3.5rem;
+      font-weight: 700;
+      line-height: 1;
+      background: $gradient-primary;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .stat-label {
+      font-size: 1.125rem;
+      color: $text-muted;
+      margin-bottom: $spacing-md;
+    }
+
+    .stat-bar {
+      height: 4px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: $radius-full;
+      overflow: hidden;
+    }
+
+    .stat-progress {
+      height: 100%;
+      border-radius: $radius-full;
+      background: $gradient-primary;
+      transition: width 1s ease-out;
+    }
+  }
+}
+
+@mixin pill-button {
+  border: 1px solid rgba(0, 212, 255, 0.22);
+  background: rgba(255, 255, 255, 0.04);
+  color: $text-secondary;
+  border-radius: $radius-full;
+  padding: $spacing-sm $spacing-lg;
+  cursor: pointer;
+  transition: all $transition-base;
+
+  &:hover,
+  &.active {
+    color: $text-primary;
+    border-color: rgba(0, 212, 255, 0.55);
+    background: rgba(0, 212, 255, 0.12);
+    box-shadow: $shadow-glow-primary;
+    transform: translateY(-2px);
+  }
+}
+
+@mixin modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: $z-modal-backdrop;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-xl;
+  background: rgba(2, 6, 23, 0.78);
+  backdrop-filter: blur(14px);
+}
+
+@mixin modal-shell($max-width: 1100px) {
+  position: relative;
+  width: min($max-width, 100%);
+  max-height: calc(100vh - 64px);
+  overflow: hidden;
+  border-radius: 28px;
+  background: linear-gradient(145deg, rgba(15, 23, 42, 0.96), rgba(2, 6, 23, 0.96));
+  border: 1px solid rgba(0, 212, 255, 0.25);
+  box-shadow: 0 40px 120px rgba(0, 0, 0, 0.55);
+}
+
+@mixin modal-close-button {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  z-index: 10;
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: $radius-full;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(15, 23, 42, 0.85);
+  color: $text-primary;
+  cursor: pointer;
+  transition: all $transition-base;
+
+  &:hover {
+    border-color: rgba(0, 212, 255, 0.55);
+    background: rgba(0, 212, 255, 0.16);
+    transform: rotate(90deg) scale(1.05);
+  }
+}
+
+/* Global application of common classes. Работает без правок HTML. */
+:is(.team-container, .achievements-container, .contacts-container, .projects-container, .services-container, .vacancies-page) {
+  position: relative;
+}
+
+:is(.team-header, .achievements-header, .contacts-header, .projects-header, .services-header) {
+  @include page-hero;
+}
+
+.section-header,
+.achievements-header-section,
+.partners-header {
+  @include section-header;
+}
+
+:is(.section-badge, .hero-badge) {
+  @include section-badge;
+}
+
+.section-title {
+  @include gradient-text-title;
+}
+
+.section-description {
+  font-size: 1.125rem;
+  color: $text-muted;
+  max-width: 760px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+:is(.stats-section) {
+  @include stats-section;
+}
+
+:is(.category-filter, .vacancy-filters) {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: $spacing-md;
+  margin-bottom: $spacing-2xl;
+}
+
+:is(.category-btn, .filter-chip) {
+  @include pill-button;
+}
+
+:is(.chart-card, .project-card, .partner-card, .info-card, .benefit-card, .vacancy-card, .service-detail-window, .form-container) {
+  @include soft-card;
+}
+
+:is(.project-modal-backdrop, .vacancy-modal-backdrop) {
+  @include modal-backdrop;
+}
+
+:is(.project-modal, .vacancy-modal) {
+  @include modal-shell;
+}
+
+.modal-close {
+  @include modal-close-button;
+}
+
 // Base Styles
 * {
   margin: 0;

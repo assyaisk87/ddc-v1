@@ -1,44 +1,9 @@
 @import '../../../styles';
 
-.projects-container {
-  position: relative;
-}
+.projects-container { @include page-container; }
 
 // Header Section
-.projects-header {
-  padding: 150px 0 $spacing-3xl;
-  text-align: center;
-  background: $gradient-dark;
-  
-  .section-badge {
-    display: inline-block;
-    padding: $spacing-xs $spacing-md;
-    border-radius: $radius-full;
-    font-size: 0.875rem;
-    margin-bottom: $spacing-md;
-    background: rgba(0, 212, 255, 0.1);
-    border: 1px solid rgba(0, 212, 255, 0.3);
-    color: $primary-color;
-  }
-  
-  .section-title {
-    font-size: clamp(2.5rem, 6vw, 4rem);
-    font-weight: 700;
-    margin-bottom: $spacing-md;
-    background: $gradient-primary;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-  
-  .section-description {
-    font-size: 1.25rem;
-    color: $text-muted;
-    max-width: 600px;
-    margin: 0 auto;
-    line-height: 1.6;
-  }
-}
+.projects-header { @include page-hero; }
 
 // Analytics Section
 .analytics-section {
