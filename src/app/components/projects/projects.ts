@@ -7,7 +7,7 @@ import {
   Project
 } from '../../data/projects.data';
 import { SeoService } from '../../services/seo.service';
-
+import { poweredByPartners } from '../../data/home.data';
 
 @Component({
   selector: 'app-projects',
@@ -30,10 +30,13 @@ export class Projects implements OnInit, OnDestroy {
   isChartsLoading = true;
 
 
+  poweredByPartners = poweredByPartners;
   projects = PROJECTS_DATA;
   categories = PROJECT_CATEGORIES; 
   selectedCategory: string = 'All';
   selectedProject: Project | null = null;
+  leftPartnersTrack: typeof poweredByPartners = [];
+  rightPartnersTrack: typeof poweredByPartners = [];
 
   constructor(private seo: SeoService) {}
 
@@ -44,6 +47,18 @@ export class Projects implements OnInit, OnDestroy {
       image: '/assets/og/projects-og.webp',
       url: 'https://твой-сайт.netlify.app/projects'
     });
+    this.leftPartnersTrack = this.createInfiniteTrack(this.poweredByPartners);
+    this.rightPartnersTrack = this.createInfiniteTrack(this.poweredByPartners);
+  }
+
+  
+  private createInfiniteTrack<T>(items: T[]): T[] {
+    const shuffled = this.shuffleArray(items);
+    return [...shuffled, ...shuffled];
+  }
+
+  private shuffleArray<T>(items: T[]): T[] {
+    return [...items].sort(() => Math.random() - 0.5);
   }
 
   async ngAfterViewInit() {

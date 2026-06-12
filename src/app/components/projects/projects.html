@@ -49,61 +49,67 @@
       }
     </div>
   </section>
+ 
 
-  <!-- Interactive Analytics Section -->
-  <section class="analytics-section container">
-    <div class="section-header">
-      <span class="section-badge glass-effect">Analytics</span>
-      <h2 class="section-title">Аналитика проектов</h2>
-      <p class="section-description">Статистика и метрики наших решений</p>
+<!-- Neural Fabric Section with Animated Tracks -->
+  @defer (on viewport) {
+  <section class="powered-by-section">
+<div class="section-header">
+      <span class="section-badge glass-effect">{{ 'footer.poweredBy' | translate }}</span>
+      <h2 class="section-title">{{ 'Technology stack' | translate }}</h2>
+      <p class="section-description">{{ 'home.poweredBy.description' | translate }}</p>
     </div>
 
-    <div class="analytics-grid">
-      <!-- Projects Distribution Chart -->
-      <div class="chart-card glass-effect">
-        <h3 class="chart-title">📊 Распределение проектов</h3>
-        <div class="chart-container">
-          @if(isChartsLoading){
-          <div class="chart-skeleton"></div>
-          }
-
-          <canvas #projectsChart [style.display]="isChartsLoading ? 'none' : 'block'">
-          </canvas>
-
+    <!-- Animated tracks container -->
+    <div class="powered-by-animation-container">
+      <div class="monitor-container">
+        <div class="monitor">
+          <div class="monitor-screen">
+            <div class="monitor-content">
+              <span class="monitor-icon">
+                <img src="icons/ddc_logo.svg" alt="" width="48" height="48" loading="lazy" decoding="async"></span>
+              <span class="monitor-text">{{'DDC'|translate}}</span>
+            </div>
+          </div>
+          <div class="monitor-stand"></div>
         </div>
       </div>
 
-      <!-- Technologies Chart -->
-      <div class="chart-card glass-effect">
-        <h3 class="chart-title">🛠️ Технологии</h3>
-        <div class="chart-container">
-          @if(isChartsLoading){
-          <div class="chart-skeleton"></div>
+      <div class="track-left-wrapper">
+        <div class="track track-left">
+          @for (partner of leftPartnersTrack; track partner.name + $index) {
+          <div class="track-card" [style.--card-accent]="partner.color">
+            <div class="partner-icon">
+              <img [src]="partner.icon" [alt]="partner.name" width="64" height="64" class="partner-svg-icon"
+                loading="lazy" decoding="async">
+            </div>
+          </div>
           }
-
-          <canvas #techChart [style.display]="isChartsLoading ? 'none' : 'block'">
-          </canvas>
         </div>
-      </div>
+       </div>
 
-      <!-- Performance Chart -->
-      <div class="chart-card glass-effect" style="grid-column: span 2;">
-        <h3 class="chart-title">⚡ Метрики производительности</h3>
-        <div class="chart-container">
-          @if(isChartsLoading){
-          <div class="chart-skeleton"></div>
+      <!-- Right track (cards move from right to left) -->
+     <div class="track-right-wrapper desktop-only">
+        <div class="track track-right">
+          @for (partner of rightPartnersTrack; track partner.name + $index) {
+          <div class="track-card" [style.--card-accent]="partner.color">
+            <div class="partner-icon">
+              <img [src]="partner.icon" [alt]="partner.name" width="64" height="64" class="partner-svg-icon"
+                loading="lazy" decoding="async">
+            </div>
+          </div>
           }
-
-          <canvas #performanceChart [style.display]="isChartsLoading ? 'none' : 'block'">
-          </canvas>
         </div>
       </div>
     </div>
   </section>
-</div>
-
+  } @placeholder {
+  <div class="powered-by-placeholder"></div>
+  }
+  </div>
+ 
 <!-- Project Modal -->
-@if (selectedProject) {
+ @if (selectedProject) {
 <div class="project-modal-backdrop" (click)="closeProject()">
   <section class="project-modal glass-effect" role="dialog" aria-modal="true" [attr.aria-label]="selectedProject.name"
     (click)="$event.stopPropagation()">
@@ -197,6 +203,6 @@
         </div>
       </div>
     </div>
-  </section>
+  </section> 
 </div>
-}
+} 

@@ -22,7 +22,7 @@ export interface Project {
 export const PROJECTS_DATA: Project[] = [
     {
         id: 1,
-        name: 'Kaspi Pay Integration',
+        name: 'АИП Веб-портал',
         description: 'Seamless payment gateway solution with real-time transaction processing',
         image: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?w=800',
         technologies: ['Angular', 'Node.js', 'PostgreSQL', 'Redis'],
@@ -43,7 +43,7 @@ export const PROJECTS_DATA: Project[] = [
     },
     {
         id: 2,
-        name: 'Halyk Digital Bank',
+        name: 'ЕССП',
         description: 'Complete mobile banking platform with AI-powered insights',
         image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800',
         technologies: ['React Native', 'Kubernetes', 'MongoDB', 'AI/ML'],
@@ -64,7 +64,7 @@ export const PROJECTS_DATA: Project[] = [
     },
     {
         id: 3,
-        name: 'Jusan AI Analytics',
+        name: 'ФРСП',
         description: 'Intelligent customer insights and risk assessment system',
         image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800',
         technologies: ['Python', 'TensorFlow', 'Apache Spark', 'AWS'],
@@ -85,7 +85,7 @@ export const PROJECTS_DATA: Project[] = [
     },
     {
         id: 4,
-        name: 'Freedom Finance Blockchain',
+        name: 'ХДРВО',
         description: 'Secure asset management with blockchain integration',
         image: 'https://images.unsplash.com/photo-1642543492481-44e81e3914a7?w=800',
         technologies: ['Solidity', 'Ethereum', 'React', 'Node.js'],
@@ -106,7 +106,7 @@ export const PROJECTS_DATA: Project[] = [
     },
     {
         id: 5,
-        name: 'Baiterek Investment Platform',
+        name: 'Фабрика данных',
         description: 'Digital investment management and portfolio tracking',
         image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800',
         technologies: ['Angular', '.NET Core', 'SQL Server', 'Azure'],
@@ -127,7 +127,7 @@ export const PROJECTS_DATA: Project[] = [
     },
     {
         id: 6,
-        name: 'Kaspi.kz E-commerce',
+        name: 'Цифровой тенге',
         description: 'High-performance e-commerce platform with millions of users',
         image: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?w=800',
         technologies: ['Java', 'Spring Boot', 'Kafka', 'Elasticsearch'],
