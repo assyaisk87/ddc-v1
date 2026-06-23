@@ -8,39 +8,38 @@
   </section>
 
   <section class="stats-section container">
-    <div class="stats-grid">
-      <div class="stat-card glass-effect">
-        <div class="stat-icon">📊</div>
-        <div class="stat-value-wrapper">
+    <div class="stats-panel glass-effect">
+      <div class="stats-line stats-line-top"></div>
+
+      <div class="stats-track">
+        <div class="stat-item">
           <span class="stat-value">4</span>
+          <span class="stat-label">{{ 'services.hero.stats.directions' | translate }}</span>
         </div>
-        <div class="stat-label">{{ 'services.hero.stats.directions' | translate }}</div>
-        <div class="stat-bar">
-          <div class="stat-progress"></div>
-        </div>
-      </div>
-      
-      <div class="stat-card glass-effect">
-        <div class="stat-icon">🕐</div>
-        <div class="stat-value-wrapper">
+
+        <span class="stat-dot"></span>
+
+        <div class="stat-item">
           <span class="stat-value">24/7</span>
+          <span class="stat-label">{{ 'services.hero.stats.support' | translate }}</span>
         </div>
-        <div class="stat-label">{{ 'services.hero.stats.support' | translate }}</div>
-        <div class="stat-bar">
-          <div class="stat-progress"></div>
+
+        <span class="stat-dot"></span>
+
+        <div class="stat-item">
+          <span class="stat-value">20+</span>
+          <span class="stat-label">Систем в эксплуатации</span>
+        </div>
+
+        <span class="stat-dot"></span>
+
+        <div class="stat-item">
+          <span class="stat-value">8</span>
+          <span class="stat-label">AI-сервисов</span>
         </div>
       </div>
-      
-      <div class="stat-card glass-effect">
-        <div class="stat-icon">💻</div>
-        <div class="stat-value-wrapper">
-          <span class="stat-value">100%</span>
-        </div>
-        <div class="stat-label">{{ 'services.hero.stats.digitalization' | translate }}</div>
-        <div class="stat-bar">
-          <div class="stat-progress"></div>
-        </div>
-      </div>
+
+      <div class="stats-line stats-line-bottom"></div>
     </div>
   </section>
 
@@ -50,7 +49,7 @@
       <h2 class="section-title">{{ 'services.section.title' | translate }}</h2>
       <p class="section-description">{{ 'services.section.description' | translate }}</p>
     </div>
-    
+
     <div class="services-main-content">
       <div class="service-list-sidebar">
         @for (service of services; track i; let i = $index) {
@@ -59,7 +58,11 @@
             [class.active]="selectedIndex === i"
             (click)="selectService(i)"
           >
-            <img src="/icons/services/{{ service?.icon }}.png" alt="{{ getServiceData(service.id).title }} Icon">
+            <img
+              class="service-list-icon"
+              src="/icons/services/{{ service?.icon }}.svg"
+              alt="{{ getServiceData(service.id).title }} Icon"
+            >
             <span class="service-list-title">{{ getServiceData(service.id).title }}</span>
           </button>
         }
@@ -67,13 +70,19 @@
 
       <div class="service-detail-window glass-effect">
         <div class="service-detail-content">
-          <img src="/icons/services/{{ selectedService?.icon }}.png" alt="{{ selectedService?.title }} Icon" class="service-detail-icon">
+          <img
+            src="/icons/services/{{ selectedService?.icon }}.svg"
+            alt="{{ selectedService?.title }} Icon"
+            class="service-detail-icon"
+          >
+
           <div class="service-detail-info">
             <h3 class="service-detail-title">{{ selectedService?.title }}</h3>
             <p class="service-detail-description">{{ selectedService?.description }}</p>
 
             <div class="service-detail-features">
               <h4 class="features-title">{{ 'services.featuresTitle' | translate }}</h4>
+
               <ul class="features-list">
                 @for (feature of selectedService?.features || []; track fi; let fi = $index) {
                   <li>
