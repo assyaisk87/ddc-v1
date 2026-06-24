@@ -9,6 +9,9 @@
       <h1>
         {{ 'vacancies.title' | translate }}
       </h1>
+      <h1 class="gradient-text">
+        {{ 'vacancies.title2' | translate }}
+      </h1>
 
       <p>
         {{ 'vacancies.subtitle' | translate }}
@@ -158,7 +161,8 @@
           {{ 'vacancies.noVacancy.desc' | translate }}
         </p>
 
-        <a href="mailto:info@bsbnb.kz" class="btn btn-primary glow-effect magnetic">
+        <!-- <a href="mailto:info@bsbnb.kz" class="btn btn-primary glow-effect magnetic"> -->
+          <a routerLink="/contacts" class="btn btn-primary glow-effect magnetic">
 
           <span class="btn-text">
             {{ 'vacancies.noVacancy.button' | translate }}

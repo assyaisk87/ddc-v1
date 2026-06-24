@@ -24,11 +24,11 @@ export const PROJECTS_DATA: Project[] = [
         id: 1,
         name: 'АИП Веб-портал',
         description: 'Seamless payment gateway solution with real-time transaction processing',
-        image: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?w=800',
+        image: '/images/projects/digital.png',
         technologies: ['Angular', 'Node.js', 'PostgreSQL', 'Redis'],
         link: 'https://digital.nationalbank.kz/pub/landing',
         category: 'Payments',
-        fullDescription: 'Платёжная интеграция для обработки транзакций в реальном времени.',
+        fullDescription: 'Портал позволяет внешним пользователям предоставлять в Национальный Банк Казахстана отчетность, направлять другую информацию в электронном виде, а также взаимодействовать с информационными системами Национального Банка Казахстана в режиме on-line.',
         challenges: [
             'Высокая нагрузка',
             'Интеграция с платёжными шлюзами'
@@ -43,13 +43,13 @@ export const PROJECTS_DATA: Project[] = [
     },
     {
         id: 2,
-        name: 'ЕССП',
+        name: 'Интернет-магазин',
         description: 'Complete mobile banking platform with AI-powered insights',
-        image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800',
+        image: '/images/projects/kazcoins.png',
         technologies: ['React Native', 'Kubernetes', 'MongoDB', 'AI/ML'],
-        link: '#',
+        link: 'https://kazcoins.nationalbank.kz',
         category: 'Mobile Banking',
-        fullDescription: 'Мобильная банковская платформа с AI-инсайтами и персонализированным пользовательским опытом.',
+        fullDescription: 'Интернет-магазин по продаже монет.',
         challenges: [
             'Масштабируемость мобильного приложения',
             'Безопасность пользовательских данных'
@@ -64,13 +64,13 @@ export const PROJECTS_DATA: Project[] = [
     },
     {
         id: 3,
-        name: 'ФРСП',
+        name: 'Портал закупок',
         description: 'Intelligent customer insights and risk assessment system',
-        image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800',
+        image: '/images/projects/zakup.png',
         technologies: ['Python', 'TensorFlow', 'Apache Spark', 'AWS'],
-        link: '#',
+        link: 'https://zakup.nationalbank.kz',
         category: 'Analytics',
-        fullDescription: 'Система аналитики клиентских данных и оценки рисков на базе машинного обучения.',
+        fullDescription: 'Портал предназначен для осуществления электронных закупок Национального банка Республики Казахстан и его организаций.',
         challenges: [
             'Обработка больших объёмов данных',
             'Построение точных ML-моделей'

@@ -1160,3 +1160,13 @@
     overflow: visible;
   }
 }
+
+.gradient-text {
+  background: linear-gradient(90deg, #9b5cff 0%, #22b7ff 45%, #00ffe0 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block !important;
+  padding-right: 12px;
+  margin-top: 0 !important;
+}

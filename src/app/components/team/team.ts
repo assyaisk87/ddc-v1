@@ -4,11 +4,12 @@ import { FormsModule } from '@angular/forms';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { Director, CeoMember, loadDirectorsBoard, loadCeoBoard } from '../../data/team.data';
 import { SpeechSynthesisService } from '../../services/speech-synthesis.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-team',
   standalone: true,
-  imports: [CommonModule, FormsModule, TranslateModule],
+  imports: [CommonModule, FormsModule, TranslateModule, RouterLink],
   templateUrl: './team.html',
   styleUrls: ['./team.scss']
 })

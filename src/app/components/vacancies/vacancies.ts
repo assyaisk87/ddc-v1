@@ -2,10 +2,11 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { vacancies, Vacancy, Category, categories, officePhotos, teamBuildingPhotos } from '../../data/vacancies.data';
+import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-vacancies',
   standalone: true,
-  imports: [CommonModule, TranslateModule],
+  imports: [CommonModule, TranslateModule, RouterLink],
   templateUrl: './vacancies.html',
   styleUrl: './vacancies.scss'
 })

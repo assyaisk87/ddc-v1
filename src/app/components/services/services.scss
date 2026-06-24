@@ -65,11 +65,12 @@
   font-weight: 900;
   line-height: 1;
   letter-spacing: -0.06em;
-  background: linear-gradient(135deg, #00D4FF 0%, #2EB5FF 45%, #7B2CBF 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  filter: drop-shadow(0 0 18px rgba(0, 212, 255, 0.25));
+  
+  // background: linear-gradient(135deg, #00D4FF 0%, #2EB5FF 45%, #7B2CBF 100%);
+  // -webkit-background-clip: text;
+  // -webkit-text-fill-color: transparent;
+  // background-clip: text;
+  // filter: drop-shadow(0 0 18px rgba(0, 212, 255, 0.25));
 }
 
 .stat-label {

@@ -3,13 +3,13 @@
   <section class="achievements-header">
     <div class="container">
       <span class="section-badge glass-effect">{{ 'nav.achievements' | translate }}</span>
-      <h1 class="section-title">{{ 'achievements.title' | translate }}</h1>
+      <h1 class="section-title">{{ 'achievements.subtitle' | translate }}</h1>
       <p class="section-description">{{ 'achievements.subtitle' | translate }}</p>
     </div>
   </section>
 
   <!-- Stats Section -->
-  <section class="stats-section container">
+  <!-- <section class="stats-section container">
     <div class="stats-grid">
       @for (stat of stats; track stat.id) {
         <div class="stat-card glass-effect">
@@ -30,22 +30,24 @@
         </div>
       }
     </div>
-  </section>
+  </section> -->
 
   <!-- Achievements Timeline -->
   <section class="achievements-section container">
-    <div class="achievements-header-section">
+    <!-- <div class="achievements-header-section">
       <span class="section-badge glass-effect">{{ 'achievements.historySubtitle' | translate }}</span>
       <h2 class="section-title">{{ 'achievements.subtitle' | translate }}</h2>
-    </div>
+    </div> -->
 
     <div class="achievements-timeline">
       @for (achievement of achievements; track achievement.id) {
         <div class="timeline-item" [class.even]="(achievement.id - 1) % 2 === 1">
           <div class="timeline-content glass-effect" [style.borderLeftColor]="achievement.color">
-            <div class="timeline-icon" [style.background]="achievement.color + '20'">
+            <!-- <div class="timeline-icon" [style.background]="achievement.color + '20'">
               {{ achievement.icon }}
-            </div>
+            </div> -->
+            <img src="{{ achievement.icon }}" alt="{{ achievement.icon }}" width="40" height="40" loading="lazy"
+              decoding="async">
             <div class="timeline-year" [style.color]="achievement.color">
               {{ achievement.year }}
             </div>
@@ -68,13 +70,13 @@
 
     <div class="partners-grid">
       <div class="partner-card glass-effect">
-        <div class="partner-logo">НБК</div>
-        <div class="partner-name">Национальный банк Республики Казахстан</div>
-      </div>
-      <div class="partner-card glass-effect">
         <div class="partner-logo">АРРФР</div>
         <div class="partner-name">Агентство Республики Казахстан по регулированию
 и развитию финансового рынка</div>
+      </div>
+      <div class="partner-card glass-effect">
+        <div class="partner-logo">НБК</div>
+        <div class="partner-name">Национальный банк Республики Казахстан</div>
       </div>
       <div class="partner-card glass-effect">
         <div class="partner-logo">ДО</div>

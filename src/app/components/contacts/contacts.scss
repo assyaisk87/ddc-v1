@@ -1,9 +1,13 @@
 @import '../../../styles';
 
-.contacts-container { @include page-container; }
+.contacts-container {
+  @include page-container;
+}
 
 // Header Section (same as team page)
-.contacts-header { @include page-hero; }
+.contacts-header {
+  @include page-hero;
+}
 
 // Contact Form Section
 .contact-form-section {
@@ -269,7 +273,7 @@
           color: $text-primary;
         }
 
-                .info-text {
+        .info-text {
           font-size: 1rem;
           color: $text-muted;
           line-height: 1.6;
@@ -301,8 +305,15 @@
     width: 100%;
     height: 450px;
     overflow: hidden;
+    display: flex;
+    gap: 20px;
 
     .map-frame {
+      flex: 1;
+      height: 450px;
+      border: 0;
+      border-radius: 24px;
+      overflow: hidden;
       filter: grayscale(30%) contrast(1.1);
       transition: filter $transition-base;
 
@@ -325,9 +336,9 @@
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
-
