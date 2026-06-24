@@ -27,13 +27,13 @@ export class ContentService {
     return this.getLocalizedData('stats', 'stat_key', lang);
   }
 
-  getTeamMembers(lang = 'ru', groupType = 'directors') {
-    return this.getLocalizedData('team_members', 'member_key', lang)
-      .then(({ data, error }) => ({
-        data: (data || []).filter(item => item.group_type === groupType),
-        error
-      }));
-  }
+  // getTeamMembers(lang = 'ru', groupType = 'directors') {
+  //   return this.getLocalizedData('team_members', 'member_key', lang)
+  //     .then(({ data, error }) => ({
+  //       data: (data || []).filter(item => item.group_type === groupType),
+  //       error
+  //     }));
+  // }
 
   async getLocalizedData(
     table: string,
@@ -110,5 +110,23 @@ export class ContentService {
       error: null
     };
   }
+
+  async getTeamMembers(
+  lang = 'ru',
+  groupType: 'directors' | 'ceo'
+) {
+  const { data, error } = await this.getLocalizedData(
+    'team_members',
+    'member_key',
+    lang
+  );
+
+  return {
+    data: (data || [])
+      .filter(item => item.group_type === groupType)
+      .sort((a, b) => a.sort_order - b.sort_order),
+    error
+  };
+}
 
 }

@@ -2,9 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
-import { Director, CeoMember, loadDirectorsBoard, loadCeoBoard } from '../../data/team.data';
+// import { Director, CeoMember, loadDirectorsBoard, loadCeoBoard } from '../../data/team.data';
 import { SpeechSynthesisService } from '../../services/speech-synthesis.service';
 import { RouterLink } from '@angular/router';
+import { ContentService } from '../../services/content.services';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-team',
@@ -14,50 +16,79 @@ import { RouterLink } from '@angular/router';
   styleUrls: ['./team.scss']
 })
 export class Team implements OnInit {
-  directorsBoard: Director[] = [];
-  ceoBoard: CeoMember[] = [];
+  directorsBoard: any[] = [];
+  ceoBoard: any[] = [];
+  mainDirector: any;
+  mainCeo: any = null;
+  ceoMembers: any[] = [];
+
+  loading = true;
   showGreeting = true;
   showAudioControl = true;
   audioPlaying = false;
   audioText = '';
   currentLang: string = 'ru';
+  private langSub?: Subscription;
 
   constructor(
     private translate: TranslateService,
-    private speechService: SpeechSynthesisService
+    private speechService: SpeechSynthesisService,
+    private contentService: ContentService
   ) {
     this.currentLang = this.translate.currentLang;
     // Подписываемся на смену языка
     this.translate.onLangChange.subscribe(() => {
       this.currentLang = this.translate.currentLang;
-      this.loadTeamData();
     });
   }
 
-  ngOnInit(): void {
-    this.loadTeamData();
+  async ngOnInit() {
+    await this.loadTeam();
+
+    this.langSub = this.translate.onLangChange.subscribe(() => {
+      this.loadTeam();
+    });
   }
 
-  loadTeamData(): void {
-    // Загружаем данные о совете директоров
-    loadDirectorsBoard(this.translate).subscribe({
-      next: (directors) => {
-        this.directorsBoard = directors;
-      },
-      error: (error) => {
-        console.error('Ошибка загрузки данных о совете директоров:', error);
-      }
-    });
+  ngOnDestroy() {
+    this.langSub?.unsubscribe();
+  }
 
-    // Загружаем данные о правлении
-    loadCeoBoard(this.translate).subscribe({
-      next: (ceos) => {
-        this.ceoBoard = ceos;
-      },
-      error: (error) => {
-        console.error('Ошибка загрузки данных о правлении:', error);
-      }
-    });
+  async loadTeam() {
+    this.loading = true;
+
+    const lang =
+      this.translate.currentLang ||
+      localStorage.getItem('lang') ||
+      'ru';
+
+    const [directors, ceo] = await Promise.all([
+      this.contentService.getTeamMembers(lang, 'directors'),
+      this.contentService.getTeamMembers(lang, 'ceo')
+    ]);
+
+
+    const allDirectors = directors.data || [];
+
+    this.mainDirector =
+      allDirectors.find(item => item.is_main);
+
+    this.directorsBoard =
+      allDirectors.filter(item => !item.is_main);
+
+    this.ceoBoard = ceo.data || [];
+
+    const allCeo = ceo.data || [];
+
+    this.mainCeo = allCeo.find(item => item.is_main);
+    this.ceoMembers = allCeo.filter(item => !item.is_main);
+
+    this.loading = false;
+
+    console.log("ceoBoard", this.ceoBoard);
+    console.log("directorsBoard", this.directorsBoard);
+    console.log("mainCeo", this.mainCeo);
+    console.log("ceoMembers", this.ceoMembers);
   }
 
   toggleGreeting(): void {
@@ -75,10 +106,9 @@ export class Team implements OnInit {
       return;
     }
 
-    const mainCeo = this.ceoBoard.find(ceo => ceo.key === 'mainCeo');
-    if (mainCeo?.greeting) {
-      this.audioText = mainCeo.greeting;
-      
+    if (this.mainCeo?.message_text) {
+      this.audioText = (this.mainCeo?.message_title || '') + (this.mainCeo?.message_text || '');
+
       this.speechService.speak(this.audioText)
         .then(() => {
           this.audioPlaying = false;

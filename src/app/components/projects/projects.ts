@@ -108,7 +108,7 @@ export class Projects implements OnInit {
     }));
 
     this.loading = false;
-    console.log("projects", this.projects);
+    // console.log("projects", this.projects);
   }
 
   getCategoryColor(category: string): string {

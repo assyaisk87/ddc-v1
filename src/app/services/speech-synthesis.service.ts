@@ -49,7 +49,7 @@ export class SpeechSynthesisService {
   private loadVoices(): void {
     if ('speechSynthesis' in window) {
       this.availableVoices = window.speechSynthesis.getVoices();
-      console.log('Available voices:', this.availableVoices.map(v => ({ name: v.name, lang: v.lang, gender: v.localService })));
+      // console.log('Available voices:', this.availableVoices.map(v => ({ name: v.name, lang: v.lang, gender: v.localService })));
     }
   }
   private getMaleVoice(): SpeechSynthesisVoice | null {

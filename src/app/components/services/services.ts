@@ -68,6 +68,6 @@ export class Services implements OnInit {
       features: Array.isArray(service.features) ? service.features : []
     };
 
-    console.log('selectedService', this.selectedService);
+    // console.log('selectedService', this.selectedService);
   }
 }
