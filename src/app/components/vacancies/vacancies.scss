@@ -39,7 +39,7 @@
     max-width: 760px;
     font-size: clamp(3.5rem, 5vw, 6rem);
     line-height: .95;
-    letter-spacing: -0.07em;
+    // letter-spacing: -0.07em;
     color: #fff;
 }
 
@@ -693,18 +693,18 @@
 }
 
 .modal-close {
-  position: absolute;
-  top: 18px;
-  right: 18px;
-  z-index: 2;
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  background: rgba(0, 0, 0, 0.45);
-  color: #fff;
-  cursor: pointer;
-  font-size: 1.1rem;
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    z-index: 2;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    background: rgba(0, 0, 0, 0.45);
+    color: #fff;
+    cursor: pointer;
+    font-size: 1.1rem;
 }
 
 .modal-header {
@@ -930,8 +930,8 @@
 
 /* общая кнопка */
 .vacancies-page .btn,
- .apply-btn,
- .friend-btn {
+.apply-btn,
+.friend-btn {
     position: relative;
 
     display: inline-flex;
@@ -957,8 +957,8 @@
 
 /* shimmer */
 .vacancies-page .btn::before,
- .apply-btn::before,
- .friend-btn::before {
+.apply-btn::before,
+.friend-btn::before {
     content: '';
     position: absolute;
     inset: 0;
@@ -973,33 +973,33 @@
 }
 
 .vacancies-page .btn:hover::before,
- .apply-btn:hover::before,
- .friend-btn:hover::before {
+.apply-btn:hover::before,
+.friend-btn:hover::before {
     transform: translateX(100%);
 }
 
 /* primary как в team */
 .vacancies-page .btn-primary,
- .apply-btn {
+.apply-btn {
     background: $gradient-primary;
     color: $text-primary;
     box-shadow: $shadow-glow-primary;
 }
 
 .vacancies-page .btn-primary:hover,
- .apply-btn:hover {
+.apply-btn:hover {
     transform: translateY(-2px);
     box-shadow: $shadow-glow-primary;
 }
 
 /* secondary для "Посоветовать друга" */
- .friend-btn {
+.friend-btn {
     background: rgba(255, 255, 255, .06);
     color: $text-primary;
     border: 1px solid rgba(255, 255, 255, .14);
 }
 
- .friend-btn:hover {
+.friend-btn:hover {
     transform: translateY(-2px);
     border-color: rgba(0, 212, 255, .45);
     box-shadow: 0 0 28px rgba(0, 212, 255, .18);
@@ -1013,14 +1013,14 @@
 }
 
 .vacancies-page .btn:hover .btn-arrow,
- .apply-btn:hover .btn-arrow,
- .friend-btn:hover .btn-arrow {
+.apply-btn:hover .btn-arrow,
+.friend-btn:hover .btn-arrow {
     transform: translateX(5px);
 }
 
 .vacancies-page .btn-text,
- .apply-btn span,
- .friend-btn span {
+.apply-btn span,
+.friend-btn span {
     position: relative;
     z-index: 2;
 }
@@ -1049,20 +1049,20 @@
 }
 
 /* close */
- .modal-close {
-  position: absolute;
-  top: 22px;
-  right: 22px;
-  z-index: 5;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  background: rgba(0, 0, 0, 0.45);
-  color: #fff;
-  cursor: pointer;
-  font-size: 1.1rem;
-  transition: all $transition-base;
+.modal-close {
+    position: absolute;
+    top: 22px;
+    right: 22px;
+    z-index: 5;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    background: rgba(0, 0, 0, 0.45);
+    color: #fff;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: all $transition-base;
 }
 
 /* modal buttons layout */
@@ -1070,6 +1070,10 @@
     display: flex;
     flex-direction: column;
     gap: 12px;
+
+    a.btn {
+        text-decoration: none;
+    }
 }
 
 @media (max-width: 800px) {
@@ -1078,95 +1082,120 @@
         flex-wrap: wrap;
     }
 
-     .apply-btn,
-     .friend-btn {
+    .apply-btn,
+    .friend-btn {
         width: 100%;
     }
 }
+
 .vacancy-modal {
-  max-height: 90vh;
-  overflow-y: auto;
-}
-
-@media (max-width: 768px) {
-
-  .vacancy-modal-backdrop {
-    padding: 0;
-    align-items: flex-end;
-  }
-
-  .vacancy-modal {
-    width: 100%;
-    max-height: 100vh;
-
-    border-radius: 24px 24px 0 0;
-
-    padding: 20px;
-  }
-
-  .modal-header {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 20px;
-  }
-
-  .modal-actions {
-    width: 100%;
-    flex-direction: column;
-  }
-
-  .apply-btn,
-  .friend-btn {
-    width: 100%;
-    justify-content: center;
-  }
-
-  .modal-meta {
-    flex-wrap: wrap;
-  }
-
-  .modal-close {
-    top: 12px;
-    right: 12px;
-    z-index: 100;
-  }
-}
-@media (max-width: 768px) {
-
-  .vacancies-hero {
-    min-height: auto;
-    padding-top: 20px;
-    padding-bottom: 40px;
-  }
-
-  .hero-orb {
-    display: none;
-  }
-}
-@media (max-width: 768px) {
-  .vacancy-modal {
-    max-height: 100vh;
+    max-height: 90vh;
     overflow-y: auto;
-    display: block;
-  }
+}
 
-  .vacancy-modal .modal-header {
-    position: static;
-  }
+@media (max-width: 768px) {
 
-  .vacancy-modal .modal-content {
-    max-height: none;
-    height: auto;
-    overflow: visible;
-  }
+    .vacancy-modal-backdrop {
+        padding: 0;
+        align-items: flex-end;
+    }
+
+    .vacancy-modal {
+        width: 100%;
+        max-height: 100vh;
+
+        border-radius: 24px 24px 0 0;
+
+        padding: 20px;
+    }
+
+    .modal-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 20px;
+    }
+
+    .modal-actions {
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .apply-btn,
+    .friend-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .modal-meta {
+        flex-wrap: wrap;
+    }
+
+    .modal-close {
+        top: 12px;
+        right: 12px;
+        z-index: 100;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .vacancies-hero {
+        min-height: auto;
+        padding-top: 20px;
+        padding-bottom: 40px;
+    }
+
+    .hero-orb {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .vacancy-modal {
+        max-height: 100vh;
+        overflow-y: auto;
+        display: block;
+    }
+
+    .vacancy-modal .modal-header {
+        position: static;
+    }
+
+    .vacancy-modal .modal-content {
+        max-height: none;
+        height: auto;
+        overflow: visible;
+    }
 }
 
 .gradient-text {
-  background: linear-gradient(90deg, #9b5cff 0%, #22b7ff 45%, #00ffe0 100%);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  display: inline-block !important;
-  padding-right: 12px;
-  margin-top: 0 !important;
+    background: linear-gradient(90deg, #9b5cff 0%, #22b7ff 45%, #00ffe0 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block !important;
+    padding-right: 12px;
+    margin-top: 0 !important;
+}
+
+.skeleton-card {
+    min-height: 210px;
+    border-radius: 24px;
+    background: linear-gradient(90deg,
+            rgba(255, 255, 255, .05) 25%,
+            rgba(255, 255, 255, .12) 50%,
+            rgba(255, 255, 255, .05) 75%);
+
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+    from {
+        background-position: 200% 0;
+    }
+
+    to {
+        background-position: -200% 0;
+    }
 }

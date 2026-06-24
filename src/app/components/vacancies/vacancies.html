@@ -41,6 +41,15 @@
       }
     </div>
 
+    @if (loading) {
+    <div class="vacancy-grid">
+      @for (item of [1,2,3]; track item) {
+      <div class="vacancy-card skeleton-card"></div>
+      }
+    </div>
+
+
+    } @else {
     <div class="vacancy-grid">
       @for (vacancy of filteredVacancies; track vacancy.title) {
       <article class="vacancy-card" (click)="openVacancy(vacancy)">
@@ -61,7 +70,7 @@
       </article>
       }
     </div>
-
+    }
   </section>
 
   <section class="career-benefits container">
@@ -76,42 +85,42 @@
     <div class="benefits-grid">
       <div class="benefit-card large">
         <div class="benefit-icon"><img src="/icons/vacancies/social.svg" alt=" " width="32" height="32" loading="lazy"
-              decoding="async"></div>
+            decoding="async"></div>
         <h3>Соцпакет на выбор</h3>
         <p>Здоровье, образование, билеты, спорт и другие опции — выбирайте то, что важно именно вам.</p>
       </div>
 
       <div class="benefit-card">
         <div class="benefit-icon"><img src="/icons/vacancies/career.svg" alt=" " width="32" height="32" loading="lazy"
-              decoding="async"></div>
+            decoding="async"></div>
         <h3>Прозрачный рост</h3>
         <p>Грейды, индивидуальные планы развития и понятная траектория профессионального движения.</p>
       </div>
 
       <div class="benefit-card">
         <div class="benefit-icon"><img src="/icons/vacancies/learn.svg" alt=" " width="32" height="32" loading="lazy"
-              decoding="async"></div>
+            decoding="async"></div>
         <h3>Обучение</h3>
         <p>Участие в митапах, конференциях, тренингах и профессиональных программах.</p>
       </div>
 
       <div class="benefit-card">
         <div class="benefit-icon"><img src="/icons/vacancies/p2p.svg" alt=" " width="32" height="32" loading="lazy"
-              decoding="async"></div>
+            decoding="async"></div>
         <h3>Обмен знаниями</h3>
         <p>Менторство, внутренние курсы, экспертные сообщества и комьюнити по интересам.</p>
       </div>
 
       <div class="benefit-card">
         <div class="benefit-icon"><img src="/icons/vacancies/hybrid.svg" alt=" " width="32" height="32" loading="lazy"
-              decoding="async"></div>
+            decoding="async"></div>
         <h3>Гибридный формат</h3>
         <p>Сочетайте работу из офиса с удалёнкой и выбирайте комфортный ритм продуктивности.</p>
       </div>
 
       <div class="benefit-card">
         <div class="benefit-icon"><img src="/command-center/people.svg" alt=" " width="32" height="32" loading="lazy"
-              decoding="async"></div>
+            decoding="async"></div>
         <h3>Корпоративная культура</h3>
         <p>Тематические мероприятия, командные встречи и атмосфера открытого общения.</p>
       </div>
@@ -162,7 +171,7 @@
         </p>
 
         <!-- <a href="mailto:info@bsbnb.kz" class="btn btn-primary glow-effect magnetic"> -->
-          <a routerLink="/contacts" class="btn btn-primary glow-effect magnetic">
+        <a routerLink="/contacts" class="btn btn-primary glow-effect magnetic">
 
           <span class="btn-text">
             {{ 'vacancies.noVacancy.button' | translate }}
@@ -178,95 +187,96 @@
   </section>
 
 </div>
-  @if (selectedVacancy) {
-  <div class="vacancy-modal-backdrop" (click)="closeVacancy()">
-    <div class="vacancy-modal" (click)="$event.stopPropagation()">
+@if (selectedVacancy) {
+<div class="vacancy-modal-backdrop" (click)="closeVacancy()">
+  <div class="vacancy-modal" (click)="$event.stopPropagation()">
 
-      <button type="button" class="modal-close" aria-label="Закрыть модальное окно" (click)="closeVacancy()"  aria-label="close">
-       ✕
-      </button>
+    <button type="button" class="modal-close" aria-label="Закрыть модальное окно" (click)="closeVacancy()"
+      aria-label="close">
+      ✕
+    </button>
 
-      <div class="modal-header">
-        <div>
-          <span class="modal-category">
-            {{ selectedVacancy.company }}
-          </span>
+    <div class="modal-header">
+      <div>
+        <span class="modal-category">
+          {{ selectedVacancy.company }}
+        </span>
 
-          <h2>{{ selectedVacancy.title }}</h2>
+        <h2>{{ selectedVacancy.title }}</h2>
 
-          <div class="modal-meta">
-            <span>{{ selectedVacancy.salary }}</span>
-            <span>{{ selectedVacancy.city }}</span>
-            <span>{{ selectedVacancy.experience }}</span>
-          </div>
-        </div>
-
-        <div class="modal-actions">
-          <a class="apply-btn" href="mailto:info@bsbnb.kz">
-            <span>Откликнуться</span>
-            <span>→</span>
-          </a>
-
-          <button class="friend-btn" type="button">
-            <span>Посоветовать друга</span>
-            <span>↗</span>
-          </button>
+        <div class="modal-meta">
+          <span>{{ selectedVacancy.salary }}</span>
+          <span>{{ selectedVacancy.city }}</span>
+          <span>{{ selectedVacancy.experience }}</span>
         </div>
       </div>
 
-      <div class="modal-content">
+      <div class="modal-actions">
+        <a class="apply-btn btn" routerLink="/contacts">
+          <span>Откликнуться</span>
+          <span>→</span>
+        </a>
 
-        <!-- <section>
+        <!-- <button class="friend-btn" type="button">
+            <span>Посоветовать друга</span>
+            <span>↗</span>
+          </button> -->
+      </div>
+    </div>
+
+    <div class="modal-content">
+
+      <!-- <section>
           <h3>О компании</h3>
           @for (item of selectedVacancy.aboutCompany; track item) {
             <p>{{ item }}</p>
           }
         </section> -->
 
-        <section>
-          <h3>О вакансии</h3>
-          @for (item of selectedVacancy.aboutVacancy; track item) {
-          <p>{{ item }}</p>
+      <section>
+        <h3>О вакансии</h3>
+        @for (item of selectedVacancy.aboutVacancy; track item) {
+        <p>{{ item }}</p>
+        }
+      </section>
+
+      <section>
+        <h3>Стек технологий</h3>
+        <div class="modal-tags">
+          @for (tech of selectedVacancy.stack; track tech) {
+          <span>{{ tech }}</span>
           }
-        </section>
+        </div>
+      </section>
 
-        <section>
-          <h3>Стек технологий</h3>
-          <div class="modal-tags">
-            @for (tech of selectedVacancy.stack; track tech) {
-            <span>{{ tech }}</span>
-            }
-          </div>
-        </section>
+      <section>
+        <h3>Тебе предстоит</h3>
+        <ul>
+          @for (task of selectedVacancy.tasks; track task) {
+          <li>{{ task }}</li>
+          }
+        </ul>
+      </section>
 
-        <section>
-          <h3>Тебе предстоит</h3>
-          <ul>
-            @for (task of selectedVacancy.tasks; track task) {
-            <li>{{ task }}</li>
-            }
-          </ul>
-        </section>
+      <section>
+        <h3>Мы ждем от тебя</h3>
+        <ul>
+          @for (req of selectedVacancy.requirements; track req) {
+          <li>{{ req }}</li>
+          }
+        </ul>
+      </section>
 
-        <section>
-          <h3>Мы ждем от тебя</h3>
-          <ul>
-            @for (req of selectedVacancy.requirements; track req) {
-            <li>{{ req }}</li>
-            }
-          </ul>
-        </section>
+      <section>
+        <h3>Будет преимуществом</h3>
+        <ul>
+          @for (advantage of selectedVacancy.advantages; track advantage) {
+          <li>{{ advantage }}</li>
+          }
+        </ul>
+      </section>
 
-        <section>
-          <h3>Будет преимуществом</h3>
-          <ul>
-            @for (advantage of selectedVacancy.advantages; track advantage) {
-            <li>{{ advantage }}</li>
-            }
-          </ul>
-        </section>
-
-      </div>
     </div>
   </div>
-  }
+</div>
+}

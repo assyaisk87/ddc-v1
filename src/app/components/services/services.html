@@ -49,32 +49,27 @@
       <h2 class="section-title">{{ 'services.section.title' | translate }}</h2>
       <p class="section-description">{{ 'services.section.description' | translate }}</p>
     </div> -->
-
+    @if(loading){
+    <div class="loading-container">
+      <div class="loading-spinner"></div>
+      <p>Загрузка...</p>
+    </div>
+    }
+    @else{
     <div class="services-main-content">
       <div class="service-list-sidebar">
-        @for (service of services; track i; let i = $index) {
-          <button
-            class="service-list-btn glass-effect"
-            [class.active]="selectedIndex === i"
-            (click)="selectService(i)"
-          >
-            <img
-              class="service-list-icon"
-              src="/icons/services/{{ service?.icon }}.svg"
-              alt="{{ getServiceData(service.id).title }} Icon"
-            >
-            <span class="service-list-title">{{ getServiceData(service.id).title }}</span>
-          </button>
+        @for (service of services; track service.service_key; let i = $index) {
+        <button class="service-list-btn glass-effect" [class.active]="selectedIndex === i" (click)="selectService(i)">
+          <img class="service-list-icon" src="/icons/services/{{ service?.icon }}.svg" alt="{{ service.title }} Icon">
+          <span class="service-list-title">{{ service.title }}</span>
+        </button>
         }
       </div>
 
       <div class="service-detail-window glass-effect">
         <div class="service-detail-content">
-          <img
-            src="/icons/services/{{ selectedService?.icon }}.svg"
-            alt="{{ selectedService?.title }} Icon"
-            class="service-detail-icon"
-          >
+          <img src="/icons/services/{{ selectedService?.icon }}.svg" alt="{{ selectedService?.title }} Icon"
+            class="service-detail-icon">
 
           <div class="service-detail-info">
             <h3 class="service-detail-title">{{ selectedService?.title }}</h3>
@@ -84,11 +79,11 @@
               <h4 class="features-title">{{ 'services.featuresTitle' | translate }}</h4>
 
               <ul class="features-list">
-                @for (feature of selectedService?.features || []; track fi; let fi = $index) {
-                  <li>
-                    <span class="feature-check">✓</span>
-                    {{ feature }}
-                  </li>
+                @for (feature of selectedService?.features || []; track $index) {
+                <li>
+                  <span class="feature-check">✓</span>
+                  {{ feature }}
+                </li>
                 }
               </ul>
             </div>
@@ -96,5 +91,6 @@
         </div>
       </div>
     </div>
+    }
   </section>
 </div>

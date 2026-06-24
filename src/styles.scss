@@ -791,3 +791,46 @@ glow-effect {
     max-height: calc(100vh - 72px);
   }
 }
+
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1rem;
+  gap: 1rem;
+
+  p {
+    color: $text-muted;
+    font-size: 0.95rem;
+    margin: 0;
+  }
+}
+
+.loading-spinner {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 3px solid transparent;
+
+  background:
+    linear-gradient($dark-bg, $dark-bg) padding-box,
+    linear-gradient(135deg, #00D4FF, #7B2CBF) border-box;
+
+  animation: spin 1s linear infinite;
+
+  box-shadow:
+    0 0 15px rgba(0, 212, 255, 0.4),
+    0 0 30px rgba(123, 44, 191, 0.2);
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}

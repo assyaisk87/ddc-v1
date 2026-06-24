@@ -39,26 +39,33 @@
       <h2 class="section-title">{{ 'achievements.subtitle' | translate }}</h2>
     </div> -->
 
+    @if (loading) {
+    <div class="loading-container">
+      <div class="loading-spinner"></div>
+      <p>Загрузка...</p>
+    </div>
+    } @else {
     <div class="achievements-timeline">
       @for (achievement of achievements; track achievement.id) {
-        <div class="timeline-item" [class.even]="(achievement.id - 1) % 2 === 1">
-          <div class="timeline-content glass-effect" [style.borderLeftColor]="achievement.color">
-            <!-- <div class="timeline-icon" [style.background]="achievement.color + '20'">
+      <div class="timeline-item" [class.even]="(achievement.id - 1) % 2 === 1">
+        <div class="timeline-content glass-effect" [style.borderLeftColor]="achievement.color">
+          <!-- <div class="timeline-icon" [style.background]="achievement.color + '20'">
               {{ achievement.icon }}
             </div> -->
-            <img src="{{ achievement.icon }}" alt="{{ achievement.icon }}" width="40" height="40" loading="lazy"
-              decoding="async">
-            <div class="timeline-year" [style.color]="achievement.color">
-              {{ achievement.year }}
-            </div>
-            <h3 class="timeline-title">{{ achievement.title }}</h3>
-            <p class="timeline-description">{{ achievement.description }}</p>
+          <img src="{{ achievement.icon }}" alt="{{ achievement.icon }}" width="40" height="40" loading="lazy"
+            decoding="async">
+          <div class="timeline-year" [style.color]="achievement.color">
+            {{ achievement.year }}
           </div>
-          <div class="timeline-line"></div>
-          <div class="timeline-dot" [style.background]="achievement.color"></div>
+          <h3 class="timeline-title">{{ achievement.title }}</h3>
+          <p class="timeline-description">{{ achievement.description }}</p>
         </div>
+        <div class="timeline-line"></div>
+        <div class="timeline-dot" [style.background]="achievement.color"></div>
+      </div>
       }
     </div>
+    }
   </section>
 
   <!-- Partners Section -->
@@ -72,7 +79,7 @@
       <div class="partner-card glass-effect">
         <div class="partner-logo">АРРФР</div>
         <div class="partner-name">Агентство Республики Казахстан по регулированию
-и развитию финансового рынка</div>
+          и развитию финансового рынка</div>
       </div>
       <div class="partner-card glass-effect">
         <div class="partner-logo">НБК</div>
@@ -82,9 +89,9 @@
         <div class="partner-logo">ДО</div>
         <div class="partner-name">Дочерние организации НБК</div>
       </div>
-      
+
     </div>
   </section>
 
-  
+
 </div>

@@ -39,7 +39,7 @@
             <span class="btn-shimmer"></span>
           </a>
         </div>
-        
+
       </div>
 
       <!-- CENTER -->
@@ -84,27 +84,21 @@
         <div class="command-panel">
           <h3>{{ 'home.command.title' | translate }}</h3>
 
-          <div class="stats-grid">
-            <div class="stat-card">
-              <strong>30+</strong>
-              <span>{{ 'home.command.metrics.activeProjects' | translate }}</span>
-            </div>
-
-            <div class="stat-card">
-              <strong>250+</strong>
-              <span>{{ 'home.command.metrics.devTeams' | translate }}</span>
-            </div>
-
-            <div class="stat-card">
-              <strong>24/7</strong>
-              <span>{{ 'home.command.metrics.infrastructure' | translate }}</span>
-            </div>
-
-            <div class="stat-card">
-              <strong>1477</strong>
-              <span>{{ 'home.command.metrics.contact-center' | translate }}</span>
-            </div>
+          @if (loading) {
+          <div class="loading-container">
+            <div class="loading-spinner"></div>
+            <p>Загрузка...</p>
           </div>
+          } @else {
+          <div class="stats-grid">
+            @for (stat of stats; track stat.label) {
+            <div class="stat-card">
+              <strong>{{ stat.value }}</strong>
+              <span>{{ stat.label }}</span>
+            </div>
+            }
+          </div>
+          }
 
           <div class="system-status">
             <svg class="wave-chart" viewBox="0 0 320 82" preserveAspectRatio="none">

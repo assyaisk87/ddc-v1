@@ -8,6 +8,7 @@ import { ApiKeySettingsComponent } from './components/api-key-settings/api-key-s
 import { MagneticButtonService } from './services/magnetic-button.service';
 import { filter } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
@@ -21,16 +22,21 @@ export class App implements OnInit, OnDestroy {
 
   constructor(
     private magneticService: MagneticButtonService,
-    private router: Router
-  ) {}
+    private router: Router,
+    private translate: TranslateService      
+    
+  ) { }
 
   ngOnInit(): void {
+    const savedLang = localStorage.getItem('lang') || 'ru';
+    this.translate.setDefaultLang('ru');
+    this.translate.use(savedLang);
     // Check if running in local environment
     this.isLocalEnvironment = window.location.hostname === 'localhost' ||
-                              window.location.hostname === '127.0.0.1';
+      window.location.hostname === '127.0.0.1';
 
     this.magneticService.initMagneticButtons();
-    
+
     // Scroll to top on route change
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))

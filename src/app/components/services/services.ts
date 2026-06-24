@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { SERVICES_DATA } from '../../data/services.data';
+import { ContentService } from '../../services/content.services';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-services',
@@ -14,31 +16,58 @@ import { SERVICES_DATA } from '../../data/services.data';
 export class Services implements OnInit {
   selectedIndex: number = 0;
   selectedService: any = null;
-  services = SERVICES_DATA;
+  // services = SERVICES_DATA;
+  services: any[] = [];
+  private langSub?: Subscription;
+  loading = false;
 
-  constructor(private translate: TranslateService) {}
 
-  getServiceData(serviceId: string) {
-    // Преобразуем kebab-case в camelCase для соответствия ключам в i18n файлах
-    const camelCaseId = serviceId.replace(/-([a-z])/g, (g) => g[1].toUpperCase());
-    const serviceKey = `services.services.${camelCaseId}`;
-    return {
-      title: this.translate.instant(`${serviceKey}.title`),
-      description: this.translate.instant(`${serviceKey}.description`),
-      features: this.translate.instant(`${serviceKey}.features`)
-    };
+  constructor(private translate: TranslateService,
+    private contentService: ContentService) { }
+
+  async ngOnInit() {
+    await this.loadServices();
+
+    this.langSub = this.translate.onLangChange.subscribe(async () => {
+      await this.loadServices();
+    });
   }
 
-  ngOnInit() {
-    this.selectService(0);
+  ngOnDestroy() {
+    this.langSub?.unsubscribe();
+  }
+
+  async loadServices() {
+    this.loading = true;
+    const selectedKey = this.selectedService?.service_key;
+    const lang = this.translate.currentLang || localStorage.getItem('lang') || 'ru';
+    const { data, error } = await this.contentService.getServices(lang);
+
+    if (error) {
+      console.error(error);
+      this.loading = false;
+      return;
+    }
+
+    this.services = data || [];
+
+    const index = selectedKey
+      ? this.services.findIndex(service => service.service_key === selectedKey)
+      : 0;
+
+    this.selectService(index >= 0 ? index : 0);
+    this.loading = false;
   }
 
   selectService(index: number) {
     this.selectedIndex = index;
     const service = this.services[index];
+
     this.selectedService = {
       ...service,
-      ...this.getServiceData(service.id)
+      features: Array.isArray(service.features) ? service.features : []
     };
+
+    console.log('selectedService', this.selectedService);
   }
 }

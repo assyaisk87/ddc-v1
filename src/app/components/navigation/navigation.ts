@@ -28,8 +28,7 @@ export class Navigation implements OnInit, OnDestroy {
   ];
 
   constructor(private translate: TranslateService) {
-    translate.setDefaultLang('ru');
-    translate.use('ru');
+    this.currentLang = localStorage.getItem('lang') || 'ru';
   }
 
   ngOnInit() {
@@ -41,6 +40,8 @@ export class Navigation implements OnInit, OnDestroy {
   }
 
   changeLanguage(lang: string) {
+    localStorage.setItem('lang', lang);
+
     this.translate.use(lang);
     this.currentLang = lang;
   }

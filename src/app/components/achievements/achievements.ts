@@ -1,7 +1,8 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ACHIEVEMENTS_DATA, STATS_DATA } from '../../data/achievements.data';
+import { ContentService } from '../../services/content.services';
 
 
 @Component({
@@ -12,11 +13,43 @@ import { ACHIEVEMENTS_DATA, STATS_DATA } from '../../data/achievements.data';
   styleUrl: './achievements.scss'
 })
 export class Achievements implements OnInit, AfterViewInit {
-  achievements = ACHIEVEMENTS_DATA;
+  // achievements = ACHIEVEMENTS_DATA;
+  achievements: any[] = [];
   stats = STATS_DATA;
+  loading = false;
   hasAnimated = false;
 
-  ngOnInit() {
+  constructor(
+    private contentService: ContentService,
+    private translate: TranslateService
+  ) { }
+
+  async ngOnInit() {
+    await this.loadAchievements();
+  }
+  
+  async loadAchievements() {
+    this.loading = true;
+    const lang = this.translate.currentLang || 'ru';
+
+    const { data, error } =
+      await this.contentService.getAchievements(lang);
+
+    if (error) {
+      console.error(error);
+      this.loading = false;
+      return;
+    }
+
+    this.achievements = (data || []).map(item => ({
+      title: item.title,
+      description: item.description,
+      year: item.year,
+      icon: item.icon_url,
+      color: item.color,
+      id: item.sort_order
+    }));
+      this.loading = false;
   }
 
   ngAfterViewInit() {

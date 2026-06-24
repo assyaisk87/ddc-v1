@@ -14,14 +14,21 @@
     <div class="category-filter">
       @for (category of categories; track category) {
       <button class="category-btn glass-effect" [class.active]="selectedCategory === category"
-        (click)="filterProjects(category)" 
-            aria-label="category">
+        (click)="filterProjects(category)" aria-label="category">
         {{ category }}
       </button>
       }
     </div>
 
     <!-- Projects Grid -->
+    @if (loading) {
+
+    <div class="projects-grid">
+      @for (item of [1,2,3,4,5,6]; track item) {
+      <div class="project-card skeleton-card"></div>
+      }
+    </div>
+    } @else {
     <div class="projects-grid">
       @for (project of getFilteredProjects(); track project.id) {
       <div class="project-card glass-effect" (click)="openProject(project)">
@@ -48,13 +55,14 @@
       </div>
       }
     </div>
+    }
   </section>
- 
 
-<!-- Neural Fabric Section with Animated Tracks -->
+
+  <!-- Neural Fabric Section with Animated Tracks -->
   @defer (on viewport) {
   <section class="powered-by-section">
-<div class="section-header">
+    <div class="section-header">
       <span class="section-badge glass-effect">{{ 'footer.poweredBy' | translate }}</span>
       <h2 class="section-title">{{ 'Technology stack' | translate }}</h2>
       <p class="section-description">{{ 'home.poweredBy.description' | translate }}</p>
@@ -86,10 +94,10 @@
           </div>
           }
         </div>
-       </div>
+      </div>
 
       <!-- Right track (cards move from right to left) -->
-     <div class="track-right-wrapper desktop-only">
+      <div class="track-right-wrapper desktop-only">
         <div class="track track-right">
           @for (partner of rightPartnersTrack; track partner.name + $index) {
           <div class="track-card" [style.--card-accent]="partner.color">
@@ -106,21 +114,22 @@
   } @placeholder {
   <div class="powered-by-placeholder"></div>
   }
-  </div>
- 
+</div>
+
 <!-- Project Modal -->
- @if (selectedProject) {
+@if (selectedProject) {
 <div class="project-modal-backdrop" (click)="closeProject()">
   <section class="project-modal glass-effect" role="dialog" aria-modal="true" [attr.aria-label]="selectedProject.name"
     (click)="$event.stopPropagation()">
 
-    <button type="button" class="modal-close" aria-label="Закрыть модальное окно" (click)="closeProject()" aria-label="close">
+    <button type="button" class="modal-close" aria-label="Закрыть модальное окно" (click)="closeProject()"
+      aria-label="close">
       ✕
     </button>
 
     <div class="modal-layout">
       <div class="modal-image">
-        <img [src]="selectedProject.image" [alt]="selectedProject.name" >
+        <img [src]="selectedProject.image" [alt]="selectedProject.name">
       </div>
 
       <div class="modal-content">
@@ -203,6 +212,6 @@
         </div>
       </div>
     </div>
-  </section> 
+  </section>
 </div>
-} 
+}

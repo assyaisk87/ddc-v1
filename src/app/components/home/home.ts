@@ -1,11 +1,12 @@
 import { Component, OnInit, AfterViewInit, OnDestroy, Inject, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { RouterLink } from '@angular/router';
 import {
   features, centerValues as centerData,
   CenterValue, ecosystemNodes, commandMetrics
 } from '../../data/home.data';
+import { ContentService } from '../../services/content.services';
 
 @Component({
   selector: 'app-home',
@@ -16,6 +17,8 @@ import {
 })
 export class Home implements OnInit, AfterViewInit, OnDestroy {
   // Import data from separate file
+  stats: any[] = [];
+  loading = false;
   features = features;
   ecosystemNodes = ecosystemNodes;
   ecosystemFeatureNodes = features.map((feature, index) => ({
@@ -42,13 +45,41 @@ export class Home implements OnInit, AfterViewInit, OnDestroy {
   hoveredCenterIndex: number | null = null;
 
   constructor(
-    private elementRef: ElementRef
+    private elementRef: ElementRef,
+    private contentService: ContentService,
+    private translate: TranslateService
   ) { }
 
-  ngOnInit(): void {
+  async ngOnInit() {
+    await Promise.all([
+      this.loadStats()
+    ]);
   }
 
+  async loadStats() {
+    this.loading = true;
+    const lang = this.translate.currentLang || 'ru';
 
+    const { data, error } =
+      await this.contentService.getStats(lang);
+
+    if (error) {
+      console.error(error);
+    this.loading = false;
+      return;
+    }
+
+    this.stats = (data || []).map(item => ({
+      value: item.value || `${item.target ?? ''}${item.suffix || ''}`,
+      target: item.target,
+      label: item.label,
+      icon: item.icon,
+      suffix: item.suffix,
+      color: item.color
+    }));
+    this.loading = false;
+  }
+  
   ngAfterViewInit(): void {
     this.observeCenterAnimation();
   }
