@@ -1,0 +1,132 @@
+<div class="admin-projects-page">
+  <div class="admin-header">
+    <h1>Вакансии</h1>
+    <button class="primary-btn" (click)="newVacancy()">+ Добавить</button>
+  </div>
+
+  <div class="admin-editor-layout">
+    <aside class="admin-list">
+      @for (vacancy of vacancies; track vacancy.slug) {
+        <button
+          type="button"
+          class="admin-list-item"
+          [class.active]="baseVacancy?.slug === vacancy.slug"
+          (click)="edit(vacancy)">
+          <strong>{{ vacancy.title || 'Без названия' }}</strong>
+          <span>{{ vacancy.lang }} / {{ vacancy.slug }}</span>
+        </button>
+      }
+    </aside>
+
+    <section class="admin-editor-panel">
+      @if (baseVacancy) {
+        <div class="edit-lang-switcher">
+          <button type="button" [class.active]="selectedLang === 'ru'" [disabled]="selectedLang === 'ru'" (click)="changeEditLang('ru')">RU</button>
+          <button type="button" [class.active]="selectedLang === 'kk'" [disabled]="selectedLang === 'kk'" (click)="changeEditLang('kk')">KK</button>
+        </div>
+      }
+
+      @if (selected?.isNewTranslation) {
+        <div class="translation-warning">
+          Перевод для языка {{ selectedLang }} еще не создан. После сохранения будет создана новая запись.
+        </div>
+      }
+
+      @if (!selected) {
+        <div class="empty-state">
+          <h2>Выберите вакансию</h2>
+          <p>Слева выберите вакансию для редактирования или добавьте новую.</p>
+        </div>
+      } @else {
+        <form class="admin-form" (ngSubmit)="save()">
+          <div class="form-row">
+            <label>Slug</label>
+            <input name="slug" [(ngModel)]="selected.slug">
+          </div>
+
+          <div class="form-row">
+            <label>Название</label>
+            <input name="title" [(ngModel)]="selected.title">
+          </div>
+
+          <div class="form-row">
+            <label>Город</label>
+            <input name="city" [(ngModel)]="selected.city">
+          </div>
+
+          <div class="form-row">
+            <label>Опыт</label>
+            <input name="experience" [(ngModel)]="selected.experience">
+          </div>
+
+          <div class="form-row">
+            <label>Зарплата</label>
+            <input name="salary" [(ngModel)]="selected.salary">
+          </div>
+
+          <div class="form-row">
+            <label>Категория</label>
+            <input name="category" [(ngModel)]="selected.category">
+          </div>
+
+          <div class="form-row">
+            <label>Компания</label>
+            <input name="company" [(ngModel)]="selected.company">
+          </div>
+
+          <div class="form-row">
+            <label>О компании</label>
+            <textarea name="aboutCompanyText" [(ngModel)]="selected.aboutCompanyText"></textarea>
+          </div>
+
+          <div class="form-row">
+            <label>О вакансии</label>
+            <textarea name="aboutVacancyText" [(ngModel)]="selected.aboutVacancyText"></textarea>
+          </div>
+
+          <div class="form-row">
+            <label>Стек через запятую</label>
+            <input name="stackText" [(ngModel)]="selected.stackText">
+          </div>
+
+          <div class="form-row">
+            <label>Задачи</label>
+            <textarea name="tasksText" [(ngModel)]="selected.tasksText"></textarea>
+          </div>
+
+          <div class="form-row">
+            <label>Требования</label>
+            <textarea name="requirementsText" [(ngModel)]="selected.requirementsText"></textarea>
+          </div>
+
+          <div class="form-row">
+            <label>Преимущества</label>
+            <textarea name="advantagesText" [(ngModel)]="selected.advantagesText"></textarea>
+          </div>
+
+          <div class="form-row">
+            <label>Порядок</label>
+            <input type="number" name="sort_order" [(ngModel)]="selected.sort_order">
+          </div>
+
+          <label class="checkbox">
+            <input type="checkbox" name="is_published" [(ngModel)]="selected.is_published">
+            Опубликовано
+          </label>
+
+          <div class="form-actions">
+            <button type="submit" class="primary-btn" [disabled]="loading">
+              {{ loading ? 'Сохранение...' : 'Сохранить' }}
+            </button>
+
+            @if (selected.id) {
+              <button type="button" class="danger-btn" (click)="deleteVacancy(selected)">
+                Удалить
+              </button>
+            }
+          </div>
+        </form>
+      }
+    </section>
+  </div>
+</div>

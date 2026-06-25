@@ -6,8 +6,8 @@
 
   <div class="admin-editor-layout">
     <aside class="admin-list">
-      @for (project of projects; track project.id) {
-      <button type="button" class="admin-list-item" [class.active]="selected?.id === project.id"
+      @for (project of projects; track project.slug) {
+      <button type="button" class="admin-list-item" [class.active]="baseProject?.slug === project.slug"
         (click)="edit(project)">
         <strong>{{ project.name || 'Без названия' }}</strong>
         <span>{{ project.lang }} / {{ project.slug }}</span>

@@ -24,11 +24,21 @@
         Команда
       </a>
 
+      <a routerLink="/admin/achievements" routerLinkActive="active">
+        Достижения
+      </a>
+
       <a routerLink="/admin/vacancies" routerLinkActive="active">
         Вакансии
       </a>
 
-      <button (click)="logout()">Выйти</button>
+      <button type="button" (click)="logout()">
+        Выйти
+      </button>
+      
+      <a routerLink="/" class="site-link">
+       < Вернуться на сайт
+      </a>
 
     </nav>
 

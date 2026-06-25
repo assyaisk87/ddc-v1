@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SupabaseService } from '../../services/supabase.service';
 import { ChangeDetectorRef } from '@angular/core';
+import { AlertService } from '../../services/alert.service';
 
 @Component({
   selector: 'app-admin-projects',
@@ -19,7 +20,8 @@ export class AdminProjects implements OnInit {
   selectedLang: 'ru' | 'kk' = 'ru';
 
   constructor(private supabaseService: SupabaseService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private alert: AlertService
   ) { }
 
   async ngOnInit() {
@@ -177,42 +179,62 @@ export class AdminProjects implements OnInit {
   }
 
   newProject() {
-    this.selected = {
-      lang: 'ru',
-      slug: '',
-      name: '',
-      short_description: '',
-      full_description: '',
-      image_url: '',
-      external_url: '',
-      category: '',
-      status: 'Production',
-      year: '2026',
-      users: '',
-      technologiesText: '',
-      challengesText: '',
-      resultsText: '',
-      sort_order: 0,
-      is_published: true
-    };
-  }
+  this.baseProject = null;
+  this.selectedLang = 'ru';
+
+  this.selected = {
+    id: null,
+    lang: 'ru',
+    slug: '',
+    name: '',
+    short_description: '',
+    full_description: '',
+    image_url: '',
+    external_url: '',
+    category: '',
+    status: 'Production',
+    year: '2026',
+    users: '',
+    technologiesText: '',
+    challengesText: '',
+    resultsText: '',
+    sort_order: 0,
+    is_published: true,
+    isNewTranslation: false
+  };
+}
 
   async deleteProject(project: any) {
-    if (!confirm(`Удалить проект "${project.name}"?`)) return;
+  const confirmed = await this.alert.confirmDelete(
+    'проект',
+    `
+      <div style="text-align:left">
+        <p>Будут удалены все языковые версии:</p>
+        <b>${project.name || project.slug}</b>
+      </div>
+    `
+  );
 
-    const { error } = await this.supabaseService.client
-      .from('projects')
-      .delete()
-      .eq('id', project.id);
+  if (!confirmed) return;
 
-    if (error) {
-      console.error(error);
-      alert('Ошибка удаления');
-      return;
-    }
+  const { error } = await this.supabaseService.client
+    .from('projects')
+    .delete()
+    .eq('slug', project.slug);
 
-    await this.loadProjects();
+  if (error) {
+    console.error(error);
+    await this.alert.error('Ошибка', 'Не удалось удалить проект');
+    return;
   }
+
+  this.selected = null;
+  this.baseProject = null;
+  this.selectedLang = 'ru';
+
+  await this.loadProjects();
+  await this.alert.success('Удалено', 'Проект удален на всех языках');
+}
 
   private toArray(value: string, separator: string): string[] {
     return (value || '')

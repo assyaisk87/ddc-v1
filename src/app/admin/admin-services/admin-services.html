@@ -1,0 +1,97 @@
+<div class="admin-projects-page">
+  <div class="admin-header">
+    <h1>Сервисы</h1>
+    <button class="primary-btn" (click)="newService()">+ Добавить</button>
+  </div>
+
+  <div class="admin-editor-layout">
+    <aside class="admin-list">
+      @for (service of services; track service.service_key) {
+        <button
+          type="button"
+          class="admin-list-item"
+          [class.active]="baseService?.service_key === service.service_key"
+          (click)="edit(service)">
+          <strong>{{ service.title || service.service_key }}</strong>
+          <span>{{ service.lang }} / {{ service.service_key }}</span>
+        </button>
+      }
+    </aside>
+
+    <section class="admin-editor-panel">
+      @if (baseService) {
+        <div class="edit-lang-switcher">
+          <button type="button" [class.active]="selectedLang === 'ru'" [disabled]="selectedLang === 'ru'" (click)="changeEditLang('ru')">RU</button>
+          <button type="button" [class.active]="selectedLang === 'kk'" [disabled]="selectedLang === 'kk'" (click)="changeEditLang('kk')">KK</button>
+        </div>
+      }
+
+      @if (selected?.isNewTranslation) {
+        <div class="translation-warning">
+          Перевод для языка {{ selectedLang }} еще не создан. После сохранения будет создана новая запись.
+        </div>
+      }
+
+      @if (!selected) {
+        <div class="empty-state">
+          <h2>Выберите сервис</h2>
+          <p>Слева выберите сервис для редактирования или добавьте новый.</p>
+        </div>
+      } @else {
+        <form class="admin-form" (ngSubmit)="save()">
+          <div class="form-row">
+            <label>Ключ</label>
+            <input name="service_key" [(ngModel)]="selected.service_key">
+          </div>
+
+          <div class="form-row">
+            <label>Название</label>
+            <input name="title" [(ngModel)]="selected.title">
+          </div>
+
+          <div class="form-row">
+            <label>Описание</label>
+            <textarea name="description" [(ngModel)]="selected.description"></textarea>
+          </div>
+
+          <div class="form-row">
+            <label>Features, каждая с новой строки</label>
+            <textarea name="featuresText" [(ngModel)]="selected.featuresText"></textarea>
+          </div>
+
+          <div class="form-row">
+            <label>Иконка</label>
+            <input name="icon" [(ngModel)]="selected.icon">
+          </div>
+
+          <div class="form-row">
+            <label>Цвет</label>
+            <input name="color" [(ngModel)]="selected.color">
+          </div>
+
+          <div class="form-row">
+            <label>Порядок</label>
+            <input type="number" name="sort_order" [(ngModel)]="selected.sort_order">
+          </div>
+
+          <label class="checkbox">
+            <input type="checkbox" name="is_published" [(ngModel)]="selected.is_published">
+            Опубликовано
+          </label>
+
+          <div class="form-actions">
+            <button type="submit" class="primary-btn" [disabled]="loading">
+              {{ loading ? 'Сохранение...' : 'Сохранить' }}
+            </button>
+
+            @if (selected.id) {
+              <button type="button" class="danger-btn" (click)="deleteService(selected)">
+                Удалить
+              </button>
+            }
+          </div>
+        </form>
+      }
+    </section>
+  </div>
+</div>
