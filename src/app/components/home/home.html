@@ -3,7 +3,6 @@
   <section class="command-page ">
 
     <div class="hero-grid container">
-
       <!-- LEFT -->
       <div class="hero-left">
         <div class="hero-badge">
@@ -179,7 +178,7 @@
     <div class="glass-card ecosystem-scheme-card">
       <div class="card-header">
         <h2>{{ 'home.ecosystem.title' | translate }}</h2>
-        <a routerLink="/projects" style="margin-bottom: 20px;">{{ 'home.news.all' | translate }} →</a>
+        <a routerLink="/projects" style="margin-bottom: 20px;">{{ 'home.vacancies.all' | translate }} →</a>
 
       </div>
 
@@ -258,51 +257,43 @@
     <div class="assistant-card glass-card">
       <div class="card-header">
         <h2>{{ 'nav.achievements' | translate }}</h2>
-        <a routerLink="/achievements" style="margin-bottom: 20px;">{{ 'home.news.all' | translate }} →</a>
+        <a routerLink="/achievements" style="margin-bottom: 20px;">{{ 'home.vacancies.all' | translate }} →</a>
       </div>
       <div class="award-card">
-
-
         <div class="award-content">
-
-
           <h3 class="award-title">
             The Best IT Project 2026
           </h3>
-
           <p class="award-description">
             Проект NBK AI Platform победил на Kazakhstan Growth Forum
           </p>
-          <!-- <div class="award-icon">
-  🏆
-</div> -->
-
         </div>
 
       </div>
     </div>
 
-    <div class="news-card glass-card">
+    @if (!vacancies.length) {
+    <p class="empty-text">Сейчас открытых вакансий нет</p>
+    }
+    <div class="vacancies-card glass-card">
       <div class="card-header">
-        <h2>{{ 'home.news.title' | translate }}</h2>
-        <a routerLink="/vacancies" style="margin-bottom: 20px;">{{ 'home.news.all' | translate }} →</a>
+        <h2>{{ 'home.vacancies.title' | translate }}</h2>
+        <a routerLink="/vacancies" style="margin-bottom: 20px;">
+          {{ 'home.vacancies.all' | translate }} →
+        </a>
       </div>
 
-      <div class="news-list">
-        <div class="news-item">
-          <div class="news-img"></div>
-          <p>{{ 'home.news.item1' | translate }}</p>
-        </div>
+      <div class="vacancies-list">
+        @for (vacancy of vacancies; track vacancy.slug) {
+        <div class="vacancies-item">
+          <div class="vacancies-img"></div>
 
-        <div class="news-item">
-          <div class="news-img"></div>
-          <p>{{ 'home.news.item2' | translate }}</p>
+          <div>
+            <p>{{ vacancy.title }}</p>
+            <span>{{ vacancy.city }}</span>
+          </div>
         </div>
-
-        <div class="news-item">
-          <div class="news-img"></div>
-          <p>{{ 'home.news.item3' | translate }}</p>
-        </div>
+        }
       </div>
     </div>
 

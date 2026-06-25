@@ -611,26 +611,26 @@
   text-decoration: none;
 }
 
-.news-list {
+.vacancies-list {
   display: grid;
   gap: 14px;
 }
 
-.news-item {
+.vacancies-item {
   display: grid;
   grid-template-columns: 62px 1fr;
   gap: 14px;
   align-items: center;
 }
 
-.news-img {
+.vacancies-img {
   height: 62px;
   border-radius: 14px;
   background: linear-gradient(135deg, #00d4ff, #7b2cbf);
   box-shadow: 0 0 22px rgba(0, 212, 255, .24);
 }
 
-.news-item p {
+.vacancies-item p {
   margin: 0;
   color: rgba(255, 255, 255, .84);
   line-height: 1.4;
@@ -1092,11 +1092,11 @@
     height: 108px;
   }
 
-  .news-item {
+  .vacancies-item {
     grid-template-columns: 48px 1fr;
   }
 
-  .news-img {
+  .vacancies-img {
     width: 48px;
     height: 48px;
   }
@@ -1406,6 +1406,10 @@
   display: flex;
   gap: 24px;
   padding: 20px;
+   background-image: url('/images/news/best.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .award-icon {

@@ -18,6 +18,7 @@ import { ContentService } from '../../services/content.services';
 export class Home implements OnInit, AfterViewInit, OnDestroy {
   // Import data from separate file
   stats: any[] = [];
+  vacancies: any[] = [];
   loading = false;
   features = features;
   ecosystemNodes = ecosystemNodes;
@@ -52,7 +53,8 @@ export class Home implements OnInit, AfterViewInit, OnDestroy {
 
   async ngOnInit() {
     await Promise.all([
-      this.loadStats()
+      this.loadStats(),
+    this.loadVacancies()
     ]);
   }
 
@@ -79,6 +81,23 @@ export class Home implements OnInit, AfterViewInit, OnDestroy {
     }));
     this.loading = false;
   }
+
+  async loadVacancies() {
+  const lang =
+    this.translate.currentLang ||
+    localStorage.getItem('lang') ||
+    'ru';
+
+  const { data, error } =
+    await this.contentService.getVacancies(lang);
+
+  if (error) {
+    console.error(error);
+    return;
+  }
+
+  this.vacancies = (data || []).slice(0, 3);
+}
   
   ngAfterViewInit(): void {
     this.observeCenterAnimation();

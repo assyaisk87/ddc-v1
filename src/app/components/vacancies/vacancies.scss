@@ -12,14 +12,17 @@
 }
 
 .vacancies-hero {
-    min-height: calc(100vh - 80px);
-    display: grid;
-    grid-template-columns: minmax(0, 1.15fr) minmax(260px, .85fr);
-    align-items: center;
-    gap: clamp(32px, 5vw, 80px);
     padding-bottom: 70px;
     background: #040816;
     text-align: left;
+
+    .container {
+        min-height: calc(100vh - 80px);
+        display: grid;
+        grid-template-columns: minmax(0, 1.15fr) minmax(260px, .85fr);
+        align-items: center;
+        gap: clamp(32px, 5vw, 80px);
+    }
 
 }
 

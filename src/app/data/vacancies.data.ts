@@ -19,7 +19,7 @@ export interface Vacancy {
 
 export const officePhotos = [
     '/images/office/news-1.jpeg',
-    '/images/office/news-2.jpeg',
+    '/images/office/news-2.png',
     '/images/office/office-3.jpg',
     '/images/office/office-4.jpg'
 ];
