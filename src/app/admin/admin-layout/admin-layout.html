@@ -1,0 +1,41 @@
+<div class="admin-layout">
+
+  <aside class="admin-sidebar">
+
+    <div class="admin-logo">
+      DDC Admin
+    </div>
+
+    <nav class="admin-menu">
+
+      <a routerLink="/admin" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+        Dashboard
+      </a>
+
+      <a routerLink="/admin/projects" routerLinkActive="active">
+        Проекты
+      </a>
+
+      <a routerLink="/admin/services" routerLinkActive="active">
+        Сервисы
+      </a>
+
+      <a routerLink="/admin/team" routerLinkActive="active">
+        Команда
+      </a>
+
+      <a routerLink="/admin/vacancies" routerLinkActive="active">
+        Вакансии
+      </a>
+
+      <button (click)="logout()">Выйти</button>
+
+    </nav>
+
+  </aside>
+
+  <main class="admin-content">
+    <router-outlet />
+  </main>
+
+</div>

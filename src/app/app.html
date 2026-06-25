@@ -1,13 +1,23 @@
-<app-digital-dna></app-digital-dna>
+@if (!router.url.startsWith('/admin')) {
 
-<app-navigation></app-navigation>
+  <app-digital-dna></app-digital-dna>
+
+  <app-navigation></app-navigation>
+
+}
 
 <main class="main-content">
   <router-outlet></router-outlet>
 </main>
 
-<app-footer></app-footer>
+@if (!router.url.startsWith('/admin')) {
 
-<app-ai-assistant></app-ai-assistant>
-<app-api-key-settings *ngIf="isLocalEnvironment"></app-api-key-settings>
+  <app-footer></app-footer>
 
+  <app-ai-assistant></app-ai-assistant>
+
+  <app-api-key-settings
+    *ngIf="isLocalEnvironment">
+  </app-api-key-settings>
+
+}

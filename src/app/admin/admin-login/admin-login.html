@@ -1,0 +1,31 @@
+<div class="admin-login-page">
+  <form class="admin-login-card" (ngSubmit)="login()">
+    <h1>Вход в админку</h1>
+
+    <label>Email</label>
+    <input
+      type="email"
+      name="email"
+      [(ngModel)]="email"
+      placeholder="admin@ddc.kz"
+      required
+    >
+
+    <label>Пароль</label>
+    <input
+      type="password"
+      name="password"
+      [(ngModel)]="password"
+      placeholder="Пароль"
+      required
+    >
+
+    @if (errorMessage) {
+      <p class="error-message">{{ errorMessage }}</p>
+    }
+
+    <button type="submit" [disabled]="loading">
+      {{ loading ? 'Вход...' : 'Войти' }}
+    </button>
+  </form>
+</div>

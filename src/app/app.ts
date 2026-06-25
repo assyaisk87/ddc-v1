@@ -22,7 +22,7 @@ export class App implements OnInit, OnDestroy {
 
   constructor(
     private magneticService: MagneticButtonService,
-    private router: Router,
+    public  router: Router,
     private translate: TranslateService      
     
   ) { }

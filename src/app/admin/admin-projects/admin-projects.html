@@ -1,0 +1,121 @@
+<div class="admin-projects-page">
+  <div class="admin-header">
+    <h1>Проекты</h1>
+    <button class="primary-btn" (click)="newProject()">+ Добавить</button>
+  </div>
+
+  <div class="admin-editor-layout">
+    <aside class="admin-list">
+      @for (project of projects; track project.id) {
+      <button type="button" class="admin-list-item" [class.active]="selected?.id === project.id"
+        (click)="edit(project)">
+        <strong>{{ project.name || 'Без названия' }}</strong>
+        <span>{{ project.lang }} / {{ project.slug }}</span>
+      </button>
+      }
+    </aside>
+
+    <section class="admin-editor-panel">
+      @if (baseProject) {
+      <div class="edit-lang-switcher">
+        <button type="button" [class.active]="selectedLang === 'ru'" [disabled]="selectedLang === 'ru'"
+          (click)="changeEditLang('ru')">
+          RU
+        </button>
+
+        <button type="button" [class.active]="selectedLang === 'kk'" [disabled]="selectedLang === 'kk'"
+          (click)="changeEditLang('kk')">
+          KK
+        </button>
+
+      </div>
+      }
+      @if (selected?.isNewTranslation) {
+      <div class="translation-warning">
+        Перевод для языка {{ selectedLang }} еще не создан. После сохранения будет создана новая запись.
+      </div>
+      }
+      @if (!selected) {
+      <div class="empty-state">
+        <h2>Выберите проект</h2>
+        <p>Слева выберите проект для редактирования или добавьте новый.</p>
+      </div>
+      } @else {
+      <form class="admin-form" (ngSubmit)="save()">
+
+        <div class="form-row">
+          <label>Slug</label>
+          <input name="slug" [(ngModel)]="selected.slug">
+        </div>
+
+        <div class="form-row">
+          <label>Название</label>
+          <input name="name" [(ngModel)]="selected.name">
+        </div>
+
+        <div class="form-row">
+          <label>Краткое описание</label>
+          <textarea name="short_description" [(ngModel)]="selected.short_description"></textarea>
+        </div>
+
+        <div class="form-row">
+          <label>Полное описание</label>
+          <textarea name="full_description" [(ngModel)]="selected.full_description"></textarea>
+        </div>
+
+        <div class="form-row">
+          <label>Картинка URL</label>
+          <input name="image_url" [(ngModel)]="selected.image_url">
+        </div>
+
+        <div class="form-row">
+          <label>Ссылка</label>
+          <input name="external_url" [(ngModel)]="selected.external_url">
+        </div>
+
+        <div class="form-row">
+          <label>Категория</label>
+          <input name="category" [(ngModel)]="selected.category">
+        </div>
+
+        <div class="form-row">
+          <label>Технологии через запятую</label>
+          <input name="technologiesText" [(ngModel)]="selected.technologiesText">
+        </div>
+
+        <div class="form-row">
+          <label>Challenges</label>
+          <textarea name="challengesText" [(ngModel)]="selected.challengesText"></textarea>
+        </div>
+
+        <div class="form-row">
+          <label>Results</label>
+          <textarea name="resultsText" [(ngModel)]="selected.resultsText"></textarea>
+        </div>
+
+        <div class="form-row">
+          <label>Порядок</label>
+          <input type="number" name="sort_order" [(ngModel)]="selected.sort_order">
+        </div>
+
+        <label class="checkbox">
+          <input type="checkbox" name="is_published" [(ngModel)]="selected.is_published">
+          Опубликовано
+        </label>
+
+        <div class="form-actions">
+          <button type="submit" class="primary-btn" [disabled]="loading">
+            {{ loading ? 'Сохранение...' : 'Сохранить' }}
+          </button>
+
+          @if (selected.id) {
+          <button type="button" class="danger-btn" (click)="deleteProject(selected)">
+            Удалить
+          </button>
+          }
+        </div>
+      </form>
+      }
+    </section>
+  </div>
+</div>
