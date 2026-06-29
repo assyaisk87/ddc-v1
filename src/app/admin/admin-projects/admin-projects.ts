@@ -4,11 +4,12 @@ import { FormsModule } from '@angular/forms';
 import { SupabaseService } from '../../services/supabase.service';
 import { ChangeDetectorRef } from '@angular/core';
 import { AlertService } from '../../services/alert.service';
+import { ImageUploadComponent } from '../image-upload/image-upload';
 
 @Component({
   selector: 'app-admin-projects',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, ImageUploadComponent],
   templateUrl: './admin-projects.html',
   styleUrl: './admin-projects.scss'
 })

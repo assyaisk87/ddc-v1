@@ -36,6 +36,14 @@
   &:hover {
     transform: scale(1.05);
   }
+  //   &:link,
+  // &:visited,
+  // &:hover,
+  // &:focus,
+  &:active {
+    color: $text-primary;
+    text-decoration: none;
+  }
   
   .logo-icon {
     .logo-cube {
@@ -51,7 +59,7 @@
     }
   }
   
-  .logo-text {
+  .logo-text { 
     font-family: $font-display;
     font-size: 1.5rem;
     font-weight: 700;

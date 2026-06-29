@@ -33,7 +33,7 @@
       @for (project of getFilteredProjects(); track project.id) {
       <div class="project-card glass-effect" (click)="openProject(project)">
         <div class="project-image">
-          <img [src]="project.image" [alt]="project.name" loading="lazy" decoding="async">
+          <img [src]="getImageUrl(project.image)" [alt]="project.name" loading="lazy" decoding="async">
           <!-- <div class="project-overlay">
             <button type="button" class="project-link-btn" (click)="openProject(project); $event.stopPropagation()">
               View Project →
@@ -129,7 +129,7 @@
 
     <div class="modal-layout">
       <div class="modal-image">
-        <img [src]="selectedProject.image" [alt]="selectedProject.name">
+        <img [src]="getImageUrl(selectedProject.image)" [alt]="selectedProject.name">
       </div>
 
       <div class="modal-content">

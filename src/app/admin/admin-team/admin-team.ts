@@ -3,11 +3,13 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SupabaseService } from '../../services/supabase.service';
 import { AlertService } from '../../services/alert.service';
+import { StorageService } from '../../services/storage.service';
+import { ImageUploadComponent } from '../image-upload/image-upload';
 
 @Component({
   selector: 'app-admin-team',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, ImageUploadComponent],
   templateUrl: './admin-team.html',
   styleUrl: './admin-team.scss'
 })
@@ -22,8 +24,9 @@ export class AdminTeam implements OnInit {
   constructor(
     private supabaseService: SupabaseService,
     private cdr: ChangeDetectorRef,
+    private storage: StorageService,
     private alert: AlertService
-  ) {}
+  ) { }
 
   async ngOnInit() {
     await this.loadMembers();

@@ -20,113 +20,112 @@
   <div class="admin-editor-layout">
     <aside class="admin-list">
       @for (member of members; track member.member_key) {
-        <button
-          type="button"
-          class="admin-list-item"
-          [class.active]="baseMember?.member_key === member.member_key"
-          (click)="edit(member)">
-          <strong>{{ member.full_name || member.member_key }}</strong>
-          <span>{{ member.group_type }} / {{ member.member_key }}</span>
-        </button>
+      <button type="button" class="admin-list-item" [class.active]="baseMember?.member_key === member.member_key"
+        (click)="edit(member)">
+        <strong>{{ member.full_name || member.member_key }}</strong>
+        <span>{{ member.group_type }} / {{ member.member_key }}</span>
+      </button>
       }
     </aside>
 
     <section class="admin-editor-panel">
       @if (baseMember) {
-        <div class="edit-lang-switcher">
-          <button type="button" [class.active]="selectedLang === 'ru'" [disabled]="selectedLang === 'ru'" (click)="changeEditLang('ru')">RU</button>
-          <button type="button" [class.active]="selectedLang === 'kk'" [disabled]="selectedLang === 'kk'" (click)="changeEditLang('kk')">KK</button>
-        </div>
+      <div class="edit-lang-switcher">
+        <button type="button" [class.active]="selectedLang === 'ru'" [disabled]="selectedLang === 'ru'"
+          (click)="changeEditLang('ru')">RU</button>
+        <button type="button" [class.active]="selectedLang === 'kk'" [disabled]="selectedLang === 'kk'"
+          (click)="changeEditLang('kk')">KK</button>
+      </div>
       }
 
       @if (selected?.isNewTranslation) {
-        <div class="translation-warning">
-          Перевод для языка {{ selectedLang }} еще не создан. После сохранения будет создана новая запись.
-        </div>
+      <div class="translation-warning">
+        Перевод для языка {{ selectedLang }} еще не создан. После сохранения будет создана новая запись.
+      </div>
       }
 
       @if (!selected) {
-        <div class="empty-state">
-          <h2>Выберите сотрудника</h2>
-          <p>Слева выберите сотрудника для редактирования или добавьте нового.</p>
-        </div>
+      <div class="empty-state">
+        <h2>Выберите сотрудника</h2>
+        <p>Слева выберите сотрудника для редактирования или добавьте нового.</p>
+      </div>
       } @else {
-        <form class="admin-form" (ngSubmit)="save()">
-          <div class="form-row">
-            <label>Ключ</label>
-            <input name="member_key" [(ngModel)]="selected.member_key">
-          </div>
+      <form class="admin-form" (ngSubmit)="save()">
+        <div class="form-row">
+          <label>Ключ</label>
+          <input name="member_key" [(ngModel)]="selected.member_key">
+        </div>
 
-          <div class="form-row">
-            <label>ФИО</label>
-            <input name="full_name" [(ngModel)]="selected.full_name">
-          </div>
+        <div class="form-row">
+          <label>ФИО</label>
+          <input name="full_name" [(ngModel)]="selected.full_name">
+        </div>
 
-          <div class="form-row">
-            <label>Должность</label>
-            <textarea name="position" [(ngModel)]="selected.position"></textarea>
-          </div>
+        <div class="form-row">
+          <label>Должность</label>
+          <textarea name="position" [(ngModel)]="selected.position"></textarea>
+        </div>
 
-          <div class="form-row">
-            <label>Биография</label>
-            <textarea name="biography" [(ngModel)]="selected.biography"></textarea>
-          </div>
+        <div class="form-row">
+          <label>Биография</label>
+          <textarea name="biography" [(ngModel)]="selected.biography"></textarea>
+        </div>
 
-          <div class="form-row">
-            <label>Фото URL</label>
-            <input name="image_url" [(ngModel)]="selected.image_url">
-          </div>
+        <div class="form-row">
+          <app-image-upload folder="team" [(imageUrl)]="selected.image_url">
+          </app-image-upload>
+        </div>
 
-          <div class="form-row">
-            <label>Группа</label>
-            <select name="group_type" [(ngModel)]="selected.group_type">
-              <option value="directors">Совет директоров</option>
-              <option value="ceo">Правление</option>
-            </select>
-          </div>
+        <div class="form-row">
+          <label>Группа</label>
+          <select name="group_type" [(ngModel)]="selected.group_type">
+            <option value="directors">Совет директоров</option>
+            <option value="ceo">Правление</option>
+          </select>
+        </div>
 
-          <div class="form-row">
-            <label>Заголовок обращения</label>
-            <input name="message_title" [(ngModel)]="selected.message_title">
-          </div>
+        <div class="form-row">
+          <label>Заголовок обращения</label>
+          <input name="message_title" [(ngModel)]="selected.message_title">
+        </div>
 
-          <div class="form-row">
-            <label>Текст обращения</label>
-            <textarea name="message_text" [(ngModel)]="selected.message_text"></textarea>
-          </div>
+        <div class="form-row">
+          <label>Текст обращения</label>
+          <textarea name="message_text" [(ngModel)]="selected.message_text"></textarea>
+        </div>
 
-          <div class="form-row">
-            <label>Текст для озвучки</label>
-            <textarea name="greeting" [(ngModel)]="selected.greeting"></textarea>
-          </div>
+        <div class="form-row">
+          <label>Текст для озвучки</label>
+          <textarea name="greeting" [(ngModel)]="selected.greeting"></textarea>
+        </div>
 
-          <div class="form-row">
-            <label>Порядок</label>
-            <input type="number" name="sort_order" [(ngModel)]="selected.sort_order">
-          </div>
+        <div class="form-row">
+          <label>Порядок</label>
+          <input type="number" name="sort_order" [(ngModel)]="selected.sort_order">
+        </div>
 
-          <label class="checkbox">
-            <input type="checkbox" name="is_main" [(ngModel)]="selected.is_main">
-            Главный
-          </label>
+        <label class="checkbox">
+          <input type="checkbox" name="is_main" [(ngModel)]="selected.is_main">
+          Главный
+        </label>
 
-          <label class="checkbox">
-            <input type="checkbox" name="is_published" [(ngModel)]="selected.is_published">
-            Опубликовано
-          </label>
+        <label class="checkbox">
+          <input type="checkbox" name="is_published" [(ngModel)]="selected.is_published">
+          Опубликовано
+        </label>
 
-          <div class="form-actions">
-            <button type="submit" class="primary-btn" [disabled]="loading">
-              {{ loading ? 'Сохранение...' : 'Сохранить' }}
-            </button>
+        <div class="form-actions">
+          <button type="submit" class="primary-btn" [disabled]="loading">
+            {{ loading ? 'Сохранение...' : 'Сохранить' }}
+          </button>
 
-            @if (selected.id) {
-              <button type="button" class="danger-btn" (click)="deleteMember(selected)">
-                Удалить
-              </button>
-            }
-          </div>
-        </form>
+          @if (selected.id) {
+          <button type="button" class="danger-btn" (click)="deleteMember(selected)">
+            Удалить
+          </button>
+          }
+        </div>
+      </form>
       }
     </section>
   </div>

@@ -64,8 +64,8 @@
         </div>
 
         <div class="form-row">
-          <label>Картинка URL</label>
-          <input name="image_url" [(ngModel)]="selected.image_url">
+          <app-image-upload folder="project" [(imageUrl)]="selected.image_url">
+          </app-image-upload>
         </div>
 
         <div class="form-row">

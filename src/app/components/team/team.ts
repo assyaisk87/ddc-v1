@@ -7,6 +7,7 @@ import { SpeechSynthesisService } from '../../services/speech-synthesis.service'
 import { RouterLink } from '@angular/router';
 import { ContentService } from '../../services/content.services';
 import { Subscription } from 'rxjs';
+import { StorageService } from '../../services/storage.service';
 
 @Component({
   selector: 'app-team',
@@ -33,7 +34,8 @@ export class Team implements OnInit {
   constructor(
     private translate: TranslateService,
     private speechService: SpeechSynthesisService,
-    private contentService: ContentService
+    private contentService: ContentService,
+    private storage: StorageService
   ) {
     this.currentLang = this.translate.currentLang;
     // Подписываемся на смену языка
@@ -52,6 +54,10 @@ export class Team implements OnInit {
 
   ngOnDestroy() {
     this.langSub?.unsubscribe();
+  }
+
+  getImageUrl(path: string | null | undefined): string {
+    return this.storage.getPublicUrl(path);
   }
 
   async loadTeam() {

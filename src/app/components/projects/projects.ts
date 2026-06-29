@@ -9,6 +9,7 @@ import {
 import { SeoService } from '../../services/seo.service';
 import { poweredByPartners } from '../../data/home.data';
 import { ContentService } from '../../services/content.services';
+import { StorageService } from '../../services/storage.service';
 
 @Component({
   selector: 'app-projects',
@@ -32,7 +33,8 @@ export class Projects implements OnInit {
 
   constructor(private seo: SeoService,
     private contentService: ContentService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private storage: StorageService
   ) { }
 
   async ngOnInit() {
@@ -47,7 +49,10 @@ export class Projects implements OnInit {
     this.leftPartnersTrack = this.createInfiniteTrack(this.poweredByPartners);
     this.rightPartnersTrack = this.createInfiniteTrack(this.poweredByPartners);
   }
-
+  
+  getImageUrl(path: string | null | undefined): string {
+    return this.storage.getPublicUrl(path);
+  }
 
   private createInfiniteTrack<T>(items: T[]): T[] {
     const shuffled = this.shuffleArray(items);

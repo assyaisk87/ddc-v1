@@ -1,0 +1,21 @@
+<div class="upload">
+    @if (imageUrl) {
+    <div class="preview">
+        <img [src]="previewUrl" alt="preview">
+
+        <button type="button" class="remove" (click)="removeImage()">
+            ✕
+        </button>
+    </div>
+    } @else {
+    <div class="empty">
+        <span>Нет изображения</span>
+    </div>
+    }
+
+    <label class="upload-btn">
+        {{ loading ? 'Загрузка...' : 'Выбрать изображение' }}
+
+        <input type="file" accept="image/*" (change)="onFileSelected($event)" hidden>
+    </label>
+</div>

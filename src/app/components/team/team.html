@@ -22,8 +22,8 @@
     <div class="main-director-container glass-effect">
       <div class="main-director-content">
         <div class="main-director-image-wrapper">
-          <img [src]="mainDirector?.image_url" [alt]="mainDirector?.full_name" loading="lazy" decoding="async"
-            class="main-director-image">
+          <img [src]="getImageUrl(mainDirector?.image_url)" [alt]="mainDirector?.full_name" loading="lazy"
+            decoding="async" class="main-director-image">
         </div>
         <div class="main-director-info">
           <h3 class="main-director-name">{{ mainDirector?.full_name }}</h3>
@@ -45,8 +45,8 @@
           <!-- Front side -->
           <div class="flip-card-front">
             <div class="director-image-wrapper">
-              <img [src]="director?.image_url" [alt]="director?.full_name" class="director-image" loading="lazy"
-                decoding="async">
+              <img [src]="getImageUrl(director?.image_url)" [alt]="director?.full_name" class="director-image"
+                loading="lazy" decoding="async">
             </div>
             <div class="director-info">
               <h3 class="director-name">{{ director?.full_name }}</h3>
@@ -77,8 +77,8 @@
     <div class="ceo-main-container glass-effect">
       <div class="ceo-main-content">
         <div class="ceo-main-image-wrapper">
-          <img [src]="mainCeo?.image_url" alt="{{ 'mainCeo?.full_name' | translate }}" loading="lazy" decoding="async"
-            class="ceo-main-image">
+          <img [src]="getImageUrl(mainCeo?.image_url)" alt="{{ 'mainCeo?.full_name' | translate }}" loading="lazy"
+            decoding="async" class="ceo-main-image">
           <button class="director-audio-btn glass-effect" (click)="toggleAudio()" [class.active]="audioPlaying"
             aria-label="paly audio">
             <span class="audio-icon">{{ audioPlaying ? '🔇' : '🔊' }}</span>
@@ -108,7 +108,7 @@
           <div class="flip-card">
             <div class="flip-card-front">
               <div class="ceo-member-image-wrapper">
-                <img [src]="ceo.image_url" [alt]="ceo.full_name" class="ceo-member-image">
+                <img [src]="getImageUrl(ceo.image_url)" [alt]="ceo.full_name" class="ceo-member-image">
               </div>
               <div class="ceo-member-info">
                 <h4 class="ceo-member-name">{{ ceo.full_name }}</h4>
