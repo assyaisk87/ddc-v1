@@ -211,3 +211,49 @@ export const DEFAULT_GROQ_PARAMS: GroqRequestParams = {
   max_tokens: 2000,
   top_p: 1,
 };
+
+export function createGeneralJsonContext(t: Translation): string {
+  return `
+ОБЩАЯ ИНФОРМАЦИЯ ИЗ JSON:
+
+МИССИЯ:
+${safeText(t.home?.mission)}
+
+ОПИСАНИЕ ЦЕНТРА:
+${safeText(t.home?.description)}
+
+НАПРАВЛЕНИЯ / ВОЗМОЖНОСТИ:
+${formatObject(t.home?.features)}
+
+СТРУКТУРА ЦЕНТРА:
+${formatObject(t.home?.center)}
+
+КОНТАКТЫ:
+Адрес: ${safeText(t.contacts?.info?.address?.text)}
+Адрес Алматы: ${safeText(t.contacts?.info?.address_almaty?.text)}
+Email: ${safeText(t.contacts?.info?.email?.text)}
+Телефон: ${safeText(t.contacts?.info?.phone?.text)}
+Режим работы: ${safeText(t.contacts?.info?.hours?.text)}
+Instagram: ${safeText(t.contacts?.info?.social?.instagram)}
+`;
+}
+
+function safeText(value: unknown): string {
+  if (value === null || value === undefined || value === '') {
+    return 'Нет данных.';
+  }
+
+  return String(value);
+}
+
+function formatObject(value: unknown): string {
+  if (!value) {
+    return 'Нет данных.';
+  }
+
+  if (typeof value === 'object') {
+    return JSON.stringify(value, null, 2);
+  }
+
+  return String(value);
+}

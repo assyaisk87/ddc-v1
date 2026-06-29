@@ -23,9 +23,14 @@
         "npm:@netlify/functions@^5.2.2",
         "npm:@ngx-translate/core@17",
         "npm:@ngx-translate/http-loader@17",
+        "npm:@supabase/supabase-js@^2.108.2",
+        "npm:@types/node@^25.9.1",
+        "npm:angular-chartjs@^0.0.5",
+        "npm:chart.js@^4.5.1",
         "npm:groq-sdk@^1.2.1",
         "npm:prettier@^3.8.1",
         "npm:rxjs@7.8",
+        "npm:sweetalert2@^11.26.25",
         "npm:tslib@^2.3.0",
         "npm:typescript@~5.9.2"
       ]
