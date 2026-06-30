@@ -1124,3 +1124,94 @@ h6 {
     background-position: -200% 0;
   }
 }
+
+/* =========================================================
+   Stage 6 mobile fixes: filters and compact partner cards
+   ========================================================= */
+@media (max-width: 768px) {
+  /* На телефоне блок Powered by слишком перегружает страницу проектов */
+  .powered-by-section,
+  .powered-by-placeholder {
+    display: none !important;
+  }
+
+  /* Категории проектов и вакансий: перенос по строкам, ширина по тексту */
+  :is(.category-filter, .vacancy-filters) {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+    gap: 10px !important;
+    overflow: visible !important;
+    padding: 0 !important;
+    margin-bottom: 26px !important;
+    scroll-snap-type: none !important;
+  }
+
+  :is(.category-filter .category-btn, .vacancy-filters .filter-chip) {
+    flex: 0 0 auto !important;
+    width: auto !important;
+    min-width: max-content !important;
+    max-width: 100% !important;
+    height: 42px !important;
+    padding: 0 16px !important;
+    white-space: nowrap !important;
+    scroll-snap-align: unset !important;
+  }
+
+  /* Партнеры на странице Достижения: компактная адаптивная сетка */
+  .achievements-container .partners-section {
+    padding-inline: 12px;
+  }
+
+  .achievements-container .partners-section .partners-grid {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)) !important;
+    gap: 10px !important;
+  }
+
+  .achievements-container .partners-section .partner-card {
+    min-height: 132px;
+    padding: 16px 10px !important;
+    border-radius: 18px !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .achievements-container .partners-section .partner-logo {
+    margin-bottom: 8px !important;
+    font-size: 1rem !important;
+    line-height: 1.15 !important;
+  }
+
+  .achievements-container .partners-section .partner-name {
+    font-size: 0.74rem !important;
+    line-height: 1.45 !important;
+  }
+}
+
+@media (max-width: 380px) {
+  :is(.category-filter, .vacancy-filters) {
+    gap: 8px !important;
+  }
+
+  :is(.category-filter .category-btn, .vacancy-filters .filter-chip) {
+    height: 40px !important;
+    padding: 0 13px !important;
+    font-size: 0.82rem !important;
+  }
+
+  .achievements-container .partners-section .partners-grid {
+    grid-template-columns: repeat(auto-fit, minmax(92px, 1fr)) !important;
+    gap: 8px !important;
+  }
+
+  .achievements-container .partners-section .partner-card {
+    min-height: 124px;
+    padding: 14px 8px !important;
+  }
+
+  .achievements-container .partners-section .partner-name {
+    font-size: 0.7rem !important;
+  }
+}

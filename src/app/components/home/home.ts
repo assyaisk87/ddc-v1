@@ -7,6 +7,7 @@ import {
   CenterValue, ecosystemNodes
 } from '../../data/home.data';
 import { ContentService } from '../../services/content.services';
+import { StorageService } from '../../services/storage.service';
 
 @Component({
   selector: 'app-home',
@@ -19,6 +20,7 @@ export class Home implements OnInit, AfterViewInit, OnDestroy {
   // Import data from separate file
   stats: any[] = [];
   vacancies: any[] = [];
+  homeProjects: any[] = [];
   loading = false;
   features = features;
   ecosystemNodes = ecosystemNodes;
@@ -47,13 +49,15 @@ export class Home implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private elementRef: ElementRef,
     private contentService: ContentService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private storage: StorageService
   ) { }
 
   async ngOnInit() {
     await Promise.all([
       this.loadStats(),
-    this.loadVacancies()
+      this.loadVacancies(),
+      this.loadHomeProjects()
     ]);
   }
 
@@ -97,6 +101,48 @@ export class Home implements OnInit, AfterViewInit, OnDestroy {
 
   this.vacancies = (data || []).slice(0, 3);
 }
+  async loadHomeProjects() {
+    const lang =
+      this.translate.currentLang ||
+      localStorage.getItem('lang') ||
+      'ru';
+
+    const { data, error } =
+      await this.contentService.getProjects(lang);
+
+    if (error) {
+      console.error(error);
+      return;
+    }
+
+    this.homeProjects = (data || []).slice(0, 6).map(item => ({
+      id: item.id,
+      slug: item.slug,
+      title: item.name,
+      description: item.short_description,
+      category: item.category,
+      image: item.image_url
+    }));
+  }
+
+
+
+  get homeProjectsLeft(): any[] {
+    return this.homeProjects.slice(0, 3);
+  }
+
+  get homeProjectsRight(): any[] {
+    return this.homeProjects.slice(3, 6);
+  }
+
+  get homeProjectsMobile(): any[] {
+    return this.homeProjects.slice(0, 3);
+  }
+
+  getProjectImageUrl(path: string | null | undefined): string {
+    return this.storage.getPublicUrl(path);
+  }
+
   
   ngAfterViewInit(): void {
     this.observeCenterAnimation();

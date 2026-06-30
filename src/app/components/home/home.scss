@@ -490,6 +490,7 @@
   grid-template-columns: 1.35fr .75fr .75fr;
   gap: 24px;
   margin-top: 50px;
+  padding-bottom: 10px;
 }
 
 .glass-card {
@@ -949,6 +950,13 @@
   }
 }
 
+
+
+/* Mobile-only helper titles */
+.mobile-ecosystem-title,
+.projects-directions-subtitle {
+  display: none;
+}
 
 /* ===============================
    RESPONSIVE
@@ -1476,4 +1484,349 @@
 
   line-height: 1.6;
   font-size: .95rem;
+}
+
+/* ===============================
+   MOBILE UX REFINEMENTS
+   Главная: мобильная версия без лишней декоративности
+================================ */
+@media (max-width: 768px) {
+  .hero-grid {
+    gap: 24px;
+  }
+
+  .mobile-ecosystem-title,
+  .projects-directions-subtitle {
+    text-align: center;
+    display: block;
+    margin: 0 0 14px;
+    color: rgba(255, 255, 255, .72);
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.4;
+    letter-spacing: .01em;
+  }
+
+  .hero-center {
+    width: 100%;
+    justify-content: stretch;
+  }
+
+  .ecosystem-orbit {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    width: 100%;
+    aspect-ratio: auto;
+    padding: 0;
+    background: transparent;
+  }
+
+  .ecosystem-orbit .mobile-ecosystem-title {
+    grid-column: 1 / -1;
+  }
+
+  .orbit-ring,
+  .connections-svg,
+  .center-core {
+    display: none !important;
+  }
+
+  .orbit-card,
+  .card-api,
+  .card-ai,
+  .card-tenge,
+  .card-bank,
+  .card-pay,
+  .card-fraud {
+    position: static;
+    width: 100%;
+    max-width: none;
+    min-height: 68px;
+    padding: 12px;
+    transform: none !important;
+  }
+
+  .orbit-card::after {
+    display: none;
+  }
+
+  .orbit-card p {
+    font-size: 12px;
+  }
+
+  .command-panel .stats-grid,
+  .hero-right .stats-grid,
+  .stats-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 10px;
+  }
+
+  .command-panel .stat-card,
+  .stat-card {
+    min-width: 0;
+    min-height: 86px;
+    padding: 12px;
+  }
+
+  .command-panel .stat-card strong,
+  .stat-card strong {
+    margin-bottom: 6px;
+    font-size: 24px;
+  }
+
+  .command-panel .stat-card span,
+  .stat-card span {
+    font-size: 11px;
+    line-height: 1.3;
+  }
+
+  .ecosystem-scheme-card .mini-core,
+  .ecosystem-scheme-card .mini-connections-svg {
+    display: none !important;
+  }
+
+  .ecosystem-scheme-card .ecosystem-mini {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    min-height: auto;
+  }
+
+  .ecosystem-scheme-card .mini-left,
+  .ecosystem-scheme-card .mini-right {
+    display: grid;
+    gap: 12px;
+  }
+
+  .ecosystem-scheme-card .scheme-node {
+    min-height: 50px;
+    padding: 12px 14px;
+    font-size: 13px;
+    line-height: 1.25;
+  }
+}
+
+@media (max-width: 420px) {
+  .ecosystem-orbit {
+    grid-template-columns: 1fr;
+  }
+
+  .command-panel .stats-grid,
+  .hero-right .stats-grid,
+  .stats-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+
+/* Dynamic projects preview on Home */
+.home-projects-preview {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.home-project-card {
+  min-height: 74px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  border-radius: 18px;
+  text-decoration: none;
+  color: inherit;
+  background: linear-gradient(180deg, rgba(28, 42, 88, .96), rgba(17, 30, 66, .96));
+  border: 1px solid rgba(0, 212, 255, .26);
+  box-shadow: inset 0 0 22px rgba(255, 255, 255, .035);
+  transition: transform .28s ease, border-color .28s ease, box-shadow .28s ease;
+}
+
+.home-project-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(0, 212, 255, .78);
+  box-shadow: 0 0 28px rgba(0, 212, 255, .26);
+}
+
+.home-project-icon {
+  width: 42px;
+  height: 42px;
+  flex: 0 0 42px;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  color: #00d4ff;
+  font-size: 22px;
+  font-weight: 900;
+  background: rgba(0, 212, 255, .1);
+  border: 1px solid rgba(0, 212, 255, .22);
+  overflow: hidden;
+}
+
+.home-project-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.home-project-content {
+  min-width: 0;
+  display: grid;
+  gap: 5px;
+}
+
+.home-project-title {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1.25;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.home-project-category {
+  color: rgba(255, 255, 255, .58);
+  font-size: 12px;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (max-width: 768px) {
+  .home-projects-preview {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .home-project-card {
+    min-height: 62px;
+    padding: 12px 14px;
+    border-radius: 16px;
+  }
+
+  .home-project-icon {
+    width: 36px;
+    height: 36px;
+    flex-basis: 36px;
+    border-radius: 12px;
+    font-size: 18px;
+  }
+
+  .home-project-title {
+    font-size: 13px;
+    -webkit-line-clamp: 1;
+  }
+
+  .home-project-category {
+    font-size: 11px;
+  }
+
+  .mobile-hidden-project {
+    display: none !important;
+  }
+}
+
+/* Home projects from DB: desktop keeps DDC center and animated links, mobile is compact list */
+.desktop-projects-orbit {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 180px minmax(0, 1fr);
+  align-items: center;
+  gap: 18px 22px;
+}
+
+.home-projects-column {
+  display: grid;
+  gap: 14px;
+}
+
+.home-projects-center {
+  position: relative;
+  min-height: 230px;
+  display: grid;
+  place-items: center;
+  isolation: isolate;
+}
+
+.home-projects-ddc {
+  width: 120px;
+  height: 120px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: #00d4ff;
+  font-size: 32px;
+  font-weight: 950;
+  letter-spacing: -.04em;
+  background: radial-gradient(circle at 35% 25%, rgba(0, 212, 255, .18), rgba(14, 31, 72, .96));
+  border: 1px solid rgba(0, 212, 255, .7);
+  box-shadow: 0 0 34px rgba(0, 212, 255, .26), inset 0 0 26px rgba(255, 255, 255, .045);
+  z-index: 2;
+}
+
+.home-projects-lines {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.home-projects-lines path {
+  fill: none;
+  stroke: rgba(0, 212, 255, .62);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-dasharray: 9 11;
+  animation: homeProjectDash 5.5s linear infinite, homeProjectPulse 2.6s ease-in-out infinite;
+}
+
+.home-projects-lines path:nth-child(even) {
+  stroke: rgba(123, 44, 191, .74);
+  animation-delay: -.8s;
+}
+
+@keyframes homeProjectDash {
+  to { stroke-dashoffset: -120; }
+}
+
+@keyframes homeProjectPulse {
+  0%, 100% { opacity: .48; }
+  50% { opacity: 1; }
+}
+
+.home-project-card {
+  min-height: 74px;
+  justify-content: flex-start;
+}
+
+.home-project-content {
+  width: 100%;
+}
+
+.mobile-projects-list {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .desktop-projects-orbit {
+    display: none !important;
+  }
+
+  .mobile-projects-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .home-project-card {
+    min-height: 62px;
+    padding: 12px 14px;
+  }
+
+  .home-project-title {
+    -webkit-line-clamp: 2;
+  }
 }

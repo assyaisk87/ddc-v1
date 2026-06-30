@@ -63,6 +63,11 @@
           <div class="center-core">
             <img src="/icons/ddc_logo.svg" alt="ЦЦР">
           </div>
+
+          <p class="mobile-ecosystem-title">
+            {{ 'home.ecosystem.mobileSubtitle' | translate }}
+          </p>
+
           @for (node of ecosystemFeatureNodes; track node.titleKey; let i = $index) {
           <div class="orbit-card" [ngClass]="node.orbitClass" [style.--card-accent]="node.color"
             [attr.data-tooltip]="node.descKey | translate">
@@ -182,75 +187,68 @@
 
       </div>
 
-      <div class="ecosystem-mini">
-        <svg class="mini-connections-svg" viewBox="0 0 900 300" preserveAspectRatio="none">
-          <path id="mini-l1" d="M450 150 C330 75, 260 70, 205 75" />
-          <path id="mini-l2" d="M450 150 C330 150, 260 150, 205 150" />
-          <path id="mini-l3" d="M450 150 C330 225, 260 230, 205 225" />
+      <div class="home-projects-preview desktop-projects-orbit">
+        @if (homeProjects.length) {
+          <div class="home-projects-column projects-left-column">
+            @for (project of homeProjectsLeft; track project.slug || project.id) {
+              <a class="home-project-card" routerLink="/projects">
+                <span class="home-project-content">
+                  <span class="home-project-title">{{ project.title }}</span>
+                  @if (project.category) {
+                    <span class="home-project-category">{{ project.category }}</span>
+                  }
+                </span>
+              </a>
+            }
+          </div>
 
-          <path id="mini-r1" d="M450 150 C570 75, 640 70, 695 75" />
-          <path id="mini-r2" d="M450 150 C570 150, 640 150, 695 150" />
-          <path id="mini-r3" d="M450 150 C570 225, 640 230, 695 225" />
+          <div class="home-projects-center" aria-hidden="true">
+            <svg class="home-projects-lines" viewBox="0 0 180 230" preserveAspectRatio="none">
+              <path d="M90 115 C45 70, 38 38, 2 34" />
+              <path d="M90 115 C42 105, 34 98, 2 98" />
+              <path d="M90 115 C45 160, 38 195, 2 196" />
+              <path d="M90 115 C135 70, 142 38, 178 34" />
+              <path d="M90 115 C138 105, 146 98, 178 98" />
+              <path d="M90 115 C135 160, 142 195, 178 196" />
+            </svg>
+            <div class="mini-core mini-layer">
+          <span style="font-weight: 600;">DDC</span></div>
+          </div>
 
-          <circle class="moving-dot cyan" r="5">
-            <animateMotion dur="3s" repeatCount="indefinite">
-              <mpath href="#mini-l1" />
-            </animateMotion>
-          </circle>
+          <div class="home-projects-column projects-right-column">
+            @for (project of homeProjectsRight; track project.slug || project.id) {
+              <a class="home-project-card" routerLink="/projects">
+                <span class="home-project-content">
+                  <span class="home-project-title">{{ project.title }}</span>
+                  @if (project.category) {
+                    <span class="home-project-category">{{ project.category }}</span>
+                  }
+                </span>
+              </a>
+            }
+          </div>
+        } @else {
+          <div class="home-project-card placeholder-card">
+            <span class="home-project-content">
+              <span class="home-project-title">{{ 'home.ecosystem.scheme.regulatory' | translate }}</span>
+            </span>
+          </div>
+        }
+      </div>
 
-          <circle class="moving-dot blue" r="5">
-            <animateMotion dur="3.4s" repeatCount="indefinite">
-              <mpath href="#mini-l2" />
-            </animateMotion>
-          </circle>
-
-          <circle class="moving-dot purple" r="5">
-            <animateMotion dur="3.8s" repeatCount="indefinite">
-              <mpath href="#mini-l3" />
-            </animateMotion>
-          </circle>
-
-          <circle class="moving-dot cyan" r="5">
-            <animateMotion dur="3.2s" repeatCount="indefinite">
-              <mpath href="#mini-r1" />
-            </animateMotion>
-          </circle>
-
-          <circle class="moving-dot green" r="5">
-            <animateMotion dur="3.6s" repeatCount="indefinite">
-              <mpath href="#mini-r2" />
-            </animateMotion>
-          </circle>
-
-          <circle class="moving-dot purple" r="5">
-            <animateMotion dur="4s" repeatCount="indefinite">
-              <mpath href="#mini-r3" />
-            </animateMotion>
-          </circle>
-        </svg>
-
-        <div class="mini-left mini-layer">
-          <div class="scheme-node"><img src="/command-center/shield-network.svg" alt="" width="22" height="22"> {{
-            'home.ecosystem.scheme.regulatory' | translate }}</div>
-          <div class="scheme-node"><img src="/command-center/api-gateway.svg" alt="" width="22" height="22"> {{
-            'home.ecosystem.scheme.security' | translate }}</div>
-          <div class="scheme-node"><img src="/command-center/systems.svg" alt="" width="22" height="22"> {{
-            'home.ecosystem.scheme.analytics' | translate }}</div>
-        </div>
-
-        <div class="mini-core mini-layer">
-          <span style="font-weight: 600;">DDC</span>
-        </div>
-
-        <div class="mini-right mini-layer">
-          <div class="scheme-node"><img src="/command-center/rocket.svg" alt="" width="22" height="22"> {{
-            'home.ecosystem.scheme.cloud' | translate }}</div>
-          <div class="scheme-node"><img src="/command-center/payment-network.svg" alt="" width="22" height="22"> {{
-            'home.ecosystem.scheme.fintech' | translate }}</div>
-          <div class="scheme-node"><img src="/command-center/digital-currency.svg" alt="" width="22" height="22"> {{
-            'home.ecosystem.scheme.blockchain' | translate }}</div>
-        </div>
-
+      <div class="home-projects-preview mobile-projects-list">
+        @if (homeProjects.length) {
+          @for (project of homeProjectsMobile; track project.slug || project.id) {
+            <a class="home-project-card" routerLink="/projects">
+              <span class="home-project-content">
+                <span class="home-project-title">{{ project.title }}</span>
+                @if (project.category) {
+                  <span class="home-project-category">{{ project.category }}</span>
+                }
+              </span>
+            </a>
+          }
+        }
       </div>
     </div>
 
