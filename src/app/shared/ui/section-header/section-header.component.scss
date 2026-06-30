@@ -1,0 +1,9 @@
+@import "../../../../styles";
+
+:host {
+  display: block;
+}
+
+.section-header {
+  @include section-header;
+}

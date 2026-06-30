@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ContentService } from '../../services/content.services';
+import { PageHeroComponent, SectionHeaderComponent } from '../../shared/ui';
 
 @Component({
   selector: 'app-achievements',
   standalone: true,
-  imports: [CommonModule, TranslateModule],
+  imports: [CommonModule, TranslateModule, PageHeroComponent, SectionHeaderComponent],
   templateUrl: './achievements.html',
   styleUrl: './achievements.scss'
 })

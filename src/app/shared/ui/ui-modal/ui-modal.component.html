@@ -1,0 +1,10 @@
+<div class="ui-modal-backdrop" (click)="close.emit()">
+  <section class="ui-modal glass-effect" [ngClass]="panelClass" role="dialog" aria-modal="true"
+    [attr.aria-label]="ariaLabel" (click)="$event.stopPropagation()">
+    <button type="button" class="modal-close" aria-label="Закрыть модальное окно" (click)="close.emit()">
+      ✕
+    </button>
+
+    <ng-content></ng-content>
+  </section>
+</div>

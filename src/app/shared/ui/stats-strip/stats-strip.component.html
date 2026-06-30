@@ -1,0 +1,20 @@
+<section class="stats-section container">
+  <div class="stats-panel glass-effect">
+    <div class="stats-line stats-line-top"></div>
+
+    <div class="stats-track" [style.--stats-count]="items.length">
+      @for (item of items; track item.label; let last = $last) {
+      <div class="stat-item">
+        <span class="stat-value">{{ item.value }}</span>
+        <span class="stat-label">{{ item.label }}</span>
+      </div>
+
+      @if (!last) {
+      <span class="stat-dot"></span>
+      }
+      }
+    </div>
+
+    <div class="stats-line stats-line-bottom"></div>
+  </div>
+</section>

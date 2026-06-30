@@ -1,12 +1,9 @@
 <div class="team-container">
-  <!-- Header Section -->
-  <section class="team-header">
-    <div class="container">
-      <span class="section-badge glass-effect">{{ 'nav.team' | translate }}</span>
-      <h1 class="section-title">{{ 'directorsBoard.title' | translate }}</h1>
-      <p class="section-description">{{ 'team.subtitle' | translate }}</p>
-    </div>
-  </section>
+  <app-page-hero
+    [badge]="'nav.team' | translate"
+    [title]="'directorsBoard.title' | translate"
+    [description]="'team.subtitle' | translate">
+  </app-page-hero>
 
   @if (loading){
   <div class="loading-container">
@@ -69,9 +66,7 @@
 
   <!-- CEO/Management Board Section -->
   <section class="ceo-section container">
-    <div class="section-header">
-      <h2 class="section-title">{{ 'ceo.title' | translate }}</h2>
-    </div>
+    <app-section-header [title]="'ceo.title' | translate"></app-section-header>
 
     <!-- Main CEO with Message and Audio -->
     <div class="ceo-main-container glass-effect">
@@ -131,21 +126,10 @@
     </div>
   </section>
   }
-  <!-- CTA Section -->
-  <section class="team-cta">
-    <div class="cta-background">
-      <div class="cta-glow"></div>
-    </div>
-    <div class="container">
-      <div class="cta-content glass-effect">
-        <h2 class="cta-title">{{ 'team.cta.title' | translate }}</h2>
-        <p class="cta-description">{{ 'team.cta.description' | translate }}</p>
-        <a routerLink="/contacts" class="btn btn-primary glow-effect magnetic">
-          <span class="btn-text">{{ 'team.cta.button' | translate }}</span>
-          <span class="btn-shimmer"></span>
-          <span class="btn-arrow">→</span>
-        </a>
-      </div>
-    </div>
-  </section>
+  <app-cta-block
+    [title]="'team.cta.title' | translate"
+    [description]="'team.cta.description' | translate"
+    [buttonLabel]="'team.cta.button' | translate"
+    routerLink="/contacts">
+  </app-cta-block>
 </div>

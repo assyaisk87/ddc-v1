@@ -9,11 +9,12 @@ import { SeoService } from '../../services/seo.service';
 import { poweredByPartners } from '../../data/home.data';
 import { ContentService } from '../../services/content.services';
 import { StorageService } from '../../services/storage.service';
+import { PageHeroComponent, SectionHeaderComponent, UiModalComponent } from '../../shared/ui';
 
 @Component({
   selector: 'app-projects',
   standalone: true,
-  imports: [CommonModule, TranslateModule],
+  imports: [CommonModule, TranslateModule, PageHeroComponent, SectionHeaderComponent, UiModalComponent],
   templateUrl: './projects.html',
   styleUrl: './projects.scss'
 })

@@ -1,43 +1,20 @@
-@import '../../../styles';
+@import "../../../styles";
 
-.projects-container { @include page-container; }
+.projects-container {
+  @include page-container;
+}
 
 // Header Section
-.projects-header { @include page-hero; }
+.projects-header {
+  @include page-hero;
+}
 
 // Analytics Section
 .analytics-section {
   padding: $spacing-3xl 0;
-  
+
   .section-header {
-    text-align: center;
-    margin-bottom: $spacing-3xl;
-
-    .section-badge {
-      display: inline-block;
-      padding: $spacing-xs $spacing-md;
-      border-radius: $radius-full;
-      font-size: 0.875rem;
-      margin-bottom: $spacing-md;
-      background: rgba(0, 212, 255, 0.1);
-      border: 1px solid rgba(0, 212, 255, 0.3);
-      color: $primary-color;
-    }
-
-    .section-title {
-      font-size: clamp(2rem, 5vw, 3rem);
-      font-weight: 700;
-      margin-bottom: $spacing-sm;
-    background: $gradient-primary;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .section-description {
-      font-size: 1.125rem;
-      color: $text-muted;
-    }
+    @include section-header;
   }
 
   .analytics-grid {
@@ -47,21 +24,10 @@
 
     @include tablet {
       grid-template-columns: 1fr;
-}
+    }
 
     .chart-card {
-      padding: $spacing-xl;
-      border-radius: $radius-xl;
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(10px);
-      transition: all $transition-base;
-
-      &:hover {
-        transform: translateY(-5px);
-        box-shadow: $shadow-lg;
-        border-color: rgba(0, 212, 255, 0.3);
-      }
+      @include soft-card;
 
       .chart-title {
         font-size: 1.25rem;
@@ -88,31 +54,13 @@
 
   .category-filter {
     display: flex;
-    gap: $spacing-md;
-    margin-bottom: $spacing-2xl;
     flex-wrap: wrap;
     justify-content: center;
+    gap: $spacing-md;
+    margin-bottom: $spacing-2xl;
 
     .category-btn {
-      padding: $spacing-sm $spacing-lg;
-      border-radius: $radius-full;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      background: transparent;
-      color: $text-secondary;
-      font-weight: 500;
-      cursor: pointer;
-      transition: all $transition-base;
-
-      &:hover {
-        border-color: $primary-color;
-        color: $text-primary;
-      }
-
-      &.active {
-        background: $gradient-primary;
-        border-color: transparent;
-        color: $text-primary;
-      }
+      @include pill-button;
     }
   }
 
@@ -248,8 +196,16 @@
       width: 200%;
       height: 200%;
       background:
-        radial-gradient(circle at 30% 50%, rgba(0, 212, 255, 0.15) 0%, transparent 50%),
-        radial-gradient(circle at 70% 50%, rgba(123, 44, 191, 0.15) 0%, transparent 50%);
+        radial-gradient(
+          circle at 30% 50%,
+          rgba(0, 212, 255, 0.15) 0%,
+          transparent 50%
+        ),
+        radial-gradient(
+          circle at 70% 50%,
+          rgba(123, 44, 191, 0.15) 0%,
+          transparent 50%
+        );
       animation: float 10s ease-in-out infinite;
     }
   }
@@ -280,31 +236,8 @@
 
 // Buttons
 .btn {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  gap: $spacing-xs;
-  padding: $spacing-md $spacing-xl;
-  border-radius: $radius-md;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all $transition-base;
-  border: none;
-  overflow: hidden;
-
-  &::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    transform: translateX(-100%);
-    transition: transform 0.5s ease;
-  }
-
-  &:hover::before {
-    transform: translateX(100%);
-  }
+  @include button-base;
+  @include button-shine;
 
   .btn-arrow {
     transition: transform $transition-base;
@@ -315,68 +248,45 @@
   }
 
   &-primary {
-    background: $gradient-primary;
-    color: $text-primary;
-
-    &:hover {
-      transform: translateY(-2px);
-      box-shadow: $shadow-glow-primary;
-    }
+    @include button-primary;
   }
 }
 
 // Category Colors
 :host {
-  --color-payments: #00D4FF;
-  --color-mobile-banking: #7B2CBF;
-  --color-analytics: #FF006E;
-  --color-blockchain: #00FFA3;
-  --color-investment: #FFB800;
-  --color-ecommerce: #C77DFF;
+  --color-payments: #00d4ff;
+  --color-mobile-banking: #7b2cbf;
+  --color-analytics: #ff006e;
+  --color-blockchain: #00ffa3;
+  --color-investment: #ffb800;
+  --color-ecommerce: #c77dff;
 }
 
 .getCategoryColor {
-  &-Payments { color: var(--color-payments); }
-  &-Mobile-Banking { color: var(--color-mobile-banking); }
-  &-Analytics { color: var(--color-analytics); }
-  &-Blockchain { color: var(--color-blockchain); }
-  &-Investment { color: var(--color-investment); }
-  &-E-commerce { color: var(--color-ecommerce); }
+  &-Payments {
+    color: var(--color-payments);
+  }
+  &-Mobile-Banking {
+    color: var(--color-mobile-banking);
+  }
+  &-Analytics {
+    color: var(--color-analytics);
+  }
+  &-Blockchain {
+    color: var(--color-blockchain);
+  }
+  &-Investment {
+    color: var(--color-investment);
+  }
+  &-E-commerce {
+    color: var(--color-ecommerce);
+  }
 }
 
 .chart-skeleton {
   width: 100%;
   height: 300px;
-  border-radius: 16px;
-  position: relative;
-  overflow: hidden;
-
-  background: rgba(255,255,255,0.04);
-
-  &::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-
-    background: linear-gradient(
-      90deg,
-      transparent,
-      rgba(255,255,255,0.08),
-      transparent
-    );
-
-    animation: shimmer 1.6s infinite;
-  }
-}
-
-@keyframes shimmer {
-  from {
-    transform: translateX(-100%);
-  }
-
-  to {
-    transform: translateX(100%);
-  }
+  @include skeleton-shimmer(16px);
 }
 
 .performance-chart-card {
@@ -417,8 +327,6 @@
   margin-bottom: 28px;
 }
 
-
-
 @include mobile {
   .project-modal-backdrop {
     padding: 12px;
@@ -440,31 +348,35 @@
   }
 }
 .project-modal-backdrop {
-  position: fixed;
-  inset: 0;
+  @include modal-backdrop;
   z-index: 9999;
   padding: 32px;
   background:
-    radial-gradient(circle at 20% 20%, rgba(0, 212, 255, 0.16), transparent 35%),
-    radial-gradient(circle at 80% 70%, rgba(123, 44, 191, 0.18), transparent 40%),
+    radial-gradient(
+      circle at 20% 20%,
+      rgba(0, 212, 255, 0.16),
+      transparent 35%
+    ),
+    radial-gradient(
+      circle at 80% 70%,
+      rgba(123, 44, 191, 0.18),
+      transparent 40%
+    ),
     rgba(0, 0, 0, 0.78);
-  backdrop-filter: blur(18px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .project-modal {
-  position: relative;
-  width: min(1080px, 100%);
+  @include modal-shell(1080px);
   max-height: 88vh;
-  overflow-y: auto;
-  
   border-radius: 32px;
   background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.025)),
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.08),
+      rgba(255, 255, 255, 0.025)
+    ),
     rgba(8, 10, 18, 0.96);
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.14);
   box-shadow:
     0 40px 120px rgba(0, 0, 0, 0.6),
     0 0 50px rgba(0, 212, 255, 0.08);
@@ -490,7 +402,7 @@
   }
 
   &::after {
-    content: '';
+    content: "";
     position: absolute;
     inset: 0;
     background:
@@ -535,13 +447,7 @@
   margin-bottom: 34px;
 
   span {
-    padding: 8px 12px;
-    border-radius: $radius-full;
-    background: rgba(0, 212, 255, 0.1);
-    border: 1px solid rgba(0, 212, 255, 0.22);
-    color: $primary-color;
-    font-size: 0.82rem;
-    font-weight: 600;
+    @include tech-chip;
   }
 }
 
@@ -552,10 +458,9 @@
 }
 
 .modal-section {
+  @include glass-panel(rgba(255, 255, 255, 0.045), $glass-border-soft);
   padding: 22px;
   border-radius: 22px;
-  background: rgba(255, 255, 255, 0.045);
-  border: 1px solid rgba(255, 255, 255, 0.08);
 
   h3 {
     margin: 0 0 14px;
@@ -578,25 +483,10 @@
 }
 
 .modal-close {
-  position: absolute;
+  @include modal-close-button;
   top: 22px;
   right: 22px;
-  z-index: 5;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.16);
   background: rgba(0, 0, 0, 0.45);
-  color: #fff;
-  cursor: pointer;
-  font-size: 1.1rem;
-  transition: all $transition-base;
-
-  &:hover {
-    transform: rotate(90deg);
-    border-color: $primary-color;
-    box-shadow: $shadow-glow-primary;
-  }
 }
 
 @include tablet {
@@ -610,7 +500,11 @@
     max-height: 300px;
 
     &::after {
-      background: linear-gradient(to top, rgba(8, 10, 18, 0.85), transparent 70%);
+      background: linear-gradient(
+        to top,
+        rgba(8, 10, 18, 0.85),
+        transparent 70%
+      );
     }
   }
 
@@ -623,27 +517,10 @@
   }
 }
 .modal-visit-btn {
-  display: inline-flex;
-  align-items: center;
+  @include button-primary($radius-full);
   gap: 12px;
-
   margin-bottom: 32px;
   padding: 14px 24px;
-
-  border-radius: $radius-full;
-  text-decoration: none;
-
-  background: $gradient-primary;
-  color: white;
-
-  font-weight: 600;
-
-  transition: all $transition-base;
-
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: $shadow-glow-primary;
-  }
 
   span:last-child {
     font-size: 1.2rem;
@@ -658,10 +535,8 @@
 
 .metric-card {
   padding: 16px;
+  @include glass-panel(rgba(255, 255, 255, 0.04), $glass-border-soft);
   border-radius: 16px;
-
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.08);
 
   display: flex;
   flex-direction: column;
@@ -688,7 +563,6 @@
 }
 
 @media (max-width: 768px) {
-
   .project-modal-backdrop {
     padding: 0;
     align-items: flex-end;
@@ -728,7 +602,7 @@
     top: 12px;
     right: 12px;
   }
-  
+
   .track-right-wrapper,
   .desktop-only {
     display: none;
@@ -764,9 +638,15 @@
   display: grid;
   place-items: center;
   border-radius: 22px;
-  background: linear-gradient(135deg, rgba(0, 212, 255, .1), rgba(123, 44, 191, .1));
-  border: 2px solid rgba(0, 212, 255, .32);
-  box-shadow: 0 0 60px rgba(0, 212, 255, .24), inset 0 0 30px rgba(0, 212, 255, .1);
+  background: linear-gradient(
+    135deg,
+    rgba(0, 212, 255, 0.1),
+    rgba(123, 44, 191, 0.1)
+  );
+  border: 2px solid rgba(0, 212, 255, 0.32);
+  box-shadow:
+    0 0 60px rgba(0, 212, 255, 0.24),
+    inset 0 0 30px rgba(0, 212, 255, 0.1);
 }
 
 .monitor-content {
@@ -796,7 +676,7 @@
 
 .monitor-stand::before,
 .monitor-stand::after {
-  content: '';
+  content: "";
   display: block;
   margin: 0 auto;
 }
@@ -805,7 +685,11 @@
   width: 14px;
   height: 28px;
   border-radius: 6px;
-  background: linear-gradient(to bottom, rgba(0, 212, 255, .6), rgba(0, 212, 255, .15));
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 212, 255, 0.6),
+    rgba(0, 212, 255, 0.15)
+  );
 }
 
 .monitor-stand::after {
@@ -813,8 +697,8 @@
   height: 10px;
   margin-top: 6px;
   border-radius: 20px;
-  background: rgba(255, 255, 255, .06);
-  border: 1px solid rgba(0, 212, 255, .25);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(0, 212, 255, 0.25);
 }
 
 .track-left-wrapper,
@@ -827,8 +711,12 @@
   transform: translateY(-50%);
 }
 
-.track-left-wrapper { left: 0; }
-.track-right-wrapper { right: 0; }
+.track-left-wrapper {
+  left: 0;
+}
+.track-right-wrapper {
+  right: 0;
+}
 
 .track {
   position: absolute;
@@ -855,10 +743,8 @@
   flex: 0 0 120px;
   display: grid;
   place-items: center;
+  @include glass-panel(rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.07));
   border-radius: 24px;
-  background: rgba(255, 255, 255, .035);
-  border: 1px solid rgba(255, 255, 255, .07);
-  backdrop-filter: blur(10px);
 }
 
 .partner-svg-icon {
@@ -867,15 +753,22 @@
   object-fit: contain;
 }
 
-
 @keyframes moveLeftTrack {
-  from { transform: translate(-100%, -50%); }
-  to { transform: translate(0, -50%); }
+  from {
+    transform: translate(-100%, -50%);
+  }
+  to {
+    transform: translate(0, -50%);
+  }
 }
 
 @keyframes moveRightTrack {
-  from { transform: translate(100%, -50%); }
-  to { transform: translate(0, -50%); }
+  from {
+    transform: translate(100%, -50%);
+  }
+  to {
+    transform: translate(0, -50%);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -887,24 +780,25 @@
   }
 }
 
-
 .skeleton-card {
-    border-radius: 24px;
-    background: linear-gradient(90deg,
-            rgba(255, 255, 255, .05) 25%,
-            rgba(255, 255, 255, .12) 50%,
-            rgba(255, 255, 255, .05) 75%);
+  border-radius: 24px;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.05) 25%,
+    rgba(255, 255, 255, 0.12) 50%,
+    rgba(255, 255, 255, 0.05) 75%
+  );
 
-    background-size: 200% 100%;
-    animation: shimmer 1.5s infinite;
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
 }
 
 @keyframes shimmer {
-    from {
-        background-position: 200% 0;
-    }
+  from {
+    background-position: 200% 0;
+  }
 
-    to {
-        background-position: -200% 0;
-    }
+  to {
+    background-position: -200% 0;
+  }
 }

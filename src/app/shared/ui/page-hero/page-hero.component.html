@@ -1,0 +1,23 @@
+<section class="ui-page-hero" [class.ui-page-hero--split]="variant === 'split'">
+  <div class="container ui-page-hero__container">
+    <div class="ui-page-hero__content">
+      @if (badge) {
+      <span class="section-badge glass-effect">{{ badge }}</span>
+      }
+
+      @if (title) {
+      <h1 class="section-title">{{ title }}</h1>
+      }
+
+      @if (title2) {
+      <h1 class="section-title gradient-text">{{ title2 }}</h1>
+      }
+
+      @if (description) {
+      <p class="section-description">{{ description }}</p>
+      }
+    </div>
+
+    <ng-content select="[hero-extra]"></ng-content>
+  </div>
+</section>

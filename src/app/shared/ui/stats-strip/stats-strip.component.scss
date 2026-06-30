@@ -1,0 +1,117 @@
+@import "../../../../styles";
+
+:host {
+  display: block;
+}
+
+.stats-section {
+  padding: $spacing-xl 0 $spacing-3xl;
+}
+
+.stats-panel {
+  position: relative;
+  overflow: hidden;
+  padding: $spacing-xl $spacing-2xl;
+  border: 1px solid rgba(0, 212, 255, 0.18);
+  border-radius: $radius-xl;
+  background:
+    radial-gradient(circle at 20% 50%, rgba(0, 212, 255, 0.12), transparent 32%),
+    radial-gradient(circle at 80% 50%, rgba(123, 44, 191, 0.16), transparent 34%),
+    rgba(5, 10, 31, 0.48);
+  box-shadow:
+    0 24px 70px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.08), transparent);
+    transform: translateX(-100%);
+    animation: scanMove 5s linear infinite;
+    pointer-events: none;
+  }
+}
+
+.stats-track {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: clamp(1rem, 3vw, 2.5rem);
+}
+
+.stat-item {
+  min-width: min(180px, 24vw);
+  text-align: center;
+}
+
+.stat-value {
+  display: block;
+  font-size: clamp(2.5rem, 5vw, 4.8rem);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.06em;
+}
+
+.stat-label {
+  display: block;
+  margin-top: $spacing-sm;
+  color: $text-muted;
+  font-size: clamp(0.85rem, 1.4vw, 1rem);
+  line-height: 1.4;
+}
+
+.stat-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #00ffa3;
+  box-shadow:
+    0 0 12px rgba(0, 255, 163, 0.9),
+    0 0 28px rgba(0, 212, 255, 0.45);
+}
+
+.stats-line {
+  position: relative;
+  z-index: 1;
+  height: 2px;
+  border-radius: $radius-full;
+  background: linear-gradient(90deg, transparent, #00d4ff, #7b2cbf, transparent);
+  opacity: 0.85;
+}
+
+.stats-line-top {
+  margin-bottom: $spacing-lg;
+}
+
+.stats-line-bottom {
+  margin-top: $spacing-lg;
+}
+
+@keyframes scanMove {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+@include tablet {
+  .stat-dot {
+    display: none;
+  }
+
+  .stat-item {
+    min-width: 0;
+  }
+}
+
+@include phone {
+  .stats-panel {
+    padding: $spacing-lg;
+  }
+
+  .stats-track {
+    flex-direction: column;
+  }
+}

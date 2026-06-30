@@ -1,8 +1,8 @@
 @import "../../../styles";
 
 :host {
-  --service-color: #00D4FF;
-  --service-purple: #7B2CBF;
+  --service-color: #00d4ff;
+  --service-purple: #7b2cbf;
   --service-card-bg: rgba(5, 10, 31, 0.58);
   --service-border: rgba(0, 212, 255, 0.18);
 }
@@ -27,8 +27,16 @@
   border: 1px solid var(--service-border);
   border-radius: $radius-xl;
   background:
-    radial-gradient(circle at 20% 50%, rgba(0, 212, 255, 0.12), transparent 32%),
-    radial-gradient(circle at 80% 50%, rgba(123, 44, 191, 0.16), transparent 34%),
+    radial-gradient(
+      circle at 20% 50%,
+      rgba(0, 212, 255, 0.12),
+      transparent 32%
+    ),
+    radial-gradient(
+      circle at 80% 50%,
+      rgba(123, 44, 191, 0.16),
+      transparent 34%
+    ),
     rgba(5, 10, 31, 0.48);
   box-shadow:
     0 24px 70px rgba(0, 0, 0, 0.25),
@@ -38,8 +46,12 @@
     content: "";
     position: absolute;
     inset: 0;
-    background:
-      linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.08), transparent);
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(0, 212, 255, 0.08),
+      transparent
+    );
     transform: translateX(-100%);
     animation: scanMove 5s linear infinite;
     pointer-events: none;
@@ -65,7 +77,7 @@
   font-weight: 900;
   line-height: 1;
   letter-spacing: -0.06em;
-  
+
   // background: linear-gradient(135deg, #00D4FF 0%, #2EB5FF 45%, #7B2CBF 100%);
   // -webkit-background-clip: text;
   // -webkit-text-fill-color: transparent;
@@ -96,7 +108,13 @@
   z-index: 1;
   height: 2px;
   border-radius: $radius-full;
-  background: linear-gradient(90deg, transparent, #00D4FF, #7B2CBF, transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #00d4ff,
+    #7b2cbf,
+    transparent
+  );
   opacity: 0.85;
 }
 
@@ -113,29 +131,7 @@
   padding: $spacing-3xl 0;
 
   .section-header {
-    text-align: center;
-    margin-bottom: $spacing-3xl;
-
-    .section-badge {
-      display: inline-block;
-      padding: $spacing-xs $spacing-md;
-      border-radius: $radius-full;
-      font-size: 0.875rem;
-      margin-bottom: $spacing-md;
-      background: rgba(0, 212, 255, 0.1);
-      border: 1px solid rgba(0, 212, 255, 0.3);
-      color: $primary-color;
-    }
-
-    .section-title {
-      font-size: clamp(2rem, 5vw, 3rem);
-      font-weight: 700;
-    }
-
-    .section-description {
-      color: $text-muted;
-      margin-top: $spacing-sm;
-    }
+    @include section-header;
   }
 }
 
@@ -178,19 +174,7 @@
     overflow-x: visible;
   }
 
-  &::-webkit-scrollbar {
-    height: 6px;
-  }
-
-  &::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: $radius-full;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background: $primary-color;
-    border-radius: $radius-full;
-  }
+  @include custom-scrollbar($primary-color);
 }
 
 .service-list-btn {
@@ -200,14 +184,18 @@
   width: 100%;
   padding: $spacing-lg $spacing-xl;
   border-radius: $radius-xl;
-  border: 1px solid rgba(0, 212, 255, 0.18);
-  background: var(--service-card-bg);
+  @include glass-panel(var(--service-card-bg), rgba(0, 212, 255, 0.18));
   color: $text-secondary;
   cursor: pointer;
   text-align: left;
   font-size: 1rem;
   font-weight: 500;
-  transition: all $transition-base;
+  transition:
+    transform $transition-base,
+    border-color $transition-base,
+    background $transition-base,
+    color $transition-base,
+    box-shadow $transition-base;
 
   @include tablet {
     flex: 0 0 auto;
@@ -252,7 +240,9 @@
   width: 28px;
   height: 28px;
   flex-shrink: 0;
-  transition: transform $transition-base, filter $transition-base;
+  transition:
+    transform $transition-base,
+    filter $transition-base;
 }
 
 .service-list-title {
@@ -262,13 +252,16 @@
 .service-detail-window {
   min-height: 400px;
   padding: $spacing-3xl;
+  @include glass-panel(rgba(5, 10, 31, 0.52), rgba(0, 212, 255, 0.16));
   border-radius: $radius-xl;
-  border: 1px solid rgba(0, 212, 255, 0.16);
   border-left: 6px solid var(--service-color);
   background:
     radial-gradient(circle at 0 0, rgba(0, 212, 255, 0.1), transparent 34%),
     rgba(5, 10, 31, 0.52);
-  transition: all $transition-base;
+  transition:
+    transform $transition-base,
+    border-color $transition-base,
+    box-shadow $transition-base;
 
   @include tablet {
     padding: $spacing-2xl;
@@ -296,8 +289,8 @@
   height: 100px;
   padding: $spacing-lg;
   border-radius: $radius-xl;
-  background: rgba(0, 212, 255, 0.1);
-  border: 2px solid rgba(0, 212, 255, 0.3);
+  @include glass-panel(rgba(0, 212, 255, 0.1), rgba(0, 212, 255, 0.3));
+  border-width: 2px;
   box-shadow: 0 0 28px rgba(0, 212, 255, 0.15);
 
   @include tablet {
@@ -314,10 +307,9 @@
   font-size: clamp(1.75rem, 4vw, 2.5rem);
   font-weight: 700;
   margin-bottom: $spacing-md;
-  background: linear-gradient(135deg, var(--service-color), var(--service-purple));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  @include gradient-text(
+    linear-gradient(135deg, var(--service-color), var(--service-purple))
+  );
 }
 
 .service-detail-description {

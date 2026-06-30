@@ -1,0 +1,36 @@
+@import "../../../../styles";
+
+:host {
+  display: contents;
+}
+
+.ui-modal-backdrop {
+  @include modal-backdrop;
+  z-index: 3000;
+}
+
+.ui-modal {
+  @include modal-shell;
+  position: relative;
+  z-index: 3001;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+.modal-close {
+  @include modal-close-button;
+  z-index: 3002;
+}
+
+@media (max-width: 768px) {
+  .ui-modal-backdrop {
+    align-items: flex-end;
+    padding-top: 72px;
+  }
+
+  .ui-modal {
+    width: 100%;
+    max-height: calc(100vh - 72px);
+  }
+}

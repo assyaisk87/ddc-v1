@@ -1,26 +1,20 @@
-@import '../../../styles';
+@import "../../../styles";
 
-.team-container { @include page-container; }
+.team-container {
+  @include page-container;
+}
 
 // Header Section
-.team-header { @include page-hero; }
+.team-header {
+  @include page-hero;
+}
 
 // Directors Board Section
 .directors-section {
   padding: $spacing-3xl 0;
 
   .section-header {
-    text-align: center;
-    margin-bottom: $spacing-2xl;
-
-    .section-title {
-      font-size: clamp(2rem, 5vw, 3rem);
-      font-weight: 700;
-      background: $gradient-primary;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
+    @include section-header($spacing-2xl);
   }
 
   // Flip Card Styles
@@ -54,14 +48,26 @@
     }
 
     .flip-card-front {
-      background: linear-gradient(135deg, rgba(0, 212, 255, 0.05) 0%, rgba(123, 44, 191, 0.05) 100%);
-      border: 1px solid rgba(0, 212, 255, 0.2);
+      @include glass-panel(
+        linear-gradient(
+          135deg,
+          rgba(0, 212, 255, 0.05) 0%,
+          rgba(123, 44, 191, 0.05) 100%
+        ),
+        rgba(0, 212, 255, 0.2)
+      );
     }
 
     .flip-card-back {
       transform: rotateY(180deg);
-      background: linear-gradient(135deg, rgba(15, 23, 42, 0.98) 0%, rgba(30, 41, 59, 0.98) 100%);
-      border: 1px solid rgba(0, 212, 255, 0.5);
+      @include glass-panel(
+        linear-gradient(
+          135deg,
+          rgba(15, 23, 42, 0.98) 0%,
+          rgba(30, 41, 59, 0.98) 100%
+        ),
+        rgba(0, 212, 255, 0.5)
+      );
       display: flex;
       align-items: center;
       justify-content: center;
@@ -78,10 +84,7 @@
           font-weight: 700;
           margin-bottom: $spacing-sm;
           color: $text-primary;
-          background: $gradient-primary;
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-clip: text;
+          @include gradient-text;
         }
 
         .biography-position {
@@ -223,7 +226,11 @@
           }
 
           &.active {
-            background: linear-gradient(135deg, rgba(239, 68, 68, 0.8) 0%, rgba(248, 113, 113, 0.8) 100%);
+            background: linear-gradient(
+              135deg,
+              rgba(239, 68, 68, 0.8) 0%,
+              rgba(248, 113, 113, 0.8) 100%
+            );
             animation: pulse-director 1.5s ease-in-out infinite;
           }
 
@@ -234,7 +241,8 @@
       }
 
       @keyframes pulse-director {
-        0%, 100% {
+        0%,
+        100% {
           box-shadow: 0 0 0 0 rgba(0, 212, 255, 0.4);
         }
         50% {
@@ -269,13 +277,13 @@
 
         .director-image-wrapper {
           width: 100%;
-            max-width: 350px;
-            margin: 0 auto;
-            aspect-ratio: 1;
-            border-radius: $radius-lg;
-            overflow: hidden;
-            margin-bottom: $spacing-md;
-            box-shadow: $shadow-md;
+          max-width: 350px;
+          margin: 0 auto;
+          aspect-ratio: 1;
+          border-radius: $radius-lg;
+          overflow: hidden;
+          margin-bottom: $spacing-md;
+          box-shadow: $shadow-md;
 
           .director-image {
             width: 100%;
@@ -289,7 +297,7 @@
 
         .director-info {
           text-align: center;
-           width: 100%;
+          width: 100%;
           padding-top: 0.75rem;
 
           .director-name {
@@ -333,17 +341,7 @@
   padding: $spacing-3xl 0;
 
   .section-header {
-    text-align: center;
-    margin-bottom: $spacing-3xl;
-
-    .section-title {
-      font-size: clamp(2rem, 5vw, 3rem);
-      font-weight: 700;
-      background: $gradient-primary;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
+    @include section-header;
   }
 
   // Main CEO Container
@@ -377,57 +375,62 @@
         }
 
         .director-audio-btn {
-                  position: absolute;
-                  bottom: $spacing-md;
-                  left: 50%;
-                  transform: translateX(-50%);
-                  z-index: 10;
-                  white-space: nowrap;
-                  display: inline-flex;
-                  align-items: center;
-                  gap: $spacing-sm;
-                  padding: $spacing-sm $spacing-lg;
-                  border-radius: $radius-full;
-                  background: rgba(255, 255, 255, 0.05);
-                  border: 1px solid rgba(255, 255, 255, 0.1);
-                  cursor: pointer;
-                  transition: all $transition-base;
-                  overflow: hidden;
-                  backdrop-filter: blur(10px);
+          position: absolute;
+          bottom: $spacing-md;
+          left: 50%;
+          transform: translateX(-50%);
+          z-index: 10;
+          white-space: nowrap;
+          display: inline-flex;
+          align-items: center;
+          gap: $spacing-sm;
+          padding: $spacing-sm $spacing-lg;
+          border-radius: $radius-full;
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          cursor: pointer;
+          transition: all $transition-base;
+          overflow: hidden;
+          backdrop-filter: blur(10px);
 
-                  &:hover {
-                    transform: translateX(-50%) translateY(-2px);
-                    background: rgba(255, 255, 255, 0.1);
-                    border-color: $primary-color;
-                    box-shadow: $shadow-glow-primary;
-                  }
+          &:hover {
+            transform: translateX(-50%) translateY(-2px);
+            background: rgba(255, 255, 255, 0.1);
+            border-color: $primary-color;
+            box-shadow: $shadow-glow-primary;
+          }
 
-                  &.active {
-                    background: linear-gradient(135deg, rgba(0, 212, 255, 0.2), rgba(123, 44, 191, 0.2));
-                    border-color: $primary-color;
-                    box-shadow: $shadow-glow-primary;
-                    animation: pulse-glow 2s ease-in-out infinite;
-                  }
+          &.active {
+            background: linear-gradient(
+              135deg,
+              rgba(0, 212, 255, 0.2),
+              rgba(123, 44, 191, 0.2)
+            );
+            border-color: $primary-color;
+            box-shadow: $shadow-glow-primary;
+            animation: pulse-glow 2s ease-in-out infinite;
+          }
 
-                  .audio-icon {
-                    font-size: 1.25rem;
-                  }
+          .audio-icon {
+            font-size: 1.25rem;
+          }
 
-                  .audio-text {
-                    font-size: 0.875rem;
-                    font-weight: 600;
-                    color: $text-primary;
-                  }
-                }
+          .audio-text {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: $text-primary;
+          }
+        }
 
-                @keyframes pulse-glow {
-                  0%, 100% {
-                    box-shadow: 0 0 0 0 rgba(0, 212, 255, 0.4);
-                  }
-                  50% {
-                    box-shadow: 0 0 0 15px rgba(0, 212, 255, 0);
-                  }
-                }
+        @keyframes pulse-glow {
+          0%,
+          100% {
+            box-shadow: 0 0 0 0 rgba(0, 212, 255, 0.4);
+          }
+          50% {
+            box-shadow: 0 0 0 15px rgba(0, 212, 255, 0);
+          }
+        }
       }
 
       .ceo-main-info {
@@ -532,7 +535,11 @@
         }
 
         .flip-card-front {
-          background: linear-gradient(135deg, rgba(0, 212, 255, 0.05) 0%, rgba(123, 44, 191, 0.05) 100%);
+          background: linear-gradient(
+            135deg,
+            rgba(0, 212, 255, 0.05) 0%,
+            rgba(123, 44, 191, 0.05) 100%
+          );
           border: 1px solid rgba(0, 212, 255, 0.2);
           padding: $spacing-lg;
           display: flex;
@@ -580,7 +587,11 @@
 
         .flip-card-back {
           transform: rotateY(180deg);
-          background: linear-gradient(135deg, rgba(15, 23, 42, 0.98) 0%, rgba(30, 41, 59, 0.98) 100%);
+          background: linear-gradient(
+            135deg,
+            rgba(15, 23, 42, 0.98) 0%,
+            rgba(30, 41, 59, 0.98) 100%
+          );
           border: 1px solid rgba(0, 212, 255, 0.5);
           display: flex;
           align-items: center;
@@ -598,10 +609,7 @@
               font-weight: 700;
               margin-bottom: $spacing-sm;
               color: $text-primary;
-              background: $gradient-primary;
-              -webkit-background-clip: text;
-              -webkit-text-fill-color: transparent;
-              background-clip: text;
+              @include gradient-text;
             }
 
             .biography-position {
@@ -630,37 +638,45 @@
   position: relative;
   padding: $spacing-3xl 0;
   margin: $spacing-3xl 0;
-  
+
   .cta-background {
     position: absolute;
     inset: 0;
     z-index: 0;
-    
+
     .cta-glow {
       position: absolute;
       inset: -50%;
       width: 200%;
       height: 200%;
-      background: 
-        radial-gradient(circle at 30% 50%, rgba(0, 212, 255, 0.15) 0%, transparent 50%),
-        radial-gradient(circle at 70% 50%, rgba(123, 44, 191, 0.15) 0%, transparent 50%);
+      background:
+        radial-gradient(
+          circle at 30% 50%,
+          rgba(0, 212, 255, 0.15) 0%,
+          transparent 50%
+        ),
+        radial-gradient(
+          circle at 70% 50%,
+          rgba(123, 44, 191, 0.15) 0%,
+          transparent 50%
+        );
       animation: float 10s ease-in-out infinite;
     }
   }
-  
+
   .cta-content {
     position: relative;
     z-index: 1;
     padding: $spacing-3xl;
     border-radius: $radius-xl;
     text-align: center;
-    
+
     .cta-title {
       font-size: clamp(2rem, 5vw, 3rem);
       font-weight: 700;
       margin-bottom: $spacing-md;
     }
-    
+
     .cta-description {
       font-size: 1.25rem;
       color: $text-muted;
@@ -678,47 +694,18 @@ a.btn {
 
 // Buttons
 .btn {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  gap: $spacing-xs;
-  padding: $spacing-md $spacing-xl;
-  border-radius: $radius-md;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all $transition-base;
-  border: none;
-  overflow: hidden;
-  
-  &::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    transform: translateX(-100%);
-    transition: transform 0.5s ease;
-  }
-  
-  &:hover::before {
-    transform: translateX(100%);
-  }
-  
+  @include button-base;
+  @include button-shine;
+
   .btn-arrow {
     transition: transform $transition-base;
   }
-  
+
   &:hover .btn-arrow {
     transform: translateX(5px);
   }
-  
+
   &-primary {
-    background: $gradient-primary;
-    color: $text-primary;
-    
-    &:hover {
-      transform: translateY(-2px);
-      box-shadow: $shadow-glow-primary;
-    }
+    @include button-primary;
   }
 }

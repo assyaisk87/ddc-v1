@@ -1,12 +1,9 @@
 <div class="achievements-container">
-  <!-- Header Section -->
-  <section class="achievements-header">
-    <div class="container">
-      <span class="section-badge glass-effect">{{ 'nav.achievements' | translate }}</span>
-      <h1 class="section-title">{{ 'achievements.subtitle' | translate }}</h1>
-      <p class="section-description">{{ 'achievements.subtitle' | translate }}</p>
-    </div>
-  </section>
+  <app-page-hero
+    [badge]="'nav.achievements' | translate"
+    [title]="'achievements.subtitle' | translate"
+    [description]="'achievements.subtitle' | translate">
+  </app-page-hero>
 
   <!-- Achievements Timeline -->
   <section class="achievements-section container">
@@ -46,10 +43,10 @@
 
   <!-- Partners Section -->
   <section class="partners-section container">
-    <div class="partners-header">
-      <span class="section-badge glass-effect">{{ 'partners.badge' | translate }}</span>
-      <h2 class="section-title">{{ 'partners.title' | translate }}</h2>
-    </div>
+    <app-section-header
+      [badge]="'partners.badge' | translate"
+      [title]="'partners.title' | translate">
+    </app-section-header>
 
     <div class="partners-grid">
       <div class="partner-card glass-effect">

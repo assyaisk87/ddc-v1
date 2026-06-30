@@ -1,47 +1,11 @@
-﻿<div class="services-container">
-  <section class="services-header">
-    <div class="container">
-      <span class="section-badge glass-effect">{{ 'nav.services' | translate }}</span>
-      <h1 class="section-title">{{ 'services.hero.title' | translate }}</h1>
-      <p class="section-description">{{ 'services.section.description' | translate }}</p>
-    </div>
-  </section>
+<div class="services-container">
+  <app-page-hero
+    [badge]="'nav.services' | translate"
+    [title]="'services.hero.title' | translate"
+    [description]="'services.section.description' | translate">
+  </app-page-hero>
 
-  <section class="stats-section container">
-    <div class="stats-panel glass-effect">
-      <div class="stats-line stats-line-top"></div>
-
-      <div class="stats-track">
-        <div class="stat-item">
-          <span class="stat-value">4</span>
-          <span class="stat-label">{{ 'services.hero.stats.directions' | translate }}</span>
-        </div>
-
-        <span class="stat-dot"></span>
-
-        <div class="stat-item">
-          <span class="stat-value">24/7</span>
-          <span class="stat-label">{{ 'services.hero.stats.support' | translate }}</span>
-        </div>
-
-        <span class="stat-dot"></span>
-
-        <div class="stat-item">
-          <span class="stat-value">40+</span>
-          <span class="stat-label">Систем в эксплуатации</span>
-        </div>
-
-        <span class="stat-dot"></span>
-
-        <div class="stat-item">
-          <span class="stat-value">8</span>
-          <span class="stat-label">AI-сервисов</span>
-        </div>
-      </div>
-
-      <div class="stats-line stats-line-bottom"></div>
-    </div>
-  </section>
+  <app-stats-strip [items]="statsItems"></app-stats-strip>
 
   <section class="services-gallery-section container">
     <!-- <div class="section-header">

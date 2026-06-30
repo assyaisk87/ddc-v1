@@ -1,12 +1,9 @@
 <div class="projects-container">
-  <!-- Header Section -->
-  <section class="projects-header">
-    <div class="container">
-      <span class="section-badge glass-effect">{{ 'nav.projects' | translate }}</span>
-      <h1 class="section-title">{{ 'projects.title' | translate }}</h1>
-      <p class="section-description">{{ 'projects.subtitle' | translate }}</p>
-    </div>
-  </section>
+  <app-page-hero
+    [badge]="'nav.projects' | translate"
+    [title]="'projects.title' | translate"
+    [description]="'projects.subtitle' | translate">
+  </app-page-hero>
 
   <!-- Projects Grid -->
   <section class="projects-section container">
@@ -62,11 +59,11 @@
   <!-- Neural Fabric Section with Animated Tracks -->
   @defer (on viewport) {
   <section class="powered-by-section">
-    <div class="section-header">
-      <span class="section-badge glass-effect">{{ 'footer.poweredBy' | translate }}</span>
-      <h2 class="section-title">{{ 'Technology stack' | translate }}</h2>
-      <p class="section-description">{{ 'home.poweredBy.description' | translate }}</p>
-    </div>
+    <app-section-header
+      [badge]="'footer.poweredBy' | translate"
+      title="Technology stack"
+      [description]="'home.poweredBy.description' | translate">
+    </app-section-header>
 
     <!-- Animated tracks container -->
     <div class="powered-by-animation-container">
@@ -118,15 +115,7 @@
 
 <!-- Project Modal -->
 @if (selectedProject) {
-<div class="project-modal-backdrop" (click)="closeProject()">
-  <section class="project-modal glass-effect" role="dialog" aria-modal="true" [attr.aria-label]="selectedProject.name"
-    (click)="$event.stopPropagation()">
-
-    <button type="button" class="modal-close" aria-label="Закрыть модальное окно" (click)="closeProject()"
-      aria-label="close">
-      ✕
-    </button>
-
+<app-ui-modal [ariaLabel]="selectedProject.name" panelClass="project-modal" (close)="closeProject()">
     <div class="modal-layout">
       <div class="modal-image">
         <img [src]="getImageUrl(selectedProject.image)" [alt]="selectedProject.name">
@@ -212,6 +201,5 @@
         </div>
       </div>
     </div>
-  </section>
-</div>
+</app-ui-modal>
 }

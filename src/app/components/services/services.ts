@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ContentService } from '../../services/content.services';
 import { Subscription } from 'rxjs';
+import { PageHeroComponent, StatsStripComponent, UiStatItem } from '../../shared/ui';
 
 @Component({
   selector: 'app-services',
   standalone: true,
-  imports: [CommonModule, TranslateModule],
+  imports: [CommonModule, TranslateModule, PageHeroComponent, StatsStripComponent],
   templateUrl: './services.html',
   styleUrl: './services.scss'
 })
@@ -17,6 +18,15 @@ export class Services implements OnInit {
   services: any[] = [];
   private langSub?: Subscription;
   loading = false;
+
+  get statsItems(): UiStatItem[] {
+    return [
+      { value: '4', label: this.translate.instant('services.hero.stats.directions') },
+      { value: '24/7', label: this.translate.instant('services.hero.stats.support') },
+      { value: '40+', label: 'Систем в эксплуатации' },
+      { value: '8', label: 'AI-сервисов' }
+    ];
+  }
 
 
   constructor(private translate: TranslateService,

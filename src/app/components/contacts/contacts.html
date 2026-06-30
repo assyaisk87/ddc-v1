@@ -1,12 +1,9 @@
 <div class="contacts-container">
-  <!-- Header Section -->
-  <section class="contacts-header">
-    <div class="container">
-      <span class="section-badge glass-effect">{{ 'nav.contacts' | translate }}</span>
-      <h1 class="section-title">{{ 'contacts.title' | translate }}</h1>
-      <p class="section-description">{{ 'contacts.subtitle' | translate }}</p>
-    </div>
-  </section>
+  <app-page-hero
+    [badge]="'nav.contacts' | translate"
+    [title]="'contacts.title' | translate"
+    [description]="'contacts.subtitle' | translate">
+  </app-page-hero>
 
   <!-- Contact Form Section -->
   <section class="contact-form-section container">

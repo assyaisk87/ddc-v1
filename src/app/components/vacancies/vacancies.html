@@ -1,37 +1,24 @@
 <div class="vacancies-page">
 
-  <section class="vacancies-hero ">
-    <div class="container">
-    <div class="hero-content ">
-      <span class="section-badge glass-effect">
-        {{ 'vacancies.badge' | translate }}
-      </span>
-
-      <h1>
-        {{ 'vacancies.title' | translate }}
-      </h1>
-      <h1 class="gradient-text">
-        {{ 'vacancies.title2' | translate }}
-      </h1>
-
-      <p>
-        {{ 'vacancies.subtitle' | translate }}
-      </p>
-    </div>
-
-    <div class="hero-orb">
+  <app-page-hero
+    variant="split"
+    [badge]="'vacancies.badge' | translate"
+    [title]="'vacancies.title' | translate"
+    [title2]="'vacancies.title2' | translate"
+    [description]="'vacancies.subtitle' | translate">
+    <div hero-extra class="hero-orb">
       <div class="orb-ring"></div>
       <div class="orb-core">HR</div>
     </div>
-    </div>
-  </section>
+  </app-page-hero>
 
   <section class="vacancies-section container">
 
-    <div class="section-header">
-      <h1 class="section-title">{{ 'vacancies.openPositions' | translate }}</h1>
-      <p class="section-description">{{ 'vacancies.openPositionsDesc' | translate }}</p>
-    </div>
+    <app-section-header
+      titleTag="h1"
+      [title]="'vacancies.openPositions' | translate"
+      [description]="'vacancies.openPositionsDesc' | translate">
+    </app-section-header>
 
     <div class="vacancy-filters">
       @for (category of categories; track category.key) {
@@ -76,13 +63,12 @@
   </section>
 
   <section class="career-benefits container">
-    <div class="section-header">
-      <span class="section-badge glass-effect">Преимущества</span>
-      <h1 class="section-title">Создаем комфортные условия работы</h1>
-      <p class="section-description">
-        Мы строим среду, где можно расти, обмениваться знаниями и работать над значимыми цифровыми проектами.
-      </p>
-    </div>
+    <app-section-header
+      badge="Преимущества"
+      titleTag="h1"
+      title="Создаем комфортные условия работы"
+      description="Мы строим среду, где можно расти, обмениваться знаниями и работать над значимыми цифровыми проектами.">
+    </app-section-header>
 
     <div class="benefits-grid">
       <div class="benefit-card large">
@@ -157,48 +143,16 @@
     </div>
   </section>
 
-  <section class="vacancies-cta">
-    <div class="cta-background">
-      <div class="cta-glow"></div>
-    </div>
-
-    <div class="container">
-      <div class="cta-content glass-effect">
-
-        <h2 class="cta-title">
-          {{ 'vacancies.noVacancy.title' | translate }}
-        </h2>
-
-        <p class="cta-description">
-          {{ 'vacancies.noVacancy.desc' | translate }}
-        </p>
-
-        <!-- <a href="mailto:info@bsbnb.kz" class="btn btn-primary glow-effect magnetic"> -->
-        <a routerLink="/contacts" class="btn btn-primary glow-effect magnetic">
-
-          <span class="btn-text">
-            {{ 'vacancies.noVacancy.button' | translate }}
-          </span>
-
-          <span class="btn-shimmer"></span>
-          <span class="btn-arrow">→</span>
-
-        </a>
-
-      </div>
-    </div>
-  </section>
+  <app-cta-block
+    [title]="'vacancies.noVacancy.title' | translate"
+    [description]="'vacancies.noVacancy.desc' | translate"
+    [buttonLabel]="'vacancies.noVacancy.button' | translate"
+    routerLink="/contacts">
+  </app-cta-block>
 
 </div>
 @if (selectedVacancy) {
-<div class="vacancy-modal-backdrop" (click)="closeVacancy()">
-  <div class="vacancy-modal" (click)="$event.stopPropagation()">
-
-    <button type="button" class="modal-close" aria-label="Закрыть модальное окно" (click)="closeVacancy()"
-      aria-label="close">
-      ✕
-    </button>
-
+<app-ui-modal [ariaLabel]="selectedVacancy.title" panelClass="vacancy-modal" (close)="closeVacancy()">
     <div class="modal-header">
       <div>
         <span class="modal-category">
@@ -215,7 +169,7 @@
       </div>
 
       <div class="modal-actions">
-        <a class="apply-btn btn" routerLink="/contacts">
+        <a class="apply-btn btn" routerLink="/contacts" (click)="closeVacancy()">
           <span>Откликнуться</span>
           <span>→</span>
         </a>
@@ -280,6 +234,5 @@
       </section>
 
     </div>
-  </div>
-</div>
+</app-ui-modal>
 }

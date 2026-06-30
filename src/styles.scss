@@ -1,28 +1,32 @@
 /* Global Styles */
 
 // Colors
-$primary-color: #00D4FF;
-$secondary-color: #7B2CBF;
-$tertiary-color: #FF006E;
-$accent-color: #FF006E;
-$success-color: #00FFA3;
-$warning-color: #FFB800;
-$error-color: #FF4444;
+$primary-color: #00d4ff;
+$secondary-color: #7b2cbf;
+$tertiary-color: #ff006e;
+$accent-color: #ff006e;
+$success-color: #00ffa3;
+$warning-color: #ffb800;
+$error-color: #ff4444;
 
 // Background Colors
-$dark-bg: #0A0A0F;
-$dark-surface: #12121A;
-$dark-elevated: #1A1A25;
+$dark-bg: #0a0a0f;
+$dark-surface: #12121a;
+$dark-elevated: #1a1a25;
 
 // Text Colors
-$text-primary: #FFFFFF;
-$text-secondary: #B0B0B0;
-$text-muted: #6B7280;
+$text-primary: #ffffff;
+$text-secondary: #b0b0b0;
+$text-muted: #6b7280;
 
 // Gradients
-$gradient-primary: linear-gradient(135deg, #00D4FF 0%, #7B2CBF 100%);
-$gradient-dark: linear-gradient(180deg, #0A0A0F 0%, #12121A 100%);
-$gradient-card: linear-gradient(145deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+$gradient-primary: linear-gradient(135deg, #00d4ff 0%, #7b2cbf 100%);
+$gradient-dark: linear-gradient(180deg, #0a0a0f 0%, #12121a 100%);
+$gradient-card: linear-gradient(
+  145deg,
+  rgba(255, 255, 255, 0.05) 0%,
+  rgba(255, 255, 255, 0.02) 100%
+);
 
 // Spacing
 $spacing-xs: 0.25rem;
@@ -48,8 +52,19 @@ $shadow-glow-primary: 0 0 30px rgba(0, 212, 255, 0.5);
 $shadow-glow-secondary: 0 0 30px rgba(123, 44, 191, 0.5);
 
 // Transitions
+$transition-fast: 0.2s ease;
 $transition-base: 0.3s ease;
 $transition-slow: 0.5s ease;
+
+// Glass / UI tokens
+$glass-bg: rgba(255, 255, 255, 0.05);
+$glass-bg-soft: rgba(255, 255, 255, 0.02);
+$glass-border: rgba(255, 255, 255, 0.1);
+$glass-border-soft: rgba(255, 255, 255, 0.08);
+$glass-primary-border: rgba(0, 212, 255, 0.3);
+$glass-blur: 10px;
+$surface-card: rgba(255, 255, 255, 0.02);
+$surface-hover: rgba(0, 212, 255, 0.08);
 
 // Z-Index
 $z-dropdown: 100;
@@ -60,9 +75,22 @@ $z-modal: 500;
 $z-tooltip: 600;
 
 // Fonts
-$font-display: 'Clash Display', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-$font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-$font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+$font-display:
+  "Clash Display",
+  "Inter",
+  -apple-system,
+  BlinkMacSystemFont,
+  "Segoe UI",
+  Roboto,
+  sans-serif;
+$font-body:
+  "Inter",
+  -apple-system,
+  BlinkMacSystemFont,
+  "Segoe UI",
+  Roboto,
+  sans-serif;
+$font-mono: "JetBrains Mono", "Fira Code", monospace;
 
 // Container
 $max-container-width: 1680px;
@@ -86,7 +114,174 @@ $max-container-width: 1680px;
   }
 }
 
+@mixin motion-safe {
+  @media (prefers-reduced-motion: no-preference) {
+    @content;
+  }
+}
 
+@mixin glass-panel($bg: $glass-bg, $border: $glass-border, $blur: $glass-blur) {
+  background: $bg;
+  border: 1px solid $border;
+  backdrop-filter: blur($blur);
+  -webkit-backdrop-filter: blur($blur);
+}
+
+@mixin interactive-lift($distance: -5px, $shadow: $shadow-lg) {
+  transition:
+    transform $transition-base,
+    border-color $transition-base,
+    box-shadow $transition-base,
+    background $transition-base;
+
+  @include motion-safe {
+    &:hover {
+      transform: translateY($distance);
+      box-shadow: $shadow;
+      border-color: $glass-primary-border;
+    }
+  }
+}
+
+@mixin gradient-text($gradient: $gradient-primary) {
+  background: $gradient;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+@mixin button-reset {
+  appearance: none;
+  border: 0;
+  font: inherit;
+}
+
+@mixin button-base($radius: $radius-md) {
+  @include button-reset;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-xs;
+  min-height: 44px;
+  padding: $spacing-md $spacing-xl;
+  border-radius: $radius;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  overflow: hidden;
+  transition:
+    transform $transition-base,
+    box-shadow $transition-base,
+    border-color $transition-base,
+    background $transition-base,
+    color $transition-base;
+}
+
+@mixin button-shine {
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.2),
+      transparent
+    );
+    transform: translateX(-100%);
+    transition: transform 0.5s ease;
+    pointer-events: none;
+  }
+
+  &:hover::before {
+    transform: translateX(100%);
+  }
+}
+
+@mixin button-primary($radius: $radius-md) {
+  @include button-base($radius);
+  @include button-shine;
+  background: $gradient-primary;
+  color: $text-primary;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: $shadow-glow-primary;
+  }
+}
+
+@mixin button-ghost($radius: $radius-full) {
+  @include button-base($radius);
+  border: 1px solid rgba(0, 212, 255, 0.22);
+  background: rgba(255, 255, 255, 0.04);
+  color: $text-secondary;
+
+  &:hover,
+  &.active {
+    color: $text-primary;
+    border-color: rgba(0, 212, 255, 0.55);
+    background: rgba(0, 212, 255, 0.12);
+    box-shadow: $shadow-glow-primary;
+    transform: translateY(-2px);
+  }
+}
+
+@mixin tech-chip(
+  $bg: rgba(0, 212, 255, 0.1),
+  $border: rgba(0, 212, 255, 0.22),
+  $color: $primary-color
+) {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  padding: $spacing-xs $spacing-sm;
+  border-radius: $radius-full;
+  background: $bg;
+  border: 1px solid $border;
+  color: $color;
+  font-size: 0.8rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+@mixin custom-scrollbar($thumb: rgba(255, 255, 255, 0.15)) {
+  scrollbar-width: thin;
+  scrollbar-color: $thumb transparent;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $thumb;
+    border-radius: $radius-full;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+  }
+}
+
+@mixin skeleton-shimmer($radius: 24px) {
+  position: relative;
+  overflow: hidden;
+  border-radius: $radius;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.05) 25%,
+    rgba(255, 255, 255, 0.12) 50%,
+    rgba(255, 255, 255, 0.05) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
 
 /* ========================================================================== */
 /* Shared component patterns                                                   */
@@ -130,14 +325,14 @@ $max-container-width: 1680px;
   color: $primary-color;
 }
 
-@mixin gradient-text-title($size: clamp(2rem, 5vw, 3rem), $bottom: $spacing-sm) {
+@mixin gradient-text-title(
+  $size: clamp(2rem, 5vw, 3rem),
+  $bottom: $spacing-sm
+) {
   font-size: $size;
   font-weight: 700;
   margin-bottom: $bottom;
-  background: $gradient-primary;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  @include gradient-text;
 }
 
 @mixin page-title {
@@ -176,16 +371,8 @@ $max-container-width: 1680px;
 @mixin soft-card($padding: $spacing-xl, $radius: $radius-xl) {
   padding: $padding;
   border-radius: $radius;
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(10px);
-  transition: transform $transition-base, border-color $transition-base, box-shadow $transition-base, background $transition-base;
-
-  &:hover {
-    transform: translateY(-5px);
-    box-shadow: $shadow-lg;
-    border-color: rgba(0, 212, 255, 0.3);
-  }
+  @include glass-panel($surface-card, $glass-border-soft);
+  @include interactive-lift;
 }
 
 @mixin responsive-grid($desktop: 3, $gap: $spacing-xl) {
@@ -259,22 +446,7 @@ $max-container-width: 1680px;
 }
 
 @mixin pill-button {
-  border: 1px solid rgba(0, 212, 255, 0.22);
-  background: rgba(255, 255, 255, 0.04);
-  color: $text-secondary;
-  border-radius: $radius-full;
-  padding: $spacing-sm $spacing-lg;
-  cursor: pointer;
-  transition: all $transition-base;
-
-  &:hover,
-  &.active {
-    color: $text-primary;
-    border-color: rgba(0, 212, 255, 0.55);
-    background: rgba(0, 212, 255, 0.12);
-    box-shadow: $shadow-glow-primary;
-    transform: translateY(-2px);
-  }
+  @include button-ghost;
 }
 
 @mixin modal-backdrop {
@@ -295,9 +467,14 @@ $max-container-width: 1680px;
   max-height: calc(100vh - 64px);
   overflow: hidden;
   border-radius: 28px;
-  background: linear-gradient(145deg, rgba(15, 23, 42, 0.96), rgba(2, 6, 23, 0.96));
+  background: linear-gradient(
+    145deg,
+    rgba(15, 23, 42, 0.96),
+    rgba(2, 6, 23, 0.96)
+  );
   border: 1px solid rgba(0, 212, 255, 0.25);
   box-shadow: 0 40px 120px rgba(0, 0, 0, 0.55);
+  @include custom-scrollbar;
 }
 
 @mixin modal-close-button {
@@ -325,11 +502,24 @@ $max-container-width: 1680px;
 }
 
 /* Global application of common classes. Работает без правок HTML. */
-:is(.team-container, .achievements-container, .contacts-container, .projects-container, .services-container, .vacancies-page) {
+:is(
+  .team-container,
+  .achievements-container,
+  .contacts-container,
+  .projects-container,
+  .services-container,
+  .vacancies-page
+) {
   position: relative;
 }
 
-:is(.team-header, .achievements-header, .contacts-header, .projects-header, .services-header) {
+:is(
+  .team-header,
+  .achievements-header,
+  .contacts-header,
+  .projects-header,
+  .services-header
+) {
   @include page-hero;
 }
 
@@ -371,7 +561,16 @@ $max-container-width: 1680px;
   @include pill-button;
 }
 
-:is(.chart-card, .project-card, .partner-card, .info-card, .benefit-card, .vacancy-card, .service-detail-window, .form-container) {
+:is(
+  .chart-card,
+  .project-card,
+  .partner-card,
+  .info-card,
+  .benefit-card,
+  .vacancy-card,
+  .service-detail-window,
+  .form-container
+) {
   @include soft-card;
 }
 
@@ -385,6 +584,48 @@ $max-container-width: 1680px;
 
 .modal-close {
   @include modal-close-button;
+}
+
+
+/* Shared UI modal visual variants.
+   The actual modal shell lives inside app-ui-modal, so these rules stay global. */
+.ui-modal.project-modal {
+  max-width: 1080px;
+  max-height: 88vh;
+  border-radius: 32px;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.025)),
+    rgba(8, 10, 18, 0.96);
+  border-color: rgba(255, 255, 255, 0.14);
+  box-shadow:
+    0 40px 120px rgba(0, 0, 0, 0.6),
+    0 0 50px rgba(0, 212, 255, 0.08);
+}
+
+.ui-modal.vacancy-modal {
+  max-width: 1080px;
+  max-height: 78vh;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  border-radius: 34px;
+  background:
+    radial-gradient(circle at top right, rgba(123, 44, 191, 0.18), transparent 34%),
+    radial-gradient(circle at bottom left, rgba(0, 212, 255, 0.12), transparent 36%),
+    #10131c;
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+@media (max-width: 768px) {
+  .ui-modal.project-modal {
+    max-height: 92vh;
+    border-radius: 24px 24px 0 0;
+  }
+
+  .ui-modal.vacancy-modal {
+    max-height: calc(100vh - 72px);
+    border-radius: 26px 26px 0 0;
+  }
 }
 
 // Base Styles
@@ -404,11 +645,16 @@ body {
   color: $text-primary;
   line-height: 1.6;
   overflow-x: hidden;
-  font-family: 'Inter', Arial, sans-serif;
+  font-family: "Inter", Arial, sans-serif;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: 'Clash Display', Arial, sans-serif;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Clash Display", Arial, sans-serif;
 }
 
 // Digital DNA Canvas
@@ -432,29 +678,24 @@ h1, h2, h3, h4, h5, h6 {
 
 // Glass Effect
 .glass-effect {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  @include glass-panel;
 }
 
 // Text Gradient
 .text-gradient {
-  background: $gradient-primary;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  @include gradient-text;
 }
 
 .text-gradient-accent {
-  background: linear-gradient(135deg, #00D4FF 0%, #7B2CBF 50%, #FF006E 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  @include gradient-text(
+    linear-gradient(135deg, #00d4ff 0%, #7b2cbf 50%, #ff006e 100%)
+  );
 }
 
 // Animations
 @keyframes float {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0);
   }
   50% {
@@ -463,7 +704,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 @keyframes pulse {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 1;
   }
   50% {
@@ -492,7 +734,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 @keyframes audio-wave {
-  0%, 100% {
+  0%,
+  100% {
     height: 8px;
   }
   50% {
@@ -501,7 +744,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 @keyframes pulse-glow {
-  0%, 100% {
+  0%,
+  100% {
     transform: scale(1);
     opacity: 0.5;
   }
@@ -512,7 +756,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 @keyframes float-particle {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0) translateX(0);
     opacity: 0.4;
   }
@@ -544,12 +789,13 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 // Button glow effect
-glow-effect {
+.glow-effect,
+.glow-effect-button {
   position: relative;
   overflow: hidden;
 
   &::after {
-    content: '';
+    content: "";
     position: absolute;
     inset: -2px;
     background: linear-gradient(45deg, $primary-color, $secondary-color);
@@ -574,7 +820,6 @@ glow-effect {
   }
 }
 
-
 /* ========================================================================== */
 /* Global responsive layer                                                     */
 /* Общая адаптивность для всего сайта без правок HTML.                         */
@@ -585,7 +830,13 @@ glow-effect {
     max-width: 1200px;
   }
 
-  :is(.team-header, .achievements-header, .contacts-header, .projects-header, .services-header) {
+  :is(
+    .team-header,
+    .achievements-header,
+    .contacts-header,
+    .projects-header,
+    .services-header
+  ) {
     padding: 120px 0 48px;
   }
 
@@ -610,7 +861,16 @@ glow-effect {
     font-size: 1rem;
   }
 
-  :is(.chart-card, .project-card, .partner-card, .info-card, .benefit-card, .vacancy-card, .service-detail-window, .form-container) {
+  :is(
+    .chart-card,
+    .project-card,
+    .partner-card,
+    .info-card,
+    .benefit-card,
+    .vacancy-card,
+    .service-detail-window,
+    .form-container
+  ) {
     padding: 24px;
   }
 }
@@ -625,11 +885,28 @@ glow-effect {
     padding-right: 16px;
   }
 
-  :is(.team-header, .achievements-header, .contacts-header, .projects-header, .services-header) {
+  :is(
+    .team-header,
+    .achievements-header,
+    .contacts-header,
+    .projects-header,
+    .services-header
+  ) {
     padding: 96px 0 40px;
   }
 
-  :is(.stats-section, .projects-section, .analytics-section, .contact-form-section, .contact-info-section, .services-gallery-section, .directors-section, .ceo-section, .achievements-section, .partners-section) {
+  :is(
+    .stats-section,
+    .projects-section,
+    .analytics-section,
+    .contact-form-section,
+    .contact-info-section,
+    .services-gallery-section,
+    .directors-section,
+    .ceo-section,
+    .achievements-section,
+    .partners-section
+  ) {
     padding: 42px 0;
   }
 
@@ -644,7 +921,7 @@ glow-effect {
   }
 
   .section-description {
-    font-size: .98rem;
+    font-size: 0.98rem;
     line-height: 1.6;
   }
 
@@ -679,11 +956,28 @@ glow-effect {
     padding-right: 12px;
   }
 
-  :is(.team-header, .achievements-header, .contacts-header, .projects-header, .services-header) {
+  :is(
+    .team-header,
+    .achievements-header,
+    .contacts-header,
+    .projects-header,
+    .services-header
+  ) {
     padding: 82px 0 32px;
   }
 
-  :is(.stats-section, .projects-section, .analytics-section, .contact-form-section, .contact-info-section, .services-gallery-section, .directors-section, .ceo-section, .achievements-section, .partners-section) {
+  :is(
+    .stats-section,
+    .projects-section,
+    .analytics-section,
+    .contact-form-section,
+    .contact-info-section,
+    .services-gallery-section,
+    .directors-section,
+    .ceo-section,
+    .achievements-section,
+    .partners-section
+  ) {
     padding: 32px 0;
   }
 
@@ -701,7 +995,16 @@ glow-effect {
     scroll-snap-align: start;
   }
 
-  :is(.chart-card, .project-card, .partner-card, .info-card, .benefit-card, .vacancy-card, .service-detail-window, .form-container) {
+  :is(
+    .chart-card,
+    .project-card,
+    .partner-card,
+    .info-card,
+    .benefit-card,
+    .vacancy-card,
+    .service-detail-window,
+    .form-container
+  ) {
     padding: 18px;
     border-radius: 18px;
   }
@@ -724,7 +1027,7 @@ glow-effect {
   }
 
   .section-badge {
-    font-size: .78rem;
+    font-size: 0.78rem;
   }
 
   .section-title {
@@ -734,28 +1037,8 @@ glow-effect {
 
 .project-modal,
 .vacancy-modal {
-
   overflow-y: auto;
-
-  scrollbar-width: thin;
-  scrollbar-color: rgba(255,255,255,.15) transparent;
-
-  &::-webkit-scrollbar {
-    width: 6px;
-  }
-
-  &::-webkit-scrollbar-track {
-    background: transparent;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background: rgba(255,255,255,.15);
-    border-radius: 999px;
-  }
-
-  &::-webkit-scrollbar-thumb:hover {
-    background: rgba(255,255,255,.3);
-  }
+  @include custom-scrollbar;
 }
 
 .project-modal,
@@ -792,7 +1075,6 @@ glow-effect {
   }
 }
 
-
 .loading-container {
   display: flex;
   flex-direction: column;
@@ -816,7 +1098,7 @@ glow-effect {
 
   background:
     linear-gradient($dark-bg, $dark-bg) padding-box,
-    linear-gradient(135deg, #00D4FF, #7B2CBF) border-box;
+    linear-gradient(135deg, #00d4ff, #7b2cbf) border-box;
 
   animation: spin 1s linear infinite;
 
@@ -832,5 +1114,13 @@ glow-effect {
 
   to {
     transform: rotate(360deg);
+  }
+}
+@keyframes shimmer {
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -200% 0;
   }
 }

@@ -8,11 +8,12 @@ import { RouterLink } from '@angular/router';
 import { ContentService } from '../../services/content.services';
 import { Subscription } from 'rxjs';
 import { StorageService } from '../../services/storage.service';
+import { PageHeroComponent, SectionHeaderComponent, CtaBlockComponent } from '../../shared/ui';
 
 @Component({
   selector: 'app-team',
   standalone: true,
-  imports: [CommonModule, FormsModule, TranslateModule, RouterLink],
+  imports: [CommonModule, FormsModule, TranslateModule, RouterLink, PageHeroComponent, SectionHeaderComponent, CtaBlockComponent],
   templateUrl: './team.html',
   styleUrls: ['./team.scss']
 })

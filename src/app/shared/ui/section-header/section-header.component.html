@@ -1,0 +1,17 @@
+<div class="section-header">
+  @if (badge) {
+  <span class="section-badge glass-effect">{{ badge }}</span>
+  }
+
+  @if (title && titleTag === 'h1') {
+  <h1 class="section-title">{{ title }}</h1>
+  } @else if (title) {
+  <h2 class="section-title">{{ title }}</h2>
+  }
+
+  @if (description) {
+  <p class="section-description">{{ description }}</p>
+  }
+
+  <ng-content></ng-content>
+</div>

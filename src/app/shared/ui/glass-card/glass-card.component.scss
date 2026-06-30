@@ -1,0 +1,14 @@
+@import "../../../../styles";
+
+:host {
+  display: block;
+}
+
+.ui-glass-card {
+  @include soft-card;
+}
+
+.ui-glass-card--compact {
+  padding: $spacing-lg;
+  border-radius: $radius-lg;
+}

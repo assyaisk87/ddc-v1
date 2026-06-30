@@ -1,0 +1,42 @@
+@import "../../../../styles";
+
+:host {
+  display: block;
+}
+
+.ui-page-hero {
+  @include page-hero;
+}
+
+.ui-page-hero__container {
+  position: relative;
+}
+
+.ui-page-hero--split {
+  text-align: left;
+
+  .ui-page-hero__container {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: clamp(2rem, 6vw, 5rem);
+  }
+
+  .section-description {
+    margin-left: 0;
+  }
+}
+
+@include mobile {
+  .ui-page-hero--split {
+    text-align: center;
+
+    .ui-page-hero__container {
+      grid-template-columns: 1fr;
+    }
+
+    .section-description {
+      margin-left: auto;
+    }
+  }
+}
