@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { vacancies, Vacancy, Category, categories, officePhotos, teamBuildingPhotos } from '../../data/vacancies.data';
+import { Vacancy, Category, categories, officePhotos, teamBuildingPhotos } from '../../data/vacancies.data';
 import { RouterLink } from '@angular/router';
 import { ContentService } from '../../services/content.services';
 @Component({

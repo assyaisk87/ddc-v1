@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { SERVICES_DATA } from '../../data/services.data';
 import { ContentService } from '../../services/content.services';
 import { Subscription } from 'rxjs';
 
@@ -16,7 +14,6 @@ import { Subscription } from 'rxjs';
 export class Services implements OnInit {
   selectedIndex: number = 0;
   selectedService: any = null;
-  // services = SERVICES_DATA;
   services: any[] = [];
   private langSub?: Subscription;
   loading = false;

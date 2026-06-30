@@ -4,7 +4,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { RouterLink } from '@angular/router';
 import {
   features, centerValues as centerData,
-  CenterValue, ecosystemNodes, commandMetrics
+  CenterValue, ecosystemNodes
 } from '../../data/home.data';
 import { ContentService } from '../../services/content.services';
 
@@ -27,7 +27,6 @@ export class Home implements OnInit, AfterViewInit, OnDestroy {
     iconPath: ecosystemNodes[index]?.iconPath,
     orbitClass: ['card-api', 'card-ai', 'card-tenge', 'card-bank', 'card-pay'][index] || 'card-api'
   }));
-  commandMetrics = commandMetrics;
 
   activeEcosystemNode: any = null;
 

@@ -24,9 +24,9 @@ export const FOOTER_LINKS: FooterLink[] = [
 ];
 
 export const OFFICIAL_SITES: OfficialSite[] = [
-  { icon: '/icons/footer/bank.svg', url: 'https://www.nationalbank.kz/kz', title: 'Национальный банк РК', options: ''},
-  { icon: '/icons/footer/zakup.svg', url: 'https://zakup.nationalbank.kz/', title: 'Портал закупок', options: '' },
-  { icon: '/icons/footer/vacancy.svg', url: '/vacancies', title: 'Вакансии' , options: '_self'}
+  { icon: '/icons/footer/bank.svg', url: 'https://www.nationalbank.kz/kz', title: 'footer.nb', options: ''},
+  { icon: '/icons/footer/zakup.svg', url: 'https://zakup.nationalbank.kz/', title: 'footer.zakup', options: '' },
+  { icon: '/icons/footer/vacancy.svg', url: '/vacancies', title: 'footer.vacancy' , options: '_self'}
 ];
 
 export const SOCIAL_LINKS: SocialLink[] = [

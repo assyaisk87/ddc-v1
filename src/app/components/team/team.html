@@ -77,7 +77,7 @@
     <div class="ceo-main-container glass-effect">
       <div class="ceo-main-content">
         <div class="ceo-main-image-wrapper">
-          <img [src]="getImageUrl(mainCeo?.image_url)" alt="{{ 'mainCeo?.full_name' | translate }}" loading="lazy"
+          <img [src]="getImageUrl(mainCeo?.image_url)" [alt]="mainCeo?.full_name || 'CEO'" loading="lazy"
             decoding="async" class="ceo-main-image">
           <button class="director-audio-btn glass-effect" (click)="toggleAudio()" [class.active]="audioPlaying"
             aria-label="paly audio">

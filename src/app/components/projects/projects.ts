@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import {
   PROJECT_CATEGORIES,
-  PROJECTS_DATA,
   Project
 } from '../../data/projects.data';
 import { SeoService } from '../../services/seo.service';

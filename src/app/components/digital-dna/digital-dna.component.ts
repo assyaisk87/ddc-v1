@@ -4,7 +4,7 @@ import { DigitalDnaService } from '../../services/digital-dna.service';
 @Component({
   selector: 'app-digital-dna',
   template: `
-    <div class="digital-dna-controls" [class.active]="showControls">
+    <!-- <div class="digital-dna-controls" [class.active]="showControls">
       <button 
         class="dna-btn dna-btn-complexity"
         (click)="increaseComplexity()"
@@ -41,7 +41,7 @@ import { DigitalDnaService } from '../../services/digital-dna.service';
       >
         <span class="btn-icon">⚙️</span>
       </button>
-    </div>
+    </div> -->
   `,
   styleUrls: ['./digital-dna.component.scss']
 })

@@ -5,12 +5,6 @@ export interface Feature {
   color: string;
 }
 
-export interface Stat {
-  value: string;
-  labelKey: string;
-  color: string;
-}
-
 export interface Partner {
   name: string;
   description: string;
@@ -31,13 +25,6 @@ interface EcosystemNode {
   description: string;
   status: 'В эксплуатации' | 'В развитии' | 'Интеграция';
   accent: string;
-}
-
-interface CommandMetric {
-  value: string;
-  label: string;
-  iconPath: string;
-  trend: string;
 }
 
 export const centerValues: CenterValue[] = [
@@ -78,6 +65,7 @@ export const centerValues: CenterValue[] = [
     color: '#FF6B00'
   }
 ];
+
 export const features: Feature[] = [
   {
     icon: '💻',
@@ -109,19 +97,6 @@ export const features: Feature[] = [
     descKey: 'home.features.desc5',
     color: '#da55bd'
   }
-];
-
-export const stats: Stat[] = [
-    { value: '50+', labelKey: 'STATS.PARTNERS', color: '#00D4FF' },
-    { value: '100M+', labelKey: 'STATS.TRANSACTIONS', color: '#7B2CBF' },
-    { value: '99.9%', labelKey: 'STATS.UPTIME', color: '#FF006E' },
-    { value: '15+', labelKey: 'STATS.AWARDS', color: '#00D4FF' }
-  ];
-
-export const technologies: string[] = [
-  'Angular', 'TypeScript', 'SCSS', 'RxJS', 'NgRx',
-  'Node.js', 'Express', 'PostgreSQL', 'MongoDB', 'Redis',
-  'Docker', 'Kubernetes', 'AWS', 'Git', 'CI/CD'
 ];
 
 export const poweredByPartners: Partner[] = [
@@ -354,11 +329,4 @@ export const ecosystemNodes: EcosystemNode[] = [
     { title: 'Антифрод', iconPath: '/command-center/shield-network.svg', description: 'Мониторинг рисков, защита транзакций и повышение доверия к цифровым сервисам.', status: 'В эксплуатации', accent: '#FFB800' },
     { title: 'Платежные системы', iconPath: '/command-center/payment-network.svg', description: 'Надежная инфраструктура для платежных и межбанковских процессов.', status: 'В эксплуатации', accent: '#3B82F6' },
     { title: 'Межбанковские сервисы', iconPath: '/command-center/bank-network.svg', description: 'Единая технологическая среда для взаимодействия финансовых организаций.', status: 'В эксплуатации', accent: '#FF006E' }
-  ];
-
-export const commandMetrics: CommandMetric[] = [
-    { value: '27+', label: 'Активных проектов', iconPath: '/command-center/rocket.svg', trend: '+12% за год' },
-    { value: '14', label: 'Команд разработки', iconPath: '/command-center/people.svg', trend: 'cross-functional' },
-    { value: '23', label: 'Системы онлайн', iconPath: '/command-center/systems.svg', trend: 'stable' },
-    { value: '99.9%', label: 'Доступность', iconPath: '/command-center/uptime.svg', trend: '24/7 monitoring' }
   ];

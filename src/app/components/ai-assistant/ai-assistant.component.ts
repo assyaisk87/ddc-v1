@@ -28,7 +28,7 @@ export class AiAssistantComponent implements OnInit, OnDestroy {
   userInput = '';
   isTyping = false;
   messages: Message[] = [];
-  modelLabel = 'AI: DDC KZ Assistant';
+  modelLabel = 'OpenAI: Groq';
   isAudioEnabled = true;
   currentLang = 'ru';
   private destroy$ = new Subject<void>();
