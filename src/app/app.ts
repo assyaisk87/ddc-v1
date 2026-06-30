@@ -1,5 +1,5 @@
 import { Component, signal, OnInit, OnDestroy } from '@angular/core';
-import { RouterOutlet, Router, NavigationEnd } from '@angular/router';
+import { ActivatedRoute, RouterOutlet, Router, NavigationEnd } from '@angular/router';
 import { Navigation } from './components/navigation/navigation';
 import { Footer } from './components/footer/footer';
 import { DigitalDnaComponent } from './components/digital-dna/digital-dna.component';
@@ -9,6 +9,7 @@ import { MagneticButtonService } from './services/magnetic-button.service';
 import { filter } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
 import { TranslateService } from '@ngx-translate/core';
+import { SeoService } from './services/seo.service';
 
 @Component({
   selector: 'app-root',
@@ -22,31 +23,52 @@ export class App implements OnInit, OnDestroy {
 
   constructor(
     private magneticService: MagneticButtonService,
-    public  router: Router,
-    private translate: TranslateService      
-    
+    public router: Router,
+    private activatedRoute: ActivatedRoute,
+    private translate: TranslateService,
+    private seo: SeoService
   ) { }
 
   ngOnInit(): void {
     const savedLang = localStorage.getItem('lang') || 'ru';
     this.translate.setDefaultLang('ru');
     this.translate.use(savedLang);
-    // Check if running in local environment
+
     this.isLocalEnvironment = window.location.hostname === 'localhost' ||
       window.location.hostname === '127.0.0.1';
 
     this.magneticService.initMagneticButtons();
 
-    // Scroll to top on route change
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
-      .subscribe(() => {
+      .subscribe((event) => {
         window.scrollTo(0, 0);
+        this.updateRouteSeo(event as NavigationEnd);
       });
+  }
+
+  private updateRouteSeo(event: NavigationEnd): void {
+    let route = this.activatedRoute;
+
+    while (route.firstChild) {
+      route = route.firstChild;
+    }
+
+    const data = route.snapshot.data;
+
+    if (!data?.['title'] || !data?.['description']) {
+      return;
+    }
+
+    this.seo.updateSeo({
+      title: data['title'],
+      description: data['description'],
+      url: event.urlAfterRedirects,
+      image: '/icons/ddc_logo.svg'
+    });
   }
 
   ngOnDestroy(): void {
     // Cleanup if needed
   }
 }
-

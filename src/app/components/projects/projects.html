@@ -57,7 +57,7 @@
 
 
   <!-- Neural Fabric Section with Animated Tracks -->
-  @defer (on viewport) {
+  @defer (on immediate; prefetch on idle) {
   <section class="powered-by-section">
     <app-section-header
       [badge]="'footer.poweredBy' | translate"

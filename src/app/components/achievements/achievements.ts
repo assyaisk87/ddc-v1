@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, NgZone } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ContentService } from '../../services/content.services';
@@ -18,7 +18,9 @@ export class Achievements implements OnInit {
 
   constructor(
     private contentService: ContentService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private cdr: ChangeDetectorRef,
+    private zone: NgZone
   ) { }
 
   async ngOnInit() {
@@ -35,6 +37,7 @@ export class Achievements implements OnInit {
     if (error) {
       console.error(error);
       this.loading = false;
+      this.zone.run(() => setTimeout(() => this.cdr.markForCheck()));
       return;
     }
 
@@ -47,6 +50,7 @@ export class Achievements implements OnInit {
       id: item.sort_order
     }));
       this.loading = false;
+      this.zone.run(() => setTimeout(() => this.cdr.markForCheck()));
   }
 
 }

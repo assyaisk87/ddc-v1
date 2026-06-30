@@ -1830,3 +1830,60 @@
     -webkit-line-clamp: 2;
   }
 }
+
+/* CENTER tooltip: mobile — show compactly below the letters, centered */
+@media (max-width: 768px) {
+  .features-section {
+    padding: 48px 0 36px;
+  }
+
+  .features-section .section-header {
+    margin-bottom: 26px;
+  }
+
+  .center-word {
+    position: relative;
+    overflow: visible;
+    margin: 28px auto 22px;
+    gap: 18px 14px;
+    padding-bottom: 92px;
+  }
+
+  .center-letter-card {
+    position: static;
+    width: 92px;
+  }
+
+  .letter-tooltip {
+    position: absolute;
+    left: 50%;
+    right: auto;
+    top: calc(100% - 82px);
+    bottom: auto;
+    width: min(304px, calc(100vw - 36px));
+    max-height: 92px;
+    padding: 13px 14px;
+    overflow-y: auto;
+    text-align: left;
+    z-index: 50;
+    border-radius: 18px;
+    transform: translateX(-50%) translateY(8px) scale(.98);
+  }
+
+  .letter-tooltip h4 {
+    margin-bottom: 6px;
+    font-size: 14px;
+  }
+
+  .letter-tooltip p {
+    font-size: 13px;
+    line-height: 1.45;
+  }
+
+  .center-letter-card:hover .letter-tooltip,
+  .center-letter-card.active .letter-tooltip {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0) scale(1);
+  }
+}

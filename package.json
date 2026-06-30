@@ -19,8 +19,6 @@
     "@ngx-translate/core": "^17.0.0",
     "@ngx-translate/http-loader": "^17.0.0",
     "@supabase/supabase-js": "^2.108.2",
-    "angular-chartjs": "^0.0.5",
-    "chart.js": "^4.5.1",
     "groq-sdk": "^1.2.1",
     "rxjs": "~7.8.0",
     "sweetalert2": "^11.26.25",

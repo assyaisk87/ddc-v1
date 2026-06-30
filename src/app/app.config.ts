@@ -1,5 +1,5 @@
 import { ApplicationConfig } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import { PreloadAllModules, provideRouter, withPreloading } from '@angular/router';
 import { provideHttpClient, HttpClient } from '@angular/common/http';
 
 import { provideTranslateService, TranslateLoader } from '@ngx-translate/core';
@@ -17,7 +17,7 @@ export class CustomTranslateLoader implements TranslateLoader {
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideRouter(routes),
+    provideRouter(routes, withPreloading(PreloadAllModules)),
     provideHttpClient(),
 
     provideTranslateService({

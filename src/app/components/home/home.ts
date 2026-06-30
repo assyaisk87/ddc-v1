@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, OnDestroy, Inject, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy, Inject, ViewChild, ElementRef, ChangeDetectorRef, NgZone } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { RouterLink } from '@angular/router';
@@ -50,7 +50,9 @@ export class Home implements OnInit, AfterViewInit, OnDestroy {
     private elementRef: ElementRef,
     private contentService: ContentService,
     private translate: TranslateService,
-    private storage: StorageService
+    private storage: StorageService,
+    private cdr: ChangeDetectorRef,
+    private zone: NgZone
   ) { }
 
   async ngOnInit() {
@@ -59,6 +61,8 @@ export class Home implements OnInit, AfterViewInit, OnDestroy {
       this.loadVacancies(),
       this.loadHomeProjects()
     ]);
+
+    this.zone.run(() => setTimeout(() => this.cdr.markForCheck()));
   }
 
   async loadStats() {
@@ -83,6 +87,7 @@ export class Home implements OnInit, AfterViewInit, OnDestroy {
       color: item.color
     }));
     this.loading = false;
+    this.zone.run(() => setTimeout(() => this.cdr.markForCheck()));
   }
 
   async loadVacancies() {
@@ -100,6 +105,7 @@ export class Home implements OnInit, AfterViewInit, OnDestroy {
   }
 
   this.vacancies = (data || []).slice(0, 3);
+  this.zone.run(() => setTimeout(() => this.cdr.markForCheck()));
 }
   async loadHomeProjects() {
     const lang =
@@ -123,6 +129,8 @@ export class Home implements OnInit, AfterViewInit, OnDestroy {
       category: item.category,
       image: item.image_url
     }));
+
+    this.zone.run(() => setTimeout(() => this.cdr.markForCheck()));
   }
 
 
@@ -251,15 +259,25 @@ export class Home implements OnInit, AfterViewInit, OnDestroy {
     // ничего не сбрасываем
   }
 
+  onCenterClick(index: number): void {
+    this.activeCenterIndex = index;
+  }
+
   observeCenterAnimation(): void {
     this.centerObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
-            this.centerVisible = true;
+            this.zone.run(() => {
+              this.centerVisible = true;
+              setTimeout(() => this.cdr.markForCheck());
+            });
 
             setTimeout(() => {
-              this.activeCenterIndex = 0;
+              this.zone.run(() => {
+                this.activeCenterIndex = 0;
+                setTimeout(() => this.cdr.markForCheck());
+              });
             }, this.centerValues.length * 140 + 500);
 
             if (this.centerObserver) {
@@ -269,7 +287,8 @@ export class Home implements OnInit, AfterViewInit, OnDestroy {
         });
       },
       {
-        threshold: 0.35
+        threshold: 0.12,
+        rootMargin: '0px 0px -8% 0px'
       }
     );
 

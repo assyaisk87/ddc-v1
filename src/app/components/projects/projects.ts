@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, NgZone } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import {
@@ -28,13 +28,15 @@ export class Projects implements OnInit {
   categories = PROJECT_CATEGORIES;
   selectedCategory: string = 'All';
   selectedProject: Project | null = null;
-  leftPartnersTrack: typeof poweredByPartners = [];
-  rightPartnersTrack: typeof poweredByPartners = [];
+  leftPartnersTrack: typeof poweredByPartners = this.createInfiniteTrack(this.poweredByPartners);
+  rightPartnersTrack: typeof poweredByPartners = this.createInfiniteTrack(this.poweredByPartners);
 
   constructor(private seo: SeoService,
     private contentService: ContentService,
     private translate: TranslateService,
-    private storage: StorageService
+    private storage: StorageService,
+    private cdr: ChangeDetectorRef,
+    private zone: NgZone
   ) { }
 
   async ngOnInit() {
@@ -43,11 +45,9 @@ export class Projects implements OnInit {
     this.seo.updateSeo({
       title: 'Проекты DDC | Центр цифрового развития',
       description: 'Интерактивная аналитика, цифровые проекты, технологии и решения Центра цифрового развития.',
-      image: '/assets/og/projects-og.webp',
-      url: 'https://твой-сайт.netlify.app/projects'
+      image: '/icons/ddc_logo.svg',
+      url: '/projects'
     });
-    this.leftPartnersTrack = this.createInfiniteTrack(this.poweredByPartners);
-    this.rightPartnersTrack = this.createInfiniteTrack(this.poweredByPartners);
   }
   
   getImageUrl(path: string | null | undefined): string {
@@ -92,6 +92,7 @@ export class Projects implements OnInit {
     if (error) {
       console.error('Ошибка загрузки проектов:', error);
       this.loading = false;
+      this.zone.run(() => setTimeout(() => this.cdr.markForCheck()));
       // this.projects = PROJECTS_DATA;
       return;
     }
@@ -113,6 +114,7 @@ export class Projects implements OnInit {
     }));
 
     this.loading = false;
+    this.zone.run(() => setTimeout(() => this.cdr.markForCheck()));
     // console.log("projects", this.projects);
   }
 

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, ChangeDetectorRef, NgZone } from '@angular/core';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Vacancy, Category, categories, officePhotos, teamBuildingPhotos } from '../../data/vacancies.data';
 import { RouterLink } from '@angular/router';
@@ -26,7 +26,9 @@ export class Vacancies implements OnDestroy {
 
   constructor(
     private contentService: ContentService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private cdr: ChangeDetectorRef,
+    private zone: NgZone
   ) { }
 
   async ngOnInit() {
@@ -44,6 +46,7 @@ export class Vacancies implements OnDestroy {
     if (error ) {
       console.error(error);
       this.loading = false;
+      this.zone.run(() => setTimeout(() => this.cdr.markForCheck()));
       // this.vacancies = vacancies;
       return;
     }
@@ -67,6 +70,7 @@ export class Vacancies implements OnDestroy {
     }));
 
     this.loading = false;
+    this.zone.run(() => setTimeout(() => this.cdr.markForCheck()));
   }
 
   openVacancy(vacancy: Vacancy): void {

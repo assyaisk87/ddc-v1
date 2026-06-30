@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, NgZone } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
@@ -36,7 +36,9 @@ export class Team implements OnInit {
     private translate: TranslateService,
     private speechService: SpeechSynthesisService,
     private contentService: ContentService,
-    private storage: StorageService
+    private storage: StorageService,
+    private cdr: ChangeDetectorRef,
+    private zone: NgZone
   ) {
     this.currentLang = this.translate.currentLang;
     // Подписываемся на смену языка
@@ -91,6 +93,7 @@ export class Team implements OnInit {
     this.ceoMembers = allCeo.filter(item => !item.is_main);
 
     this.loading = false;
+    this.zone.run(() => setTimeout(() => this.cdr.markForCheck()));
 
     console.log("ceoBoard", this.ceoBoard);
     console.log("directorsBoard", this.directorsBoard);

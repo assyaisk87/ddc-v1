@@ -802,3 +802,13 @@
     background-position: -200% 0;
   }
 }
+
+.powered-by-placeholder {
+  min-height: 360px;
+}
+
+@media (max-width: 768px) {
+  .powered-by-placeholder {
+    min-height: 280px;
+  }
+}

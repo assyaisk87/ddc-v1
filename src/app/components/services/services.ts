@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, NgZone } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ContentService } from '../../services/content.services';
@@ -29,8 +29,12 @@ export class Services implements OnInit {
   }
 
 
-  constructor(private translate: TranslateService,
-    private contentService: ContentService) { }
+  constructor(
+    private translate: TranslateService,
+    private contentService: ContentService,
+    private cdr: ChangeDetectorRef,
+    private zone: NgZone
+  ) { }
 
   async ngOnInit() {
     await this.loadServices();
@@ -53,6 +57,7 @@ export class Services implements OnInit {
     if (error) {
       console.error(error);
       this.loading = false;
+      this.markViewReady();
       return;
     }
 
@@ -64,6 +69,11 @@ export class Services implements OnInit {
 
     this.selectService(index >= 0 ? index : 0);
     this.loading = false;
+    this.markViewReady();
+  }
+
+  private markViewReady(): void {
+    this.zone.run(() => setTimeout(() => this.cdr.markForCheck()));
   }
 
   selectService(index: number) {

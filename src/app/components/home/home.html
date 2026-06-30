@@ -158,7 +158,7 @@
 
       @for (value of centerValues; track value; let i = $index) {
       <div class="center-letter-card" [style.--delay]="i" [class.active]="activeCenterIndex === i"
-        (mouseenter)="onCenterMouseEnter(i)" (mouseleave)="onCenterMouseLeave()">
+        (mouseenter)="onCenterMouseEnter(i)" (mouseleave)="onCenterMouseLeave()" (click)="onCenterClick(i)">
 
         <div class="letter-box">
           <span class="letter">
