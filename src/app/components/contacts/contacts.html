@@ -64,18 +64,20 @@
 
           <div class="form-group">
             <label for="subject" class="form-label">{{ 'contacts.form.subject' | translate }}</label>
-            <select 
-              id="subject" 
-              formControlName="subject" 
-              class="form-input glass-effect"
-              [class.error]="isFieldInvalid('subject')"
-            >
-              <option value="">{{ 'contacts.form.subjectPlaceholder' | translate }}</option>
-              <option value="partnership">{{ 'contacts.form.subjects.partnership' | translate }}</option>
-              <option value="support">{{ 'contacts.form.subjects.support' | translate }}</option>
-              <option value="career">{{ 'contacts.form.subjects.career' | translate }}</option>
-              <option value="other">{{ 'contacts.form.subjects.other' | translate }}</option>
-            </select>
+            <div class="select-wrapper">
+              <select 
+                id="subject" 
+                formControlName="subject" 
+                class="form-input glass-effect"
+                [class.error]="isFieldInvalid('subject')"
+              >
+                <option value="" disabled>{{ 'contacts.form.subjectPlaceholder' | translate }}</option>
+                <option value="partnership">{{ 'contacts.form.subjects.partnership' | translate }}</option>
+                <option value="support">{{ 'contacts.form.subjects.support' | translate }}</option>
+                <option value="career">{{ 'contacts.form.subjects.career' | translate }}</option>
+                <option value="other">{{ 'contacts.form.subjects.other' | translate }}</option>
+              </select>
+            </div>
             @if(isFieldInvalid('subject')) {
               <span class="error-message">{{ 'contacts.form.errors.required' | translate }}</span>
             }
@@ -95,6 +97,36 @@
           @if(isFieldInvalid('message')) {
             <span class="error-message">{{ 'contacts.form.errors.required' | translate }}</span>
           }
+        </div>
+
+
+
+        <div class="form-group full-width attachment-group">
+          <label for="attachment" class="form-label">{{ 'contacts.form.attachment' | translate }}</label>
+
+          <div class="file-upload glass-effect">
+            <input
+              type="file"
+              id="attachment"
+              class="file-input"
+              (change)="onFileSelected($event)"
+              accept=".pdf,.doc,.docx,.xls,.xlsx,.png,.jpg,.jpeg,.zip,.rar"
+            >
+
+            <label for="attachment" class="file-trigger">
+              <span class="file-icon">↥</span>
+              <span class="file-title">{{ 'contacts.form.chooseFile' | translate }}</span>
+            </label>
+
+            <div class="file-meta">
+              <span class="file-name">{{ selectedFileName || ('contacts.form.noFileChosen' | translate) }}</span>
+              @if(selectedFileName) {
+                <button type="button" class="file-remove" (click)="removeSelectedFile()" [attr.aria-label]="'contacts.form.removeFile' | translate">×</button>
+              }
+            </div>
+          </div>
+
+          <span class="file-hint">{{ 'contacts.form.fileHint' | translate }}</span>
         </div>
 
         <div class="form-actions">

@@ -16,6 +16,8 @@ export class Contacts  {
   contactForm: FormGroup;
   isSubmitting = false;
   submissionSuccess = false;
+  selectedFile: File | null = null;
+  selectedFileName = '';
 
   contactInfo = CONTACT_INFO;
 
@@ -58,6 +60,30 @@ export class Contacts  {
     return '';
   }
 
+
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const file = input.files?.[0];
+
+    if (!file) {
+      this.removeSelectedFile();
+      return;
+    }
+
+    this.selectedFile = file;
+    this.selectedFileName = file.name;
+  }
+
+  removeSelectedFile(): void {
+    this.selectedFile = null;
+    this.selectedFileName = '';
+
+    const input = document.getElementById('attachment') as HTMLInputElement | null;
+    if (input) {
+      input.value = '';
+    }
+  }
+
   async onSubmit() {
     if (this.contactForm.invalid || this.isSubmitting) return;
 
@@ -67,11 +93,12 @@ export class Contacts  {
     // Simulate form submission
     await new Promise(resolve => setTimeout(resolve, 2000));
 
-    console.log('Form submitted:', this.contactForm.value);
+    console.log('Form submitted:', { ...this.contactForm.value, attachment: this.selectedFile });
     
     this.isSubmitting = false;
     this.submissionSuccess = true;
     this.contactForm.reset();
+    this.removeSelectedFile();
 
     // Hide success message after 5 seconds
     setTimeout(() => {
