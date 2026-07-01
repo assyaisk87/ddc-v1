@@ -32,5 +32,5 @@ export const OFFICIAL_SITES: OfficialSite[] = [
 export const SOCIAL_LINKS: SocialLink[] = [
   { icon: 'icons/instagram.svg', url: 'https://www.instagram.com/bsbnb.kz/', title: 'Instagram' },
   { icon: 'icons/telegram.svg', url: '', title: 'Telegram' },
-  { icon: 'icons/mail.png', url: 'mailto:info@bsbnb.kz', title: 'Mail' }
+  { icon: 'icons/mail.svg', url: 'mailto:info@bsbnb.kz', title: 'Mail' }
 ];

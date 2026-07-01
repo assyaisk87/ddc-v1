@@ -49,6 +49,9 @@ export class DigitalDnaService implements OnDestroy {
 
   private initCanvas(): void {
     if (this.isInitialized) return;
+    const isMobile = window.innerWidth < 992 || window.matchMedia('(pointer: coarse)').matches; 
+    if (isMobile) 
+      { return; }
     
     try {
       this.canvas = document.createElement('canvas');

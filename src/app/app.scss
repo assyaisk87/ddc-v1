@@ -1,0 +1,25 @@
+.ai-toggle-lazy {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 3500;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 212, 255, 0.45);
+  background: linear-gradient(135deg, #0f172a, #12345f);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 0 30px rgba(0, 212, 255, 0.35);
+  cursor: pointer;
+}
+
+.ai-toggle-lazy:hover {
+  transform: translateY(-2px);
+  transition: transform 0.2s ease;
+}
+
+.ai-toggle-lazy svg {
+  display: block;
+}

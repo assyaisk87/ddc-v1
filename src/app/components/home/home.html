@@ -61,7 +61,7 @@
           </svg>
 
           <div class="center-core">
-            <img src="/icons/ddc_logo.svg" alt="ЦЦР">
+            <img src="/icons/ddc_logo.svg" alt="ЦЦР" width="80" height="80" loading="lazy" decoding="async">
           </div>
 
           <p class="mobile-ecosystem-title">
@@ -88,21 +88,23 @@
         <div class="command-panel">
           <h3>{{ 'home.command.title' | translate }}</h3>
 
-          @if (loading) {
-          <div class="loading-container">
-            <div class="loading-spinner"></div>
-            <p>Загрузка...</p>
-          </div>
-          } @else {
           <div class="stats-grid">
-            @for (stat of stats; track stat.label) {
-            <div class="stat-card">
-              <strong>{{ stat.value }}</strong>
-              <span>{{ stat.label }}</span>
-            </div>
-            }
-          </div>
-          }
+  @if (loading) {
+    @for (item of [1, 2, 3, 4,5,6]; track item) {
+      <div class="stat-card stat-card-skeleton">
+        <strong>—</strong>
+        <span>Загрузка</span>
+      </div>
+    }
+  } @else {
+    @for (stat of stats; track stat.label) {
+      <div class="stat-card">
+        <strong>{{ stat.value }}</strong>
+        <span>{{ stat.label }}</span>
+      </div>
+    }
+  }
+</div>
 
           <div class="system-status">
             <svg class="wave-chart" viewBox="0 0 320 82" preserveAspectRatio="none">
@@ -147,9 +149,7 @@
 
   <!-- CENTER Framework - Mission & Values -->
   <section class="features-section container">
-    <!-- <div class="section-header">
-      <img src="/icons/ddc_logo.svg" alt="ЦЦР">
-    </div> -->
+    
     <div class="section-header">
       <h2 class="section-title ">DIGITAL DEVELOPMENT</h2>
     </div>
@@ -188,58 +188,9 @@
       </div>
 
       <div class="home-projects-preview desktop-projects-orbit">
-        @if (homeProjects.length) {
-          <div class="home-projects-column projects-left-column">
-            @for (project of homeProjectsLeft; track project.slug || project.id) {
-              <a class="home-project-card" routerLink="/projects">
-                <span class="home-project-content">
-                  <span class="home-project-title">{{ project.title }}</span>
-                  @if (project.category) {
-                    <span class="home-project-category">{{ project.category }}</span>
-                  }
-                </span>
-              </a>
-            }
-          </div>
-
-          <div class="home-projects-center" aria-hidden="true">
-            <svg class="home-projects-lines" viewBox="0 0 180 230" preserveAspectRatio="none">
-              <path d="M90 115 C45 70, 38 38, 2 34" />
-              <path d="M90 115 C42 105, 34 98, 2 98" />
-              <path d="M90 115 C45 160, 38 195, 2 196" />
-              <path d="M90 115 C135 70, 142 38, 178 34" />
-              <path d="M90 115 C138 105, 146 98, 178 98" />
-              <path d="M90 115 C135 160, 142 195, 178 196" />
-            </svg>
-            <div class="mini-core mini-layer">
-          <span style="font-weight: 600;">DDC</span></div>
-          </div>
-
-          <div class="home-projects-column projects-right-column">
-            @for (project of homeProjectsRight; track project.slug || project.id) {
-              <a class="home-project-card" routerLink="/projects">
-                <span class="home-project-content">
-                  <span class="home-project-title">{{ project.title }}</span>
-                  @if (project.category) {
-                    <span class="home-project-category">{{ project.category }}</span>
-                  }
-                </span>
-              </a>
-            }
-          </div>
-        } @else {
-          <div class="home-project-card placeholder-card">
-            <span class="home-project-content">
-              <span class="home-project-title">{{ 'home.ecosystem.scheme.regulatory' | translate }}</span>
-            </span>
-          </div>
-        }
-      </div>
-
-      <div class="home-projects-preview mobile-projects-list">
-        @if (homeProjects.length) {
-          @for (project of homeProjectsMobile; track project.slug || project.id) {
-            <a class="home-project-card" routerLink="/projects">
+        <div class="home-projects-column projects-left-column">
+          @for (project of homeProjectsLeft; track project.slug || project.id) {
+            <a class="home-project-card" [class.placeholder-card]="project.loading" routerLink="/projects">
               <span class="home-project-content">
                 <span class="home-project-title">{{ project.title }}</span>
                 @if (project.category) {
@@ -248,6 +199,46 @@
               </span>
             </a>
           }
+        </div>
+
+        <div class="home-projects-center" aria-hidden="true">
+          <svg class="home-projects-lines" viewBox="0 0 180 230" preserveAspectRatio="none">
+            <path d="M90 115 C45 70, 38 38, 2 34" />
+            <path d="M90 115 C42 105, 34 98, 2 98" />
+            <path d="M90 115 C45 160, 38 195, 2 196" />
+            <path d="M90 115 C135 70, 142 38, 178 34" />
+            <path d="M90 115 C138 105, 146 98, 178 98" />
+            <path d="M90 115 C135 160, 142 195, 178 196" />
+          </svg>
+          <div class="mini-core mini-layer">
+            <span style="font-weight: 600;">DDC</span>
+          </div>
+        </div>
+
+        <div class="home-projects-column projects-right-column">
+          @for (project of homeProjectsRight; track project.slug || project.id) {
+            <a class="home-project-card" [class.placeholder-card]="project.loading" routerLink="/projects">
+              <span class="home-project-content">
+                <span class="home-project-title">{{ project.title }}</span>
+                @if (project.category) {
+                  <span class="home-project-category">{{ project.category }}</span>
+                }
+              </span>
+            </a>
+          }
+        </div>
+      </div>
+
+      <div class="home-projects-preview mobile-projects-list">
+        @for (project of homeProjectsMobile; track project.slug || project.id) {
+          <a class="home-project-card" [class.placeholder-card]="project.loading" routerLink="/projects">
+            <span class="home-project-content">
+              <span class="home-project-title">{{ project.title }}</span>
+              @if (project.category) {
+                <span class="home-project-category">{{ project.category }}</span>
+              }
+            </span>
+          </a>
         }
       </div>
     </div>
@@ -270,9 +261,6 @@
       </div>
     </div>
 
-    @if (!vacancies.length) {
-    <p class="empty-text">Сейчас открытых вакансий нет</p>
-    }
     <div class="vacancies-card glass-card">
       <div class="card-header">
         <h2>{{ 'home.vacancies.title' | translate }}</h2>
@@ -282,13 +270,15 @@
       </div>
 
       <div class="vacancies-list">
-        @for (vacancy of vacancies; track vacancy.slug) {
-        <div class="vacancies-item">
+        @for (vacancy of vacancySlots; track vacancy.slug) {
+        <div class="vacancies-item" [class.placeholder-card]="vacancy.loading" [class.empty-vacancy]="vacancy.empty">
           <div class="vacancies-img"></div>
 
           <div>
             <p>{{ vacancy.title }}</p>
-            <span>{{ vacancy.city }}</span>
+            @if (vacancy.city) {
+              <span>{{ vacancy.city }}</span>
+            }
           </div>
         </div>
         }

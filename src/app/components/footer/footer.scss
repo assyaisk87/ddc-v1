@@ -246,3 +246,20 @@
     }
   }
 }
+.footer {
+  min-height: 360px;
+  contain: layout paint;
+}
+
+@media (max-width: 768px) {
+  .footer {
+    min-height: 520px;
+  }
+}
+
+.footer img {
+  display: block;
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}

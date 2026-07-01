@@ -1,0 +1,750 @@
+﻿diff --git a/src/app/app.html b/src/app/app.html
+index 703c263..5e8a8e6 100644
+--- a/src/app/app.html
++++ b/src/app/app.html
+@@ -1,9 +1,6 @@
+ @if (!router.url.startsWith('/admin')) {
+-
+-  <app-digital-dna></app-digital-dna>
+-
+-  <app-navigation></app-navigation>
+-
++<app-digital-dna></app-digital-dna>
++<app-navigation></app-navigation>
+ }
+ 
+ <main class="main-content">
+@@ -12,12 +9,24 @@
+ 
+ @if (!router.url.startsWith('/admin')) {
+ 
+-  <app-footer></app-footer>
+-
+-  <app-ai-assistant></app-ai-assistant>
+-
+-  <!-- <app-api-key-settings
+-    *ngIf="isLocalEnvironment">
+-  </app-api-key-settings> -->
++  @defer (on idle) {
++    <app-footer />
++  }
++
++  @if (!aiAssistantLoaded) {
++    <button
++      type="button"
++      class="ai-toggle ai-toggle-lazy"
++      aria-label="╨Ю╤В╨║╤А╤Л╤В╤М AI Assistant"
++      (click)="loadAiAssistant(true)"
++      style="position: fixed; right: 24px; bottom: 24px; z-index: 3500; width: 64px; height: 64px; border-radius: 50%; border: 1px solid rgba(0, 212, 255, .45); background: linear-gradient(135deg, #0f172a, #12345f); color: #fff; display: grid; place-items: center; box-shadow: 0 0 30px rgba(0, 212, 255, .35); cursor: pointer;"
++    >
++      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
++        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
++      </svg>
++    </button>
++  }
++
++  <ng-container #aiAssistantHost></ng-container>
+ 
+ }
+\ No newline at end of file
+diff --git a/src/app/app.ts b/src/app/app.ts
+index b49838b..512ec2b 100644
+--- a/src/app/app.ts
++++ b/src/app/app.ts
+@@ -1,10 +1,8 @@
+-import { Component, signal, OnInit, OnDestroy } from '@angular/core';
++import { Component, signal, OnInit, OnDestroy, AfterViewInit, ViewChild, ViewContainerRef, ComponentRef } from '@angular/core';
+ import { ActivatedRoute, RouterOutlet, Router, NavigationEnd } from '@angular/router';
+ import { Navigation } from './components/navigation/navigation';
+ import { Footer } from './components/footer/footer';
+ import { DigitalDnaComponent } from './components/digital-dna/digital-dna.component';
+-import { AiAssistantComponent } from './components/ai-assistant/ai-assistant.component';
+-import { ApiKeySettingsComponent } from './components/api-key-settings/api-key-settings.component';
+ import { MagneticButtonService } from './services/magnetic-button.service';
+ import { filter } from 'rxjs/operators';
+ import { CommonModule } from '@angular/common';
+@@ -13,13 +11,21 @@ import { SeoService } from './services/seo.service';
+ 
+ @Component({
+   selector: 'app-root',
+-  imports: [CommonModule, RouterOutlet, Navigation, Footer, DigitalDnaComponent, AiAssistantComponent, ApiKeySettingsComponent],
++  imports: [CommonModule, RouterOutlet, Navigation, Footer, DigitalDnaComponent],
+   templateUrl: './app.html',
+   styleUrl: './app.scss'
+ })
+-export class App implements OnInit, OnDestroy {
++export class App implements OnInit, AfterViewInit, OnDestroy {
+   protected readonly title = signal('ddc');
+   isLocalEnvironment = false;
++  aiAssistantLoaded = false;
++
++  @ViewChild('aiAssistantHost', { read: ViewContainerRef })
++  private aiAssistantHost?: ViewContainerRef;
++
++  private aiAssistantLoadStarted = false;
++  private aiAssistantRef?: ComponentRef<any>;
++  private aiAssistantTimer: ReturnType<typeof setTimeout> | null = null;
+ 
+   constructor(
+     private magneticService: MagneticButtonService,
+@@ -37,7 +43,12 @@ export class App implements OnInit, OnDestroy {
+     this.isLocalEnvironment = window.location.hostname === 'localhost' ||
+       window.location.hostname === '127.0.0.1';
+ 
+-    this.magneticService.initMagneticButtons();
++    if (
++      window.matchMedia('(hover: hover)').matches &&
++      window.innerWidth > 992
++    ) {
++      this.magneticService.initMagneticButtons();
++    }
+ 
+     this.router.events
+       .pipe(filter(event => event instanceof NavigationEnd))
+@@ -47,6 +58,47 @@ export class App implements OnInit, OnDestroy {
+       });
+   }
+ 
++  ngAfterViewInit(): void {
++    // AI Assistant ╨╜╨╡ ╨╜╤Г╨╢╨╡╨╜ ╨┤╨╗╤П ╨┐╨╡╤А╨▓╨╛╨│╨╛ ╤Н╨║╤А╨░╨╜╨░: ╨│╤А╤Г╨╖╨╕╨╝ ╨┐╨╛╤Б╨╗╨╡ ╨┐╨╛╨╗╨╜╨╛╨╣ ╨╖╨░╨│╤А╤Г╨╖╨║╨╕ ╤Б╤В╤А╨░╨╜╨╕╤Ж╤Л
++    // ╨╕╨╗╨╕ ╤Б╤А╨░╨╖╤Г ╨┐╨╛ ╨║╨╗╨╕╨║╤Г ╨┐╨╛╨╗╤М╨╖╨╛╨▓╨░╤В╨╡╨╗╤П ╨╜╨░ ╨╗╤С╨│╨║╤Г╤О fixed-╨║╨╜╨╛╨┐╨║╤Г.
++    if (!this.router.url.startsWith('/admin')) {
++      const schedule = () => {
++        this.aiAssistantTimer = setTimeout(() => {
++          this.loadAiAssistant(false);
++        }, 6000);
++      };
++
++      if (document.readyState === 'complete') {
++        schedule();
++      } else {
++        window.addEventListener('load', schedule, { once: true });
++      }
++    }
++  }
++
++  async loadAiAssistant(openAfterLoad = true): Promise<void> {
++    if (this.aiAssistantLoadStarted || this.aiAssistantLoaded || !this.aiAssistantHost) {
++      return;
++    }
++
++    if (this.aiAssistantTimer) {
++      clearTimeout(this.aiAssistantTimer);
++      this.aiAssistantTimer = null;
++    }
++
++    this.aiAssistantLoadStarted = true;
++
++    const { AiAssistantComponent } = await import('./components/ai-assistant/ai-assistant.component');
++
++    this.aiAssistantHost.clear();
++    this.aiAssistantRef = this.aiAssistantHost.createComponent(AiAssistantComponent);
++    this.aiAssistantLoaded = true;
++
++    if (openAfterLoad && this.aiAssistantRef.instance?.toggleAssistant) {
++      this.aiAssistantRef.instance.toggleAssistant();
++    }
++  }
++
+   private updateRouteSeo(event: NavigationEnd): void {
+     let route = this.activatedRoute;
+ 
+@@ -69,6 +121,11 @@ export class App implements OnInit, OnDestroy {
+   }
+ 
+   ngOnDestroy(): void {
+-    // Cleanup if needed
++    if (this.aiAssistantTimer) {
++      clearTimeout(this.aiAssistantTimer);
++      this.aiAssistantTimer = null;
++    }
++
++    this.aiAssistantRef?.destroy();
+   }
+ }
+diff --git a/src/app/components/footer/footer.scss b/src/app/components/footer/footer.scss
+index eb0beb4..2ed4dc4 100644
+--- a/src/app/components/footer/footer.scss
++++ b/src/app/components/footer/footer.scss
+@@ -245,4 +245,21 @@
+       }
+     }
+   }
++}
++.footer {
++  min-height: 360px;
++  contain: layout paint;
++}
++
++@media (max-width: 768px) {
++  .footer {
++    min-height: 520px;
++  }
++}
++
++.footer img {
++  display: block;
++  width: 32px;
++  height: 32px;
++  object-fit: contain;
+ }
+\ No newline at end of file
+diff --git a/src/app/components/home/home.html b/src/app/components/home/home.html
+index 6e31e23..8b299b5 100644
+--- a/src/app/components/home/home.html
++++ b/src/app/components/home/home.html
+@@ -61,7 +61,7 @@
+           </svg>
+ 
+           <div class="center-core">
+-            <img src="/icons/ddc_logo.svg" alt="╨ж╨ж╨а">
++            <img src="/icons/ddc_logo.svg" alt="╨ж╨ж╨а" width="80" height="80" loading="lazy" decoding="async">
+           </div>
+ 
+           <p class="mobile-ecosystem-title">
+@@ -88,21 +88,23 @@
+         <div class="command-panel">
+           <h3>{{ 'home.command.title' | translate }}</h3>
+ 
+-          @if (loading) {
+-          <div class="loading-container">
+-            <div class="loading-spinner"></div>
+-            <p>╨Ч╨░╨│╤А╤Г╨╖╨║╨░...</p>
+-          </div>
+-          } @else {
+           <div class="stats-grid">
+-            @for (stat of stats; track stat.label) {
+-            <div class="stat-card">
+-              <strong>{{ stat.value }}</strong>
+-              <span>{{ stat.label }}</span>
+-            </div>
+-            }
+-          </div>
+-          }
++  @if (loading) {
++    @for (item of [1, 2, 3, 4,5,6]; track item) {
++      <div class="stat-card stat-card-skeleton">
++        <strong>тАФ</strong>
++        <span>╨Ч╨░╨│╤А╤Г╨╖╨║╨░</span>
++      </div>
++    }
++  } @else {
++    @for (stat of stats; track stat.label) {
++      <div class="stat-card">
++        <strong>{{ stat.value }}</strong>
++        <span>{{ stat.label }}</span>
++      </div>
++    }
++  }
++</div>
+ 
+           <div class="system-status">
+             <svg class="wave-chart" viewBox="0 0 320 82" preserveAspectRatio="none">
+@@ -147,9 +149,7 @@
+ 
+   <!-- CENTER Framework - Mission & Values -->
+   <section class="features-section container">
+-    <!-- <div class="section-header">
+-      <img src="/icons/ddc_logo.svg" alt="╨ж╨ж╨а">
+-    </div> -->
++    
+     <div class="section-header">
+       <h2 class="section-title ">DIGITAL DEVELOPMENT</h2>
+     </div>
+@@ -188,58 +188,36 @@
+       </div>
+ 
+       <div class="home-projects-preview desktop-projects-orbit">
+-        @if (homeProjects.length) {
+-          <div class="home-projects-column projects-left-column">
+-            @for (project of homeProjectsLeft; track project.slug || project.id) {
+-              <a class="home-project-card" routerLink="/projects">
+-                <span class="home-project-content">
+-                  <span class="home-project-title">{{ project.title }}</span>
+-                  @if (project.category) {
+-                    <span class="home-project-category">{{ project.category }}</span>
+-                  }
+-                </span>
+-              </a>
+-            }
+-          </div>
+-
+-          <div class="home-projects-center" aria-hidden="true">
+-            <svg class="home-projects-lines" viewBox="0 0 180 230" preserveAspectRatio="none">
+-              <path d="M90 115 C45 70, 38 38, 2 34" />
+-              <path d="M90 115 C42 105, 34 98, 2 98" />
+-              <path d="M90 115 C45 160, 38 195, 2 196" />
+-              <path d="M90 115 C135 70, 142 38, 178 34" />
+-              <path d="M90 115 C138 105, 146 98, 178 98" />
+-              <path d="M90 115 C135 160, 142 195, 178 196" />
+-            </svg>
+-            <div class="mini-core mini-layer">
+-          <span style="font-weight: 600;">DDC</span></div>
+-          </div>
++        <div class="home-projects-column projects-left-column">
++          @for (project of homeProjectsLeft; track project.slug || project.id) {
++            <a class="home-project-card" [class.placeholder-card]="project.loading" routerLink="/projects">
++              <span class="home-project-content">
++                <span class="home-project-title">{{ project.title }}</span>
++                @if (project.category) {
++                  <span class="home-project-category">{{ project.category }}</span>
++                }
++              </span>
++            </a>
++          }
++        </div>
+ 
+-          <div class="home-projects-column projects-right-column">
+-            @for (project of homeProjectsRight; track project.slug || project.id) {
+-              <a class="home-project-card" routerLink="/projects">
+-                <span class="home-project-content">
+-                  <span class="home-project-title">{{ project.title }}</span>
+-                  @if (project.category) {
+-                    <span class="home-project-category">{{ project.category }}</span>
+-                  }
+-                </span>
+-              </a>
+-            }
+-          </div>
+-        } @else {
+-          <div class="home-project-card placeholder-card">
+-            <span class="home-project-content">
+-              <span class="home-project-title">{{ 'home.ecosystem.scheme.regulatory' | translate }}</span>
+-            </span>
++        <div class="home-projects-center" aria-hidden="true">
++          <svg class="home-projects-lines" viewBox="0 0 180 230" preserveAspectRatio="none">
++            <path d="M90 115 C45 70, 38 38, 2 34" />
++            <path d="M90 115 C42 105, 34 98, 2 98" />
++            <path d="M90 115 C45 160, 38 195, 2 196" />
++            <path d="M90 115 C135 70, 142 38, 178 34" />
++            <path d="M90 115 C138 105, 146 98, 178 98" />
++            <path d="M90 115 C135 160, 142 195, 178 196" />
++          </svg>
++          <div class="mini-core mini-layer">
++            <span style="font-weight: 600;">DDC</span>
+           </div>
+-        }
+-      </div>
++        </div>
+ 
+-      <div class="home-projects-preview mobile-projects-list">
+-        @if (homeProjects.length) {
+-          @for (project of homeProjectsMobile; track project.slug || project.id) {
+-            <a class="home-project-card" routerLink="/projects">
++        <div class="home-projects-column projects-right-column">
++          @for (project of homeProjectsRight; track project.slug || project.id) {
++            <a class="home-project-card" [class.placeholder-card]="project.loading" routerLink="/projects">
+               <span class="home-project-content">
+                 <span class="home-project-title">{{ project.title }}</span>
+                 @if (project.category) {
+@@ -248,6 +226,19 @@
+               </span>
+             </a>
+           }
++        </div>
++      </div>
++
++      <div class="home-projects-preview mobile-projects-list">
++        @for (project of homeProjectsMobile; track project.slug || project.id) {
++          <a class="home-project-card" [class.placeholder-card]="project.loading" routerLink="/projects">
++            <span class="home-project-content">
++              <span class="home-project-title">{{ project.title }}</span>
++              @if (project.category) {
++                <span class="home-project-category">{{ project.category }}</span>
++              }
++            </span>
++          </a>
+         }
+       </div>
+     </div>
+@@ -270,9 +261,6 @@
+       </div>
+     </div>
+ 
+-    @if (!vacancies.length) {
+-    <p class="empty-text">╨б╨╡╨╣╤З╨░╤Б ╨╛╤В╨║╤А╤Л╤В╤Л╤Е ╨▓╨░╨║╨░╨╜╤Б╨╕╨╣ ╨╜╨╡╤В</p>
+-    }
+     <div class="vacancies-card glass-card">
+       <div class="card-header">
+         <h2>{{ 'home.vacancies.title' | translate }}</h2>
+@@ -282,13 +270,15 @@
+       </div>
+ 
+       <div class="vacancies-list">
+-        @for (vacancy of vacancies; track vacancy.slug) {
+-        <div class="vacancies-item">
++        @for (vacancy of vacancySlots; track vacancy.slug) {
++        <div class="vacancies-item" [class.placeholder-card]="vacancy.loading" [class.empty-vacancy]="vacancy.empty">
+           <div class="vacancies-img"></div>
+ 
+           <div>
+             <p>{{ vacancy.title }}</p>
+-            <span>{{ vacancy.city }}</span>
++            @if (vacancy.city) {
++              <span>{{ vacancy.city }}</span>
++            }
+           </div>
+         </div>
+         }
+diff --git a/src/app/components/home/home.scss b/src/app/components/home/home.scss
+index bbb8e96..a54253b 100644
+--- a/src/app/components/home/home.scss
++++ b/src/app/components/home/home.scss
+@@ -11,7 +11,7 @@
+ }
+ 
+ .command-page {
+-  min-height: 100vh;
++  min-height: calc(100svh - 80px);
+   margin-top: 80px;
+   display: grid;
+   align-items: center;
+@@ -95,13 +95,14 @@
+ 
+ .hero-subtitle {
+   max-width: 540px;
+-  margin: 30px 0 0;
+   margin: 0 0 1rem 0;
+-  font-size: clamp(22px, 2vw, 30px);
+-  line-height: 1.27;
++  font-size: 22px;
++  line-height: 1.3;
+   font-weight: 600;
++  color: rgba(255, 255, 255, 0.92);
+ }
+ 
++
+ .hero-description {
+   max-width: 480px;
+   margin: 18px 0 0;
+@@ -990,8 +991,8 @@
+   }
+ 
+   .hero-subtitle {
+-    margin-top: 20px;
+-    font-size: clamp(19px, 1.45vw, 24px);
++     margin-top: 16px;
++    font-size: 20px;
+   }
+ 
+   .hero-description {
+@@ -1276,6 +1277,7 @@
+ 
+   .hero-subtitle {
+     font-size: 18px;
++    line-height: 1.35;
+   }
+ 
+   .hero-description {
+@@ -1410,14 +1412,16 @@
+ }
+ 
+ .award-card {
+-  height: 100%;
++   min-height: 260px;
++  overflow: hidden;
+   display: flex;
+   gap: 24px;
+   padding: 20px;
+-   background-image: url('/images/news/best.png');
++  background-image: url('/images/news/best.webp');
+   background-size: cover;
+   background-position: center;
+   background-repeat: no-repeat;
++  
+ }
+ 
+ .award-icon {
+@@ -1605,6 +1609,21 @@
+     font-size: 13px;
+     line-height: 1.25;
+   }
++  .ecosystem-scheme-card {
++  min-height: 430px;
++}
++
++.home-projects-preview {
++  min-height: 260px;
++}
++
++.vacancies-card {
++  min-height: 300px;
++}
++
++.command-panel {
++  min-height: 430px;
++}
+ }
+ 
+ @media (max-width: 420px) {
+@@ -1887,3 +1906,77 @@
+     transform: translateX(-50%) translateY(0) scale(1);
+   }
+ }
++@media (max-width: 768px) {
++  .center-word {
++    min-height: 190px;
++    margin: 22px auto 12px;
++    padding-bottom: 70px;
++  }
++
++  .letter-box {
++    opacity: 1;
++    transform: none;
++    animation: none !important;
++  }
++
++  .center-word.animate .letter-box {
++    animation: none !important;
++  }
++
++  .center-letter-card.active .letter-box,
++  .center-letter-card:hover .letter-box {
++    transform: translateY(-4px) scale(1.03);
++  }
++
++  .letter-tooltip {
++    top: calc(100% - 64px);
++    max-height: 78px;
++  }
++  @media (max-width: 768px) {
++  .command-page {
++    min-height: auto;
++  }
++
++  .hero-grid {
++    min-height: auto;
++  }
++
++  .command-panel {
++    min-height: 360px;
++  }
++
++  .ecosystem-scheme-card,
++  .vacancies-card,
++  .assistant-card {
++    min-height: 280px;
++  }
++
++  .home-projects-preview {
++    min-height: 220px;
++  }
++}
++}
++/* Stage 7 performance: stable skeletons for async home data */
++.placeholder-card {
++  opacity: .68;
++  pointer-events: none;
++}
++
++.placeholder-card .home-project-title,
++.placeholder-card p {
++  color: rgba(255, 255, 255, .58);
++}
++
++.placeholder-card .home-project-category,
++.empty-vacancy span {
++  color: transparent;
++}
++
++.stat-card-skeleton strong,
++.stat-card-skeleton span {
++  color: rgba(255, 255, 255, .42) !important;
++}
++
++.empty-vacancy .vacancies-img {
++  opacity: .45;
++}
+diff --git a/src/app/components/home/home.ts b/src/app/components/home/home.ts
+index 475e1f2..a813e67 100644
+--- a/src/app/components/home/home.ts
++++ b/src/app/components/home/home.ts
+@@ -21,7 +21,24 @@ export class Home implements OnInit, AfterViewInit, OnDestroy {
+   stats: any[] = [];
+   vacancies: any[] = [];
+   homeProjects: any[] = [];
+-  loading = false;
++  loading = true;
++  vacanciesLoaded = false;
++  homeProjectsLoaded = false;
++
++  private readonly projectSkeletons = Array.from({ length: 6 }, (_, index) => ({
++    id: `project-skeleton-${index}`,
++    slug: null,
++    title: '╨Ч╨░╨│╤А╤Г╨╖╨║╨░ ╨┐╤А╨╛╨╡╨║╤В╨░',
++    category: '',
++    loading: true
++  }));
++
++  private readonly vacancySkeletons = Array.from({ length: 3 }, (_, index) => ({
++    slug: `vacancy-skeleton-${index}`,
++    title: '╨Ч╨░╨│╤А╤Г╨╖╨║╨░ ╨▓╨░╨║╨░╨╜╤Б╨╕╨╕',
++    city: '',
++    loading: true
++  }));
+   features = features;
+   ecosystemNodes = ecosystemNodes;
+   ecosystemFeatureNodes = features.map((feature, index) => ({
+@@ -56,13 +73,26 @@ export class Home implements OnInit, AfterViewInit, OnDestroy {
+   ) { }
+ 
+   async ngOnInit() {
+-    await Promise.all([
+-      this.loadStats(),
+-      this.loadVacancies(),
+-      this.loadHomeProjects()
+-    ]);
++    // ╨Ф╨╗╤П ╨┐╨╡╤А╨▓╨╛╨│╨╛ ╤Н╨║╤А╨░╨╜╨░ ╨╜╤Г╨╢╨╜╤Л ╤В╨╛╨╗╤М╨║╨╛ hero ╨╕ stats. ╨Я╤А╨╛╨╡╨║╤В╤Л/╨▓╨░╨║╨░╨╜╤Б╨╕╨╕ ╨╜╨╕╨╢╨╡ тАФ ╨│╤А╤Г╨╖╨╕╨╝ ╨┐╨╛╤Б╨╗╨╡ ╨┐╨╡╤А╨▓╨╛╨│╨╛ ╤А╨╡╨╜╨┤╨╡╤А╨░.
++    await this.loadStats();
+ 
+-    this.zone.run(() => setTimeout(() => this.cdr.markForCheck()));
++    this.scheduleIdleWork(() => {
++      void this.loadHomeProjects();
++      void this.loadVacancies();
++    });
++  }
++
++  private scheduleIdleWork(callback: () => void): void {
++    const win = window as Window & {
++      requestIdleCallback?: (cb: () => void, options?: { timeout: number }) => number;
++    };
++
++    if (typeof win.requestIdleCallback === 'function') {
++      win.requestIdleCallback(callback, { timeout: 2500 });
++      return;
++    }
++
++    setTimeout(callback, 1200);
+   }
+ 
+   async loadStats() {
+@@ -101,10 +131,13 @@ export class Home implements OnInit, AfterViewInit, OnDestroy {
+ 
+   if (error) {
+     console.error(error);
++    this.vacanciesLoaded = true;
++    this.zone.run(() => setTimeout(() => this.cdr.markForCheck()));
+     return;
+   }
+ 
+   this.vacancies = (data || []).slice(0, 3);
++  this.vacanciesLoaded = true;
+   this.zone.run(() => setTimeout(() => this.cdr.markForCheck()));
+ }
+   async loadHomeProjects() {
+@@ -118,6 +151,8 @@ export class Home implements OnInit, AfterViewInit, OnDestroy {
+ 
+     if (error) {
+       console.error(error);
++      this.homeProjectsLoaded = true;
++      this.zone.run(() => setTimeout(() => this.cdr.markForCheck()));
+       return;
+     }
+ 
+@@ -130,21 +165,37 @@ export class Home implements OnInit, AfterViewInit, OnDestroy {
+       image: item.image_url
+     }));
+ 
++    this.homeProjectsLoaded = true;
+     this.zone.run(() => setTimeout(() => this.cdr.markForCheck()));
+   }
+ 
+-
++  private getProjectSlots(start: number, end: number): any[] {
++    const slots = this.projectSkeletons.slice(start, end);
++    return slots.map((fallback, index) => this.homeProjects[start + index] || fallback);
++  }
+ 
+   get homeProjectsLeft(): any[] {
+-    return this.homeProjects.slice(0, 3);
++    return this.getProjectSlots(0, 3);
+   }
+ 
+   get homeProjectsRight(): any[] {
+-    return this.homeProjects.slice(3, 6);
++    return this.getProjectSlots(3, 6);
+   }
+ 
+   get homeProjectsMobile(): any[] {
+-    return this.homeProjects.slice(0, 3);
++    return this.getProjectSlots(0, 3);
++  }
++
++  get vacancySlots(): any[] {
++    if (!this.vacanciesLoaded) {
++      return this.vacancySkeletons;
++    }
++
++    if (!this.vacancies.length) {
++      return [{ slug: 'vacancies-empty', title: '╨б╨╡╨╣╤З╨░╤Б ╨╛╤В╨║╤А╤Л╤В╤Л╤Е ╨▓╨░╨║╨░╨╜╤Б╨╕╨╣ ╨╜╨╡╤В', city: '', empty: true }];
++    }
++
++    return this.vacancies;
+   }
+ 
+   getProjectImageUrl(path: string | null | undefined): string {
+diff --git a/src/app/components/navigation/navigation.html b/src/app/components/navigation/navigation.html
+index b2febcc..9099120 100644
+--- a/src/app/components/navigation/navigation.html
++++ b/src/app/components/navigation/navigation.html
+@@ -3,7 +3,7 @@
+     <!-- Logo -->
+     <a routerLink="/" class="logo" (click)="closeMobileMenu()">
+       <div class="logo-icon">
+-        <img src="/icons/ddc_logo.svg" alt="DDC Logo" class="logo-image">
++        <img src="/icons/ddc_logo.svg"  width="48" height="48" alt="DDC Logo" class="logo-image">
+       </div>
+       <span class="logo-text">DDC<span class="logo-accent">.KZ</span></span>
+     </a>
+diff --git a/src/app/data/footer.data.ts b/src/app/data/footer.data.ts
+index 2297865..902ad2f 100644
+--- a/src/app/data/footer.data.ts
++++ b/src/app/data/footer.data.ts
+@@ -32,5 +32,5 @@ export const OFFICIAL_SITES: OfficialSite[] = [
+ export const SOCIAL_LINKS: SocialLink[] = [
+   { icon: 'icons/instagram.svg', url: 'https://www.instagram.com/bsbnb.kz/', title: 'Instagram' },
+   { icon: 'icons/telegram.svg', url: '', title: 'Telegram' },
+-  { icon: 'icons/mail.png', url: 'mailto:info@bsbnb.kz', title: 'Mail' }
++  { icon: 'icons/mail.svg', url: 'mailto:info@bsbnb.kz', title: 'Mail' }
+ ];
+diff --git a/src/app/services/digital-dna.service.ts b/src/app/services/digital-dna.service.ts
+index 88d79a2..43fab29 100644
+--- a/src/app/services/digital-dna.service.ts
++++ b/src/app/services/digital-dna.service.ts
+@@ -49,6 +49,9 @@ export class DigitalDnaService implements OnDestroy {
+ 
+   private initCanvas(): void {
+     if (this.isInitialized) return;
++    const isMobile = window.innerWidth < 992 || window.matchMedia('(pointer: coarse)').matches; 
++    if (isMobile) 
++      { return; }
+     
+     try {
+       this.canvas = document.createElement('canvas');
+diff --git a/src/styles.scss b/src/styles.scss
+index 79c7032..f9eb96a 100644
+--- a/src/styles.scss
++++ b/src/styles.scss
+@@ -76,12 +76,12 @@ $z-tooltip: 600;
+ 
+ // Fonts
+ $font-display:
+-  "Clash Display",
+   "Inter",
+   -apple-system,
+   BlinkMacSystemFont,
+   "Segoe UI",
+   Roboto,
++  system-ui,
+   sans-serif;
+ $font-body:
+   "Inter",
+@@ -654,7 +654,7 @@ h3,
+ h4,
+ h5,
+ h6 {
+-  font-family: "Clash Display", Arial, sans-serif;
++  font-family: Inter, Arial, sans-serif;
+ }
+ 
+ // Digital DNA Canvas

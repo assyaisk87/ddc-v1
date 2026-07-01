@@ -21,7 +21,24 @@ export class Home implements OnInit, AfterViewInit, OnDestroy {
   stats: any[] = [];
   vacancies: any[] = [];
   homeProjects: any[] = [];
-  loading = false;
+  loading = true;
+  vacanciesLoaded = false;
+  homeProjectsLoaded = false;
+
+  private readonly projectSkeletons = Array.from({ length: 6 }, (_, index) => ({
+    id: `project-skeleton-${index}`,
+    slug: null,
+    title: 'Загрузка проекта',
+    category: '',
+    loading: true
+  }));
+
+  private readonly vacancySkeletons = Array.from({ length: 3 }, (_, index) => ({
+    slug: `vacancy-skeleton-${index}`,
+    title: 'Загрузка вакансии',
+    city: '',
+    loading: true
+  }));
   features = features;
   ecosystemNodes = ecosystemNodes;
   ecosystemFeatureNodes = features.map((feature, index) => ({
@@ -56,13 +73,26 @@ export class Home implements OnInit, AfterViewInit, OnDestroy {
   ) { }
 
   async ngOnInit() {
-    await Promise.all([
-      this.loadStats(),
-      this.loadVacancies(),
-      this.loadHomeProjects()
-    ]);
+    // Для первого экрана нужны только hero и stats. Проекты/вакансии ниже — грузим после первого рендера.
+    await this.loadStats();
 
-    this.zone.run(() => setTimeout(() => this.cdr.markForCheck()));
+    this.scheduleIdleWork(() => {
+      void this.loadHomeProjects();
+      void this.loadVacancies();
+    });
+  }
+
+  private scheduleIdleWork(callback: () => void): void {
+    const win = window as Window & {
+      requestIdleCallback?: (cb: () => void, options?: { timeout: number }) => number;
+    };
+
+    if (typeof win.requestIdleCallback === 'function') {
+      win.requestIdleCallback(callback, { timeout: 2500 });
+      return;
+    }
+
+    setTimeout(callback, 1200);
   }
 
   async loadStats() {
@@ -101,10 +131,13 @@ export class Home implements OnInit, AfterViewInit, OnDestroy {
 
   if (error) {
     console.error(error);
+    this.vacanciesLoaded = true;
+    this.zone.run(() => setTimeout(() => this.cdr.markForCheck()));
     return;
   }
 
   this.vacancies = (data || []).slice(0, 3);
+  this.vacanciesLoaded = true;
   this.zone.run(() => setTimeout(() => this.cdr.markForCheck()));
 }
   async loadHomeProjects() {
@@ -118,6 +151,8 @@ export class Home implements OnInit, AfterViewInit, OnDestroy {
 
     if (error) {
       console.error(error);
+      this.homeProjectsLoaded = true;
+      this.zone.run(() => setTimeout(() => this.cdr.markForCheck()));
       return;
     }
 
@@ -130,21 +165,37 @@ export class Home implements OnInit, AfterViewInit, OnDestroy {
       image: item.image_url
     }));
 
+    this.homeProjectsLoaded = true;
     this.zone.run(() => setTimeout(() => this.cdr.markForCheck()));
   }
 
-
+  private getProjectSlots(start: number, end: number): any[] {
+    const slots = this.projectSkeletons.slice(start, end);
+    return slots.map((fallback, index) => this.homeProjects[start + index] || fallback);
+  }
 
   get homeProjectsLeft(): any[] {
-    return this.homeProjects.slice(0, 3);
+    return this.getProjectSlots(0, 3);
   }
 
   get homeProjectsRight(): any[] {
-    return this.homeProjects.slice(3, 6);
+    return this.getProjectSlots(3, 6);
   }
 
   get homeProjectsMobile(): any[] {
-    return this.homeProjects.slice(0, 3);
+    return this.getProjectSlots(0, 3);
+  }
+
+  get vacancySlots(): any[] {
+    if (!this.vacanciesLoaded) {
+      return this.vacancySkeletons;
+    }
+
+    if (!this.vacancies.length) {
+      return [{ slug: 'vacancies-empty', title: 'Сейчас открытых вакансий нет', city: '', empty: true }];
+    }
+
+    return this.vacancies;
   }
 
   getProjectImageUrl(path: string | null | undefined): string {

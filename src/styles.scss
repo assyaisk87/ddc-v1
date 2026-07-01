@@ -76,12 +76,12 @@ $z-tooltip: 600;
 
 // Fonts
 $font-display:
-  "Clash Display",
   "Inter",
   -apple-system,
   BlinkMacSystemFont,
   "Segoe UI",
   Roboto,
+  system-ui,
   sans-serif;
 $font-body:
   "Inter",
@@ -654,7 +654,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Clash Display", Arial, sans-serif;
+  font-family: Inter, Arial, sans-serif;
 }
 
 // Digital DNA Canvas
