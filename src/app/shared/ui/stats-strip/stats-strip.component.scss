@@ -115,7 +115,6 @@
     flex-direction: column;
   }
 }
-:host-context([data-theme="light"]) .stats-line,
 :host-context([data-theme="nbk"]) .stats-line {
   background: linear-gradient(
     90deg,
@@ -124,4 +123,27 @@
     #9c7c07,
     transparent
   ) !important;
+}
+
+
+/* NBK theme: green numbers and gold separators */
+:host-context([data-theme="nbk"]) .stat-value,
+:host-context([data-theme="nbk"]) .stat-item strong {
+  color: #0f3a24 !important;
+  -webkit-text-fill-color: #0f3a24 !important;
+  background: none !important;
+  background-clip: initial !important;
+  -webkit-background-clip: initial !important;
+  filter: none !important;
+}
+
+:host-context([data-theme="nbk"]) .stat-label{
+color: #9c7c07;
+}
+
+:host-context([data-theme="nbk"]) .stat-dot {
+  background: #b99728 !important;
+  box-shadow:
+    0 0 10px rgba(185, 151, 40, 0.55),
+    0 0 24px rgba(185, 151, 40, 0.28) !important;
 }

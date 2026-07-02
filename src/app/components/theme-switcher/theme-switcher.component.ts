@@ -98,7 +98,7 @@ import { ThemeService, type ThemeName } from '../../services/theme.service';
   `],
 })
 export class ThemeSwitcherComponent implements OnInit {
-  availableThemes = this.themeService.getAvailableThemes().slice(0, 3); // Show main themes only
+  availableThemes = this.themeService.getAvailableThemes();
   currentTheme = this.themeService.currentTheme;
 
   constructor(private themeService: ThemeService) {}
@@ -113,11 +113,8 @@ export class ThemeSwitcherComponent implements OnInit {
 
   getThemeIcon(theme: ThemeName): string {
     const iconMap: Record<ThemeName, string> = {
-      dark: '🌙',
-      futuristic: '✨',
-      light: '☀️',
-      'national-bank': '🏛️',
-      corporate: '💼',
+      digital: '🌙',
+      nbk: '🏛️',
     };
     return iconMap[theme] || '⚙️';
   }

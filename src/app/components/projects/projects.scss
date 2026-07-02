@@ -704,14 +704,11 @@
 /* Light/NBK project tuning */
 
 
-:host-context([data-theme="light"]) .project-title,
 :host-context([data-theme="nbk"]) .project-title,
-:host-context([data-theme="light"]) .project-title h3,
 :host-context([data-theme="nbk"]) .project-title h3 {
   color: #0e4c28 !important;
 }
 
-:host-context([data-theme="light"]) .monitor-screen,
 :host-context([data-theme="nbk"]) .monitor-screen {
   border: 2px solid rgba(14, 76, 40, 0.42);
   box-shadow:
@@ -719,7 +716,6 @@
     inset 0 0 24px rgba(22, 111, 67, 0.12);
 }
 
-:host-context([data-theme="light"]) .monitor-stand::before,
 :host-context([data-theme="nbk"]) .monitor-stand::before {
   background: linear-gradient(
     to bottom,
@@ -728,22 +724,17 @@
   );
 }
 
-:host-context([data-theme="light"]) .monitor-stand::after,
 :host-context([data-theme="nbk"]) .monitor-stand::after {
   border: 1px solid rgba(14, 76, 40, 0.34);
   box-shadow: 0 0 18px rgba(14, 76, 40, 0.16);
 }
 
-:host-context([data-theme="light"]) .modal-description,
 :host-context([data-theme="nbk"]) .modal-description,
-:host-context([data-theme="light"]) .modal-section ul,
 :host-context([data-theme="nbk"]) .modal-section ul,
-:host-context([data-theme="light"]) .metric-label,
 :host-context([data-theme="nbk"]) .metric-label {
   color: $brand-color !important;
 }
 
-:host-context([data-theme="light"]) .modal-visit-btn,
 :host-context([data-theme="nbk"]) .modal-visit-btn {
   background: #9c7c07 !important;
   background-image: none !important;
@@ -752,7 +743,6 @@
   box-shadow: 0 10px 24px rgba(156, 124, 7, 0.24) !important;
 }
 
-:host-context([data-theme="light"]) .modal-visit-btn:hover,
 :host-context([data-theme="nbk"]) .modal-visit-btn:hover {
   background: #9c7c07 !important;
   background-image: none !important;

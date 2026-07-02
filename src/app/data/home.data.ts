@@ -155,7 +155,7 @@ export const poweredByPartners: Partner[] = [
   {
     name: 'Java',
     description: 'Enterprise platform',
-    icon: 'icons/poweredby/icons8-логотип-java-coffee-cup.svg',
+    icon: 'icons/poweredby/java.svg',
     color: '#007396',
     category: 'Backend'
   },

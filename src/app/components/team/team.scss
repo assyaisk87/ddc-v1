@@ -709,3 +709,8 @@ a.btn {
     @include button-primary;
   }
 }
+
+/* White text for gold buttons in NBK theme */
+:host-context([data-theme="nbk"]) .btn-primary {
+  color: #ffffff !important;
+}

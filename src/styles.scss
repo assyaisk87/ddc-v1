@@ -21,29 +21,29 @@ $error-color: var(--color-error);
 // Brand Design Tokens (NBK reference)
 $base-font-size: 16px;
 
-$brand-color: #0e4c28;
-$brand-color-2: #166f43;
-$brand-color-3: #e4edea;
-$brand-color-4: #f2f7f5;
+$brand-color: var(--color-primary);
+$brand-color-2: var(--color-primary-light);
+$brand-color-3: var(--color-surface-dark);
+$brand-color-4: var(--color-bg);
 
-$accent-color-gold: #9c7c07;
-$accent-color-gold-2: #b09e5d;
-$accent-color-gold-3: #faf7ec;
-$accent-color-gold-4: #f1c94d;
+$accent-color-gold: var(--color-secondary);
+$accent-color-gold-2: var(--color-secondary-light);
+$accent-color-gold-3: var(--color-surface-elevated);
+$accent-color-gold-4: var(--color-warning-light);
 
-$dark-red: #8c271f;
-$danger: #dc3545;
-$custom-primary: #166f43;
+$dark-red: var(--color-error-dark);
+$danger: var(--color-error);
+$custom-primary: var(--color-primary-light);
 
-$dark-1: #000;
-$gray: #555;
-$gray-2: #777;
-$gray-3: #c4c4c4;
-$gray-5: #e4e9ef;
-$gray-6: #eeeeee;
+$dark-1: var(--color-surface-darker);
+$gray: var(--color-text-primary);
+$gray-2: var(--color-text-secondary);
+$gray-3: var(--color-text-muted);
+$gray-5: var(--color-surface-dark);
+$gray-6: var(--color-surface-darker);
 
 $font-color: $gray;
-$highlight-color: #bf9000;
+$highlight-color: var(--color-warning-dark);
 
 $base-bold: "OpenSans-Bold";
 $base-light: "OpenSans-Light";
@@ -250,7 +250,7 @@ $max-container-width: 1680px;
   @include button-base($radius);
   @include button-shine;
   background: $gradient-primary;
-  color: $text-primary;
+  color: #ffffff;
 
   &:hover {
     transform: translateY(-2px);
@@ -658,7 +658,7 @@ $max-container-width: 1680px;
   background:
     radial-gradient(circle at top right, rgba(123, 44, 191, 0.18), transparent 34%),
     radial-gradient(circle at bottom left, rgba(0, 212, 255, 0.12), transparent 36%),
-    #10131c;
+    var(--color-surface-darker);
   border-color: rgba(255, 255, 255, 0.12);
 }
 
@@ -735,7 +735,7 @@ h6 {
 
 .text-gradient-accent {
   @include gradient-text(
-    linear-gradient(135deg, #00d4ff 0%, #7b2cbf 50%, #ff006e 100%)
+    linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 50%, var(--color-tertiary) 100%)
   );
 }
 
@@ -1145,7 +1145,7 @@ h6 {
 
   background:
     linear-gradient($dark-bg, $dark-bg) padding-box,
-    linear-gradient(135deg, #00d4ff, #7b2cbf) border-box;
+    linear-gradient(135deg, var(--color-primary), var(--color-secondary)) border-box;
 
   animation: spin 1s linear infinite;
 
@@ -1172,8 +1172,7 @@ h6 {
   }
 }
 
-/* Theme-specific surface cleanup for light/NBK mode */
-[data-theme="light"],
+/* Theme-specific surface cleanup for NBK mode */
 [data-theme="nbk"] {
   #digital-dna-canvas,
   app-digital-dna,
@@ -1186,24 +1185,24 @@ h6 {
     background-clip: initial !important;
     -webkit-background-clip: initial !important;
     -webkit-text-fill-color: currentColor !important;
-    color: #9c7c07 !important;
+    color: var(--color-secondary) !important;
     text-shadow: none !important;
   }
 
   .section-title {
-    color: #9c7c07 !important;
+    color: var(--color-secondary) !important;
   }
 
   :is(.section-badge, .hero-badge, .category-btn, .filter-chip) {
     background: rgba(199, 162, 76, 0.1) !important;
     border-color: rgba(199, 162, 76, 0.34) !important;
-    color: #9c7c07 !important;
+    color: var(--color-secondary) !important;
     box-shadow: 0 0 0 1px rgba(199, 162, 76, 0.08) inset !important;
   }
 
   :is(.btn-primary, .btn-cta, .apply-btn, .friend-btn) {
-    background: linear-gradient(135deg, #9c7c07 0%, #d6b45f 100%) !important;
-    color: #ffffff !important;
+    background: linear-gradient(135deg, var(--color-secondary) 0%, var(--color-secondary-light) 100%) !important;
+    color: var(--color-text-primary);
     border-color: rgba(199, 162, 76, 0.36) !important;
     box-shadow: 0 0 0 1px rgba(199, 162, 76, 0.18), 0 14px 30px rgba(199, 162, 76, 0.16) !important;
   }
@@ -1213,23 +1212,28 @@ h6 {
   }
 
   :is(.btn-primary, .btn-cta, .apply-btn, .friend-btn) :is(.btn-text, span) {
+    color: var(--color-text-primary);
+  }
+
+  /* White text for gold buttons in NBK theme */
+  :host-context([data-theme="nbk"]) :is(.btn-primary, .btn-cta, .apply-btn, .friend-btn) :is(.btn-text, span) {
     color: #ffffff !important;
   }
 
   .main-director-position,
   .ceo-main-position {
-    color: #9c7c07 !important;
+    color: var(--color-secondary) !important;
   }
 
   app-services,
   .services-container {
-    --service-color: #9c7c07 !important;
-    --service-purple: #166f43 !important;
+    --service-color: var(--color-secondary) !important;
+    --service-purple: var(--color-primary-light) !important;
     --service-border: rgba(156, 124, 7, 0.24) !important;
   }
 
   .command-page {
-    background: #ffffff !important;
+    background: var(--color-surface) !important;
   }
 
   .center-core,
@@ -1268,8 +1272,8 @@ h6 {
   .vacancy-department,
   .project-category,
   .stat-value {
-    color: #9c7c07 !important;
-    fill: #9c7c07 !important;
+    color: var(--color-secondary) !important;
+    fill: var(--color-secondary) !important;
   }
 
   .connections-svg path,
@@ -1294,12 +1298,12 @@ h6 {
   .orbit-ring,
   .ring-2,
   .ring-3 {
-    border-color: rgba(156, 124, 7, 0.28) !important;
+    border-color: rgba(22, 111, 67, 0.28) !important;
   }
 
   .orbit-card::after,
   .letter-tooltip {
-    color: #555555 !important;
+    color: var(--color-text-primary) !important;
   }
 
   :is(.glass-card, .ecosystem-scheme-card, .assistant-card, .vacancies-card, .command-panel, .stat-card, .system-status, .project-modal, .vacancy-modal, .flip-card-front) {

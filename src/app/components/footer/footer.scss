@@ -106,7 +106,7 @@
     }
 
     .logo-accent {
-      color: $accent-color-gold;
+      color: $primary-color;
     }
   }
 
@@ -247,7 +247,6 @@
   }
 }
 
-:host-context([data-theme="light"]) .footer,
 :host-context([data-theme="nbk"]) .footer {
   background: #0e4c28;
   border-top: 1px solid rgba(255, 255, 255, 0.18);
@@ -315,7 +314,10 @@
   object-fit: contain;
 }
 
-:host-context([data-theme="light"]) .footer-logo,
 :host-context([data-theme="nbk"]) .footer-logo {
   color: white !important;
+}
+
+:host-context([data-theme="nbk"]) .logo-accent {
+  color: $accent-color-gold !important;
 }

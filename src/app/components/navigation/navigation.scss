@@ -78,16 +78,13 @@
   }
 }
 
-[data-theme="dark"] .navigation,
-[data-theme="digital"] .navigation,
-[data-theme="futuristic"] .navigation {
+[data-theme="digital"] .navigation {
   &.interacted {
     background: rgba(10, 10, 15, 0.95);
     border-bottom: 1px solid rgba(255, 255, 255, 0.12);
   }
 }
 
-:host-context([data-theme="light"]) .navigation,
 :host-context([data-theme="nbk"]) .navigation {
   background: #0e4c28;
 
@@ -115,9 +112,12 @@
 
   .language-switcher .lang-btn,
   .mobile-language-switcher .lang-btn,
-  .theme-switcher .theme-btn,
-  .theme-switcher .theme-separator,
   .language-switcher .lang-separator {
+    color: rgba(255, 255, 255, 0.78);
+  }
+
+  .theme-switcher .theme-btn,
+  .theme-switcher .theme-separator {
     color: #ffffff;
   }
 
@@ -127,9 +127,9 @@
 
   .language-switcher .lang-btn.active,
   .mobile-language-switcher .lang-btn.active {
-    color: #ffffff;
-    background: linear-gradient(135deg, #9c7c07, #b09e5d);
-    box-shadow: $shadow-glow-secondary;
+    color: #9c7c07;
+    background: transparent;
+    box-shadow: none;
   }
 
   .theme-switcher .theme-btn.active {
@@ -422,7 +422,6 @@
     transition: .3s ease;
   }
 
-  :host-context([data-theme="light"]) .nav-menu,
   :host-context([data-theme="nbk"]) .nav-menu {
     background: #0e4c28;
   }

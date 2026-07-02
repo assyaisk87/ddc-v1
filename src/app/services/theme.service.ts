@@ -1,6 +1,7 @@
 import { Injectable, signal, effect } from '@angular/core';
 
-export type ThemeName = 'digital' | 'futuristic' | 'light' | 'nbk' | 'national-bank' | 'corporate';
+type LegacyThemeName = 'dark' | 'futuristic' | 'light' | 'national-bank' | 'corporate';
+export type ThemeName = 'digital' | 'nbk';
 
 @Injectable({
   providedIn: 'root',
@@ -20,29 +21,9 @@ export class ThemeService {
       description: 'Default dark theme with cyan and purple accents',
     },
     {
-      name: 'futuristic',
-      label: 'Futuristic',
-      description: 'Alias for digital theme',
-    },
-    {
-      name: 'light',
-      label: 'Light Professional',
-      description: 'Light theme for professional settings',
-    },
-    {
       name: 'nbk',
       label: 'NBK (Light)',
       description: 'National Bank premium theme with green & gold',
-    },
-    {
-      name: 'national-bank',
-      label: 'National Bank',
-      description: 'Corporate green & gold theme (legacy)',
-    },
-    {
-      name: 'corporate',
-      label: 'Corporate',
-      description: 'Alias for national bank theme',
     },
   ];
 
@@ -82,11 +63,11 @@ export class ThemeService {
   }
 
   /**
-   * Toggle between dark and light themes
+   * Toggle between the two supported themes
    */
   toggleDarkLight(): void {
     const current = this.currentTheme();
-    const newTheme: ThemeName = current === 'light' ? 'digital' : 'light';
+    const newTheme: ThemeName = current === 'nbk' ? 'digital' : 'nbk';
     this.setTheme(newTheme);
   }
 
@@ -132,14 +113,16 @@ export class ThemeService {
    * Load theme from localStorage
    */
   private loadSavedTheme(): void {
-    const savedTheme = localStorage.getItem(this.THEME_STORAGE_KEY) as ThemeName | null;
+    const savedTheme = localStorage.getItem(this.THEME_STORAGE_KEY);
+    const normalizedTheme = this.normalizeTheme(savedTheme);
 
-    if (savedTheme && this.isValidTheme(savedTheme)) {
-      this.currentTheme.set(savedTheme);
+    if (normalizedTheme) {
+      this.currentTheme.set(normalizedTheme);
+      this.saveTheme(normalizedTheme);
     } else {
       // Check system preference
       const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      this.currentTheme.set(prefersDark ? 'digital' : 'light');
+      this.currentTheme.set(prefersDark ? 'digital' : 'nbk');
     }
   }
 
@@ -154,7 +137,30 @@ export class ThemeService {
    * Validate if theme name is valid
    */
   private isValidTheme(theme: string): theme is ThemeName {
-    return ['digital', 'futuristic', 'light', 'nbk', 'national-bank', 'corporate'].includes(theme);
+    return ['digital', 'nbk'].includes(theme);
+  }
+
+  /**
+   * Normalize legacy theme values to the two supported themes
+   */
+  private normalizeTheme(theme: string | null): ThemeName | null {
+    if (!theme) {
+      return null;
+    }
+
+    if (this.isValidTheme(theme)) {
+      return theme;
+    }
+
+    const legacyMap: Record<LegacyThemeName, ThemeName> = {
+      dark: 'digital',
+      futuristic: 'digital',
+      light: 'nbk',
+      'national-bank': 'nbk',
+      corporate: 'nbk',
+    };
+
+    return legacyMap[theme as LegacyThemeName] ?? null;
   }
 
   /**
