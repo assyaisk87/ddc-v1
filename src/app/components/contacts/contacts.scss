@@ -479,3 +479,65 @@
     transform: translateY(0);
   }
 }
+
+:host-context([data-theme="light"]) .contact-form .form-group .form-input,
+:host-context([data-theme="nbk"]) .contact-form .form-group .form-input {
+  border: 1px solid rgba(156, 124, 7, 0.42);
+}
+
+:host-context([data-theme="light"]) .contact-form .form-group .form-input:focus,
+:host-context([data-theme="nbk"]) .contact-form .form-group .form-input:focus {
+  border-color: #9c7c07;
+  box-shadow: 0 0 0 3px rgba(156, 124, 7, 0.14), 0 0 18px rgba(156, 124, 7, 0.16);
+}
+
+:host-context([data-theme="light"]) .contact-form .form-group .select-wrapper::after,
+:host-context([data-theme="nbk"]) .contact-form .form-group .select-wrapper::after {
+  border-right-color: #9c7c07;
+  border-bottom-color: #9c7c07;
+}
+
+:host-context([data-theme="light"]) .contact-form .form-group select.form-input,
+:host-context([data-theme="nbk"]) .contact-form .form-group select.form-input {
+  border: 1px solid rgba(156, 124, 7, 0.42);
+  color: #555555;
+
+  option {
+    color: #555555;
+    background: #faf7ec;
+  }
+
+  option:disabled {
+    color: #777777;
+  }
+}
+
+:host-context([data-theme="light"]) .contact-form .form-group .file-upload,
+:host-context([data-theme="nbk"]) .contact-form .form-group .file-upload {
+  border: 1px dashed rgba(156, 124, 7, 0.45);
+}
+
+:host-context([data-theme="light"]) .contact-form .form-group .file-upload:hover,
+:host-context([data-theme="nbk"]) .contact-form .form-group .file-upload:hover,
+:host-context([data-theme="light"]) .contact-form .form-group .file-upload:focus-within,
+:host-context([data-theme="nbk"]) .contact-form .form-group .file-upload:focus-within {
+  border-color: #9c7c07;
+  box-shadow: 0 0 0 3px rgba(156, 124, 7, 0.14), 0 0 18px rgba(156, 124, 7, 0.16);
+}
+
+:host-context([data-theme="light"]) .contact-form .form-group .file-trigger,
+:host-context([data-theme="nbk"]) .contact-form .form-group .file-trigger {
+  color: #9c7c07;
+  background: rgba(156, 124, 7, 0.1);
+  border: 1px solid rgba(156, 124, 7, 0.38);
+}
+
+:host-context([data-theme="light"]) .contact-form .form-group .file-trigger:hover,
+:host-context([data-theme="nbk"]) .contact-form .form-group .file-trigger:hover {
+  background: rgba(156, 124, 7, 0.16);
+}
+
+:host-context([data-theme="light"]) .contact-form .form-group .file-icon,
+:host-context([data-theme="nbk"]) .contact-form .form-group .file-icon {
+  color: #9c7c07;
+}

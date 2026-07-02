@@ -115,3 +115,13 @@
     flex-direction: column;
   }
 }
+:host-context([data-theme="light"]) .stats-line,
+:host-context([data-theme="nbk"]) .stats-line {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #166f43,
+    #9c7c07,
+    transparent
+  ) !important;
+}

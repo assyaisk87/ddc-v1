@@ -45,6 +45,29 @@
         </button>
       </div>
 
+      <!-- Theme Switcher -->
+      <div class="theme-switcher">
+        <button 
+          class="theme-btn" 
+          [class.active]="currentTheme() === 'digital'"
+          (click)="setTheme('digital')"
+          title="Digital Theme"
+        >
+          <span class="theme-label">digital</span>
+          <span class="theme-sub">dark</span>
+        </button>
+        <span class="theme-separator">|</span>
+        <button 
+          class="theme-btn" 
+          [class.active]="currentTheme() === 'nbk'"
+          (click)="setTheme('nbk')"
+          title="NBK Theme"
+        >
+          <span class="theme-label">nbk</span>
+          <span class="theme-sub">light</span>
+        </button>
+      </div>
+
       <!-- CTA Button -->
       <a routerLink="/contacts" class="btn-cta" (click)="closeMobileMenu()">
         {{ 'contacts.title' | translate }}

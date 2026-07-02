@@ -10,11 +10,18 @@
   transition: all $transition-base;
   z-index: 1000;
   
+  background: transparent;
+
   &.scrolled {
-    background: rgba(10, 10, 15, 0.95);
+    background: transparent;
     backdrop-filter: blur(20px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid transparent;
     padding: $spacing-md 0;
+  }
+
+  &.interacted {
+    background: rgba(10, 10, 15, 0.95);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   }
   
   .nav-container {
@@ -63,9 +70,80 @@
     font-family: $font-display;
     font-size: 1.5rem;
     font-weight: 700;
+    color: $text-primary;
     
     .logo-accent {
       color: $primary-color;
+    }
+  }
+}
+
+[data-theme="dark"] .navigation,
+[data-theme="digital"] .navigation,
+[data-theme="futuristic"] .navigation {
+  &.interacted {
+    background: rgba(10, 10, 15, 0.95);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  }
+}
+
+:host-context([data-theme="light"]) .navigation,
+:host-context([data-theme="nbk"]) .navigation {
+  background: #0e4c28;
+
+  &.scrolled {
+    background: #0e4c28;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+  }
+
+  .logo-text {
+    color: #ffffff;
+
+    .logo-accent {
+      color: $accent-color-gold
+    }
+  }
+
+  .nav-menu .menu-list .menu-item .menu-link {
+    color: rgba(255, 255, 255, 0.88);
+
+    &:hover,
+    &.active {
+      color: #ffffff;
+    }
+  }
+
+  .language-switcher .lang-btn,
+  .mobile-language-switcher .lang-btn,
+  .theme-switcher .theme-btn,
+  .theme-switcher .theme-separator,
+  .language-switcher .lang-separator {
+    color: #ffffff;
+  }
+
+  .nav-menu .menu-list .menu-item .menu-link::after {
+    background: linear-gradient(135deg, #9c7c07, #b09e5d);
+  }
+
+  .language-switcher .lang-btn.active,
+  .mobile-language-switcher .lang-btn.active {
+    color: #ffffff;
+    background: linear-gradient(135deg, #9c7c07, #b09e5d);
+    box-shadow: $shadow-glow-secondary;
+  }
+
+  .theme-switcher .theme-btn.active {
+    background: linear-gradient(135deg, #9c7c07, #b09e5d);
+    box-shadow: 0 0 0 1px rgba(156, 124, 7, 0.34), $shadow-glow-secondary;
+  }
+
+  .btn-cta {
+    background: linear-gradient(135deg, #9c7c07, #b09e5d);
+    color: #ffffff;
+    box-shadow: $shadow-glow-secondary;
+
+    &:hover {
+      box-shadow: 0 0 0 1px rgba(156, 124, 7, 0.34), $shadow-glow-secondary;
     }
   }
 }
@@ -144,11 +222,70 @@
     
     &.active {
       color: $primary-color;
+      background: transparent;
+      box-shadow: none;
     }
   }
   
   .lang-separator {
     color: $text-muted;
+  }
+}
+
+// Theme Switcher
+.theme-switcher {
+  display: flex;
+  align-items: center;
+  gap: $spacing-xs;
+  padding: $spacing-xs;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(10px);
+
+  .theme-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.82);
+    cursor: pointer;
+    padding: $spacing-xs $spacing-sm;
+    border-radius: 999px;
+    transition: all $transition-base;
+    min-width: 56px;
+
+    &:hover {
+      color: $text-primary;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    &.active {
+      color: #ffffff;
+      background: $gradient-primary;
+      box-shadow: $shadow-glow-primary;
+    }
+
+    .theme-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      line-height: 1;
+    }
+
+    .theme-sub {
+      font-size: 0.65rem;
+      opacity: 0.8;
+      line-height: 1.2;
+    }
+  }
+
+  .theme-separator {
+    color: $text-muted;
+    font-size: 0.7rem;
   }
 }
 
@@ -161,6 +298,7 @@
   text-decoration: none;
   border-radius: $radius-md;
   transition: all $transition-base;
+  box-shadow: $shadow-glow-primary;
   
   &:hover {
     transform: translateY(-2px);
@@ -252,6 +390,8 @@
     
     &.active {
       color: $primary-color;
+      background: transparent;
+      box-shadow: none;
     }
   }
   
@@ -280,6 +420,11 @@
     visibility: hidden;
 
     transition: .3s ease;
+  }
+
+  :host-context([data-theme="light"]) .nav-menu,
+  :host-context([data-theme="nbk"]) .nav-menu {
+    background: #0e4c28;
   }
 
   .nav-menu.open {

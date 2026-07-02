@@ -1,0 +1,591 @@
+// ============================================================================
+// THEME SYSTEM - CSS Custom Properties
+// ============================================================================
+// This file defines the complete theme system with multiple color schemes
+// All colors are exposed as CSS variables that can be switched at runtime
+
+// ============================================================================
+// 1. PRIMARY THEME (Current - Futuristic Dark)
+// ============================================================================
+
+:root,
+[data-theme="dark"],
+[data-theme="digital"],
+[data-theme="futuristic"] {
+  // Primary Colors
+  --color-primary: #00d4ff;
+  --color-primary-rgb: 0, 212, 255;
+  --color-primary-light: #8de3ff;
+  --color-primary-dark: #0099cc;
+  --color-primary-alpha-05: rgba(0, 212, 255, 0.05);
+  --color-primary-alpha-08: rgba(0, 212, 255, 0.08);
+  --color-primary-alpha-1: rgba(0, 212, 255, 0.1);
+  --color-primary-alpha-12: rgba(0, 212, 255, 0.12);
+  --color-primary-alpha-14: rgba(0, 212, 255, 0.14);
+  --color-primary-alpha-16: rgba(0, 212, 255, 0.16);
+  --color-primary-alpha-18: rgba(0, 212, 255, 0.18);
+  --color-primary-alpha-2: rgba(0, 212, 255, 0.2);
+  --color-primary-alpha-22: rgba(0, 212, 255, 0.22);
+  --color-primary-alpha-24: rgba(0, 212, 255, 0.24);
+  --color-primary-alpha-26: rgba(0, 212, 255, 0.26);
+  --color-primary-alpha-28: rgba(0, 212, 255, 0.28);
+  --color-primary-alpha-3: rgba(0, 212, 255, 0.3);
+  --color-primary-alpha-32: rgba(0, 212, 255, 0.32);
+  --color-primary-alpha-34: rgba(0, 212, 255, 0.34);
+  --color-primary-alpha-4: rgba(0, 212, 255, 0.4);
+  --color-primary-alpha-42: rgba(0, 212, 255, 0.42);
+  --color-primary-alpha-48: rgba(0, 212, 255, 0.48);
+  --color-primary-alpha-5: rgba(0, 212, 255, 0.5);
+  --color-primary-alpha-55: rgba(0, 212, 255, 0.55);
+  --color-primary-alpha-58: rgba(0, 212, 255, 0.58);
+  --color-primary-alpha-62: rgba(0, 212, 255, 0.62);
+  --color-primary-alpha-68: rgba(0, 212, 255, 0.68);
+  --color-primary-alpha-7: rgba(0, 212, 255, 0.7);
+  --color-primary-alpha-75: rgba(0, 212, 255, 0.75);
+  --color-primary-alpha-78: rgba(0, 212, 255, 0.78);
+  --color-primary-alpha-82: rgba(0, 212, 255, 0.82);
+  --color-primary-alpha-9: rgba(0, 212, 255, 0.9);
+  --color-primary-alpha-92: rgba(0, 212, 255, 0.92);
+
+  // Secondary Colors (Purple)
+  --color-secondary: #7b2cbf;
+  --color-secondary-rgb: 123, 44, 191;
+  --color-secondary-light: #a855f7;
+  --color-secondary-dark: #5a1a8a;
+  --color-secondary-alpha-05: rgba(123, 44, 191, 0.05);
+  --color-secondary-alpha-1: rgba(123, 44, 191, 0.1);
+  --color-secondary-alpha-12: rgba(123, 44, 191, 0.12);
+  --color-secondary-alpha-16: rgba(123, 44, 191, 0.16);
+  --color-secondary-alpha-18: rgba(123, 44, 191, 0.18);
+  --color-secondary-alpha-2: rgba(123, 44, 191, 0.2);
+  --color-secondary-alpha-22: rgba(123, 44, 191, 0.22);
+  --color-secondary-alpha-25: rgba(123, 44, 191, 0.25);
+  --color-secondary-alpha-3: rgba(123, 44, 191, 0.3);
+  --color-secondary-alpha-35: rgba(123, 44, 191, 0.35);
+  --color-secondary-alpha-5: rgba(123, 44, 191, 0.5);
+  --color-secondary-alpha-74: rgba(123, 44, 191, 0.74);
+  --color-secondary-alpha-85: rgba(123, 44, 191, 0.85);
+  --color-secondary-alpha-95: rgba(123, 44, 191, 0.95);
+
+  // Tertiary/Accent Colors (Pink/Magenta)
+  --color-tertiary: #ff006e;
+  --color-tertiary-rgb: 255, 0, 110;
+  --color-tertiary-light: #ff4d8b;
+  --color-tertiary-dark: #cc0057;
+
+  // Success Color (Green)
+  --color-success: #00ffa3;
+  --color-success-rgb: 0, 255, 163;
+  --color-success-light: #33ffb5;
+  --color-success-dark: #00cc82;
+  --color-success-alpha-12: rgba(0, 255, 163, 0.12);
+  --color-success-alpha-18: rgba(0, 255, 163, 0.18);
+  --color-success-alpha-28: rgba(0, 255, 163, 0.28);
+
+  // Warning Color (Yellow/Orange)
+  --color-warning: #ffb800;
+  --color-warning-rgb: 255, 184, 0;
+  --color-warning-light: #ffd133;
+  --color-warning-dark: #cc9200;
+
+  // Error Color (Red)
+  --color-error: #ff4444;
+  --color-error-rgb: 255, 68, 68;
+  --color-error-light: #ff6b6b;
+  --color-error-dark: #cc3333;
+
+  // Background Colors
+  --color-bg: #0a0a0f;
+  --color-bg-rgb: 10, 10, 15;
+  --color-surface: #12121a;
+  --color-surface-rgb: 18, 18, 26;
+  --color-surface-elevated: #1a1a25;
+  --color-surface-elevated-rgb: 26, 26, 37;
+  --color-surface-dark: #050c20;
+  --color-surface-dark-rgb: 5, 12, 32;
+  --color-surface-darker: #020617;
+  --color-surface-darker-rgb: 2, 6, 23;
+  --color-surface-card-light: #07132d;
+  --color-surface-card-light-rgb: 7, 19, 45;
+
+  // Text Colors
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #b0b0b0;
+  --color-text-muted: #6b7280;
+  --color-text-light: #aeefff;
+
+  // Glass Morphism & Transparency
+  --color-glass-bg: rgba(255, 255, 255, 0.05);
+  --color-glass-bg-soft: rgba(255, 255, 255, 0.02);
+  --color-glass-bg-hard: rgba(255, 255, 255, 0.08);
+  --color-glass-border: rgba(255, 255, 255, 0.1);
+  --color-glass-border-soft: rgba(255, 255, 255, 0.08);
+  --color-glass-border-hard: rgba(255, 255, 255, 0.14);
+  --color-glass-primary-border: rgba(0, 212, 255, 0.3);
+
+  // Surface Overlays
+  --color-overlay-light: rgba(255, 255, 255, 0.045);
+  --color-overlay-medium: rgba(255, 255, 255, 0.06);
+  --color-overlay-dark: rgba(0, 0, 0, 0.45);
+
+  // Gradients
+  --gradient-primary: linear-gradient(135deg, #00d4ff 0%, #7b2cbf 100%);
+  --gradient-primary-glow: linear-gradient(135deg, #00d4ff 0%, #7b2cbf 50%, #ff006e 100%);
+  --gradient-dark: linear-gradient(180deg, #0a0a0f 0%, #12121a 100%);
+  --gradient-card: linear-gradient(145deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+
+  // Shadows with Theme Color
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.5);
+  --shadow-glow-primary: 0 0 30px rgba(0, 212, 255, 0.5);
+  --shadow-glow-secondary: 0 0 30px rgba(123, 44, 191, 0.5);
+  --shadow-glow-combined: 0 0 30px rgba(0, 212, 255, 0.3), 0 0 50px rgba(123, 44, 191, 0.2);
+}
+
+// ============================================================================
+// 2. LIGHT THEME (Alternative - Professional Light)
+// ============================================================================
+
+[data-theme="light"] {
+  // Primary Colors (adjusted for light theme)
+  --color-primary: #0088cc;
+  --color-primary-light: #4db8ff;
+  --color-primary-dark: #003d7a;
+  --color-primary-alpha-05: rgba(0, 136, 204, 0.05);
+  --color-primary-alpha-08: rgba(0, 136, 204, 0.08);
+  --color-primary-alpha-1: rgba(0, 136, 204, 0.1);
+  --color-primary-alpha-12: rgba(0, 136, 204, 0.12);
+  --color-primary-alpha-14: rgba(0, 136, 204, 0.14);
+  --color-primary-alpha-16: rgba(0, 136, 204, 0.16);
+  --color-primary-alpha-18: rgba(0, 136, 204, 0.18);
+  --color-primary-alpha-2: rgba(0, 136, 204, 0.2);
+  --color-primary-alpha-22: rgba(0, 136, 204, 0.22);
+  --color-primary-alpha-24: rgba(0, 136, 204, 0.24);
+  --color-primary-alpha-26: rgba(0, 136, 204, 0.26);
+  --color-primary-alpha-28: rgba(0, 136, 204, 0.28);
+  --color-primary-alpha-3: rgba(0, 136, 204, 0.3);
+  --color-primary-alpha-32: rgba(0, 136, 204, 0.32);
+  --color-primary-alpha-34: rgba(0, 136, 204, 0.34);
+  --color-primary-alpha-4: rgba(0, 136, 204, 0.4);
+  --color-primary-alpha-42: rgba(0, 136, 204, 0.42);
+  --color-primary-alpha-48: rgba(0, 136, 204, 0.48);
+  --color-primary-alpha-5: rgba(0, 136, 204, 0.5);
+  --color-primary-alpha-55: rgba(0, 136, 204, 0.55);
+  --color-primary-alpha-58: rgba(0, 136, 204, 0.58);
+  --color-primary-alpha-62: rgba(0, 136, 204, 0.62);
+  --color-primary-alpha-68: rgba(0, 136, 204, 0.68);
+  --color-primary-alpha-7: rgba(0, 136, 204, 0.7);
+  --color-primary-alpha-75: rgba(0, 136, 204, 0.75);
+  --color-primary-alpha-78: rgba(0, 136, 204, 0.78);
+  --color-primary-alpha-82: rgba(0, 136, 204, 0.82);
+  --color-primary-alpha-9: rgba(0, 136, 204, 0.9);
+  --color-primary-alpha-92: rgba(0, 136, 204, 0.92);
+
+  // Secondary Colors
+  --color-secondary: #9333ea;
+  --color-secondary-light: #c084fc;
+  --color-secondary-dark: #581c87;
+  --color-secondary-alpha-05: rgba(147, 51, 234, 0.05);
+  --color-secondary-alpha-1: rgba(147, 51, 234, 0.1);
+  --color-secondary-alpha-12: rgba(147, 51, 234, 0.12);
+  --color-secondary-alpha-16: rgba(147, 51, 234, 0.16);
+  --color-secondary-alpha-18: rgba(147, 51, 234, 0.18);
+  --color-secondary-alpha-2: rgba(147, 51, 234, 0.2);
+  --color-secondary-alpha-22: rgba(147, 51, 234, 0.22);
+  --color-secondary-alpha-25: rgba(147, 51, 234, 0.25);
+  --color-secondary-alpha-3: rgba(147, 51, 234, 0.3);
+  --color-secondary-alpha-35: rgba(147, 51, 234, 0.35);
+  --color-secondary-alpha-5: rgba(147, 51, 234, 0.5);
+  --color-secondary-alpha-74: rgba(147, 51, 234, 0.74);
+  --color-secondary-alpha-85: rgba(147, 51, 234, 0.85);
+  --color-secondary-alpha-95: rgba(147, 51, 234, 0.95);
+
+  // Tertiary Colors
+  --color-tertiary: #dc2626;
+  --color-tertiary-light: #ef4444;
+  --color-tertiary-dark: #991b1b;
+
+  // Success Color
+  --color-success: #16a34a;
+  --color-success-light: #4ade80;
+  --color-success-dark: #15803d;
+  --color-success-alpha-12: rgba(22, 163, 74, 0.12);
+  --color-success-alpha-18: rgba(22, 163, 74, 0.18);
+  --color-success-alpha-28: rgba(22, 163, 74, 0.28);
+
+  // Warning Color
+  --color-warning: #ea580c;
+  --color-warning-light: #fb923c;
+  --color-warning-dark: #9a3412;
+
+  // Error Color
+  --color-error: #dc2626;
+  --color-error-light: #ef4444;
+  --color-error-dark: #991b1b;
+
+  // Background Colors
+  --color-bg: #f8f9fa;
+  --color-bg-rgb: 248, 249, 250;
+  --color-surface: #ffffff;
+  --color-surface-rgb: 255, 255, 255;
+  --color-surface-elevated: #f3f4f6;
+  --color-surface-elevated-rgb: 243, 244, 246;
+  --color-surface-dark: #e5e7eb;
+  --color-surface-dark-rgb: 229, 231, 235;
+  --color-surface-darker: #d1d5db;
+  --color-surface-darker-rgb: 209, 213, 219;
+  --color-surface-card-light: #eff6ff;
+  --color-surface-card-light-rgb: 239, 246, 255;
+
+  // Text Colors
+  --color-text-primary: #1f2937;
+  --color-text-secondary: #6b7280;
+  --color-text-muted: #9ca3af;
+  --color-text-light: #374151;
+
+  // Glass Morphism
+  --color-glass-bg: rgba(255, 255, 255, 0.7);
+  --color-glass-bg-soft: rgba(255, 255, 255, 0.5);
+  --color-glass-bg-hard: rgba(255, 255, 255, 0.9);
+  --color-glass-border: rgba(0, 0, 0, 0.1);
+  --color-glass-border-soft: rgba(0, 0, 0, 0.08);
+  --color-glass-border-hard: rgba(0, 0, 0, 0.14);
+  --color-glass-primary-border: rgba(0, 136, 204, 0.3);
+
+  // Surface Overlays
+  --color-overlay-light: rgba(0, 0, 0, 0.045);
+  --color-overlay-medium: rgba(0, 0, 0, 0.06);
+  --color-overlay-dark: rgba(0, 0, 0, 0.15);
+
+  // Gradients
+  --gradient-primary: linear-gradient(135deg, #0088cc 0%, #9333ea 100%);
+  --gradient-primary-glow: linear-gradient(135deg, #0088cc 0%, #9333ea 50%, #dc2626 100%);
+  --gradient-dark: linear-gradient(180deg, #f8f9fa 0%, #ffffff 100%);
+  --gradient-card: linear-gradient(145deg, rgba(0, 0, 0, 0.02) 0%, rgba(0, 0, 0, 0.01) 100%);
+
+  // Shadows
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.15);
+  --shadow-glow-primary: 0 0 30px rgba(0, 136, 204, 0.2);
+  --shadow-glow-secondary: 0 0 30px rgba(147, 51, 234, 0.2);
+  --shadow-glow-combined: 0 0 30px rgba(0, 136, 204, 0.15), 0 0 50px rgba(147, 51, 234, 0.1);
+}
+
+// ============================================================================
+// 3. NATIONAL BANK THEME (Green & Gold - Corporate)
+// ============================================================================
+
+[data-theme="national-bank"],
+[data-theme="corporate"] {
+  // Primary Colors (Dark Green)
+  --color-primary: #1a5c3b;
+  --color-primary-rgb: 26, 92, 59;
+  --color-primary-light: #4ade80;
+  --color-primary-dark: #0f3a24;
+  --color-primary-alpha-05: rgba(26, 92, 59, 0.05);
+  --color-primary-alpha-08: rgba(26, 92, 59, 0.08);
+  --color-primary-alpha-1: rgba(26, 92, 59, 0.1);
+  --color-primary-alpha-12: rgba(26, 92, 59, 0.12);
+  --color-primary-alpha-14: rgba(26, 92, 59, 0.14);
+  --color-primary-alpha-16: rgba(26, 92, 59, 0.16);
+  --color-primary-alpha-18: rgba(26, 92, 59, 0.18);
+  --color-primary-alpha-2: rgba(26, 92, 59, 0.2);
+  --color-primary-alpha-22: rgba(26, 92, 59, 0.22);
+  --color-primary-alpha-24: rgba(26, 92, 59, 0.24);
+  --color-primary-alpha-26: rgba(26, 92, 59, 0.26);
+  --color-primary-alpha-28: rgba(26, 92, 59, 0.28);
+  --color-primary-alpha-3: rgba(26, 92, 59, 0.3);
+  --color-primary-alpha-32: rgba(26, 92, 59, 0.32);
+  --color-primary-alpha-34: rgba(26, 92, 59, 0.34);
+  --color-primary-alpha-4: rgba(26, 92, 59, 0.4);
+  --color-primary-alpha-42: rgba(26, 92, 59, 0.42);
+  --color-primary-alpha-48: rgba(26, 92, 59, 0.48);
+  --color-primary-alpha-5: rgba(26, 92, 59, 0.5);
+  --color-primary-alpha-55: rgba(26, 92, 59, 0.55);
+  --color-primary-alpha-58: rgba(26, 92, 59, 0.58);
+  --color-primary-alpha-62: rgba(26, 92, 59, 0.62);
+  --color-primary-alpha-68: rgba(26, 92, 59, 0.68);
+  --color-primary-alpha-7: rgba(26, 92, 59, 0.7);
+  --color-primary-alpha-75: rgba(26, 92, 59, 0.75);
+  --color-primary-alpha-78: rgba(26, 92, 59, 0.78);
+  --color-primary-alpha-82: rgba(26, 92, 59, 0.82);
+  --color-primary-alpha-9: rgba(26, 92, 59, 0.9);
+  --color-primary-alpha-92: rgba(26, 92, 59, 0.92);
+
+  // Secondary Colors (Gold)
+  --color-secondary: #d4a13a;
+  --color-secondary-rgb: 212, 161, 58;
+  --color-secondary-light: #f59e0b;
+  --color-secondary-dark: #a67c1a;
+  --color-secondary-alpha-05: rgba(212, 161, 58, 0.05);
+  --color-secondary-alpha-1: rgba(212, 161, 58, 0.1);
+  --color-secondary-alpha-12: rgba(212, 161, 58, 0.12);
+  --color-secondary-alpha-16: rgba(212, 161, 58, 0.16);
+  --color-secondary-alpha-18: rgba(212, 161, 58, 0.18);
+  --color-secondary-alpha-2: rgba(212, 161, 58, 0.2);
+  --color-secondary-alpha-22: rgba(212, 161, 58, 0.22);
+  --color-secondary-alpha-25: rgba(212, 161, 58, 0.25);
+  --color-secondary-alpha-3: rgba(212, 161, 58, 0.3);
+  --color-secondary-alpha-35: rgba(212, 161, 58, 0.35);
+  --color-secondary-alpha-5: rgba(212, 161, 58, 0.5);
+  --color-secondary-alpha-74: rgba(212, 161, 58, 0.74);
+  --color-secondary-alpha-85: rgba(212, 161, 58, 0.85);
+  --color-secondary-alpha-95: rgba(212, 161, 58, 0.95);
+
+  // Tertiary Colors (Deep Blue)
+  --color-tertiary: #1e40af;
+  --color-tertiary-light: #3b82f6;
+  --color-tertiary-dark: #1e3a8a;
+
+  // Success Color
+  --color-success: #059669;
+  --color-success-light: #10b981;
+  --color-success-dark: #065f46;
+  --color-success-alpha-12: rgba(5, 150, 105, 0.12);
+  --color-success-alpha-18: rgba(5, 150, 105, 0.18);
+  --color-success-alpha-28: rgba(5, 150, 105, 0.28);
+
+  // Warning Color
+  --color-warning: #d97706;
+  --color-warning-light: #f59e0b;
+  --color-warning-dark: #a16207;
+
+  // Error Color
+  --color-error: #c7253e;
+  --color-error-light: #e11d48;
+  --color-error-dark: #7f1d1d;
+
+  // Background Colors (Corporate)
+  --color-bg: #0f172a;
+  --color-bg-rgb: 15, 23, 42;
+  --color-surface: #1e293b;
+  --color-surface-rgb: 30, 41, 59;
+  --color-surface-elevated: #334155;
+  --color-surface-elevated-rgb: 51, 65, 85;
+  --color-surface-dark: #1a1f2e;
+  --color-surface-dark-rgb: 26, 31, 46;
+  --color-surface-darker: #0f1419;
+  --color-surface-darker-rgb: 15, 20, 25;
+  --color-surface-card-light: #1e3a5f;
+  --color-surface-card-light-rgb: 30, 58, 95;
+
+  // Text Colors
+  --color-text-primary: #f1f5f9;
+  --color-text-secondary: #cbd5e1;
+  --color-text-muted: #94a3b8;
+  --color-text-light: #e2e8f0;
+
+  // Glass Morphism
+  --color-glass-bg: rgba(30, 41, 59, 0.8);
+  --color-glass-bg-soft: rgba(30, 41, 59, 0.6);
+  --color-glass-bg-hard: rgba(30, 41, 59, 0.95);
+  --color-glass-border: rgba(212, 161, 58, 0.2);
+  --color-glass-border-soft: rgba(212, 161, 58, 0.15);
+  --color-glass-border-hard: rgba(212, 161, 58, 0.3);
+  --color-glass-primary-border: rgba(26, 92, 59, 0.3);
+
+  // Surface Overlays
+  --color-overlay-light: rgba(212, 161, 58, 0.04);
+  --color-overlay-medium: rgba(212, 161, 58, 0.08);
+  --color-overlay-dark: rgba(0, 0, 0, 0.3);
+
+  // Gradients
+  --gradient-primary: linear-gradient(135deg, #1a5c3b 0%, #d4a13a 100%);
+  --gradient-primary-glow: linear-gradient(135deg, #1a5c3b 0%, #d4a13a 50%, #1e40af 100%);
+  --gradient-dark: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+  --gradient-card: linear-gradient(145deg, rgba(212, 161, 58, 0.05) 0%, rgba(212, 161, 58, 0.02) 100%);
+
+  // Shadows
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.6);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.7);
+  --shadow-glow-primary: 0 0 30px rgba(26, 92, 59, 0.4);
+  --shadow-glow-secondary: 0 0 30px rgba(212, 161, 58, 0.4);
+  --shadow-glow-combined: 0 0 30px rgba(26, 92, 59, 0.3), 0 0 50px rgba(212, 161, 58, 0.2);
+}
+
+// ============================================================================
+// 4. NBK THEME (National Bank - Premium Green & Gold)
+// ============================================================================
+
+[data-theme="nbk"] {
+  // Primary Colors (Dark Green - NBK Brand)
+  --color-primary: #0e2d24;
+  --color-primary-rgb: 14, 45, 36;
+  --color-primary-light: #1a5c3b;
+  --color-primary-dark: #072a1f;
+  --color-primary-alpha-05: rgba(14, 45, 36, 0.05);
+  --color-primary-alpha-08: rgba(14, 45, 36, 0.08);
+  --color-primary-alpha-1: rgba(14, 45, 36, 0.1);
+  --color-primary-alpha-12: rgba(14, 45, 36, 0.12);
+  --color-primary-alpha-14: rgba(14, 45, 36, 0.14);
+  --color-primary-alpha-16: rgba(14, 45, 36, 0.16);
+  --color-primary-alpha-18: rgba(14, 45, 36, 0.18);
+  --color-primary-alpha-2: rgba(14, 45, 36, 0.2);
+  --color-primary-alpha-22: rgba(14, 45, 36, 0.22);
+  --color-primary-alpha-24: rgba(14, 45, 36, 0.24);
+  --color-primary-alpha-26: rgba(14, 45, 36, 0.26);
+  --color-primary-alpha-28: rgba(14, 45, 36, 0.28);
+  --color-primary-alpha-3: rgba(14, 45, 36, 0.3);
+  --color-primary-alpha-32: rgba(14, 45, 36, 0.32);
+  --color-primary-alpha-34: rgba(14, 45, 36, 0.34);
+  --color-primary-alpha-4: rgba(14, 45, 36, 0.4);
+  --color-primary-alpha-42: rgba(14, 45, 36, 0.42);
+  --color-primary-alpha-48: rgba(14, 45, 36, 0.48);
+  --color-primary-alpha-5: rgba(14, 45, 36, 0.5);
+  --color-primary-alpha-55: rgba(14, 45, 36, 0.55);
+  --color-primary-alpha-58: rgba(14, 45, 36, 0.58);
+  --color-primary-alpha-62: rgba(14, 45, 36, 0.62);
+  --color-primary-alpha-68: rgba(14, 45, 36, 0.68);
+  --color-primary-alpha-7: rgba(14, 45, 36, 0.7);
+  --color-primary-alpha-75: rgba(14, 45, 36, 0.75);
+  --color-primary-alpha-78: rgba(14, 45, 36, 0.78);
+  --color-primary-alpha-82: rgba(14, 45, 36, 0.82);
+  --color-primary-alpha-9: rgba(14, 45, 36, 0.9);
+  --color-primary-alpha-92: rgba(14, 45, 36, 0.92);
+
+  // Secondary Colors (Premium Gold - NBK Accent)
+  --color-secondary: #9c7c07;
+  --color-secondary-rgb: 156, 124, 7;
+  --color-secondary-light: #b09e5d;
+  --color-secondary-dark: #7a6205;
+  --color-secondary-alpha-05: rgba(156, 124, 7, 0.05);
+  --color-secondary-alpha-1: rgba(156, 124, 7, 0.1);
+  --color-secondary-alpha-12: rgba(156, 124, 7, 0.12);
+  --color-secondary-alpha-16: rgba(156, 124, 7, 0.16);
+  --color-secondary-alpha-18: rgba(156, 124, 7, 0.18);
+  --color-secondary-alpha-2: rgba(156, 124, 7, 0.2);
+  --color-secondary-alpha-22: rgba(156, 124, 7, 0.22);
+  --color-secondary-alpha-25: rgba(156, 124, 7, 0.25);
+  --color-secondary-alpha-3: rgba(156, 124, 7, 0.3);
+  --color-secondary-alpha-35: rgba(156, 124, 7, 0.35);
+  --color-secondary-alpha-5: rgba(156, 124, 7, 0.5);
+  --color-secondary-alpha-74: rgba(156, 124, 7, 0.74);
+  --color-secondary-alpha-85: rgba(156, 124, 7, 0.85);
+  --color-secondary-alpha-95: rgba(156, 124, 7, 0.95);
+
+  // Tertiary Colors (Dark Green Accent)
+  --color-tertiary: #12392D;
+  --color-tertiary-light: #1a5c3b;
+  --color-tertiary-dark: #0a1f19;
+
+  // Status Colors
+  --color-success: #2ecc71;
+  --color-success-light: #52d962;
+  --color-success-dark: #229953;
+  --color-success-alpha-12: rgba(46, 204, 113, 0.12);
+  --color-success-alpha-18: rgba(46, 204, 113, 0.18);
+  --color-success-alpha-28: rgba(46, 204, 113, 0.28);
+
+  // Warning Color
+  --color-warning: #9c7c07;
+  --color-warning-light: #b09e5d;
+  --color-warning-dark: #7a6205;
+
+  // Error Color
+  --color-error: #e74c3c;
+  --color-error-light: #ec7063;
+  --color-error-dark: #c0392b;
+
+  // Background Colors (NBK Light Interface)
+  --color-bg: #f2f7f5;
+  --color-bg-rgb: 242, 247, 245;
+  --color-surface: #ffffff;
+  --color-surface-rgb: 255, 255, 255;
+  --color-surface-elevated: #faf7ec;
+  --color-surface-elevated-rgb: 250, 247, 236;
+  --color-surface-dark: #e4edea;
+  --color-surface-dark-rgb: 228, 237, 234;
+  --color-surface-darker: #eeeeee;
+  --color-surface-darker-rgb: 238, 238, 238;
+  --color-surface-card-light: #faf7ec;
+  --color-surface-card-light-rgb: 250, 247, 236;
+
+  // Text Colors (NBK Portal style)
+  --color-text-primary: #555555;
+  --color-text-secondary: #777777;
+  --color-text-muted: #c4c4c4;
+  --color-text-light: #166f43;
+
+  // Glass Morphism (Light / portal-like)
+  --color-glass-bg: rgba(255, 255, 255, 0.84);
+  --color-glass-bg-soft: rgba(255, 255, 255, 0.66);
+  --color-glass-bg-hard: rgba(255, 255, 255, 0.94);
+  --color-glass-border: rgba(156, 124, 7, 0.2);
+  --color-glass-border-soft: rgba(156, 124, 7, 0.14);
+  --color-glass-border-hard: rgba(156, 124, 7, 0.28);
+  --color-glass-primary-border: rgba(22, 111, 67, 0.28);
+
+  // Surface Overlays
+  --color-overlay-light: rgba(156, 124, 7, 0.05);
+  --color-overlay-medium: rgba(156, 124, 7, 0.1);
+  --color-overlay-dark: rgba(0, 0, 0, 0.18);
+
+  // Gradients (Gold & Green)
+  --gradient-primary: linear-gradient(135deg, #166f43 0%, #9c7c07 100%);
+  --gradient-primary-glow: linear-gradient(135deg, #0e4c28 0%, #9c7c07 50%, #f1c94d 100%);
+  --gradient-dark: linear-gradient(180deg, #f2f7f5 0%, #e4edea 100%);
+  --gradient-card: linear-gradient(145deg, rgba(156, 124, 7, 0.05) 0%, rgba(22, 111, 67, 0.03) 100%);
+
+  // Shadows (Gold Glow)
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 10px rgba(0, 0, 0, 0.12);
+  --shadow-lg: 0 12px 20px rgba(0, 0, 0, 0.16);
+  --shadow-glow-primary: 0 0 26px rgba(22, 111, 67, 0.22);
+  --shadow-glow-secondary: 0 0 26px rgba(156, 124, 7, 0.24);
+  --shadow-glow-combined: 0 0 20px rgba(22, 111, 67, 0.16), 0 0 32px rgba(156, 124, 7, 0.18);
+}
+
+// ============================================================================
+// 5. SHARED SEMANTIC TOKENS (Used across all themes)
+// ============================================================================
+
+:root,
+[data-theme="dark"],
+[data-theme="futuristic"],
+[data-theme="light"],
+[data-theme="national-bank"],
+[data-theme="nbk"],
+[data-theme="corporate"] {
+  // Spacing (shared across themes)
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 3rem;
+  --spacing-3xl: 4rem;
+
+  // Border Radius (shared)
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-full: 9999px;
+
+  // Transitions (shared)
+  --transition-fast: 0.2s ease;
+  --transition-base: 0.3s ease;
+  --transition-slow: 0.5s ease;
+
+  // Glass Blur Effect
+  --glass-blur: 10px;
+
+  // Z-Index (shared)
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-fixed: 300;
+  --z-modal-backdrop: 400;
+  --z-modal: 500;
+  --z-tooltip: 600;
+
+  // Fonts (shared)
+  --font-display: "Open Sans", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, system-ui, sans-serif;
+  --font-body: "Open Sans", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", monospace;
+
+  // Container
+  --max-container-width: 1680px;
+}

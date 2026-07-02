@@ -1,8 +1,9 @@
-import { Component, signal, OnInit, OnDestroy, AfterViewInit, ViewChild, ViewContainerRef, ComponentRef } from '@angular/core';
+import { Component, signal, OnInit, OnDestroy, AfterViewInit, ViewChild, ViewContainerRef, ComponentRef, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, RouterOutlet, Router, NavigationEnd } from '@angular/router';
 import { Navigation } from './components/navigation/navigation';
 import { Footer } from './components/footer/footer';
 import { MagneticButtonService } from './services/magnetic-button.service';
+import { ThemeService } from './services/theme.service';
 import { filter } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
 import { TranslateService } from '@ngx-translate/core';
@@ -39,7 +40,9 @@ export class App implements OnInit, AfterViewInit, OnDestroy {
     public router: Router,
     private activatedRoute: ActivatedRoute,
     private translate: TranslateService,
-    private seo: SeoService
+    private seo: SeoService,
+    private cdr: ChangeDetectorRef,
+    private themeService: ThemeService
   ) { }
 
   ngOnInit(): void {
@@ -119,12 +122,17 @@ export class App implements OnInit, AfterViewInit, OnDestroy {
     const { AiAssistantComponent } = await import('./components/ai-assistant/ai-assistant.component');
 
     this.aiAssistantHost.clear();
-    this.aiAssistantRef = this.aiAssistantHost.createComponent(AiAssistantComponent);
-    this.aiAssistantLoaded = true;
+this.aiAssistantRef = this.aiAssistantHost.createComponent(AiAssistantComponent);
 
-    if (openAfterLoad && this.aiAssistantRef.instance?.toggleAssistant) {
-      this.aiAssistantRef.instance.toggleAssistant();
-    }
+this.aiAssistantLoaded = true;
+this.cdr.detectChanges();
+
+if (openAfterLoad && this.aiAssistantRef.instance?.toggleAssistant) {
+  queueMicrotask(() => {
+    this.aiAssistantRef?.instance.toggleAssistant();
+    this.cdr.detectChanges();
+  });
+}
   }
 
   private updateRouteSeo(event: NavigationEnd): void {

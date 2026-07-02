@@ -1,19 +1,20 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { ThemeService, type ThemeName } from '../../services/theme.service';
 
 @Component({
   selector: 'app-navigation',
-  standalone: true,
-  imports: [CommonModule, RouterLink, RouterLinkActive, TranslateModule],
+  imports: [CommonModule, RouterModule, TranslateModule],
   templateUrl: './navigation.html',
-  styleUrl: './navigation.scss'
+  styleUrls: ['./navigation.scss']
 })
 export class Navigation implements OnInit, OnDestroy {
   currentLang: string = 'ru';
   isScrolled: boolean = false;
   isMobileMenuOpen: boolean = false;
+  currentTheme!: Signal<ThemeName>;
 
   private scrollHandler = (): void => {
       this.isScrolled = window.scrollY > 50;
@@ -27,13 +28,17 @@ export class Navigation implements OnInit, OnDestroy {
     { key: 'services', path: '/services' },
   ];
 
-  constructor(private translate: TranslateService) {
+  constructor(
+    private translate: TranslateService,
+    private themeService: ThemeService
+  ) {
     this.currentLang = localStorage.getItem('lang') || 'ru';
+    this.currentTheme = this.themeService.currentTheme;
   }
 
   ngOnInit() {
     window.addEventListener('scroll', this.scrollHandler);
-    }
+  }
 
   ngOnDestroy(): void {
     window.removeEventListener('scroll', this.scrollHandler);
@@ -41,9 +46,12 @@ export class Navigation implements OnInit, OnDestroy {
 
   changeLanguage(lang: string) {
     localStorage.setItem('lang', lang);
-
     this.translate.use(lang);
     this.currentLang = lang;
+  }
+
+  setTheme(theme: ThemeName) {
+    this.themeService.setTheme(theme);
   }
 
   toggleMobileMenu() {

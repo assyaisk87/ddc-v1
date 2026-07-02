@@ -106,7 +106,7 @@
     }
 
     .logo-accent {
-      color: $primary-color;
+      color: $accent-color-gold;
     }
   }
 
@@ -246,6 +246,57 @@
     }
   }
 }
+
+:host-context([data-theme="light"]) .footer,
+:host-context([data-theme="nbk"]) .footer {
+  background: #0e4c28;
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
+  color: #ffffff;
+
+  &::before {
+    background: linear-gradient(135deg, #9c7c07, #b09e5d);
+  }
+
+  .footer-link {
+    color: #ffffff;
+
+    &::before {
+      background: linear-gradient(135deg, #9c7c07, #b09e5d);
+    }
+
+    &:hover {
+      color: #ffffff;
+      opacity: 0.9;
+    }
+  }
+
+  .footer-links h3,
+  .footer-contact h3 {
+    color: #ffffff;
+
+    &::after {
+      background: linear-gradient(135deg, #9c7c07, #b09e5d);
+    }
+  }
+
+  .footer-tagline {
+    color: #ffffff;
+  }
+
+  .footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.18);
+
+    p,
+    .footer-legal .footer-link {
+      color: #ffffff;
+    }
+
+    .footer-legal .footer-link:hover {
+      color: #ffffff;
+      opacity: 0.9;
+    }
+  }
+}
 .footer {
   min-height: 360px;
   contain: layout paint;
@@ -262,4 +313,9 @@
   width: 32px;
   height: 32px;
   object-fit: contain;
+}
+
+:host-context([data-theme="light"]) .footer-logo,
+:host-context([data-theme="nbk"]) .footer-logo {
+  color: white !important;
 }

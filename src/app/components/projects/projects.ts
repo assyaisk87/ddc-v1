@@ -120,14 +120,14 @@ export class Projects implements OnInit {
 
   getCategoryColor(category: string): string {
     const colors: { [key: string]: string } = {
-      'Payments': '#00D4FF',
-      'Mobile Banking': '#7B2CBF',
-      'Analytics': '#FF006E',
-      'Blockchain': '#00FFA3',
-      'Investment': '#FFB800',
-      'E-commerce': '#FF6B9D'
+      'Payments': '#9C7C07',
+      'Mobile Banking': '#166F43',
+      'Analytics': '#B09E5D',
+      'Blockchain': '#0E4C28',
+      'Investment': '#F1C94D',
+      'E-commerce': '#166F43'
     };
-    return colors[category] || '#00D4FF';
+    return colors[category] || '#9C7C07';
   }
 
 

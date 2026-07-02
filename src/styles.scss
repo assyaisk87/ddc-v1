@@ -1,32 +1,78 @@
 /* Global Styles */
 
-// Colors
-$primary-color: #00d4ff;
-$secondary-color: #7b2cbf;
-$tertiary-color: #ff006e;
-$accent-color: #ff006e;
-$success-color: #00ffa3;
-$warning-color: #ffb800;
-$error-color: #ff4444;
+// ============================================================================
+// THEME SYSTEM - Import CSS Custom Properties for all themes
+// ============================================================================
+@import 'styles/themes.scss';
+
+// ============================================================================
+// SCSS VARIABLES - Using CSS Custom Properties for dynamic theming
+// ============================================================================
+
+// Colors (mapped to CSS custom properties for theme switching)
+$primary-color: var(--color-primary);
+$secondary-color: var(--color-secondary);
+$tertiary-color: var(--color-tertiary);
+$accent-color: var(--color-tertiary);
+$success-color: var(--color-success);
+$warning-color: var(--color-warning);
+$error-color: var(--color-error);
+
+// Brand Design Tokens (NBK reference)
+$base-font-size: 16px;
+
+$brand-color: #0e4c28;
+$brand-color-2: #166f43;
+$brand-color-3: #e4edea;
+$brand-color-4: #f2f7f5;
+
+$accent-color-gold: #9c7c07;
+$accent-color-gold-2: #b09e5d;
+$accent-color-gold-3: #faf7ec;
+$accent-color-gold-4: #f1c94d;
+
+$dark-red: #8c271f;
+$danger: #dc3545;
+$custom-primary: #166f43;
+
+$dark-1: #000;
+$gray: #555;
+$gray-2: #777;
+$gray-3: #c4c4c4;
+$gray-5: #e4e9ef;
+$gray-6: #eeeeee;
+
+$font-color: $gray;
+$highlight-color: #bf9000;
+
+$base-bold: "OpenSans-Bold";
+$base-light: "OpenSans-Light";
+$base-regular: "OpenSans-Regular";
+$base-semiBold: "OpenSans-SemiBold";
+
+$breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  hd: 1400px,
+) !default;
 
 // Background Colors
-$dark-bg: #0a0a0f;
-$dark-surface: #12121a;
-$dark-elevated: #1a1a25;
+$dark-bg: var(--color-bg);
+$dark-surface: var(--color-surface);
+$dark-elevated: var(--color-surface-elevated);
 
 // Text Colors
-$text-primary: #ffffff;
-$text-secondary: #b0b0b0;
-$text-muted: #6b7280;
+$text-primary: var(--color-text-primary);
+$text-secondary: var(--color-text-secondary);
+$text-muted: var(--color-text-muted);
 
 // Gradients
-$gradient-primary: linear-gradient(135deg, #00d4ff 0%, #7b2cbf 100%);
-$gradient-dark: linear-gradient(180deg, #0a0a0f 0%, #12121a 100%);
-$gradient-card: linear-gradient(
-  145deg,
-  rgba(255, 255, 255, 0.05) 0%,
-  rgba(255, 255, 255, 0.02) 100%
-);
+$gradient-primary: var(--gradient-primary);
+$gradient-dark: var(--gradient-dark);
+$gradient-card: var(--gradient-card);
 
 // Spacing
 $spacing-xs: 0.25rem;
@@ -45,11 +91,11 @@ $radius-xl: 1.5rem;
 $radius-full: 9999px;
 
 // Shadows
-$shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
-$shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4);
-$shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.5);
-$shadow-glow-primary: 0 0 30px rgba(0, 212, 255, 0.5);
-$shadow-glow-secondary: 0 0 30px rgba(123, 44, 191, 0.5);
+$shadow-sm: var(--shadow-sm);
+$shadow-md: var(--shadow-md);
+$shadow-lg: var(--shadow-lg);
+$shadow-glow-primary: var(--shadow-glow-primary);
+$shadow-glow-secondary: var(--shadow-glow-secondary);
 
 // Transitions
 $transition-fast: 0.2s ease;
@@ -57,14 +103,14 @@ $transition-base: 0.3s ease;
 $transition-slow: 0.5s ease;
 
 // Glass / UI tokens
-$glass-bg: rgba(255, 255, 255, 0.05);
-$glass-bg-soft: rgba(255, 255, 255, 0.02);
-$glass-border: rgba(255, 255, 255, 0.1);
-$glass-border-soft: rgba(255, 255, 255, 0.08);
-$glass-primary-border: rgba(0, 212, 255, 0.3);
+$glass-bg: var(--color-glass-bg);
+$glass-bg-soft: var(--color-glass-bg-soft);
+$glass-border: var(--color-glass-border);
+$glass-border-soft: var(--color-glass-border-soft);
+$glass-primary-border: var(--color-glass-primary-border);
 $glass-blur: 10px;
-$surface-card: rgba(255, 255, 255, 0.02);
-$surface-hover: rgba(0, 212, 255, 0.08);
+$surface-card: var(--color-overlay-light);
+$surface-hover: var(--color-overlay-medium);
 
 // Z-Index
 $z-dropdown: 100;
@@ -637,6 +683,7 @@ $max-container-width: 1680px;
 
 html {
   scroll-behavior: smooth;
+  font-size: $base-font-size;
 }
 
 body {
@@ -1122,6 +1169,198 @@ h6 {
   }
   to {
     background-position: -200% 0;
+  }
+}
+
+/* Theme-specific surface cleanup for light/NBK mode */
+[data-theme="light"],
+[data-theme="nbk"] {
+  #digital-dna-canvas,
+  app-digital-dna,
+  .digital-dna-controls {
+    display: none !important;
+  }
+
+  :is(.section-title, .gradient-text, .text-gradient, .text-gradient-accent) {
+    background: none !important;
+    background-clip: initial !important;
+    -webkit-background-clip: initial !important;
+    -webkit-text-fill-color: currentColor !important;
+    color: #9c7c07 !important;
+    text-shadow: none !important;
+  }
+
+  .section-title {
+    color: #9c7c07 !important;
+  }
+
+  :is(.section-badge, .hero-badge, .category-btn, .filter-chip) {
+    background: rgba(199, 162, 76, 0.1) !important;
+    border-color: rgba(199, 162, 76, 0.34) !important;
+    color: #9c7c07 !important;
+    box-shadow: 0 0 0 1px rgba(199, 162, 76, 0.08) inset !important;
+  }
+
+  :is(.btn-primary, .btn-cta, .apply-btn, .friend-btn) {
+    background: linear-gradient(135deg, #9c7c07 0%, #d6b45f 100%) !important;
+    color: #ffffff !important;
+    border-color: rgba(199, 162, 76, 0.36) !important;
+    box-shadow: 0 0 0 1px rgba(199, 162, 76, 0.18), 0 14px 30px rgba(199, 162, 76, 0.16) !important;
+  }
+
+  :is(.btn-primary, .btn-cta, .apply-btn, .friend-btn):hover {
+    box-shadow: 0 0 0 1px rgba(199, 162, 76, 0.28), 0 18px 36px rgba(199, 162, 76, 0.22) !important;
+  }
+
+  :is(.btn-primary, .btn-cta, .apply-btn, .friend-btn) :is(.btn-text, span) {
+    color: #ffffff !important;
+  }
+
+  .main-director-position,
+  .ceo-main-position {
+    color: #9c7c07 !important;
+  }
+
+  app-services,
+  .services-container {
+    --service-color: #9c7c07 !important;
+    --service-purple: #166f43 !important;
+    --service-border: rgba(156, 124, 7, 0.24) !important;
+  }
+
+  .command-page {
+    background: #ffffff !important;
+  }
+
+  .center-core,
+  .orbit-card,
+  .letter-tooltip,
+  .service-list-btn,
+  .service-detail-window,
+  .vacancy-card,
+  .benefit-card,
+  .project-card,
+  .flip-card-front,
+  .flip-card-back,
+  .ui-modal.project-modal,
+  .ui-modal.vacancy-modal {
+    background: rgba(255, 250, 236, 0.95) !important;
+    border-color: rgba(156, 124, 7, 0.24) !important;
+    box-shadow: 0 18px 42px rgba(0, 0, 0, 0.08) !important;
+  }
+
+  .letter-box,
+  .hero-badge,
+  .section-badge,
+  .category-btn,
+  .filter-chip,
+  .tech-tag {
+    border-color: rgba(156, 124, 7, 0.32) !important;
+    background: rgba(156, 124, 7, 0.1) !important;
+    box-shadow: 0 0 22px rgba(156, 124, 7, 0.16) !important;
+  }
+
+  .letter,
+  .letter-tooltip h4,
+  .core-logo,
+  .service-list-icon,
+  .service-detail-icon,
+  .vacancy-department,
+  .project-category,
+  .stat-value {
+    color: #9c7c07 !important;
+    fill: #9c7c07 !important;
+  }
+
+  .connections-svg path,
+  .mini-connections-svg path,
+  .wave-line,
+  .moving-dot.cyan,
+  .moving-dot.blue {
+    stroke: rgba(156, 124, 7, 0.72) !important;
+    fill: rgba(156, 124, 7, 0.72) !important;
+    filter: drop-shadow(0 0 8px rgba(156, 124, 7, 0.26)) !important;
+  }
+
+  .moving-dot.purple,
+  .moving-dot.green,
+  .connections-svg path:nth-of-type(even),
+  .mini-connections-svg path:nth-of-type(even) {
+    stroke: rgba(22, 111, 67, 0.72) !important;
+    fill: rgba(22, 111, 67, 0.72) !important;
+    filter: drop-shadow(0 0 8px rgba(22, 111, 67, 0.24)) !important;
+  }
+
+  .orbit-ring,
+  .ring-2,
+  .ring-3 {
+    border-color: rgba(156, 124, 7, 0.28) !important;
+  }
+
+  .orbit-card::after,
+  .letter-tooltip {
+    color: #555555 !important;
+  }
+
+  :is(.glass-card, .ecosystem-scheme-card, .assistant-card, .vacancies-card, .command-panel, .stat-card, .system-status, .project-modal, .vacancy-modal, .flip-card-front) {
+    background: rgba(255, 252, 242, 0.88) !important;
+    border-color: rgba(199, 162, 76, 0.2) !important;
+    color: var(--color-primary-dark) !important;
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08) !important;
+  }
+
+  :is(.vacancy-card, .benefit-card, .service-list-btn, .service-detail-window, .stats-panel) {
+    background: rgba(255, 250, 236, 0.94) !important;
+    border-color: rgba(199, 162, 76, 0.22) !important;
+    color: var(--color-primary-dark) !important;
+    box-shadow: 0 18px 42px rgba(0, 0, 0, 0.08) !important;
+  }
+
+  .service-list-btn:hover,
+  .vacancy-card:hover,
+  .benefit-card:hover {
+    border-color: rgba(199, 162, 76, 0.34) !important;
+    box-shadow: 0 22px 48px rgba(199, 162, 76, 0.12) !important;
+  }
+
+  .service-list-btn,
+  .service-detail-window,
+  .vacancy-card,
+  .benefit-card {
+    color: var(--color-primary-dark) !important;
+  }
+
+  :is(.glass-card, .ecosystem-scheme-card, .assistant-card, .vacancies-card, .command-panel, .stat-card, .system-status, .project-modal, .vacancy-modal, .flip-card-front) :is(h1, h2, h3, h4, h5, h6, p, span, li, strong, em, small, label, a, button) {
+    color: inherit !important;
+  }
+
+  .ecosystem-scheme-card .mini-connections-svg path {
+    stroke: rgba(26, 92, 59, 0.55) !important;
+    filter: drop-shadow(0 0 8px rgba(26, 92, 59, 0.35)) !important;
+  }
+
+  .ecosystem-scheme-card .mini-connections-svg path:nth-of-type(even) {
+    stroke: rgba(212, 161, 58, 0.7) !important;
+    filter: drop-shadow(0 0 8px rgba(212, 161, 58, 0.28)) !important;
+  }
+
+  .ecosystem-scheme-card .scheme-node,
+  .command-panel .stat-card,
+  .stat-card,
+  .system-status {
+    background: rgba(255, 250, 236, 0.96) !important;
+    border-color: rgba(199, 162, 76, 0.18) !important;
+  }
+
+  .modal-close {
+    background: rgba(255, 255, 255, 0.92) !important;
+    color: var(--color-primary-dark) !important;
+    border-color: rgba(14, 45, 36, 0.16) !important;
+  }
+
+  .project-modal-backdrop,
+  .vacancy-modal-backdrop {
+    background: rgba(0, 0, 0, 0.42) !important;
   }
 }
 

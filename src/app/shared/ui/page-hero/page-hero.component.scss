@@ -40,3 +40,8 @@
     }
   }
 }
+
+:host-context([data-theme="light"]) .projects-section .section-description,
+:host-context([data-theme="nbk"]) .projects-section .section-description {
+  color: #0e4c28 !important;
+}
